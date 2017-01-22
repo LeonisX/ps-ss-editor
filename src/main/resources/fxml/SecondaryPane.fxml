@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -16,8 +17,11 @@
          <center>
              <HBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
                  <HBox>
-                     <ComboBox fx:id="languageComboBox" onAction="#languageComboBoxChange" prefWidth="180.0" promptText="Change Language" />
+                     <ComboBox fx:id="languageComboBox" onAction="#languageComboBoxChange" prefWidth="180.0" promptText="Change ROM type" />
                  </HBox>
+               <opaqueInsets>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </opaqueInsets>
              </HBox>
          </center>
          <right>
@@ -26,10 +30,30 @@
       </BorderPane>
    </bottom>
    <center>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox fx:id="vBox" alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="5.0" />
-         </children>
-      </HBox>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <VBox fx:id="vBox" alignment="CENTER" maxWidth="300.0" BorderPane.alignment="CENTER" />
+         </center>
+         <bottom>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <top>
+                  <HBox alignment="CENTER" spacing="5.0" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                     <Button fx:id="createButton" mnemonicParsing="false" onAction="#createClick" text="Create new" />
+                     <Button fx:id="editButton" mnemonicParsing="false" onAction="#editClick" text="Edit" />
+                     <Button fx:id="renameButton" mnemonicParsing="false" onAction="#renameClick" text="Rename" />
+                     <Button fx:id="restoreButton" mnemonicParsing="false" onAction="#restoreClick" text="Restore" />
+                     <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteClick" text="Delete" />
+                     <Button fx:id="eraseButton" mnemonicParsing="false" onAction="#eraseClick" text="Completely erase" />
+                  </HBox>
+               </top>
+               <center>
+                  <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </bottom>
+      </BorderPane>
    </center>
 </BorderPane>

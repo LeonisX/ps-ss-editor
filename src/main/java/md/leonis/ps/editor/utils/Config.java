@@ -21,6 +21,8 @@ public class Config {
 
     public static SaveState saveState;
 
+    public static String[] names = new String[] {"Alisa", "Myau", "Tylon", "Lutz"};
+
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
 
     public static void loadProperties() throws IOException {

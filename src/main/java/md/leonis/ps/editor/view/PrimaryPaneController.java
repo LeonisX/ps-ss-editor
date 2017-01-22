@@ -50,6 +50,7 @@ public class PrimaryPaneController {
 
     }
 
+    //TODO create (for concrete emulator),  convert
     public void closeButtonClick() {
         Platform.exit();
     }

@@ -47,4 +47,18 @@ public class Rom {
         index ++;
         return result;
     }
+
+    public int getShort() {
+        int result = data[index] & 0xFF;
+        index ++;
+        result = result * 256 + data[index] & 0xFF;
+        index ++;
+        return result;
+    }
+
+    public boolean getBoolean() {
+        boolean result = data[index] != 0;
+        index ++;
+        return result;
+    }
 }

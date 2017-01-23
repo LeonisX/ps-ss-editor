@@ -1,17 +1,14 @@
 package md.leonis.ps.editor.view;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveGameStatus;
 import md.leonis.ps.editor.utils.Config;
 
@@ -37,6 +34,8 @@ public class SecondaryPaneController {
     @FXML
     public Button renameButton;
 
+    private int saveSlotIndex;
+
     @FXML
     private void initialize() {
         //TODO show data (%, mesetas, roaster, map).
@@ -51,20 +50,29 @@ public class SecondaryPaneController {
         deleteButton.managedProperty().bind(deleteButton.visibleProperty());
         eraseButton.managedProperty().bind(eraseButton.visibleProperty());
 
-        //System.out.println(Integer.toHexString(3467803));
         for(int i = 0; i < 5; i ++) {
             Button button = new Button(Config.saveState.getSaveGames()[i].getName());
             button.setUserData(i);
             button.setMinWidth(120);
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override public void handle(ActionEvent e) {
-                    //TODO
-                    int index = (int) ((Node) e.getSource()).getUserData();
-                    textArea.setText(index + "");
-                    showButtons(Config.saveState.getSaveGames()[index].getStatus());
+            button.setOnAction(e -> {
+                //TODO %%%%%
+                saveSlotIndex = (int) ((Node) e.getSource()).getUserData();
+                SaveGame saveGame = Config.saveState.getSaveGames()[saveSlotIndex];
+                String text = "";
+                text += saveGame.getName() + " (" + saveGame.getStatus() + ")\n";
+                text += "Teammates: " + (saveGame.getCompanionsCount() + 1) + "\n";
+                text += "Level: " + saveGame.getHeroes()[0].getLevel() + "\n";
+                text += "Mesetas: " + saveGame.getMesetas() + "\n";
+                text += "Items: " + saveGame.getItemsCount() + "\n";
+                if (saveGame.getType() == 0x0D) {
+                    text += "Map Id: 0x" + Integer.toHexString(saveGame.getMapId()) + "\n";
+                } else {
+                    text += "Dungeon Id: 0x" + Integer.toHexString(saveGame.getDungeonId()) + "\n";
+                    text += "Room Id: 0x" + Integer.toHexString(saveGame.getRoomId()) + "\n";
                 }
+                textArea.setText(text);
+                showButtons(Config.saveState.getSaveGames()[saveSlotIndex].getStatus());
             });
-            String text = "";
             HBox hBox = new HBox(new Label("Slot #" + (i + 1)), button);
             hBox.setSpacing(5);
             hBox.setMinHeight(30);
@@ -144,17 +152,43 @@ public class SecondaryPaneController {
 
     @FXML
     public void restoreClick() {
+        // TODO ask name, write name, reread ROM, change flag (for save)
     }
 
     @FXML
     public void deleteClick() {
+        //TODO erase name, number, reread ROM, change flag (for save)
     }
 
     @FXML
     public void eraseClick() {
+        //TODO use delete (but with 0x10), fill data with zeroes
     }
 
     @FXML
     public void renameClick() {
+        //ask for new name
+        TextInputDialog dialog = new TextInputDialog(Config.saveState.getSaveGames()[saveSlotIndex].getName());
+        dialog.setTitle("Rename save slot");
+        dialog.setHeaderText("Enter new save slot title");
+        dialog.setContentText("Up to 5 symbols:");
+        dialog.getEditor().setPrefColumnCount(5);
+        dialog.getEditor().textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    String correctedNewValue = newValue.toUpperCase();
+                    //TODO characters filter (table), length restriction
+                    if (false || newValue.length() > 5) {
+                        ((StringProperty) observable).setValue(oldValue);
+                    } else {
+                        // тут можно менять регистр
+                        ((StringProperty) observable).setValue(correctedNewValue);
+                    }
+                }
+        );
+        dialog.showAndWait().ifPresent(name -> {
+            //TODO ask for new name, write name, reread ROM, change flag (for save)
+            System.out.println("Your name: " + name);
+        });
+
     }
 }

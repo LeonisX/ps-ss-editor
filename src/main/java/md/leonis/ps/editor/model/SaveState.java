@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class SaveState {
 
     private static int MINIMAL_ROM_SIZE = 8188;
-    private static String START_TEXT = "PHANTASY STAR         BACKUP RAMPROGRAMMED BY          NAKA YUJI";
+    static String START_TEXT = "PHANTASY STAR         BACKUP RAMPROGRAMMED BY          NAKA YUJI";
     private static int FIRST_ZEROES_SIZE = 0xC0;
     //100 - 1d7 - данные сохранёнки — полное окно с рамкой. 12 строк по 18 байт. Буквы — 2 байта. Примеры: C010 F113
     private static int SECOND_ZEROES_OFFSET = 0x206;
@@ -44,6 +44,8 @@ public class SaveState {
                 name += Config.languageTable.getProperty(Integer.toHexString(romData.getByte()));
             }
             saveGames[i].setName(name);
+            saveGames[i].readFromRom(romData, i * SAVE_GAME_SIZE + FIRST_SAVE_GAME_OFFSET);
+            // read saveGames
         }
         System.out.println(this);
     }
@@ -60,9 +62,7 @@ public class SaveState {
         romData.moveTo(SECOND_ZEROES_OFFSET);
         if (!romData.checkZeroes(SECOND_ZEROES_SIZE)) throw new RuntimeException("Garbage in header / not Phantasy Star Save State");
         for (int i = 0; i < 5; i ++) {
-            romData.moveTo(0x126 + i * 0x24);
-            //System.out.println(Integer.toHexString(0x126 + i * 0x24));
-            if (romData.getByte() - 0xC1 != i + 1 ) throw new RuntimeException("Corrupt save slots listing");
+            if (romData.getByte(0x126 + i * 0x24) - 0xC1 != i + 1 ) throw new RuntimeException("Corrupt save slots listing");
         }
 
         romData.moveTo(SAVE_GAME_STATUS_OFFSET);
@@ -73,9 +73,7 @@ public class SaveState {
         for (int i = 0; i < 5; i ++) {
             //romData.moveTo(FIRST_SAVE_GAME_OFFSET + i * SAVE_GAME_SIZE + ALISA_LEVEL_OFFSET);
             //if ((romData.getByte() != 0) && (saveGames[i].getStatus().equals(SaveGameStatus.EMPTY))) saveGames[i].setStatus(SaveGameStatus.DELETED);
-            romData.moveTo(0x126 + 0x12 + 5 + i * 0x24);
-            //System.out.println(Integer.toHexString(0x126 + 0x12 + i * 0x24));
-            if ((romData.getByte() == 0)) saveGames[i].setStatus(SaveGameStatus.DELETED);
+            if ((romData.getByte(0x126 + 0x12 + 5 + i * 0x24) == 0)) saveGames[i].setStatus(SaveGameStatus.DELETED);
         }
 
     }

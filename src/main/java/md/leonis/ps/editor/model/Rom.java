@@ -12,6 +12,8 @@ public class Rom {
 
     private int index = 0;
 
+    private int offset = 0;
+
     //TODO методы для доступа и проверки
     //конструктор из файла
     //всякие указатели
@@ -25,7 +27,7 @@ public class Rom {
     }
 
     public void moveTo(int pos) {
-        index = pos;
+        index = pos + offset;
     }
 
     public String readString(int length) {
@@ -48,17 +50,35 @@ public class Rom {
         return result;
     }
 
+    public int getByte(int pos) {
+        moveTo(pos);
+        return getByte();
+    }
+
     public int getShort() {
         int result = data[index] & 0xFF;
         index ++;
-        result = result * 256 + data[index] & 0xFF;
+        result = result + (data[index] & 0xFF) * 256;
         index ++;
         return result;
+    }
+
+    public int getShort(int pos) {
+        moveTo(pos);
+        return getShort();
     }
 
     public boolean getBoolean() {
         boolean result = data[index] != 0;
         index ++;
         return result;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }

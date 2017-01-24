@@ -1,3 +1,19 @@
+//TODO rename english_retranslation
+//TODO other versions:
+//english, brazilian, french, japan, korean, russian_old, russian
+
+// The names of heroes
+
+hero1=Alisa
+hero2=Myau
+hero3=Tylon
+hero4=Lutz
+
+// TODO maps, items, ...
+
+
+// Alphabet (need for save slots)
+
 c0=
 c1=0
 c2=1

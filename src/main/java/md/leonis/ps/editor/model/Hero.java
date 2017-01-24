@@ -28,7 +28,7 @@ public class Hero {
 
 
     public static Hero readFromRom(Rom romData, int index) {
-        return new Hero(Config.names[index], romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getShort() ,romData.getByte(),
+        return new Hero(Config.getHeroName(++index), romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getShort() ,romData.getByte(),
                 romData.getByte(), romData.getByte(),romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(),
                 romData.getByte(), romData.getByte(), romData.getByte());
     }
@@ -53,7 +53,7 @@ public class Hero {
     }
 
     private Hero alisaInitial() {
-        return new Hero(Config.names[0], true, 0x10, 0x00, 0x00 ,0x01, 0x10,
+        return new Hero(Config.getHeroName(1), true, 0x10, 0x00, 0x00 ,0x01, 0x10,
                 0x00,0x0C, 0x0D, 0x02, 0x10, 0x00, 0x00,
                 0x00, 0x00);
     }

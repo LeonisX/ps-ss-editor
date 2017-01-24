@@ -21,7 +21,7 @@ public class Config {
 
     public static SaveState saveState;
 
-    public static String[] names = new String[] {"Alisa", "Myau", "Tylon", "Lutz"};
+    public static boolean changedFlag = false;
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
 
@@ -44,6 +44,16 @@ public class Config {
             languageTable = new Properties();
             languageTable.load(inputStream);
         }
+    }
+
+    public static String getHeroName(int index) {
+        return languageTable.getProperty("hero" + index);
+    }
+
+    public static String getKeyByValue(char value) {
+        //System.out.println(Config.languageTable.entrySet().stream().filter(e -> e.getValue().equals(value + "")).findFirst());
+        return Config.languageTable.entrySet().stream().filter(e -> e.getValue().equals(value + "")).findFirst()
+                .map(objectEntry -> objectEntry.getKey().toString()).orElse("");
     }
 
 }

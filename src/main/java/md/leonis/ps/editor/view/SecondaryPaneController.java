@@ -1,16 +1,20 @@
 package md.leonis.ps.editor.view;
 
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveGameStatus;
 import md.leonis.ps.editor.utils.Config;
+
+import java.util.Optional;
+
+import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_STATUS_OFFSET;
 
 public class SecondaryPaneController {
 
@@ -41,6 +45,8 @@ public class SecondaryPaneController {
         //TODO show data (%, mesetas, roaster, map).
         // if error - show alert
 
+        vBox.getChildren().clear();
+
         showButtons(SaveGameStatus.DEFAULT);
 
         createButton.managedProperty().bind(createButton.visibleProperty());
@@ -50,7 +56,7 @@ public class SecondaryPaneController {
         deleteButton.managedProperty().bind(deleteButton.visibleProperty());
         eraseButton.managedProperty().bind(eraseButton.visibleProperty());
 
-        for(int i = 0; i < 5; i ++) {
+        for (int i = 0; i < 5; i++) {
             Button button = new Button(Config.saveState.getSaveGames()[i].getName());
             button.setUserData(i);
             button.setMinWidth(120);
@@ -81,7 +87,7 @@ public class SecondaryPaneController {
                 case DELETED:
                     Font font = button.getFont();
                     System.out.println(font);
-                    button.setStyle("-fx-font: " + (font.getSize() - 1 ) + " " + font.getFamily() + "; -fx-text-fill: gray");
+                    button.setStyle("-fx-font: " + (font.getSize() - 1) + " " + font.getFamily() + "; -fx-text-fill: gray");
                     button.setText("deleted");
                     break;
                 case ACTIVE:
@@ -90,7 +96,7 @@ public class SecondaryPaneController {
                 case EMPTY:
                     Font font2 = button.getFont();
                     System.out.println(font2);
-                    button.setStyle("-fx-font: " + (font2.getSize() - 1 ) + " " + font2.getFamily() + "; -fx-text-fill: gray");
+                    button.setStyle("-fx-font: " + (font2.getSize() - 1) + " " + font2.getFamily() + "; -fx-text-fill: gray");
                     button.setText("empty");
                     break;
             }
@@ -152,43 +158,88 @@ public class SecondaryPaneController {
 
     @FXML
     public void restoreClick() {
-        // TODO ask name, write name, reread ROM, change flag (for save)
+        showTextInputDialog("Restore save slot",
+                "Enter title for save slot",
+                "Up to 5 symbols:",
+                ""
+        ).ifPresent(name -> {
+            //write name, reread ROM, change flag (for save)
+            Config.saveState.getRomData().writeName(saveSlotIndex, name.toUpperCase());
+            Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, true);
+            Config.saveState.updateObject();
+            Config.changedFlag = true;
+            initialize();
+        });
     }
 
     @FXML
     public void deleteClick() {
-        //TODO erase name, number, reread ROM, change flag (for save)
+        //erase name, reread ROM, change flag (for save)
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete " + Config.saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
+        //alert.setContentText();
+
+        if (alert.showAndWait().get() == ButtonType.OK){
+            Config.saveState.getRomData().eraseName(saveSlotIndex);
+            Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
+            Config.saveState.updateObject();
+            Config.changedFlag = true;
+            initialize();
+        }
     }
 
     @FXML
     public void eraseClick() {
-        //TODO use delete (but with 0x10), fill data with zeroes
+        //clear name, delete, fill data with zeroes
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Completely erase " + Config.saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
+        //alert.setContentText();
+
+        if (alert.showAndWait().get() == ButtonType.OK){
+            Config.saveState.getRomData().writeName(saveSlotIndex, "");
+            Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
+            Config.saveState.getRomData().clearArea(saveSlotIndex);
+            Config.saveState.updateObject();
+            Config.changedFlag = true;
+            initialize();
+        }
+
     }
 
     @FXML
     public void renameClick() {
-        //ask for new name
-        TextInputDialog dialog = new TextInputDialog(Config.saveState.getSaveGames()[saveSlotIndex].getName());
-        dialog.setTitle("Rename save slot");
-        dialog.setHeaderText("Enter new save slot title");
-        dialog.setContentText("Up to 5 symbols:");
+        showTextInputDialog("Rename save slot",
+                "Enter new save slot title",
+                "Up to 5 symbols:",
+                Config.saveState.getSaveGames()[saveSlotIndex].getName()
+        ).ifPresent(name -> {
+            //write name, reread ROM, change flag (for save)
+            Config.saveState.getRomData().writeName(saveSlotIndex, name.toUpperCase());
+            Config.saveState.updateObject();
+            Config.changedFlag = true;
+            initialize();
+        });
+    }
+
+    private Optional<String> showTextInputDialog(String title, String header, String content, String initialText) {
+        TextInputDialog dialog = new TextInputDialog(initialText);
+        dialog.setTitle(title);
+        dialog.setHeaderText(header);
+        dialog.setContentText(content);
         dialog.getEditor().setPrefColumnCount(5);
-        dialog.getEditor().textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    String correctedNewValue = newValue.toUpperCase();
-                    //TODO characters filter (table), length restriction
-                    if (false || newValue.length() > 5) {
-                        ((StringProperty) observable).setValue(oldValue);
-                    } else {
-                        // тут можно менять регистр
-                        ((StringProperty) observable).setValue(correctedNewValue);
+        dialog.getEditor().addEventFilter(KeyEvent.KEY_TYPED, e -> {
+                    String text = e.getCharacter().toUpperCase();
+                    boolean result = false;
+                    for (int i = 0; i < text.length(); i++) {
+                        if (Config.getKeyByValue(text.charAt(i)).isEmpty()) result = true;
+                    }
+                    if (result || ((TextField) e.getSource()).getText().length() >= 5) {
+                        e.consume();
                     }
                 }
         );
-        dialog.showAndWait().ifPresent(name -> {
-            //TODO ask for new name, write name, reread ROM, change flag (for save)
-            System.out.println("Your name: " + name);
-        });
-
+        return dialog.showAndWait();
     }
 }

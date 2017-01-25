@@ -164,7 +164,7 @@ public class SecondaryPaneController {
                 ""
         ).ifPresent(name -> {
             //write name, reread ROM, change flag (for save)
-            Config.saveState.getRomData().writeName(saveSlotIndex, name.toUpperCase());
+            Config.saveState.writeName(saveSlotIndex, name.toUpperCase());
             Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, true);
             Config.saveState.updateObject();
             Config.changedFlag = true;
@@ -181,7 +181,7 @@ public class SecondaryPaneController {
         //alert.setContentText();
 
         if (alert.showAndWait().get() == ButtonType.OK){
-            Config.saveState.getRomData().eraseName(saveSlotIndex);
+            Config.saveState.eraseName(saveSlotIndex);
             Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
             Config.saveState.updateObject();
             Config.changedFlag = true;
@@ -198,9 +198,9 @@ public class SecondaryPaneController {
         //alert.setContentText();
 
         if (alert.showAndWait().get() == ButtonType.OK){
-            Config.saveState.getRomData().writeName(saveSlotIndex, "");
+            Config.saveState.writeName(saveSlotIndex, "");
             Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
-            Config.saveState.getRomData().clearArea(saveSlotIndex);
+            Config.saveState.clearArea(saveSlotIndex);
             Config.saveState.updateObject();
             Config.changedFlag = true;
             initialize();
@@ -216,7 +216,7 @@ public class SecondaryPaneController {
                 Config.saveState.getSaveGames()[saveSlotIndex].getName()
         ).ifPresent(name -> {
             //write name, reread ROM, change flag (for save)
-            Config.saveState.getRomData().writeName(saveSlotIndex, name.toUpperCase());
+            Config.saveState.writeName(saveSlotIndex, name.toUpperCase());
             Config.saveState.updateObject();
             Config.changedFlag = true;
             initialize();

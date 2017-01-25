@@ -1,6 +1,8 @@
 package md.leonis.ps.editor.model;
 
 
+import md.leonis.bin.Dump;
+
 import java.util.Arrays;
 
 public class SaveGame {
@@ -46,7 +48,7 @@ public class SaveGame {
     private int[] bosses = new int[0x040];// 0x7C1-0x7D8  defeated bosses. 00 -> FF
     // Other data: zeroes
 
-    public void readFromRom(Rom romData, int offset) {
+    public void readFromRom(Dump romData, int offset) {
         romData.setOffset(offset);
         x = romData.getShort(0x00);
         y = romData.getShort( 0x05);

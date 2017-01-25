@@ -1,6 +1,7 @@
 package md.leonis.ps.editor.model;
 
 
+import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
 
 public class Hero {
@@ -27,7 +28,7 @@ public class Hero {
     //TODO read from romData
 
 
-    public static Hero readFromRom(Rom romData, int index) {
+    public static Hero readFromRom(Dump romData, int index) {
         return new Hero(Config.getHeroName(++index), romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getShort() ,romData.getByte(),
                 romData.getByte(), romData.getByte(),romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(),
                 romData.getByte(), romData.getByte(), romData.getByte());

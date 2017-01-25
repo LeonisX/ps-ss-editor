@@ -1,5 +1,6 @@
-package md.leonis.ps.editor.model;
+package md.leonis.bin;
 
+import md.leonis.ps.editor.model.SaveState;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,9 +9,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-public class RomTest extends Assert {
+public class DumpTest extends Assert {
 
-    private Rom romData;
+    private Dump romData;
 
     @Test
     public void size() throws Exception {
@@ -77,6 +78,6 @@ public class RomTest extends Assert {
 
     @Before
     public void init() throws URISyntaxException, IOException {
-        romData = new Rom(new File(RomTest.class.getResource("/ps.ssm").toURI()));
+        romData = new Dump(new File(Dump.class.getResource("/ps.ssm").toURI()));
     }
 }

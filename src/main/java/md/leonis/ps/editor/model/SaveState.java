@@ -1,6 +1,7 @@
 package md.leonis.ps.editor.model;
 
 
+import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
 
 import java.io.File;
@@ -10,7 +11,7 @@ import java.util.Arrays;
 public class SaveState {
 
     private static int MINIMAL_ROM_SIZE = 8188;
-    static String START_TEXT = "PHANTASY STAR         BACKUP RAMPROGRAMMED BY          NAKA YUJI";
+    public static String START_TEXT = "PHANTASY STAR         BACKUP RAMPROGRAMMED BY          NAKA YUJI";
     private static int FIRST_ZEROES_SIZE = 0xC0;
     //100 - 1d7 - данные сохранёнки — полное окно с рамкой. 12 строк по 18 байт. Буквы — 2 байта. Примеры: C010 F113
     public static int SAVE_SLOTS_FRAME_OFFSET = 0x100;
@@ -36,16 +37,16 @@ public class SaveState {
 
     private int initialOffset;
 
-    private Rom romData;
+    private Dump romData;
 
     private SaveGame[] saveGames = new SaveGame[5];
 
     public SaveState(File file) throws IOException {
-        romData = new Rom(file);
+        romData = new Dump(file);
         updateObject();
     }
 
-    public SaveState(Rom romData) {
+    public SaveState(Dump romData) {
         this.romData = romData;
     }
 
@@ -74,11 +75,11 @@ public class SaveState {
 
     }
 
-    public Rom getRomData() {
+    public Dump getRomData() {
         return romData;
     }
 
-    public void setRomData(Rom romData) {
+    public void setRomData(Dump romData) {
         this.romData = romData;
     }
 
@@ -106,9 +107,68 @@ public class SaveState {
         testInnerData();
         // read saveGames
         for(int i = 0; i < 5; i ++) {
-            saveGames[i].setName(romData.readName(i));
+            saveGames[i].setName(readName(i));
             saveGames[i].readFromRom(romData, i * SAVE_GAME_SIZE + FIRST_SAVE_GAME_OFFSET);
         }
         System.out.println(this);
     }
+
+
+
+    //TODO test
+    public String readName(int index) {
+        String name = "";
+        for (int i = 0; i < 5; i ++) {
+            romData.moveTo(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + i * 2);
+            //TODO charset select
+            name += Config.languageTable.getProperty(Integer.toHexString(romData.getByte()));
+        }
+        return name;
+    }
+
+
+
+    //TODO test
+    public void eraseName(int index) {
+        romData.moveTo(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24);
+        for (int i = 0; i < 5; i ++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x00);
+        }
+        romData.moveTo(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + 0x12);
+        for (int i = 0; i < 5; i ++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x00);
+        }
+    }
+
+    //TODO test
+    public void writeName(int index, String name) {
+        //System.out.println(Integer.toHexString(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24));
+        //String name = Config.saveState.getSaveGames()[index].getName();
+        romData.moveTo(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24);
+        for (int i = 0; i < 5; i ++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x10);
+        }
+        romData.moveTo(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + 0x12);
+        for (int i = 0; i < 5; i ++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x10);
+        }
+
+        System.out.println(name);
+        for (int i = 0; i < name.length(); i ++) {
+            //System.out.println(name.charAt(i));
+            //System.out.println(Config.getKeyByValue(name.charAt(i)));
+            romData.setByte(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + i * 2, Integer.decode("0x" + Config.getKeyByValue(name.charAt(i))));
+        }
+    }
+
+    //TODO test
+    public void clearArea(int index) {
+        int start = FIRST_SAVE_GAME_OFFSET + index * SAVE_GAME_SIZE;
+        Arrays.fill(romData.getDump(), start, start + SAVE_GAME_SIZE, (byte) 0x00);
+    }
+
 }

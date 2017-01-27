@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="md.leonis.ps.editor.view.SaveGamePaneController">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <center>
+      <GridPane fx:id="gridPane" prefHeight="585.0" prefWidth="636.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="390.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <Label text="Church ID" GridPane.rowIndex="7" />
+         <Label text="Heroes" GridPane.rowIndex="4" />
+         <Label text="Items" GridPane.rowIndex="5" />
+         <Label text="Mesetas" GridPane.rowIndex="3" />
+         <Label text="Items Count" GridPane.rowIndex="6" />
+         <Label text="Events" GridPane.rowIndex="8" />
+         <Label text="Chests" GridPane.rowIndex="9" />
+         <Label text="Bosses" GridPane.rowIndex="10" />
+         <TextField fx:id="church" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+         <TextField fx:id="heroes" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+         <TextField fx:id="items" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+         <TextField fx:id="mesetas" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         <TextField fx:id="itemsCount" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         <TextArea fx:id="events" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+         <TextArea fx:id="chests" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+         <TextArea fx:id="bosses" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+         <Label text="Location" />
+         <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1">
+            <RadioButton fx:id="cityRadioButton" mnemonicParsing="false" selected="true" text="Planet surface, cities">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="dungeonRadioButton" mnemonicParsing="false" text="Dungeons, towers" toggleGroup="$toggleGroup" />
+         </HBox>
+         <VBox fx:id="cityVBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane prefHeight="585.0" prefWidth="636.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="390.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <Label text="X" />
+               <Label text="Y" GridPane.rowIndex="1" />
+               <Label text="Map ID" GridPane.rowIndex="2" />
+               <TextField GridPane.columnIndex="1" fx:id="x" />
+               <TextField fx:id="y" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <TextField fx:id="map" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <Label text="Transport" GridPane.rowIndex="3" />
+               <Label text="Animation #1" GridPane.rowIndex="4" />
+               <Label text="Animation #2" GridPane.rowIndex="5" />
+               <TextField fx:id="animation2" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               <TextField fx:id="animation1" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               <ComboBox fx:id="transport" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            </GridPane>
+         </VBox>
+         <VBox fx:id="dungeonVBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <GridPane>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="95.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="405.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <Label text="Dungeon ID" />
+               <TextField fx:id="dungeon" prefHeight="26.0" prefWidth="88.0" GridPane.columnIndex="1" />
+               <Label text="Direction" GridPane.rowIndex="2" />
+               <ComboBox fx:id="direction" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <Label text="Color" GridPane.rowIndex="3" />
+               <TextField fx:id="color" prefHeight="26.0" prefWidth="96.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <Label text="Room ID" GridPane.rowIndex="1" />
+               <TextField fx:id="room" prefHeight="26.0" prefWidth="49.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            </GridPane>
+         </VBox>
+         <TextArea fx:id="tt" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.rowIndex="1" />
+      </GridPane>
+   </center>
+</BorderPane>

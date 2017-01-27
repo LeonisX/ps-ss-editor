@@ -10,26 +10,7 @@ public class SaveGame {
     private String name;
     private SaveGameStatus status = SaveGameStatus.EMPTY;
 
-    // 0x400: 00
-    private int x;        // 0x401-0x402  X coordinate on Map. Step on right: 0006 → 1006 → 2006
-    // 0x403: 00
-    // 0x404: 00
-    private int y;        // 0x405-0x406  Y coordinate on Map. Examples: 0001, 5001
-    // 0x407: 00
-    private int mapId;    // 0x408-0x409  Map #. Examples: 00 00 — Palma, 04 04 — Camineet
-    private int direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
-    // 0x40B: 00
-    private int roomId;   // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
-    private int dungeonId;// 0x40D        Dungeon #. Examples: Medusa's Cave, outdoor: 00; Camineet Warehouse: 02
-    private int transport;// 0x40E        00 -> 08 — hovercraft, 04 — landrover, 0C - ice digger
-    private int animation1;// 0x40F        00..03 - transport animation? set 00
-    private int animation2;// 0x410        00..03 - transport animation? set 00
-    private int y2;       // 0x411-0x412  Y coordinate on Map. Same as 0x405-0x406
-    private int x2;       // 0x413-0x414  X coordinate on Map. Same as 0x401-0x402
-    private int color;    // 0x415        Dungeon color. Examples: 02: light green, 03: blue? 04: blue, 05: light blue, 06: yellow, 07: pink,...
-    private int type;     // 0x416        Type of environment. 0D: outdoor, cities; 0B: dungeons
-    private int church;   // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
-    // 0x418-4FF: 00
+    private Geo geo; //0x400-0x4FF
 
     private Hero[] heroes = new Hero[4]; // 0x500, 0x510, 0x520, 0x530 (0x10 bytes): Alisa, Myau, Tylon, Lutz
     // 0x540-0x5BF  Last monsters in battle; up to 8 monsters x 0x10 bytes. Need to ignore, 00.
@@ -49,21 +30,9 @@ public class SaveGame {
     // Other data: zeroes
 
     public void readFromRom(Dump romData, int offset) {
+        geo = new Geo();
+        geo.readFromRom(romData, offset);
         romData.setOffset(offset);
-        x = romData.getShort(0x00);
-        y = romData.getShort( 0x05);
-        mapId = romData.getShort( 0x08);
-        direction = romData.getByte(0x0A);
-        roomId = romData.getByte(0x0C);
-        dungeonId = romData.getByte(0x0D);
-        transport = romData.getByte(0x0E);
-        animation1 = romData.getByte(0x0F);
-        animation2 = romData.getByte(0x10);
-        y2 = romData.getShort( 0x11);
-        x2 = romData.getShort(0x13);
-        color = romData.getByte(0x15);
-        type = romData.getByte(0x16);
-        church = romData.getByte(0x17);
         //read heroes
         romData.moveTo(0x100); // 0x500
         for (int i = 0; i < 4; i++) {
@@ -107,116 +76,12 @@ public class SaveGame {
         this.status = status;
     }
 
-    public int getX() {
-        return x;
+    public Geo getGeo() {
+        return geo;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getMapId() {
-        return mapId;
-    }
-
-    public void setMapId(int mapId) {
-        this.mapId = mapId;
-    }
-
-    public int getDirection() {
-        return direction;
-    }
-
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
-    public int getDungeonId() {
-        return dungeonId;
-    }
-
-    public void setDungeonId(int dungeonId) {
-        this.dungeonId = dungeonId;
-    }
-
-    public int getTransport() {
-        return transport;
-    }
-
-    public void setTransport(int transport) {
-        this.transport = transport;
-    }
-
-    public int getAnimation1() {
-        return animation1;
-    }
-
-    public void setAnimation1(int animation1) {
-        this.animation1 = animation1;
-    }
-
-    public int getAnimation2() {
-        return animation2;
-    }
-
-    public void setAnimation2(int animation2) {
-        this.animation2 = animation2;
-    }
-
-    public int getY2() {
-        return y2;
-    }
-
-    public void setY2(int y2) {
-        this.y2 = y2;
-    }
-
-    public int getX2() {
-        return x2;
-    }
-
-    public void setX2(int x2) {
-        this.x2 = x2;
-    }
-
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getChurch() {
-        return church;
-    }
-
-    public void setChurch(int church) {
-        this.church = church;
+    public void setGeo(Geo geo) {
+        this.geo = geo;
     }
 
     public Hero[] getHeroes() {
@@ -259,25 +124,35 @@ public class SaveGame {
         this.companionsCount = companionsCount;
     }
 
+    public int[] getEvents() {
+        return events;
+    }
+
+    public void setEvents(int[] events) {
+        this.events = events;
+    }
+
+    public int[] getChests() {
+        return chests;
+    }
+
+    public void setChests(int[] chests) {
+        this.chests = chests;
+    }
+
+    public int[] getBosses() {
+        return bosses;
+    }
+
+    public void setBosses(int[] bosses) {
+        this.bosses = bosses;
+    }
+
     @Override
     public String toString() {
         return "SaveGame{" +
                 "name='" + name + '\'' +
                 ", status=" + status +
-                ", x=" + x +
-                ", y=" + y +
-                ", mapId=" + mapId +
-                ", direction=" + direction +
-                ", roomId=" + roomId +
-                ", dungeonId=" + dungeonId +
-                ", transport=" + transport +
-                ", animation1=" + animation1 +
-                ", animation2=" + animation2 +
-                ", y2=" + y2 +
-                ", x2=" + x2 +
-                ", color=" + color +
-                ", type=" + type +
-                ", church=" + church +
                 ", heroes=" + Arrays.toString(heroes) +
                 ", items=" + Arrays.toString(items) +
                 ", mesetas=" + mesetas +

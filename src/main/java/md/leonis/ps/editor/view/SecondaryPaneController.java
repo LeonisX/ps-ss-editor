@@ -8,13 +8,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveGameStatus;
 import md.leonis.ps.editor.utils.Config;
+import md.leonis.ps.editor.utils.JavaFxUtils;
 
 import java.util.Optional;
 
 import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_STATUS_OFFSET;
+import static md.leonis.ps.editor.utils.Config.currentSaveGame;
+import static md.leonis.ps.editor.utils.Config.saveState;
+
+
+//TODO после чтения проверять равенство x, y ,x2, y2
 
 public class SecondaryPaneController {
 
@@ -57,33 +62,33 @@ public class SecondaryPaneController {
         eraseButton.managedProperty().bind(eraseButton.visibleProperty());
 
         for (int i = 0; i < 5; i++) {
-            Button button = new Button(Config.saveState.getSaveGames()[i].getName());
+            Button button = new Button(saveState.getSaveGames()[i].getName());
             button.setUserData(i);
             button.setMinWidth(120);
             button.setOnAction(e -> {
                 //TODO %%%%%
                 saveSlotIndex = (int) ((Node) e.getSource()).getUserData();
-                SaveGame saveGame = Config.saveState.getSaveGames()[saveSlotIndex];
+                currentSaveGame = saveState.getSaveGames()[saveSlotIndex];
                 String text = "";
-                text += saveGame.getName() + " (" + saveGame.getStatus() + ")\n";
-                text += "Teammates: " + (saveGame.getCompanionsCount() + 1) + "\n";
-                text += "Level: " + saveGame.getHeroes()[0].getLevel() + "\n";
-                text += "Mesetas: " + saveGame.getMesetas() + "\n";
-                text += "Items: " + saveGame.getItemsCount() + "\n";
-                if (saveGame.getType() == 0x0D) {
-                    text += "Map Id: 0x" + Integer.toHexString(saveGame.getMapId()) + "\n";
+                text += currentSaveGame.getName() + " (" + currentSaveGame.getStatus() + ")\n";
+                text += "Teammates: " + (currentSaveGame.getCompanionsCount() + 1) + "\n";
+                text += "Level: " + currentSaveGame.getHeroes()[0].getLevel() + "\n";
+                text += "Mesetas: " + currentSaveGame.getMesetas() + "\n";
+                text += "Items: " + currentSaveGame.getItemsCount() + "\n";
+                if (currentSaveGame.getGeo().getType() == 0x0D) {
+                    text += "Map Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getMap()) + "\n";
                 } else {
-                    text += "Dungeon Id: 0x" + Integer.toHexString(saveGame.getDungeonId()) + "\n";
-                    text += "Room Id: 0x" + Integer.toHexString(saveGame.getRoomId()) + "\n";
+                    text += "Dungeon Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getDungeon()) + "\n";
+                    text += "Room Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getRoom()) + "\n";
                 }
                 textArea.setText(text);
-                showButtons(Config.saveState.getSaveGames()[saveSlotIndex].getStatus());
+                showButtons(saveState.getSaveGames()[saveSlotIndex].getStatus());
             });
             HBox hBox = new HBox(new Label("Slot #" + (i + 1)), button);
             hBox.setSpacing(5);
             hBox.setMinHeight(30);
             hBox.setAlignment(Pos.CENTER_LEFT);
-            switch (Config.saveState.getSaveGames()[i].getStatus()) {
+            switch (saveState.getSaveGames()[i].getStatus()) {
                 case DELETED:
                     Font font = button.getFont();
                     System.out.println(font);
@@ -154,6 +159,7 @@ public class SecondaryPaneController {
 
     @FXML
     public void editClick() {
+        JavaFxUtils.showPane("SaveGamePane.fxml");
     }
 
     @FXML
@@ -164,10 +170,9 @@ public class SecondaryPaneController {
                 ""
         ).ifPresent(name -> {
             //write name, reread ROM, change flag (for save)
-            Config.saveState.writeName(saveSlotIndex, name.toUpperCase());
-            Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, true);
-            Config.saveState.updateObject();
-            Config.changedFlag = true;
+            saveState.writeName(saveSlotIndex, name.toUpperCase());
+            saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, true);
+            saveState.updateObject();
             initialize();
         });
     }
@@ -177,14 +182,13 @@ public class SecondaryPaneController {
         //erase name, reread ROM, change flag (for save)
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Delete " + Config.saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
+        alert.setHeaderText("Delete " + saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
         //alert.setContentText();
 
         if (alert.showAndWait().get() == ButtonType.OK){
-            Config.saveState.eraseName(saveSlotIndex);
-            Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
-            Config.saveState.updateObject();
-            Config.changedFlag = true;
+            saveState.eraseName(saveSlotIndex);
+            saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
+            saveState.updateObject();
             initialize();
         }
     }
@@ -194,15 +198,14 @@ public class SecondaryPaneController {
         //clear name, delete, fill data with zeroes
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Completely erase " + Config.saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
+        alert.setHeaderText("Completely erase " + saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
         //alert.setContentText();
 
         if (alert.showAndWait().get() == ButtonType.OK){
-            Config.saveState.writeName(saveSlotIndex, "");
-            Config.saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
-            Config.saveState.clearArea(saveSlotIndex);
-            Config.saveState.updateObject();
-            Config.changedFlag = true;
+            saveState.writeName(saveSlotIndex, "");
+            saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
+            saveState.clearArea(saveSlotIndex);
+            saveState.updateObject();
             initialize();
         }
 
@@ -213,12 +216,11 @@ public class SecondaryPaneController {
         showTextInputDialog("Rename save slot",
                 "Enter new save slot title",
                 "Up to 5 symbols:",
-                Config.saveState.getSaveGames()[saveSlotIndex].getName()
+                saveState.getSaveGames()[saveSlotIndex].getName()
         ).ifPresent(name -> {
             //write name, reread ROM, change flag (for save)
-            Config.saveState.writeName(saveSlotIndex, name.toUpperCase());
-            Config.saveState.updateObject();
-            Config.changedFlag = true;
+            saveState.writeName(saveSlotIndex, name.toUpperCase());
+            saveState.updateObject();
             initialize();
         });
     }

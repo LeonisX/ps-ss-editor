@@ -1,5 +1,7 @@
 package md.leonis.ps.editor.utils;
 
+import md.leonis.ps.editor.model.Hero;
+import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
 
 import java.io.File;
@@ -21,7 +23,10 @@ public class Config {
 
     public static SaveState saveState;
 
-    public static boolean changedFlag = false;
+    public static SaveGame currentSaveGame = null;
+
+    public static Hero currentHero =  null;
+
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
 

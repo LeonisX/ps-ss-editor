@@ -91,6 +91,16 @@ public class Dump {
         return result;
     }
 
+    //TODO test, byteswap
+    public int[] getArray(int address, int length) {
+        int[] result = new int[length];
+        moveTo(address);
+        for (int i = 0; i < length; i++) {
+            result[i] = Byte.toUnsignedInt(dump[index]);
+            index++;
+        }
+        return result;
+    }
 
     //TODO test
     public void setByte(int address, int value) {

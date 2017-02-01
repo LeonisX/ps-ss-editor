@@ -2,10 +2,19 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="md.leonis.extractor.view.MainStageController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="md.leonis.extractor.view.MainStageController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="192.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Canvas fx:id="smsPaletteCanvas" height="192.0" width="256.0" />
+            <Canvas fx:id="tileCanvas" height="192.0" width="256.0" />
+            <Canvas fx:id="paletteCanvas" height="192.0" width="256.0" />
+         </children>
+      </HBox>
+   </top>
    <center>
-      <Canvas fx:id="canvas" height="192.0" width="256.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="canvas" height="480.0" width="640.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

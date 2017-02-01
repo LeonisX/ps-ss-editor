@@ -57,6 +57,7 @@ public class RunLengthEncoding {
     public static Integer[] decode(Dump dump) {
         List<Integer> result = new LinkedList<>();
         do {
+            //System.out.println(Integer.toHexString(dump.getIndex()));
             int count = dump.getByte();
             //System.out.println(Integer.toHexString(count) + " " + Integer.toHexString(dump.getIndex() - 1));
             if (count == 0) {

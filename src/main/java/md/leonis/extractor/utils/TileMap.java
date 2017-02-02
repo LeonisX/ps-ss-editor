@@ -33,6 +33,7 @@ public class TileMap {
         palette = getBooleanBit(flag, 3);
         priority = getBooleanBit(flag, 4);
         //check();
+        if (tileNumber) this.tile += 0x100;
     }
 
     public void check() {

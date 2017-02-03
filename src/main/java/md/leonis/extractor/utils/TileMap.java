@@ -1,7 +1,5 @@
 package md.leonis.extractor.utils;
 
-import md.leonis.bin.Dump;
-
 import static md.leonis.extractor.utils.BitUtils.getBooleanBit;
 
 // http://www.smspower.org/maxim/HowToProgram/Tilemap
@@ -32,12 +30,11 @@ public class TileMap {
         vFlip = getBooleanBit(flag, 2);
         palette = getBooleanBit(flag, 3);
         priority = getBooleanBit(flag, 4);
-        //check();
         if (tileNumber) this.tile += 0x100;
     }
 
     public void check() {
-        if (tileNumber || hFlip || vFlip || priority) {
+        if (/*tileNumber ||*/ /*hFlip ||*/ vFlip || priority) {
             System.out.println("Strange flag: " + flag);
         }
     }

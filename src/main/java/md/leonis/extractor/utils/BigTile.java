@@ -15,18 +15,25 @@ public class BigTile {
         }
     }
 
+    @Override
+    public String toString() {
+        for (int i = 0; i < 4; i++) {
+            System.out.print(String.format("%2S|", Integer.toHexString(tileMaps[i].getTile())));
+        }
+        return "";
+    }
+
     public void draw(GraphicsContext gc, Palette palette, Tile[] tiles, int x, int y) {
-        int index = 0;
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                TileMap tileMap = tileMaps[index];
+                TileMap tileMap = tileMaps[i * 2 + j];
+                //tileMap.check();
                 //System.out.println(index);
-                tileMap.check();
-                //TODO flip, ...
+                //tileMap.check();
                 int paletteOffset = tileMap.isPalette() ? 0x10 : 0;
                 //tiles[tileMaps[index].getTile()].toString();
-                tiles[tileMap.getTile()].draw(gc, palette, paletteOffset,x + j * 8, y + i * 8);
-                index++;
+                //if (tileMap.isvFlip()) System.out.println(this + ": " + i * 2 + j);
+                tiles[tileMap.getTile()].draw(gc, palette, paletteOffset, tileMap.ishFlip(), tileMap.isvFlip(), x + j * 8, y + i * 8);
             }
         }
 

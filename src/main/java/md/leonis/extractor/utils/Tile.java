@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Tile {
 
-    int[] data = new int[8 * 8];
+    private int[] data = new int[8 * 8];
 
     public Tile() {
     }
@@ -21,12 +21,25 @@ public class Tile {
         this.data = data;
     }
 
-    public void draw(GraphicsContext tileGc, Palette palette, int paletteOffset, int x, int y) {
+    public void draw(GraphicsContext tileGc, Palette palette, int paletteOffset, boolean ishFlip, boolean isvFlip, int xOffset, int yOffset) {
         PixelWriter pixelWriter = tileGc.getPixelWriter();
-        int index = 0;
-        for (int k = 0; k < 8; k++) { // y
-            for (int l = 0; l < 8; l++) { // x
-                pixelWriter.setColor(l + x, k + y, palette.get(paletteOffset + data[index++]));
+        //int index = 0;
+        int kx = 0;
+        int sx = 1;
+        if (ishFlip) {
+            kx = 7;
+            sx = -1;
+        }
+        int ky = 0;
+        int sy = 1;
+        if (isvFlip) {
+            ky = 7;
+            sy = -1;
+        }
+        for (int y = 0; y < 8; y++) { // y
+            for (int x = 0; x < 8; x++) { // x
+                int index = kx + sx * x + 8 * (ky + sy * y);
+                pixelWriter.setColor(x + xOffset, y + yOffset, palette.get(paletteOffset + data[index]));
             }
         }
         //toString();

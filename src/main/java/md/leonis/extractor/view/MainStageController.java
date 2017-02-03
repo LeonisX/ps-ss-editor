@@ -1,13 +1,17 @@
 package md.leonis.extractor.view;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.FlowPane;
 import md.leonis.bin.Dump;
 import md.leonis.extractor.utils.*;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
@@ -32,7 +36,7 @@ public class MainStageController {
 
     private Tile[] tiles = new Tile[32 * 32]; // actual 405
 
-    private Map[] maps = new Map[160];
+    private Map[] maps = new Map[10 * 0xA2/2]; // TODO fix size
 
     private Dump dump = new Dump(new File("/home/leonis/ps.sms"));
 
@@ -42,6 +46,8 @@ public class MainStageController {
     //TODO отдельные процедуры вывода палитр(), тайлов и прочего.
     @FXML
     private void initialize() {
+        canvas.setWidth(9 * 16 * 16);
+        canvas.setHeight(9 * 12 * 16);
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         final GraphicsContext tileGc = tileCanvas.getGraphicsContext2D();
         final GraphicsContext smsPaletteGc = smsPaletteCanvas.getGraphicsContext2D();
@@ -59,24 +65,56 @@ public class MainStageController {
         drawBigTiles(gc);
         // map
 
-        dump.moveTo(/*0x6020B*/0x6016E);
-        for (int k = 0; k < maps.length; k++) {
-            Button button = new Button(Integer.toString(k));
-            //button.setUserData(k);
-            button.setOnMouseMoved((event -> {
-                int mapId = Integer.parseInt(((Button) event.getSource()).getText());
-                maps[mapId].draw(gc, palette, tiles, bigTiles, 0 ,0);
-            }));
-            flowPane.getChildren().add(button);
+        // 60000-600A1 - pointers to maps
+        // 0xA2 / 2 = 0x51 (81 map)
+        // 9x9
+
+        int maxIndex = 0x60000;
+        for (int i = 0; i < 7; i++) {
+            int pointersIndex = maxIndex;
+            for (int k = 0; k < 0xA2 / 2; k++) {
+                dump.moveTo(/*0x6020B*/pointersIndex + k * 2);
+                int address = dump.getByte() + (dump.getByte() - 0x80) * 0x100;
+                int mapIndex = i * 0xA2 / 2 + k;
+                Button button = new Button(Integer.toString(mapIndex));
+                //button.setUserData(k);
+                button.setOnMouseMoved((event -> {
+                    int mapId = Integer.parseInt(((Button) event.getSource()).getText());
+                    maps[mapId].draw(gc, palette, tiles, bigTiles, 0, 0);
+                }));
+                flowPane.getChildren().add(button);
 
 // 6020B // 0x90 == 192
-            System.out.println("==================================");
-            maps[k] = new Map(RunLengthEncoding.decode(dump));
-            maps[k].setWidth(16);
-            maps[k].setHeight(maps[k].getData().length / maps[k].getWidth());
-            //maps[0].draw(gc, palette, tiles, bigTiles, 0 ,0);
-            drawBigTiles(gc);
+                System.out.println("==================================");
+                dump.moveTo(/*0x6020B*/0x60000 + address);
+                maps[mapIndex] = new Map(RunLengthEncoding.decode(dump));
+                int index = dump.getIndex();
+                maxIndex = Math.max(maxIndex, index);
+                //maps[mapIndex].setWidth(16);
+                //maps[mapIndex].setHeight(maps[mapIndex].getData().length / maps[mapIndex].getWidth());
+                System.out.println(String.format("Map #%2s [%2sx%2s] %3s 0x%5S-0x%5S",
+                        mapIndex, maps[mapIndex].getWidth(), maps[mapIndex].getHeight(), maps[mapIndex].getData().length, Integer.toHexString(index), Integer.toHexString(dump.getIndex() - 1)));
+                //maps[0].draw(gc, palette, tiles, bigTiles, 0 ,0);
+            }
         }
+        for (int i = 0; i < 7; i++) {
+            for (int y = 0; y < 9; y++) {
+                for (int x = 0; x < 9; x++) {
+                    int mapId = i * 0xA2/2 + y * 9 + x;
+                    System.out.println(mapId);
+                    maps[mapId].draw(gc, palette, tiles, bigTiles, x * 16 * 16, y * 12 * 16);
+                }
+            }
+
+            WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
+            File file = new File("map" + i + ".png");
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+            } catch (IOException e) {
+                // TODO: handle exception here
+            }
+        }
+        drawBigTiles(gc);
     }
 
     private void drawBigTiles(GraphicsContext gc) {
@@ -93,7 +131,7 @@ public class MainStageController {
     private void readBigTiles() {
         dump.moveTo(0x58000);
         for (int i = 0; i < bigTiles.length; i++) {
-            System.out.println(dump.getIndex());
+            System.out.println(String.format("BigTile #%3s 0x%5S-0x%5S", i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 8)));
             bigTiles[i] = new BigTile(dump);
         }
     }
@@ -102,7 +140,7 @@ public class MainStageController {
         for (int i = 0, index = 0; i < 32; i++) {
             for (int j = 0; j < 32; j++) {
                 //System.out.println(index);
-                tiles[index++].draw(tileGc, palette, 0, j * 8, i * 8);
+                tiles[index++].draw(tileGc, palette, 0, false, false, j * 8, i * 8);
             }
         }
     }

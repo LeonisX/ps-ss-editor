@@ -100,8 +100,8 @@ public class MainStageController {
 
 
         Canvas mapCanvas = new Canvas();
-        mapCanvas.setWidth(maps[0].getWidth() * 16);
-        mapCanvas.setHeight(maps[0].getHeight() * 16);
+        mapCanvas.setWidth(9 * 16 * 16);
+        mapCanvas.setHeight(9 * 16 * 12);
         GraphicsContext mapGc = mapCanvas.getGraphicsContext2D();
         for (int i = 0; i < 7; i++) {
             for (int y = 0; y < 9; y++) {

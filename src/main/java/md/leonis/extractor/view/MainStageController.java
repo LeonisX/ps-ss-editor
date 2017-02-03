@@ -46,8 +46,8 @@ public class MainStageController {
     //TODO отдельные процедуры вывода палитр(), тайлов и прочего.
     @FXML
     private void initialize() {
-        canvas.setWidth(9 * 16 * 16);
-        canvas.setHeight(9 * 12 * 16);
+        canvas.setWidth(16 * 16);
+        canvas.setHeight(12 * 16);
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         final GraphicsContext tileGc = tileCanvas.getGraphicsContext2D();
         final GraphicsContext smsPaletteGc = smsPaletteCanvas.getGraphicsContext2D();
@@ -97,24 +97,33 @@ public class MainStageController {
                 //maps[0].draw(gc, palette, tiles, bigTiles, 0 ,0);
             }
         }
+
+
+        Canvas mapCanvas = new Canvas();
+        mapCanvas.setWidth(maps[0].getWidth() * 16);
+        mapCanvas.setHeight(maps[0].getHeight() * 16);
+        GraphicsContext mapGc = mapCanvas.getGraphicsContext2D();
         for (int i = 0; i < 7; i++) {
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
                     int mapId = i * 0xA2/2 + y * 9 + x;
                     System.out.println(mapId);
-                    maps[mapId].draw(gc, palette, tiles, bigTiles, x * 16 * 16, y * 12 * 16);
+                    maps[mapId].draw(mapGc, palette, tiles, bigTiles, x * 16 * 16, y * 12 * 16);
                 }
             }
-
-            WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
-            File file = new File("map" + i + ".png");
-            try {
-                ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-            } catch (IOException e) {
-                // TODO: handle exception here
-            }
+            saveCanvas(mapCanvas, "map" + i + ".png");
         }
+
         drawBigTiles(gc);
+    }
+
+    private void saveCanvas(Canvas canvas, String fileName) {
+        WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
+        try {
+            ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", new File(fileName));
+        } catch (IOException e) {
+            // TODO: handle exception here
+        }
     }
 
     private void drawBigTiles(GraphicsContext gc) {

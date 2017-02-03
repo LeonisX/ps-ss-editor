@@ -24,12 +24,12 @@ public class Map {
         for (int y = 0, index = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 //System.out.println(index);
-                if ((data[index] < bigTiles.length)) {
+                if ((index < data.length && data[index] < bigTiles.length)) {
                     bigTiles[data[index]].draw(gc, palette, tiles, xOffset + x * 16, yOffset + y * 16);
                 } else {
                     //AD 173
                     //bigTiles[map[index]].draw(gc, palette, tiles, j * 16, i * 16);
-                    System.out.println(index + ": " + data[index]);
+                    if (index < data.length) System.out.println(index + ": " + data[index]);
                 }
                 index++;
             }

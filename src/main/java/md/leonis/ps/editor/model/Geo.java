@@ -8,11 +8,11 @@ public class Geo {
     private Planets planet;
     private String name;
 
-    // 0x400: 00
-    private int x;        // 0x401-0x402  X coordinate on Map. Step on right: 0006 → 1006 → 2006
+    // 0x400: 00 - X, but inverse. In SS always 00. Probably offset in tilemap
+    private int x;        // 0x401-0x402  X coordinate on Map. Step on right: 0006 → 1006 → 2006. 401 max B0
     // 0x403: 00
-    // 0x404: 00
-    private int y;        // 0x405-0x406  Y coordinate on Map. Examples: 0001, 5001
+    // 0x404: 00 - Y, but inverse. In SS always 00. Probably offset in tilemap
+    private int y;        // 0x405-0x406  Y coordinate on Map. Examples: 0001, 5001. 405 max B0
     // 0x407: 00
     private int map;    // 0x408-0x409  Map #. Examples: 00 00 — Palma, 04 04 — Camineet
     // map: 00 00

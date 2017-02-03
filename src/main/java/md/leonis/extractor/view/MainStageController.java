@@ -32,11 +32,11 @@ public class MainStageController {
 
     private Palette palette = new Palette(/*dump.getArray(0xD1E, 32)*/);
 
-    private BigTile[] bigTiles = new BigTile[174]; // 103???
+    private BigTile[] bigTiles = new BigTile[300]; // 174
 
     private Tile[] tiles = new Tile[32 * 32]; // actual 405
 
-    private Map[] maps = new Map[10 * 0xA2/2]; // TODO fix size
+    private Map[] maps = new Map[20 * 0xA2/2]; // TODO fix size
 
     private Dump dump = new Dump(new File("/home/leonis/ps.sms"));
 
@@ -47,7 +47,7 @@ public class MainStageController {
     @FXML
     private void initialize() {
         canvas.setWidth(16 * 16);
-        canvas.setHeight(12 * 16);
+        canvas.setHeight(16 * 16);
         final GraphicsContext gc = canvas.getGraphicsContext2D();
         final GraphicsContext tileGc = tileCanvas.getGraphicsContext2D();
         final GraphicsContext smsPaletteGc = smsPaletteCanvas.getGraphicsContext2D();
@@ -69,11 +69,16 @@ public class MainStageController {
         // 0xA2 / 2 = 0x51 (81 map)
         // 9x9
 
-        int maxIndex = 0x60000;
+        //int maxIndex = 0x60000;
+        //int maxIndex = 0x34000;
+        int maxIndex = 0x38000;
         for (int i = 0; i < 7; i++) {
             int pointersIndex = maxIndex;
             for (int k = 0; k < 0xA2 / 2; k++) {
                 dump.moveTo(/*0x6020B*/pointersIndex + k * 2);
+                System.out.println(String.format("MapPiece pointers #%1s 0x%5S-0x%5S",
+                        i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 2 - 1)));
+
                 int address = dump.getByte() + (dump.getByte() - 0x80) * 0x100;
                 int mapIndex = i * 0xA2 / 2 + k;
                 Button button = new Button(Integer.toString(mapIndex));
@@ -86,12 +91,14 @@ public class MainStageController {
 
 // 6020B // 0x90 == 192
                 System.out.println("==================================");
-                dump.moveTo(/*0x6020B*/0x60000 + address);
+                dump.moveTo(/*0x6020B*/0x38000 + address); // 60000, 34000
+                System.out.print(String.format("MapPieces #%1s 0x%5S-", i, Integer.toHexString(dump.getIndex())));
                 maps[mapIndex] = new Map(RunLengthEncoding.decode(dump));
                 int index = dump.getIndex();
                 maxIndex = Math.max(maxIndex, index);
                 //maps[mapIndex].setWidth(16);
                 //maps[mapIndex].setHeight(maps[mapIndex].getData().length / maps[mapIndex].getWidth());
+                System.out.println(String.format("0x%5S", Integer.toHexString(dump.getIndex() - 1)));
                 System.out.println(String.format("Map #%2s [%2sx%2s] %3s 0x%5S-0x%5S",
                         mapIndex, maps[mapIndex].getWidth(), maps[mapIndex].getHeight(), maps[mapIndex].getData().length, Integer.toHexString(index), Integer.toHexString(dump.getIndex() - 1)));
                 //maps[0].draw(gc, palette, tiles, bigTiles, 0 ,0);
@@ -127,7 +134,7 @@ public class MainStageController {
     }
 
     private void drawBigTiles(GraphicsContext gc) {
-        for (int i = 0, index = 0; i < 11; i++) {
+        for (int i = 0, index = 0; i < 30; i++) {
             for (int j = 0; j < 16; j++) {
                 //System.out.println(index);
                 if (index < bigTiles.length) { //103
@@ -138,7 +145,7 @@ public class MainStageController {
     }
 
     private void readBigTiles() {
-        dump.moveTo(0x58000);
+        dump.moveTo(0x74000); // 58000
         for (int i = 0; i < bigTiles.length; i++) {
             System.out.println(String.format("BigTile #%3s 0x%5S-0x%5S", i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 8)));
             bigTiles[i] = new BigTile(dump);
@@ -170,13 +177,19 @@ public class MainStageController {
     }
 
     private Integer[][] readBitPlanes() {
-        dump.moveTo(0x58570);
-        Integer[][] bitPlanes = {
+        dump.moveTo(0x747B8); //58570
+        /*Integer[][] bitPlanes = {
                 RunLengthEncoding.decode(dump),
                 RunLengthEncoding.decode(dump),
                 RunLengthEncoding.decode(dump),
                 RunLengthEncoding.decode(dump)
-        };
+        };*/
+        Integer[][] bitPlanes = new Integer[4][0];
+        for (int i = 0; i < 4; i++) {
+            System.out.print(String.format("BitPlane #%1s 0x%5S-", i, Integer.toHexString(dump.getIndex())));
+            bitPlanes[i] = RunLengthEncoding.decode(dump);
+            System.out.println(String.format("0x%5S", Integer.toHexString(dump.getIndex() - 1)));
+        }
         //TODO проверять размер массивов
         for (int i = 0; i < tiles.length; i++) {
             tiles[i] = new Tile();

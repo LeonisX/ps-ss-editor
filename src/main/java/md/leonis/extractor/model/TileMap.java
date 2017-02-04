@@ -1,4 +1,4 @@
-package md.leonis.extractor.utils;
+package md.leonis.extractor.model;
 
 import static md.leonis.extractor.utils.BitUtils.getBooleanBit;
 

@@ -1,5 +1,6 @@
 package md.leonis.extractor.utils;
 
+import md.leonis.bin.Dump;
 import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
@@ -27,6 +28,15 @@ public class Config {
 
     public static Hero currentHero =  null;
 
+    public static Dump dump;
+
+    static {
+        try {
+            dump = new Dump(new File("/home/leonis/ps.sms"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
 

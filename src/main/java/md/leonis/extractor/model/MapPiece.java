@@ -1,25 +1,18 @@
-package md.leonis.extractor.utils;
+package md.leonis.extractor.model;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public class Map {
+public class MapPiece {
 
     private Integer[] data;
     private int width = 16;
     private int height = 12;
 
-    public Map(Integer[] data) {
+    public MapPiece(Integer[] data) {
         this.data = data;
     }
 
     public void draw(GraphicsContext gc, Palette palette, Tile[] tiles, BigTile[] bigTiles, int xOffset, int yOffset) {
-        //gc.clearRect(0,0,512, 512);
-        //TODO correct background
-/*        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                bigTiles[91].draw(gc, palette, tiles, j * 16, i * 16);
-            }
-        }*/
         //TODO correct transparent
         for (int y = 0, index = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {

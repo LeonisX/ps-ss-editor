@@ -58,6 +58,9 @@ public class RunLengthEncoding {
         List<Integer> result = new LinkedList<>();
         do {
             //System.out.println(Integer.toHexString(dump.getIndex()));
+            if (dump.getIndex() >= dump.size()) {
+                return result.toArray(new Integer[0]);
+            }
             int count = dump.getByte();
             //System.out.println(Integer.toHexString(count) + " " + Integer.toHexString(dump.getIndex() - 1));
             if (count == 0) {
@@ -72,6 +75,9 @@ public class RunLengthEncoding {
             } else {
                 count = count & 0b01111111; // 0x7F
                 for (int i = 0; i < count; i++) {
+                    if (dump.getIndex() >= dump.size()) {
+                        return result.toArray(new Integer[0]);
+                    }
                     int value = dump.getByte();
                     //System.out.println(" " + Integer.toHexString(value));
                     result.add(value);

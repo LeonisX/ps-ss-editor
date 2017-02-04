@@ -3,6 +3,13 @@ package md.leonis.extractor.model;
 
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Palette {
 
     private static int[] values = {0, 85, 170, 255};
@@ -64,24 +71,6 @@ public class Palette {
 
     public Palette(int[] palette) {
         this.palette = palette;
-        for (int i = 0; i < 32; i ++) {
-            //System.out.println(Integer.toHexString(palette[i]));
-        }
-    }
-
-    public Palette() {
-        /*palette = new int[]{
-                0x09, 0x00, 0x3F, 0x06, 0x2F, 0x0B, 0x0C, 0x04, 0x2A, 0x25, 0x3C, 0x38, 0x30, 0x03, 0x02, 0x08,
-                0x09, 0x00, 0x3F, 0x2B, 0x0B, 0x2F, 0x37, 0x0F, 0x38, 0x34, 0x06, 0x01, 0x2A, 0x25, 0x08, 0x0C
-        };*/
-//        palette = new int[]{
-//                0x08, 0x00, 0x3F, 0x01, 0x03, 0x0B, 0x0F, 0x2F, 0x06, 0x38, 0x3C, 0x25, 0x2A, 0x04, 0x30, 0x0C,
-//                0x08, 0x00, 0x3F, 0x2B, 0x0B, 0x2F, 0x37, 0x0F, 0x38, 0x34, 0x06, 0x01, 0x2A, 0x25, 0x08, 0x00
-//        };
-        palette = new int[]{
-                0x3F, 0x00, 0x3F, 0x24, 0x03, 0x3C, 0x0F, 0x3F, 0x28, 0x38, 0x3C, 0x25, 0x2A, 0x04, 0x30, 0x0C,
-                0x3F, 0x00, 0x3F, 0x2B, 0x0B, 0x2F, 0x37, 0x0F, 0x38, 0x34, 0x06, 0x01, 0x2A, 0x25, 0x09, 0x00
-        };
     }
 
     /*
@@ -122,5 +111,22 @@ public class Palette {
         double b = values[j & 3] / 255.0;
         return new Color(r, g, b, 1);
 
+    }
+
+    public void saveToFile(String fileName) {
+        List<String> colors = new LinkedList<>();
+        for (int i = 0; i < 16; i++) {
+            Color color = get(i);
+            int r = (int) (color.getRed() * 255);
+            int g = (int) (color.getGreen() * 255);
+            int b = (int) (color.getBlue() * 255);
+            colors.add(String.format("%d %d %d", r, g, b));
+        }
+
+        try {
+            Files.write(Paths.get(fileName), colors, Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

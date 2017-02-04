@@ -13,15 +13,11 @@ public class MapPiece {
     }
 
     public void draw(GraphicsContext gc, Palette palette, Tile[] tiles, BigTile[] bigTiles, int xOffset, int yOffset) {
-        //TODO correct transparent
         for (int y = 0, index = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                //System.out.println(index);
                 if ((index < data.length && data[index] < bigTiles.length)) {
                     bigTiles[data[index]].draw(gc, palette, tiles, xOffset + x * 16, yOffset + y * 16);
                 } else {
-                    //AD 173
-                    //bigTiles[map[index]].draw(gc, palette, tiles, j * 16, i * 16);
                     if (index < data.length) System.out.println(index + ": " + data[index]);
                 }
                 index++;

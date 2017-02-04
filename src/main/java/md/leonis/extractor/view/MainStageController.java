@@ -18,6 +18,9 @@ import static md.leonis.extractor.model.Palette.*;
 import static md.leonis.extractor.utils.BitUtils.getBit;
 import static md.leonis.extractor.utils.Config.dump;
 
+
+//TODO на будущее - дампить все палитры
+//TODO дампить все тайлы с учётом палитры (брать из больших тайлов)
 public class MainStageController {
 
     @FXML
@@ -31,13 +34,9 @@ public class MainStageController {
     @FXML
     public FlowPane flowPane;
 
-    /*private Palette palette = new Palette(*//**//*dump.getArray(0xD1E, 32)*//**//*);
-
     private BigTile[] bigTiles = new BigTile[300]; // 174
 
     private Tile[] tiles = new Tile[32 * 32]; // actual 405
-
-    private MapPiece[] mapPieces = new MapPiece[20 * 0xA2/2]; // TODO fix size*/
 
     private Map[] maps;
 
@@ -51,10 +50,6 @@ public class MainStageController {
     private MapPiece[][] mapPieces1; // Dezoris
     private MapPiece[][] mapPieces7; // 7 localities
 
-    // big tiles // 58000 // 0x74000
-
-    public MainStageController() throws IOException {
-    }
 
     @FXML
     private void initialize() {
@@ -64,21 +59,36 @@ public class MainStageController {
         final GraphicsContext tileGc = tileCanvas.getGraphicsContext2D();
         final GraphicsContext smsPaletteGc = smsPaletteCanvas.getGraphicsContext2D();
         final GraphicsContext paletteGc = paletteCanvas.getGraphicsContext2D();
+
+        // TODO dump raw data
+        for (int i = 0x0D670, lastIndex = i; i < dump.size() - 16; i++) {
+            dump.moveTo(i);
+            Integer[][] bitPlanes = fastReadBitPlanes();
+            if ((bitPlanes[3] != null) && (dump.getIndex() - i > 16) && (lastIndex != dump.getIndex())) {
+                lastIndex = dump.getIndex();
+                String range = String.format("0x%S-0x%S", Integer.toHexString(i), Integer.toHexString(lastIndex - 1));;
+                Tile[] tiles = initializeTiles(bitPlanes);
+                System.out.println(range + " " + (lastIndex - 1 - i) + " " + tiles.length);
+                Canvas rleCanvas = new Canvas();
+                if (tiles.length > 32) {
+                    rleCanvas.setWidth(8 * 32);
+                } else {
+                    rleCanvas.setWidth(tiles.length * 8);
+                }
+                rleCanvas.setHeight(8 * Math.ceil(tiles.length * 1.0 / 32));
+                drawTiles(rleCanvas.getGraphicsContext2D(), tiles, camineetPalette);
+                saveCanvas(rleCanvas, "rle/" + range + ".png");
+            }
+        }
+
         initDraw(smsPaletteGc);
+        saveCanvas(smsPaletteCanvas, "SMS Palette.png");
         // Caminit
         // palette
-        //drawPalette(paletteGc);
-        // tiles
-        //readTiles(0x58570);
-        //drawTiles(tileGc);
-        // big tiles
-        //readBigTiles();
-        //drawBigTiles(gc);
-        // map
+        drawPalette(paletteGc, camineetPalette);
+        camineetPalette.saveToFile("palette.pal");
+        saveCanvas(paletteCanvas, "Palette Camineet.png");
 
-        // 60000-600A1 - pointers to mapPieces
-        // 0xA2 / 2 = 0x51 (81 map)
-        // 9x9
 
         System.out.println("=== Locality Big Tiles");
         localityBigTiles = readBigTiles(0x58000, 174);
@@ -90,8 +100,19 @@ public class MainStageController {
         System.out.println("=== Planet Tiles");
         planetTiles = readTiles(0x747B8);
 
+
+        // tiles
+        drawTiles(tileGc, localityTiles, camineetPalette);
+        saveCanvas(tileCanvas, "Tiles Camineet.png");
         drawTiles(tileGc, planetTiles, palmaPalette);
+        saveCanvas(tileCanvas, "Tiles Palma.png");
+        drawBigTiles(gc, localityTiles, camineetPalette, localityBigTiles);
+        saveCanvas(canvas, "Big Tiles Camineet.png");
         drawBigTiles(gc, planetTiles, palmaPalette, planetBigTiles);
+        saveCanvas(canvas, "Big Tiles Palma.png");
+        // big tiles
+        //readBigTiles();
+        //drawBigTiles(gc);
 
         System.out.println("=== Map Pieces (2)");
         mapPieces2 = readMapPieces(0x34000, 2);
@@ -125,61 +146,29 @@ public class MainStageController {
                         planetTiles, planetBigTiles, mapPieces1[0])
         };
 
-
-
-/*
-        //TODO вырезать инициализацию, оставиь кнопки
-        //int maxIndex = 0x60000;
-        //int maxIndex = 0x34000;
-        int maxIndex = 0x38000;
-        for (int i = 0; i < 7; i++) {
-            int pointersIndex = maxIndex;
+/*        for (int i = 0; i < 7; i++) {
             for (int k = 0; k < 0xA2 / 2; k++) {
-                dump.moveTo(*//*0x6020B*//*pointersIndex + k * 2);
-                System.out.println(String.format("MapPiece pointers #%1s 0x%5S-0x%5S",
-                        i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 2 - 1)));
-
-                int address = dump.getByte() + (dump.getByte() - 0x80) * 0x100;
-                int mapIndex = i * 0xA2 / 2 + k;
                 Button button = new Button(Integer.toString(mapIndex));
-                //button.setUserData(k);
                 button.setOnMouseMoved((event -> {
                     int mapId = Integer.parseInt(((Button) event.getSource()).getText());
                     mapPieces[mapId].draw(gc, palette, tiles, bigTiles, 0, 0);
                 }));
                 flowPane.getChildren().add(button);
-
-// 6020B // 0x90 == 192
-                System.out.println("==================================");
-                dump.moveTo(*//*0x6020B*//*0x38000 + address); // 60000, 34000
-                System.out.print(String.format("MapPieces #%1s 0x%5S-", i, Integer.toHexString(dump.getIndex())));
-                mapPieces[mapIndex] = new MapPiece(RunLengthEncoding.decode(dump));
-                int index = dump.getIndex();
-                maxIndex = Math.max(maxIndex, index);
-                //mapPieces[mapIndex].setWidth(16);
-                //mapPieces[mapIndex].setHeight(mapPieces[mapIndex].getData().length / mapPieces[mapIndex].getWidth());
-                System.out.println(String.format("0x%5S", Integer.toHexString(dump.getIndex() - 1)));
-                System.out.println(String.format("MapPiece #%2s [%2sx%2s] %3s 0x%5S-0x%5S",
-                        mapIndex, mapPieces[mapIndex].getWidth(), mapPieces[mapIndex].getHeight(), mapPieces[mapIndex].getData().length, Integer.toHexString(index), Integer.toHexString(dump.getIndex() - 1)));
-                //mapPieces[0].draw(gc, palette, tiles, bigTiles, 0 ,0);
             }
         }*/
-
-
 
         Canvas mapCanvas = new Canvas();
         mapCanvas.setWidth(9 * 16 * 16);
         mapCanvas.setHeight(9 * 16 * 12);
         GraphicsContext mapGc = mapCanvas.getGraphicsContext2D();
-        for (int i = 0; i < maps.length; i++) {
+        for (Map map : maps) {
             for (int y = 0; y < 9; y++) {
                 for (int x = 0; x < 9; x++) {
                     int mapId = y * 9 + x;
-                    System.out.println(mapId);
-                    maps[i].getMapPieces()[mapId].draw(mapGc, maps[i].getPalette(), maps[i].getTiles(), maps[i].getBigTiles(), x * 16 * 16, y * 12 * 16);
+                    map.getMapPieces()[mapId].draw(mapGc, map.getPalette(), map.getTiles(), map.getBigTiles(), x * 16 * 16, y * 12 * 16);
                 }
             }
-            saveCanvas(mapCanvas, maps[i].getName() + ".png");
+            saveCanvas(mapCanvas, map.getName() + ".png");
         }
 
     }
@@ -187,30 +176,27 @@ public class MainStageController {
 
     private MapPiece[][] readMapPieces(int start, int count) {
         MapPiece[][] mapPieces = new MapPiece[count][/*20 * */0xA2 / 2];
-        //int maxIndex = 0x60000;
-        //int maxIndex = 0x34000;
-        int maxIndex = start; //0x38000;
+        int maxIndex = start;
         for (int i = 0; i < count; i++) {
             int pointersIndex = maxIndex;
+            int lastIndex = maxIndex;
+            System.out.println(String.format("MapPiece pointers #%1s 0x%5S-0x%5S",
+                    i, Integer.toHexString(pointersIndex), Integer.toHexString(pointersIndex + 0xA2 - 1)));
+
             for (int k = 0; k < 0xA2 / 2; k++) {
-                dump.moveTo(/*0x6020B*/pointersIndex + k * 2);
-                System.out.println(String.format("MapPiece pointers #%1s 0x%5S-0x%5S",
-                        i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 2 - 1)));
-
+                dump.moveTo(pointersIndex + k * 2);
                 int address = dump.getByte() + (dump.getByte() - 0x80) * 0x100;
-                int mapIndex = /*i * 0xA2 / 2 + */k;
-
-// 6020B // 0x90 == 192
-                System.out.println("==================================");
-                dump.moveTo(/*0x6020B*/start + address); // 60000, 34000, 38000
-                System.out.print(String.format("MapPieces #%1s 0x%5S-", i, Integer.toHexString(dump.getIndex())));
-                mapPieces[i][mapIndex] = new MapPiece(RunLengthEncoding.decode(dump));
+                dump.moveTo(start + address); // 60000, 34000, 38000
+                System.out.print(String.format("MapPieces #%1s/%2s 0x%5S-", i, k, Integer.toHexString(dump.getIndex())));
+                mapPieces[i][k] = new MapPiece(RunLengthEncoding.decode(dump));
                 int index = dump.getIndex();
                 maxIndex = Math.max(maxIndex, index);
+                lastIndex = Math.max(lastIndex, index);
                 System.out.println(String.format("0x%5S", Integer.toHexString(dump.getIndex() - 1)));
-                System.out.println(String.format("MapPiece #%2s [%2sx%2s] %3s 0x%5S-0x%5S",
-                        mapIndex, mapPieces[i][mapIndex].getWidth(), mapPieces[i][mapIndex].getHeight(), mapPieces[i][mapIndex].getData().length, Integer.toHexString(index), Integer.toHexString(dump.getIndex() - 1)));
+                /*System.out.println(String.format("MapPiece #%2s [%2sx%2s] %3s 0x%5S-0x%5S",
+                        k, mapPieces[i][k].getWidth(), mapPieces[i][k].getHeight(), mapPieces[i][k].getData().length, Integer.toHexString(index), Integer.toHexString(dump.getIndex() - 1)));*/
             }
+            System.out.println(String.format("MapPieces #%1s last index 0x%5S", i, Integer.toHexString(lastIndex - 1)));
         }
         return mapPieces;
     }
@@ -221,7 +207,7 @@ public class MainStageController {
         BigTile[] bigTiles = new BigTile[bigTilesCount];
         dump.moveTo(start); // 58000 // 0x74000
         for (int i = 0; i < bigTilesCount; i++) {
-            System.out.println(String.format("BigTile #%3s 0x%5S-0x%5S", i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 8)));
+            System.out.println(String.format("BigTile #%3s 0x%5S-0x%5S", i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 8 - 1)));
             bigTiles[i] = new BigTile(dump);
         }
         return bigTiles;
@@ -235,7 +221,7 @@ public class MainStageController {
     }
 
     private Tile[] initializeTiles(Integer[][] bitPlanes) {
-        Tile[] tiles = new Tile[32 * 32]; // actual 405
+        Tile[] tiles = new Tile[bitPlanes[0].length / 8]; // actual 405
         for (int i = 0; i < tiles.length; i++) {
             tiles[i] = new Tile();
         }
@@ -254,12 +240,25 @@ public class MainStageController {
     }
 
     private Integer[][] readBitPlanes() {
-        Integer[][] bitPlanes = new Integer[4][0];
+        Integer[][] bitPlanes = new Integer[4][];
         for (int i = 0; i < 4; i++) {
             System.out.print(String.format("BitPlane #%1s 0x%5S-", i, Integer.toHexString(dump.getIndex())));
             bitPlanes[i] = RunLengthEncoding.decode(dump);
             System.out.println(String.format("0x%5S", Integer.toHexString(dump.getIndex() - 1)));
         }
+        return bitPlanes;
+    }
+
+    private Integer[][] fastReadBitPlanes() {
+        Integer[][] bitPlanes = new Integer[4][];
+        bitPlanes[3] = null;
+        bitPlanes[0] = RunLengthEncoding.decode(dump);
+        bitPlanes[1] = RunLengthEncoding.decode(dump);
+        if (bitPlanes[0].length != bitPlanes[1].length) return bitPlanes;
+        bitPlanes[2] = RunLengthEncoding.decode(dump);
+        if (bitPlanes[0].length != bitPlanes[2].length) return bitPlanes;
+        bitPlanes[3] = RunLengthEncoding.decode(dump);
+        if (bitPlanes[0].length != bitPlanes[3].length) bitPlanes[3] = null;
         return bitPlanes;
     }
 
@@ -278,7 +277,6 @@ public class MainStageController {
     private void drawBigTiles(GraphicsContext gc, Tile[] tiles, Palette palette, BigTile[] bigTiles) {
         for (int i = 0, index = 0; i < 30; i++) {
             for (int j = 0; j < 16; j++) {
-                //System.out.println(index);
                 if (index < bigTiles.length) { //103
                     bigTiles[index++].draw(gc, palette, tiles, j * 16, i * 16);
                 }
@@ -291,20 +289,23 @@ public class MainStageController {
     private void drawTiles(GraphicsContext tileGc, Tile[] tiles, Palette palette) {
         for (int i = 0, index = 0; i < 32; i++) {
             for (int j = 0; j < 32; j++) {
-                //System.out.println(index);
-                tiles[index++].draw(tileGc, palette, 0, false, false, j * 8, i * 8);
+                if (index < tiles.length) {
+                    tiles[index++].draw(tileGc, palette, 0, false, false, j * 8, i * 8);
+                } else {
+                    break;
+                }
             }
         }
     }
-/*
-    private void drawPalette(GraphicsContext paletteGc) {
+
+    private void drawPalette(GraphicsContext paletteGc, Palette palette) {
         for (int i = 0; i < 16; i ++) {
             paletteGc.setFill(palette.get(i));
             paletteGc.fillRect(i * 16, 0, 16, 96);
             paletteGc.setFill(palette.get(i + 16));
             paletteGc.fillRect(i * 16, 96, 16, 96);
         }
-    }*/
+    }
 
     private void initDraw(GraphicsContext gc){
         for (int i = 0; i < 8; i++) {

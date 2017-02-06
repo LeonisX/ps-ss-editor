@@ -1,0 +1,986 @@
+##############################################################################
+#......##...###...##...##...##...#####....###......##...####.....###...###...#
+#......##....#....##...##...##...#####....###......##...###......###....##...#
+#......##....#....##...##...##...#####.....##......##...###.......##....##...#
+#......##....#....##...##...##...#####.....##......##...##........##.....#...#
+#...#####....#....##...##...##...#####.....###...####...##....#....#.....#...#
+#...#####....#....##...##...##...#####..#..###...####...##...###...#.....#...#
+#.....###....#....##...##...##...####...#..###...####...##...###...#.........#
+#.....##.....#....##...##...##...####...#...##...####...##...###...#.........#
+#.....##...#...#...#...##...##...####...#...##...####...##...###...#.........#
+#...####...#...#...#...##...##...####.......##...####...##...###...#...#.....#
+#...####...#...#...#........##......#.......##...####...##.........#...#.....#
+#......#...#...#...##.......##...............#...####...###.......##...##....#
+#......#...#...#...##.......##...............#...####...###.......##...##....#
+#......#...#...#...###.....###.........###...#...####...####.....###...##....#
+#......#...##.##...####...####.........###...#...####...#####...####...###...#
+##############################################################################
+<============================================================================> 
+|               The ALL Format Newsletter Issue #3 - 30/07/96                |
+<---------------------------------------------------------------------------->
+
+-=[Introduction]=-
+
+The long hot summer drags on, and you'd need something tempting to get you
+out of the pool and in front of the screen. Therefore, this issue of EMULATION
+would have to be something special, right? ... Right!
+
+Yes, it's another jam-packed, op-code bearing, issue of EMULATION. And what
+an issue! We have your letters, articles, and even an emulator thrown in!
+It's so good that you'll print it out, and eat your food off it. :)
+
+Unfortunately for you, luckily for me, I'm off on me hols shortly. Therefore
+there won't be another issue of EMULATION for a while. Don't despair, I'll
+ensure Issue #4 is as booming as a large drum. Another note, is NOT to E-Mail
+me, as I will be away, and won't bother replying to 100+ messages when I get
+back. Only E-Mail me essentials like articles, news, and jokes about nuns. ;)
+
+I welcome any submissions for EMULATION. Please mail them to me in plain ASCII
+text, using no high-ASCII, and formatted to *79* columns. I reserve the right 
+to edit whatever you send me and all the rest of that stuff. :) I also welcome
+your comments good and bad, and any suggestions.
+
+	PoiNT BLaNK
+        (Editor of EMULATION)
+	point.blank@ukimage.demon.co.uk
+
+
+-=[Contents]=-----------------------------------------------------------------
+
+        <-Input->
+
+        1. Your suggestions and comments.
+
+        <-News->
+
+        2. SMS V0.0a - Sega Master System Emulator.
+        3. SegaCD Emulator - fake! Fake! FaKe! FAKE!
+
+        <-Articles->
+
+        4. The Cult of Panx's Playstation Emulator.
+        5. As simple as ABC? Getting started with C.
+
+        <-Software->
+
+        6. BBC Emulator for the C64. UUencoded.
+
+=----------------------------------------------------------------------------=
+
+-=[Input]=-
+
+Welcome to the first ever INPUT section of EMULATION. This is the space where
+I print some the more interesting mail that storms onto my server every day.
+It also answers frequently asked questions, that many of you have written to
+me with.
+
+                             <|=-----------=|>
+
+Private Mail
+
+Date   : Wed, 24 Jul 1996 18:22:27                 [ via The Email Gateway ]
+From   : Henrik Alexandersson                      [ (c) Image Enterprises ]
+Subject: Suggestion for your mag. and thanks.
+
+Hello Chris!
+
+Thank you very much for your reply to my questions. You are exactly the type
+of person that should run papers. A one that care about the readers.
+I wanted to thank you for the great and proffesional interview you did in
+number 2. Great and very informative.
+
+[ Yes, it's difficult to arrange interviews. The people often don't turn up or
+  simply forget. The time differences around the world add to the confusion. ]
+
+I have a little suggestion to make. I think it is intresting to know a
+little more about the authors of the emulators. So people don't think that
+the emulators just popped out of a basket. An interview is a great way, but
+it gets a little situated at the current projects of the author in question.
+
+[ It gets situated at whatever the author wants to talk about. I do have my
+  own ideas as to what people want to read about, but if they go off on a
+  tangent, I am happy to comply. ]
+
+Therefore my suggestion: Why not make a "Programmers Profile" section in your
+paper (I call it paper, whats the correct word?). There you put up some
+information about an famous emulator/programmer. Basic information like,
+where they were born and what they work with and so on. Which they first
+computer was, and which games they like the best. And a very good question.
+Which emulator they prefer if they do not choose one of their own.
+
+[ Yes, that is a good idea. If any programmers can be bothered to fill in
+  a little questionnaire, you'll find it at the end of this issue. I call this
+  rag a Newsletter, although we could rename it The Times or something. :) ]
+
+I have done this on my homepage with two great programmers. Marcel de Kogel
+(ports Vgb-dos, Fmsx-dos and ColEM-dos) and Keith Wilkins (DVE- Dos Vectrex
+Emulator and Stella96 Dos)
+Check it out at http://www.algonet.se/~alexand
+and tell me what you think.
+If you like the idea. Maybe you could include a little "Thanks to Patrik" or
+something in the next number of your magazine. That would be cool.
+
+[ What's this then? Your claim to fame ;) ]
+
+Please send me a mail about what you think about the idea.
+
+Best regards.
+Patrik Alexandersson      alexand@algonet.se
+
+                             <|=-----------=|>
+
+Private Mail
+
+Date   : Wed, 24 Jul 1996 10:36:25                 [ via The Email Gateway ]
+From   : Brent Oshiro                              [ (c) Image Enterprises ]
+
+>  .,/\ 2. VGB's Final Fantasy /\,.
+>
+>Unbeatable Gameboy Emulator, VGB, has caused many broken hearts amongst Final
+>Fantasy lovers. Apparently VGB 0.7 and 0.81b have decided to stop running
+>the games. Marat assures those contemplating confining themselves to a life
+>of mental torture that a fix will soon be released.
+
+ Final Fantasy I & II for VGB-DOS (haven't tried the Windows VGB) DO work
+ fine with version 0.81b (haven't tried .7) if you include the "-nodelay"
+ command when starting the game. Hope that helps any....Regards Brent Oshiro
+ PS - Are you ever planning to start a mailing list newsletter instead of
+ posting these? Just curious... =>
+
+    -=- Brent Oshiro -=-
+   Email: boshiro@lava.net 
+
+ [ Many have pointed out the -nodelay option, which wasn't mentioned in Issue
+   2. Whilst this does cure the bug, Marcel, author of the DOS port
+   acknowledges that it is a bug, which will be cured in the next version.
+
+   I have no idea how to start up a mailing list, I will look into the subject
+   after my holiday. It is a good idea, but Emulation is available from so
+   many places, it is easy to pick up. ]
+
+                             <|=-----------=|>
+
+------------------------------------------------------------------------------
+
+-=[News]=-                                                       [PoiNT BLaNK]
+
+.,/\ 2. SMS V0.0a - Sega Master System Emulator by James McKay ./\,.
+
+At long last it looks like Sega's little lunchbox has made it onto the PC
+screen.
+
+After a long wait, it appears that two Master System Emulators will be rearing
+their heads in the near future.
+
+James McKay, author of X128, the freeware Spectrum 128K Emulator, has decided
+to prove that the Master System may be no more than a re-wired Spectrum. He
+has unleashed version 0 of his Emulator, after only three days of work.
+In fact, at this stage, the Emulator still contains some code from X128.
+
+The Emulator brings back nostalgic memories of making Double Dragon harder by
+wearing a blindfold. This is due to the fact that the screen isn't emulated
+yet. However, the sound is emulated, enabling you to invite all your old
+friends round, connect your Adlib to your hi-fi, and have an all night rave.
+
+It may offer the added bonus of being a GameGear Emulator too, due to the
+belief that there is little internal difference between the machines.
+
+Getting cartdumps for the Emulator may be tricky. Even if you have an old
+Master System, you will need a Genesis, with the Master-System cartridge
+adapter, along with a copier. Alternatively, you can use the Master-System
+cartidge adapter for the GameGear, along with a copier.
+
+But behold, what is this rising over the horizon? It is none other than Dave
+Spicer, complete with a promise that he will start work on another emulator.
+Well, as old ladies at bus-stops mutter, you wait ten years, and then two come
+along together.
+
+------------------------------------------------------------------------------
+
+.,/\ 3. SegaCD Emulator - fake! Fake! FaKe! FAKE! ./\,.          [PoiNT BLaNK]
+
+Following the success of Sega 1.01, more excitement is generated, this time
+in the form of a SegaCD Emulator. Again, programmer wannabes, prove that they
+can rename DLL files and write DOCs to convince us that directly emulating
+sound is possible.
+
+Fake Emulators are easy to spot from a mile off. I knew this was a fake from
+just reading the documentation. How? Read on!
+
+I first found this Emulator at Midnight Mage's Emulator page at:
+http://www.vgernet.net/thepitts/mmemu.html
+
+Amongst the other console emulator info, was the following text:
+ 
+|SegaCD
+|
+|Yes, There is a WORKING Sega CD emulator ---- Unfortunatly you have to copy
+|the games to your hard drive for it to work.
+|
+|SegaCD.zip approx 1meg
+|Games That Work:
+|Sewar Shark
+|Dracula
+|
+|Games That DO NOT work:
+|Sonic CD
+|Sol- Feace
+|Serlock Holmes
+|Jurasic PArk
+
+Well, I thought. The page acknowledges that Sega 1.01 is a fake, so perhaps
+Midnight Mage has found a working emulator. I tried the link, which didn't
+work, so I hunted him down on IRC to get the file.
+
+
+<file_id.diz>   [ BBS Description File ]
+
+        S     E     G      A   -    C      D
+        -Run SEGA CD games on your PC!
+        -Convert CD to PC files!
+        -Requires 486 w/8 MEGS and LOCAL BUS!
+        -Includes DOC file, must read first!
+
+I was already having doubts. Why would you need to convert the CD to PC files?
+Everyone knows that the SegaCD uses the ISO standard with 8.3 Filenames. You
+can put a SegaCD game in your drive, play the sound samples and view the
+graphics without converting anything!
+
+<segacc.doc>    [Excerpts from full Documentation]
+Created by:
+Commadore 64 Fools !
+
+[ Commodore is spelt with an "o", not an "a". Let's hope these bugs don't
+  creep into your programming skills eh? ]
+
+I noticed that my Pops PC had a CD ROM on his Comp. and Wondered if the SEGA
+CD would run off that.
+
+[ Yeah, it's gonna play just like that! ]
+
+Well I Popped it in ... and Scanned it Real Quick ... I got nothin except
+.SGA.. Shit That SUCKED .. I turned around and saw that it was 4:00 SHIT
+again! The game (CD) needed to be returned To the Store  by 7:00 ... or ELSE ..
+
+[ So, hold on, this Emulator was written in three hours?! ]
+
+Then I started to think (This doesn't happen much) and said to myself
+Would It be Bitchen if you could play SEGA games on the PC!! Knowing
+how to Program (KINDA) I called my BUDZ and they came running over ..
+
+[ So, why did you need your "BUDZ" if you knew how to program? ]
+
+We started right away and worked all weeked, with a Brake once in a while
+to Watch PornoZ and eat Pizza !! (what a combo) We finnally Finished make
+
+[ Blockbuster must have charged you a big fine then, on the CD? ]
+
+this Converter type thing and tested it out... It worked GREAT !! We Copyed
+the CD .. put it in My HD .. brought the CD back, returned home and Played
+the CD the rest of the weekend .... well that's the Intro ... READ ON ..
+
+[ For the last time, you do not need a converter, of any sort to read
+  Sega CDs. ]
+
+This program is simply a PLAYER that will read The SEGA CD .SGA Archive
+and Convert into your PC language so you can play SEGA games on your PC!
+
+[ Simply? Sounds like a huge programming task to convert the game on the
+  fly to me. Sounds impossible, actually. ]
+
+This programs has been tested and works 100% on most sega CD games!
+
+[ Very unlikely, when, according to the documentation, VGB only runs 85% of
+  GameBoy software. ]
+
+It emulates the sound directly on your SoundBlaster, and graphics
+are emulated on your VGA card. However, you do need a minimum of 1 meg
+VGA or SVGA card.
+
+[ If your VGA card had 1MB graphics memory, it would be an SVGA card.
+  Emulating the sound directly? As in, the Sega CD games are programmed to
+  talk with a Soundblaster? ]
+
+<end>
+
+Well, this shows how clever these guys really are. The Emulator is really
+the old Sega 1.01 Emulator repackaged. Under pure DOS it crashes, in a Win95
+DOS Box it tells me that I need a 486 8MB / Local Bus. I actually have a P90
+16MB / PCI.
+
+The following is an excerpt from the comp.emulators.misc FAQ about the Sega
+1.01 emulator:
+
+  5.10 Sega
+
+    5.10.1 SEGA-EM 1.01 (Hoax)
+
+        This emulator is another hoax. While it does not seem to be 
+        malicious, it most certainly isn't an emulator. The file 
+        "sega-em.com" is a packed exe file generated by BASIC. The 
+        file "sega-em.ovl" is not a standard overlay file; it probably 
+        is pure trash never used by the program. 
+
+So there you go. These guys couldn't even write a fake Emulator. They had to
+repackage another one. Quite why Midnight Mage claims that this junk works,
+is a mystery to me.
+
+
+------------------------------------------------------------------------------
+
+-=[Articles]=-                                    [PaNX oF DuPA / PoiNT BLaNK]
+
+.,/\ 4. The Cult of Panx's Playstation Emulator. /\,.
+
+Myself and Panx, perhaps without justification, enjoy ridiculing the vast
+traffic in the emulation Newsgroups asking for N64, Playstation and Cray
+Emulators. In fact, there are more messages along the lines of REQ: PSX
+Emulator, than Adam Roach has produced with the message "Read the FAQ!" in
+comp.emulators.misc.
+
+Panx has compiled his megamix, the top questions, captured from the
+newsgroups for your amusement. Hopefully, if these people read EMULATION,
+they will find the answers to their queries. I have partially removed
+their E-Mail addresses to protect the daft, the silly and the plain stupid.
+
+
+--1--  Just for starters...
+
+  Yea right when i see a Nintendo 64 emm i will believe it i know it can be
+  done .So if it's out there post it or send it here at least.watch it be a
+  virus.
+
+--2--  Out with Nintendo, in with Sony!
+
+  Could you send me a copy of that playstaion emulator? or and any docs about
+  it.
+
+  Thanks
+  ........@bcl.com
+
+--3--  Tease them, and appease them.
+
+  Panx> i have it runs great!, tho my cray seems to get slower and slower;)
+  
+  are you going to put it on the FTP site?  PLEASE!?!?!  (I'm collecting
+  emulators to write a senior report. :(  This one would make it interesting!
+  Many thanx for the info (even though I wasn't the first to ask!)
+
+  collide (ronny!)
+
+--4--  Seek and ye shan't find.
+
+  Hey, where did you find the emulator??? I been looking a long time for one.
+
+--5--  Another signature which should be calved into stone.
+
+  You have it???  Please post it!
+
+  ---
+  Email:  ........@ix.netcom.com
+  WWW:    http://www.geopages.com/Hollywood/....
+  BBS:    (610) 370-....
+  Anything I post does not necessarily represent the opinions of NETCOM online
+  services.
+
+--6--  Can I run Playstation CDs on my Hi-Fi?
+
+ What was that super nintendo stuff that I downloaded from the ftp site?
+ Is there a way to play Playstation CD games on a regular computer CD-ROM
+ drive?
+
+--7--  Whoa!!!! Rawhide!
+
+Whoa!!!!  Play the Sony Playstation games on PC???????
+Could you please send that to me?  I'll be glad to return the favor.
+
+--8--
+
+If you have this program and it does exist reply to this mail...  If it's
+at your ftp site i'll be looking if not let me know..
+
+-END-
+
+This is all real stuff! If you want to read more, drop me a line.
+
+A couple of years ago, when AOL wasn't connected to the Net (or wasn't even
+'born'), there weren't any of these questions. People would read the FAQ, most
+of the time, before they posted. I think they should change the name of
+comp.emulators.misc to c.e.m.8bit.and.16bit.only!
+
+By the way, rec.games.video.arcade.collecting, doesn't have the newbie problem
+(at least not as big as c.e.m does!)
+
+Filter AOL and Netcom, and 90% of the problem is gone. :)
+
+[ Panx points us towards an example of how crazy the situation has become.
+Here is the documentation to a posted N64 Emulator for the Sinclair Spectrum!]
+
+Okay then, this is one helluva emulator, sparks are flying outta my ear+mic
+lines! :)
+
+I don't know where I originally found the N64-ZX128 Emulator. (I guess it was
+on the newsgroups), but I'll put it on my FTP at:
+ftp.mcs.net:/mcsnet.users/panx/n64emv01.zip
+
+<file_id.diz>    [ BBS Description File ]
+
+   * * N64E 0.1 Beta Release * *
+   -----------------------------
+ Nintendo 64 Emulator for all 128K
+ Spectrums and Emulators.
+ =-------------------------------=
+
+<manual.doc>
+
+ The N64 Emulator 0.1 For Sinclair Spectrum 128K
+ -----------------------------------------------
+                                By Hanjou Chong
+
+ Introduction:
+ This is an early beta of a project recently started on the Spectrum.
+ The emulator runs 0% of all N64 games released so far, making it at least
+ as good as the other N64 Emulators and Playstation Emulators released for
+ the PC. In Fact N64E is probably better, due to the minimum hardware
+ requirements.
+
+ Requirements:
+ Spectrum 128K +, +2, +3 or Emulator
+ Tape Player
+ N64 Files converted to .TAP format
+
+ Getting it going:
+ Firstly you need to convert a Nintendo64 game to a Spectrum cassette.
+ Firstly you will need a long cassette, probably about C120. Although
+ the TurboLoad speeds up game loading, it may still take as much as an hour
+ for nothing to appear.  This is why I recommend you to use the emulator.
+ As .TAP Files the games load in a matter of around 2 minutes!
+
+ You will need to convert the games to the .TAP format supported by Z80 and
+ other Spectrum emulators and use the TAP2VOC utility from there if you want
+ to convert the games to work on a real Spectrum.
+
+ All other options are obvious once you load the program.
+
+ Frequently Asked Questions:
+ Q) Can you send me some .N64/.TAP files?
+ A) No, sorry that would be illegal, you will have to convert them yourself.
+
+ Q) I have spent hours trying to get this working, however it always crashes
+    when I run a game.
+ A) You are sad, go away.
+
+ Q) How the heck did you get this thing working?
+ A) We didn't.
+
+ Q) Any plans for the future?
+    We hope to port this emulator to the ZX81, however it is difficult
+    recreating Mario 64 in only 16K with a dodgy Rampack, we are also
+    working on the 3D Emulation code. Currently nothing works.
+
+ Q) What future projects are you working on?
+ A) Our Cray XMP Emulator for Casio pocket calculators is almost complete,
+    it can emulate many functions of the Cray like switching on, switching
+    off and crashing.
+
+ H.J. 19/06/96
+
+  [ End of manual.doc ]
+
+<panx@MCS.COM>
+
+ ||-Editor's Comment-||
+
+Well, do you agree with Panx? Have service providers, like AOL and Netcom,
+which encourage the average person onto the Net, left the old timers feeling
+sour? Is it right to discriminate against people using certain providers?
+
+I think the problem lies with new users who don't understand the rules of
+the Newsgroups. This is fair enough, after all, for a new user the Net is a
+large, daunting place. It is all too easy to get flamed.
+
+Many of the new Console emulation based groups, have no moderator or official
+FAQ posted. Emulators are not well known amongst the average user. None of
+the computer magazines cover the Console Emulators due to the piracy that
+surrounds them, and their lack of stability.
+
+It could also be argued that none of the FAQs really cover how an Emulator
+works. How is a new user expected to understand the processor power needed
+to emulate hardware?
+
+I believe service providers should do a better job of educating new users
+to the rules of the Newsgroups and IRC. None of these users want to irritate
+anyone. Many just want to be pointed in the right direction.
+
+Are the users themselves at fault, or are the service providers to blame?
+
+Let me know what you think!     - <point.blank@ukimage.demon.co.uk>
+
+------------------------------------------------------------------------------
+                     
+.,/\ 5. As simple as ABC? Getting started with C. /\,.           [PoiNT BLaNK]
+
+I have recently decided to venture into the nerdy world of functions, strings
+and variables, in other words programming.
+
+Here I answer the questions, that you may be pondering over.
+
+Q) Why did you choose C?
+
+A) I chose C because it was a powerful, high-end language, which is very
+   flexible. There are also shareware C compilers, like DJGPP. The ideas in
+   C bared a resemblance to Basic. I knew some Basic before, so I thought C
+   would be the next logical step to learn.
+
+Q) So do I need to learn another language first?
+
+A) No! Despite the fact that it is very useful if you know Basic, or something
+   similar, you can still pick up the ideas. I found the Maths I'd learnt
+   handy, because a lot of the ideas and principles are used in C. Again, I'm
+   sure you can get the hang of things without a degree. :)
+
+Q) Where can I get a C Compiler from?
+
+   Initially, you should download, and READ, a copy of the DJGPP FAQ and the
+   README.1ST from:
+
+   ftp.demon.co.uk/pub/simtelnet/gnu/djgpp/v2/faq200b.zip
+   ftp.demon.co.uk/pub/simtelnet/gnu/djgpp/v2/readme.1st
+   
+   DJGPP isn't plug and play, you will have to put in some effort to get the
+   thing going. In the long run, you will benefit from reading the FAQ.
+
+   The FAQ will also point you towards your local FTP site.
+   I found downloading DJGPP the most confusing task. There are so many
+   different bits. In total you must download 6MB to be able to write C
+   and C++ programs.
+
+   The files you should download are in the DJGPP FAQ. For now, downloading
+   the required files to write C applications will be enough. They are about
+   4.5MB, in total.
+
+   You should unzip the files using PKUNZIP -d FILENAME.ZIP into a directory
+   like \DJGPP, as stated in the README.1ST. Continue to follow it's
+   instructions.
+
+Q) Yikes! This is confusing, there are so many different files. Which ones
+   do I need to worry about?
+
+   The only one, you need to worry about is GCC.EXE. This is the one you'll
+   use to compile your source code into an executable. The parameters to get
+   you started are in the README.1ST.
+
+Q) So how do I go about learning this monster?
+
+   There are some excellent tutorials on the Net.
+   I'm using one at: http://www.swcp.com/~dodrill/clist.html
+
+   It is really good, and it will take you from the basics to the err...
+   complexes.
+
+   Also, have a look in your library for a book on C. This will be useful
+   in conjunction with the tutorial from the Net.
+
+Q) What do I use to write the source code?
+
+   You can use your favourite text editor. Notepad or DOS Edit will do! No
+   fancy software is required.
+
+Q) I want to write an Emulator, not all this stuff in the tutorial.
+
+   You should grasp a good knowledge of C, in general, before you start
+   anything complex!
+
+Q) Where can I get information on the Net, about writing emulators?
+
+   While most of these wouldn't be classed as tutorials, they do show how
+   emulators have been written:
+
+   XL-It, the Atari 8-bit Emulator's homepage has information on how the
+   emulator was designed.
+
+   http://www.htw.uni-sb.de/people/mgietzen/atari/xl-it.html
+
+   ARDI have various technical documents on their FTP and Website concerning
+   their Mac Emulator, Executor.
+
+   http://www.ardi.com
+   ftp://ftp.ardi.com
+
+   The author of STiMuL, a forthcoming ST Emulator has written C++ classes
+   to make emulation easier:
+
+   http://www.micronet.fr/~tenabis/tec/tec.htm
+
+------------------------------------------------------------------------------
+
+-=[Software]=-
+
+.,/\ 6. BBC Emulator for the C64. UUencoded. /\,.
+
+This is an Emulator which I have had for some time. It does not appear in
+the comp.emulators.misc FAQ. I obtained it from a local BBS. I have seen
+other emulators on BBSs or Bulletin Boards which do not appear in the c.e.m
+FAQ, although I have never found them on the Net.
+
+Naturally, the Emulator is very limited. You can only use BBC Basic. You
+cannot use any of the BBC's graphic modes either.
+
+If I get many objections to including a binary in EMULATION, then I will
+not do this again. I stress that the space taken up by this file is very
+small.
+
+The file is in .P00 Tape Format. This can be used with the PC64 Commodore 64
+Emulator, which is available for DOS and Windows.
+
+A FAQ on 8-bit Commodore Emulators can be obtained from:
+ftp://ftp.funet.fi/pub/cbm/faq/8bit-emulation-faq
+
+
+---cut here-------------------------------------------------------------------
+section 1 of 1 of file bbcemltr.zip  < uuencode 95 (v40) by R.E.M. >
+
+begin 644 bbcemltr.zip
+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
+M````(`````````!"0D-%34Q44BY0,#!02P4&``````$``0`Z````-#``````
+`
+end
+sum -r/size 62197/17141 section (from "begin" to "end")
+sum -r/size 45970/12420 entire input file
+
+=----------------------------------------------------------------------------=
+
+
+-=[Shutdown]=-
+
+
+ :-<*> Programmers Profile: <*>-:
+
+   If you program emulators, please answer the following questions and E-Mail
+   them to PoiNT BLaNK at the address below.
+
+   Name/Handle          :
+   Age                  :
+   Birthplace           :
+   Hobbies/Interests    :
+   Dislikes             :
+   First Computer       :
+   Favourite Computer   :
+   Favourite Game       :
+   Favourite Emulator   : (Not one of your own!)
+   Preferred OS         :
+   Preferred Programming:
+   Language
+   Current Project(s)   :
+   Previous Project(s)  :
+
+
+ :-<*> Emulation can be obtained from the following places: <*>-:
+
+   Newsgroups: comp.emulators.misc
+               alt.binaries.emulators.cbm
+               alt.binaries.emulators.gameboy
+               alt.binaries.emulators.nintendo
+               (Any other suggestions?)
+
+   WWW Pages:  http://members.iglou.com/spamboy/emulation.htm
+               http://www.ntplx.net/~aeo/emu.htm
+               Official site coming soon.
+
+   FTP Sites:  ftp://x2ftp.oulu.fi/pub/msdos/programming/reviews/
+               ftp://ftp.komkon.org/pub/emul8/magazines/ 
+
+ If anyone has an FTP site or Webpage, please consider making space for copies
+ of Emulation.
+
+   IRC Info:   If you are a programmer, then I want to interview YOU!
+               The usual meeting place is EFNet: #emumag
+               Best times for me, are Saturdays and Sundays.
+
+               If you want to arrange a time, E-Mail me or simply drop in.
+               You never know, I could be there.
+
+
+        Editor:	PoiNT BLaNK.................point.blank@ukimage.demon.co.uk
+	
+	Staff: COULD BE YOU!........ASCII artists, writers, programmers etc
+
+
+
+ Emulation (c) 1996 - PoiNT BLaNK Publishing, All Rights Reserved.
+
+<=--------------------------------------------------------------------------=>

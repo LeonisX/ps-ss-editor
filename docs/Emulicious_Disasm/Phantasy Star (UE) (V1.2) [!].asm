@@ -627,11 +627,11 @@ _RAM_FFFF_ db
 .BANK 0 SLOT 0
 .ORG $0000
 
-_LABEL_0_:
-	di
-	im 1
-	ld sp, $CB00
-	jr _LABEL_84_
+_LABEL_0_:			; Start
+	di			; Disables the Interrupts (both mode 1 and mode 2).
+	im 1			; Set the interrupt mode 1
+	ld sp, $CB00		; Set stack address
+	jr _LABEL_84_		; Relative jumps to _LABEL_84_ (MainSetup)
 
 _LABEL_8_:
 	ld a, e
@@ -653,6 +653,21 @@ _DATA_13_:
 .db $FF $FF $FF $FF $FF $FF $FF $FF $FF $FF $FF $FF $FF $FF $FF $FF
 .db $FF $FF $FF $FF $FF
 
+; Explait of these data:
+; _RST_10H:
+; .db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+; _RST_18H:
+; .db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+; _RST_20H:
+; .db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+; _RST_28H:
+; .db	$FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+; _RST_30H:
+; .db $FF, $FF, $FF, $FF, $FF, $FF, $FF, $FF
+
+; Vertical Interrupt
+; _RST_38H:
+; _IRQ_HANDLER:
 _LABEL_38_:
 	push af
 	in a, (Port_VDPStatus)
@@ -688,6 +703,8 @@ _LABEL_52_:
 _DATA_64_:
 .db $FF $FF
 
+; We get here after the pause button is pressed
+; _NMI_HANDLER:
 _LABEL_66_:
 	push af
 	ld a, (_RAM_C202_)
@@ -707,34 +724,37 @@ _LABEL_66_:
 	pop af
 	retn
 
+; MainSetup
 _LABEL_84_:
-	di
-	ld sp, $CB00
-	ld hl, _RAM_FFFC_
-	ld (hl), $80
+	di			; Disable Interrupts (both mode 1 and mode 2).
+	ld sp, $CB00		; Set stack address
+	ld hl, _RAM_FFFC_	; Address of Memory Control Register
+	ld (hl), $80		; Enable ROM banking for ROM bank 2 (Slot 3)
 	inc hl
-	ld (hl), $00
+	ld (hl), $00		; Page 0 - ROM bank 0
 	inc hl
-	ld (hl), $01
+	ld (hl), $01		; Page 1 - ROM bank 1
 	inc hl
-	ld (hl), $02
+	ld (hl), $02		; Page 2 - ROM bank 2
+; Clear work RAM
 	ld hl, _RAM_C000_
 	ld de, _RAM_C000_ + 1
 	ld bc, $1FFF
-	ld (hl), l
-	ldir
+	ld (hl), l		; clear byte in $C000
+	ldir			; then do the rest (until bc = 0)
 	call _LABEL_2ED_
 	call _LABEL_3A4_
 	call _LABEL_318_
 	call _LABEL_7DA_
-	ei
+	ei			; Enable Interrupts
+; MainGameLoop:
 -:
 	ld hl, _RAM_C202_
 	ld a, (hl)
 	and $1F
 	ld hl, _DATA_BE_
 	call _LABEL_E6_
-	jp -
+	jp -		; jp MainGameLoop
 
 ; Jump Table from BE to E5 (20 entries, indexed by _RAM_C202_)
 _DATA_BE_:
@@ -763,6 +783,7 @@ _LABEL_F1_:
 	ret z
 	jr -
 
+; VBlank:
 _LABEL_FB_:
 	push bc
 	push de
@@ -782,7 +803,7 @@ _LABEL_FB_:
 	ld (hl), a
 	xor c
 	and c
-	jp nz, _LABEL_84_
+	jp nz, _LABEL_84_	; jp nz, MainSetup
 	ld a, (_RAM_C20A_)
 	or a
 	jp nz, +

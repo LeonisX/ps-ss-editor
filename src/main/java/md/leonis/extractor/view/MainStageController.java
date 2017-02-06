@@ -60,7 +60,7 @@ public class MainStageController {
         final GraphicsContext smsPaletteGc = smsPaletteCanvas.getGraphicsContext2D();
         final GraphicsContext paletteGc = paletteCanvas.getGraphicsContext2D();
 
-        // TODO dump raw data
+        // TODO dump raw data, calculate crc32 of byte blocks
         for (int i = 0x0D670, lastIndex = i; i < dump.size() - 16; i++) {
             dump.moveTo(i);
             Integer[][] bitPlanes = fastReadBitPlanes();

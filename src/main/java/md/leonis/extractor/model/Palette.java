@@ -90,13 +90,11 @@ public class Palette {
         for (int i = 0; i < 64; i++) {
             int j = i;
             double r = values[j & 3] / 255.0;
-            //System.out.println(j + ": " + values[j & 3]);
             j = j >> 2;
             double g = values[j & 3] / 255.0;
             j = j >> 2;
             double b = values[j & 3] / 255.0;
             palette[i] = new Color(r, g, b, 1);
-            //System.out.println(palette[i]);
         }
         return palette;
     }

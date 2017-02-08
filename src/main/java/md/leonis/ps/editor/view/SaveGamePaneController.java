@@ -5,7 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.util.StringConverter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,7 +65,14 @@ public class SaveGamePaneController {
     public RadioButton cityRadioButton;
     @FXML
     public GridPane gridPane;
+    @FXML
     public TextArea tt;
+    @FXML
+    public Slider colorSlider;
+    @FXML
+    public Pane colorPane1;
+    @FXML
+    public Pane colorPane2;
 
     private List<String> directionsList = new ArrayList<>(Arrays.asList("North", "East", "South", "West"));
     private List<String> transportList = new ArrayList<>(Arrays.asList("No", "Landrover", "Hovercraft", "Ice Digger"));
@@ -75,6 +84,21 @@ public class SaveGamePaneController {
     @FXML
     private void initialize() {
         //TODO pretty show current map
+
+        colorSlider.setLabelFormatter(new StringConverter<Double>() {
+
+            @Override
+            public String toString(Double object) {
+                return object * 5 + "'";
+            }
+
+            @Override
+            public Double fromString(String string) {
+                return null;
+            }
+        });
+        colorPane1.setStyle("-fx-background-color: #00FFFF");
+        colorPane2.setStyle("-fx-background-color: #000000");
 
         cityVBox.managedProperty().bind(cityVBox.visibleProperty());
         dungeonVBox.managedProperty().bind(dungeonVBox.visibleProperty());

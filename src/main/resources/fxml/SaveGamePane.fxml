@@ -64,52 +64,39 @@
             </RadioButton>
             <RadioButton fx:id="dungeonRadioButton" mnemonicParsing="false" text="Dungeons, towers" toggleGroup="$toggleGroup" />
          </HBox>
-         <VBox fx:id="cityVBox" GridPane.columnIndex="1" GridPane.rowIndex="2">
-            <HBox alignment="CENTER_RIGHT" spacing="5.0">
+         <VBox fx:id="cityVBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
                <children>
                   <Label text="X" />
-                  <TextField prefHeight="26.0" prefWidth="72.0" fx:id="x" />
+                  <TextField prefHeight="26.0" prefWidth="70.0" fx:id="x" />
                   <Label text="Y" />
-                  <TextField fx:id="y" prefHeight="26.0" prefWidth="72.0" />
-                  <Label text="Animation #1" />
-                  <TextField fx:id="animation1" prefHeight="26.0" prefWidth="45.0" />
-                  <Label text="Animation #2" />
-                  <TextField fx:id="animation2" prefHeight="26.0" prefWidth="66.0" />
+                  <TextField fx:id="y" prefHeight="26.0" prefWidth="70.0" />
+                  <Label text="Transport" />
+                  <ComboBox fx:id="transport" onAction="#transportChange" prefHeight="26.0" prefWidth="200.0" />
                </children>
             </HBox>
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="390.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <Label text="Map ID" />
-               <TextField fx:id="map" GridPane.columnIndex="1" />
-               <Label text="Transport" GridPane.rowIndex="1" />
-               <ComboBox fx:id="transport" onAction="#transportChange" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            </GridPane>
+            <HBox alignment="CENTER_RIGHT" spacing="5.0">
+               <children>
+                  <Label text="Map ID" />
+                  <TextField fx:id="map" disable="true" prefWidth="65.0" />
+                  <Label text="Animation #1" />
+                  <TextField fx:id="animation1" disable="true" prefHeight="26.0" prefWidth="55.0" />
+                  <Label text="Animation #2" />
+                  <TextField fx:id="animation2" disable="true" prefHeight="26.0" prefWidth="55.0" />
+               </children>
+            </HBox>
          </VBox>
-         <VBox fx:id="dungeonVBox" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.0" minWidth="10.0" prefWidth="95.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="411.0" minWidth="10.0" prefWidth="405.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <Label text="Dungeon ID" />
-               <TextField fx:id="dungeon" prefHeight="26.0" prefWidth="88.0" GridPane.columnIndex="1" />
-               <Label text="Direction" GridPane.rowIndex="2" />
-               <ComboBox fx:id="direction" onAction="#directionChange" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               <Label text="Room ID" GridPane.rowIndex="1" />
-               <TextField fx:id="room" prefHeight="26.0" prefWidth="49.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            </GridPane>
+         <VBox fx:id="dungeonVBox" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="Direction" />
+                  <ComboBox fx:id="direction" onAction="#directionChange" prefWidth="160.0" />
+                  <Label text="Room ID" />
+                  <TextField fx:id="room" prefHeight="26.0" prefWidth="49.0" />
+                  <Label text="Dungeon ID" />
+                  <TextField fx:id="dungeon" prefHeight="26.0" prefWidth="88.0" />
+               </children>
+            </HBox>
          </VBox>
          <HBox alignment="CENTER" GridPane.rowIndex="3">
             <children>

@@ -125,10 +125,7 @@ public class Geo {
 
     public void copyDataTo(Geo destGeo) {
         destGeo.setX(x);
-        destGeo.setX2(x2);
         destGeo.setY(y);
-        destGeo.setY2(y2);
-
         destGeo.setMap(map);
         destGeo.setDungeon(dungeon);
         destGeo.setRoom(room);
@@ -159,6 +156,7 @@ public class Geo {
 
     public void setX(int x) {
         this.x = x;
+        this.x2 = x;
     }
 
     public int getY() {
@@ -167,6 +165,7 @@ public class Geo {
 
     public void setY(int y) {
         this.y = y;
+        this.y2 = y;
     }
 
     public int getMap() {
@@ -223,22 +222,6 @@ public class Geo {
 
     public void setAnimation2(int animation2) {
         this.animation2 = animation2;
-    }
-
-    public int getY2() {
-        return y2;
-    }
-
-    public void setY2(int y2) {
-        this.y2 = y2;
-    }
-
-    public int getX2() {
-        return x2;
-    }
-
-    public void setX2(int x2) {
-        this.x2 = x2;
     }
 
     public int getColor() {

@@ -169,14 +169,12 @@ public class SaveGamePaneController {
         y.setText(String.format("0x%04X", currentSaveGame.getGeo().getY()));
         map.setText(String.format("0x%04X", currentSaveGame.getGeo().getMap()));
         transport.setItems(observableTransportList);
-        //TODO fix
         for (int i = 0; i < transportIds.length; i++) {
             if (transportIds[i] == currentSaveGame.getGeo().getTransport()) {
                 transport.getSelectionModel().select(i);
                 break;
             }
         }
-        //transport.getSelectionModel().select(currentSaveGame.getGeo().getTransport());
         animation1.setText(String.format("0x%02X", currentSaveGame.getGeo().getAnimation1()));
         animation2.setText(String.format("0x%02X", currentSaveGame.getGeo().getAnimation2()));
 
@@ -200,6 +198,7 @@ public class SaveGamePaneController {
         && !allItemsPane.isVisible());
         itemsPane.getChildren().add(plusItemButton);
 
+        //TODO combobox
         church.setText(String.format("0x%02X", currentSaveGame.getGeo().getChurch()));
 
         dungeon.setText(String.format("0x%02X", currentSaveGame.getGeo().getDungeon()));
@@ -240,6 +239,8 @@ public class SaveGamePaneController {
 
     public void okButtonClick() {
         currentSaveGame.setMesetas(Integer.parseInt(mesetas.getText()));
+        currentSaveGame.getGeo().setX(Integer.parseInt(x.getText()));
+        currentSaveGame.getGeo().setY(Integer.parseInt(y.getText()));
         Config.saveState.updateDump();
         JavaFxUtils.showPane("SecondaryPane.fxml");
     }

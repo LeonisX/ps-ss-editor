@@ -36,7 +36,6 @@ public class Hero {
 
 
     public void writeToRom(Dump romData) {
-        System.out.println(romData.getOffset());
         romData.setBoolean(isAlive);
         romData.setByte(hp);
         romData.setByte(mp);

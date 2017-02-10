@@ -1,6 +1,7 @@
 package md.leonis.ps.editor.model;
 
 
+import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 
 import java.util.Arrays;
@@ -41,7 +42,9 @@ public class SaveGame {
             heroes[i] = Hero.readFromRom(romData, i);
         }
 
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         mesetas = romData.getShort(0x1E0);
+        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         itemsCount = romData.getByte(0x1E2);
         for (int i = 0; i < itemsCount; i ++) {
             items[i] = romData.getByte(0x1C0 + i);
@@ -69,13 +72,13 @@ public class SaveGame {
         geo.writeToRom(romData, offset);
         //write heroes
         romData.moveTo(0x100); // 0x500
-        System.out.println(Integer.toHexString(romData.getOffset()));
-        System.out.println(Integer.toHexString(romData.getIndex()));
         for (int i = 0; i < 4; i++) {
             heroes[i].writeToRom(romData);
         }
 
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         romData.setShort(0x1E0, mesetas);
+        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         romData.setByte(0x1E2, itemsCount);
         for (int i = 0; i < itemsCount; i ++) {
             romData.setByte(0x1C0 + i, items[i]);

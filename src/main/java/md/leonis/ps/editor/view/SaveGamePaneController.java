@@ -103,9 +103,18 @@ public class SaveGamePaneController {
         //System.out.println(String.format("%02X %04X", currentSaveGame.getGeo().getDungeon(), currentSaveGame.getGeo().getMap()));
         // TODO Geo - equals()
         for (int i = 0; i < Config.geos.size(); i++) {
-            System.out.println(String.format("%02X %04X", Config.geos.get(i).getDungeon() , Config.geos.get(i).getMap()));
-            if ((Config.geos.get(i).getDungeon() == currentSaveGame.getGeo().getDungeon())
-                    & (Config.geos.get(i).getMap() == currentSaveGame.getGeo().getMap())) {
+            //System.out.println(String.format("%02X %04X", Config.geos.get(i).getDungeon() , Config.geos.get(i).getMap()));
+            boolean flag;
+            System.out.println(currentSaveGame.getGeo().getType());
+            if (currentSaveGame.getGeo().getType() == 0x0B) {
+                flag = ((Config.geos.get(i).getDungeon() == currentSaveGame.getGeo().getDungeon())
+                        & (Config.geos.get(i).getMap() == currentSaveGame.getGeo().getMap())
+                        & (Config.geos.get(i).getX() == currentSaveGame.getGeo().getX())
+                        & (Config.geos.get(i).getY() == currentSaveGame.getGeo().getY()));
+            } else {
+                flag = (Config.geos.get(i).getMap() == currentSaveGame.getGeo().getMap());
+            }
+            if (flag) {
                 geoComboBox.getSelectionModel().select(i);
                 System.out.println(i);
                 break;
@@ -165,9 +174,9 @@ public class SaveGamePaneController {
         System.out.println();
 
 
-        x.setText(String.format("0x%04X", currentSaveGame.getGeo().getX()));
-        y.setText(String.format("0x%04X", currentSaveGame.getGeo().getY()));
-        map.setText(String.format("0x%04X", currentSaveGame.getGeo().getMap()));
+        x.setText(String.format("%04X", currentSaveGame.getGeo().getX()));
+        y.setText(String.format("%04X", currentSaveGame.getGeo().getY()));
+        map.setText(String.format("%04X", currentSaveGame.getGeo().getMap()));
         transport.setItems(observableTransportList);
         for (int i = 0; i < transportIds.length; i++) {
             if (transportIds[i] == currentSaveGame.getGeo().getTransport()) {
@@ -175,8 +184,8 @@ public class SaveGamePaneController {
                 break;
             }
         }
-        animation1.setText(String.format("0x%02X", currentSaveGame.getGeo().getAnimation1()));
-        animation2.setText(String.format("0x%02X", currentSaveGame.getGeo().getAnimation2()));
+        animation1.setText(String.format("%02X", currentSaveGame.getGeo().getAnimation1()));
+        animation2.setText(String.format("%02X", currentSaveGame.getGeo().getAnimation2()));
 
         mesetas.setText(String.valueOf(currentSaveGame.getMesetas()));
         //TODO update
@@ -199,7 +208,7 @@ public class SaveGamePaneController {
         itemsPane.getChildren().add(plusItemButton);
 
         //TODO combobox
-        church.setText(String.format("0x%02X", currentSaveGame.getGeo().getChurch()));
+        church.setText(String.format("%02X", currentSaveGame.getGeo().getChurch()));
 
         dungeon.setText(String.format("0x%02X", currentSaveGame.getGeo().getDungeon()));
         room.setText(String.format("0x%02X", currentSaveGame.getGeo().getRoom()));
@@ -239,8 +248,8 @@ public class SaveGamePaneController {
 
     public void okButtonClick() {
         currentSaveGame.setMesetas(Integer.parseInt(mesetas.getText()));
-        currentSaveGame.getGeo().setX(Integer.parseInt(x.getText()));
-        currentSaveGame.getGeo().setY(Integer.parseInt(y.getText()));
+        //currentSaveGame.getGeo().setX(Integer.parseInt(x.getText()));
+        //currentSaveGame.getGeo().setY(Integer.parseInt(y.getText()));
         Config.saveState.updateDump();
         JavaFxUtils.showPane("SecondaryPane.fxml");
     }

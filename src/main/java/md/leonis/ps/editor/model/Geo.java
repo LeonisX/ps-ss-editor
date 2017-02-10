@@ -1,6 +1,7 @@
 package md.leonis.ps.editor.model;
 
 
+import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 
 public class Geo {
@@ -70,10 +71,8 @@ public class Geo {
 
     public void readFromRom(Dump romData, int offset) {
         romData.setOffset(offset);
-        //romData.moveTo(0);
         x = romData.getShort(0x01);
         y = romData.getShort( 0x05);
-        System.out.println(y);
         map = romData.getShort( 0x08);
         direction = romData.getByte(0x0A);
         room = romData.getByte(0x0C);
@@ -91,35 +90,22 @@ public class Geo {
 
 
     public void writeToRom(Dump romData, int offset) {
-        //romData.setOffset(offset);
-        //romData.moveTo(0);
-        //romData.setShort(0x01, x);
-        //romData.setShort( 0x05, y);
-        //TODO byteorder
-        romData.setByte( 0x01, x & 0xFF);
-        romData.setByte( 0x02, x / 0x100 & 0xFF);
-        romData.setByte( 0x05, y & 0xFF);
-        romData.setByte( 0x06, y / 0x100 & 0xFF);
-        System.out.println(y);
-        romData.setByte( 0x08, map & 0xFF);
-        romData.setByte( 0x09, map / 0x100 & 0xFF);
+        romData.setShort(0x01, x);
+        romData.setShort( 0x05, y);
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
+        romData.setShort( 0x08, map);
+        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         romData.setByte(0x0A, direction);
         romData.setByte(0x0C, room);
         romData.setByte(0x0D, dungeon);
         romData.setByte(0x0E, transport);
         romData.setByte(0x0F, animation1);
         romData.setByte(0x10, animation2);
-        /*romData.setShort( 0x11, y2);
-        romData.setShort(0x13, x2);*/
-        //TODO byteorder
-        romData.setByte( 0x13, x2 & 0xFF);
-        romData.setByte( 0x14, x2 / 0x100 & 0xFF);
-        romData.setByte( 0x11, y2 & 0xFF);
-        romData.setByte( 0x12, y2 / 0x100 & 0xFF);
+        romData.setShort( 0x11, y2);
+        romData.setShort(0x13, x2);
         romData.setByte(0x15, color);
         romData.setByte(0x16, type);
         romData.setByte(0x17, church);
-        //romData.setOffset(0);
     }
 
 

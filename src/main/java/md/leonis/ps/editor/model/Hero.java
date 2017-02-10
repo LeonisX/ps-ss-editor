@@ -34,6 +34,26 @@ public class Hero {
                 romData.getByte(), romData.getByte(), romData.getByte());
     }
 
+
+    public void writeToRom(Dump romData) {
+        System.out.println(romData.getOffset());
+        romData.setBoolean(isAlive);
+        romData.setByte(hp);
+        romData.setByte(mp);
+        romData.setShort(experience);
+        romData.setByte(level);
+        romData.setByte(maxHp);
+        romData.setByte(maxMp);
+        romData.setByte(attack);
+        romData.setByte(defense);
+        romData.setByte(weapon);
+        romData.setByte(armor);
+        romData.setByte(shield);
+        romData.setByte(state);
+        romData.setByte(combatSpells);
+        romData.setByte(curativeSpells);
+    }
+
     public Hero(String name, boolean isAlive, int hp, int mp, int experience, int level, int maxHp, int maxMp, int attack, int defense, int weapon, int armor, int shield, int state, int combatSpells, int curativeSpells) {
         this.name = name;
         this.isAlive = isAlive;
@@ -208,4 +228,5 @@ public class Hero {
                 ", curativeSpells=" + curativeSpells +
                 '}';
     }
+
 }

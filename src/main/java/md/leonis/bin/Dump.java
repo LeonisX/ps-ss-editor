@@ -28,6 +28,11 @@ public class Dump {
         dump = Files.readAllBytes(file.toPath());
     }
 
+
+    public void saveToFile(File saveStateFile) throws IOException {
+        Files.write(saveStateFile.toPath(), dump);
+    }
+
     public int size() {
         return dump.length;
     }
@@ -165,6 +170,12 @@ public class Dump {
 
 
 
+    public void erase(int address, int size) {
+        moveTo(address);
+        for (int i = 0; i < size; i++) {
+            setByte(0x00);
+        }
+    }
 
 
 
@@ -219,4 +230,5 @@ public class Dump {
     public int hashCode() {
         return Arrays.hashCode(dump);
     }
+
 }

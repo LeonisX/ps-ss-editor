@@ -1,5 +1,6 @@
 package md.leonis.ps.editor.utils;
 
+import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
@@ -8,6 +9,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 public class Config {
@@ -61,4 +66,47 @@ public class Config {
                 .map(objectEntry -> objectEntry.getKey().toString()).orElse("");
     }
 
+    //public static Gson gson = new Gson();
+
+    public static List<Geo> geos;
+
+    static {
+        ClassLoader classLoader = Config.class.getClassLoader();
+        File file = new File(classLoader.getResource("results.csv").getFile());
+/*        JsonReader jsonReader = null;
+        try {
+            jsonReader = new JsonReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return gson.fromJson(jsonReader, new TypeToken<List<Geo>>(){}.getType());*/
+
+        geos = new LinkedList<>();
+        try {
+            List<String> list = Files.readAllLines(file.toPath(), Charset.defaultCharset() );
+            list.forEach(r -> {
+                String[] chunks = r.replace("\"","").split(";");
+                String map = chunks[2].substring(2) + chunks[2].substring(0, 2);
+                //System.out.println(chunks[2] + " " + map);
+                geos.add(new Geo(chunks[8],
+                        Integer.parseInt(chunks[0], 16),
+                        Integer.parseInt(chunks[1],16),
+                        Integer.parseInt(map,16), // map
+                        Integer.parseInt(chunks[5],16),
+                        Integer.parseInt(chunks[4],16),
+                        Integer.parseInt(chunks[3],16),
+                        0,
+                        0,
+                        0,
+                        Integer.parseInt(chunks[1],16),
+                        Integer.parseInt(chunks[0],16),
+                        Integer.parseInt(chunks[6],16),
+                        Integer.parseInt(chunks[7],16),
+                        0)
+                );
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

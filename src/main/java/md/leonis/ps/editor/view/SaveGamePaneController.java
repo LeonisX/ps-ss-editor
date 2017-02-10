@@ -8,10 +8,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.StringConverter;
+import md.leonis.ps.editor.model.Geo;
+import md.leonis.ps.editor.utils.Config;
+import md.leonis.ps.editor.utils.JavaFxUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static md.leonis.ps.editor.utils.Config.currentSaveGame;
 
@@ -73,6 +77,8 @@ public class SaveGamePaneController {
     public Pane colorPane1;
     @FXML
     public Pane colorPane2;
+    @FXML
+    public ComboBox<String> geoComboBox;
 
     private List<String> directionsList = new ArrayList<>(Arrays.asList("North", "East", "South", "West"));
     private List<String> transportList = new ArrayList<>(Arrays.asList("No", "Landrover", "Hovercraft", "Ice Digger"));
@@ -81,12 +87,27 @@ public class SaveGamePaneController {
     ObservableList<String> observableDirectionsList = FXCollections.observableList(directionsList);
     ObservableList<String> observableTransportList = FXCollections.observableList(transportList);
 
+    ObservableList<String> observableGeosList = FXCollections.observableList(Config.geos.stream().map(Geo::getName).collect(Collectors.toList()));
+
     @FXML
     private void initialize() {
         //TODO pretty show current map
 
-        colorSlider.setLabelFormatter(new StringConverter<Double>() {
+        geoComboBox.setItems(observableGeosList);
 
+        //System.out.println(String.format("%02X %04X", currentSaveGame.getGeo().getDungeon(), currentSaveGame.getGeo().getMap()));
+        // TODO Geo - equal
+        for (int i = 0; i < Config.geos.size(); i++) {
+            System.out.println(String.format("%02X %04X", Config.geos.get(i).getDungeon() , Config.geos.get(i).getMap()));
+            if ((Config.geos.get(i).getDungeon() == currentSaveGame.getGeo().getDungeon())
+                    & (Config.geos.get(i).getMap() == currentSaveGame.getGeo().getMap())) {
+                geoComboBox.getSelectionModel().select(i);
+                System.out.println(i);
+                break;
+            }
+        }
+
+        colorSlider.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double object) {
                 return object * 5 + "'";
@@ -104,6 +125,11 @@ public class SaveGamePaneController {
         dungeonVBox.managedProperty().bind(dungeonVBox.visibleProperty());
 
 
+        updateControls();
+    }
+
+
+    private void updateControls() {
         x.setText(String.format("0x%04X", currentSaveGame.getGeo().getX()));
         y.setText(String.format("0x%04X", currentSaveGame.getGeo().getY()));
         map.setText(String.format("0x%04X", currentSaveGame.getGeo().getMap()));
@@ -146,4 +172,21 @@ public class SaveGamePaneController {
         chests.setText(Arrays.toString(currentSaveGame.getChests()));
     }
 
+
+    public void geoComboBoxAction() {
+        int index = geoComboBox.getSelectionModel().getSelectedIndex();
+        Geo srcGeo = Config.geos.get(index);
+        srcGeo.copyDataTo(currentSaveGame.getGeo());
+        updateControls();
+    }
+
+    public void okButtonClick() {
+        currentSaveGame.setMesetas(Integer.parseInt(mesetas.getText()));
+        Config.saveState.updateDump();
+        JavaFxUtils.showPane("SecondaryPane.fxml");
+    }
+
+    public void cancelButtonClick() {
+        JavaFxUtils.showPane("SecondaryPane.fxml");
+    }
 }

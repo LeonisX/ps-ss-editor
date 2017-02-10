@@ -5,6 +5,8 @@ import md.leonis.bin.Dump;
 
 import java.util.Arrays;
 
+import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_SIZE;
+
 public class SaveGame {
 
     private String name;
@@ -56,9 +58,43 @@ public class SaveGame {
         for (int i = 0; i < bosses.length; i++) {
             bosses[i] = romData.getByte();
         }
-
         romData.setOffset(0);
     }
+
+
+    public void writeToRom(Dump romData, int offset) {
+        romData.setOffset(offset);
+        romData.erase(0, SAVE_GAME_SIZE);
+        romData.moveTo(0);
+        geo.writeToRom(romData, offset);
+        //write heroes
+        romData.moveTo(0x100); // 0x500
+        System.out.println(Integer.toHexString(romData.getOffset()));
+        System.out.println(Integer.toHexString(romData.getIndex()));
+        for (int i = 0; i < 4; i++) {
+            heroes[i].writeToRom(romData);
+        }
+
+        romData.setShort(0x1E0, mesetas);
+        romData.setByte(0x1E2, itemsCount);
+        for (int i = 0; i < itemsCount; i ++) {
+            romData.setByte(0x1C0 + i, items[i]);
+        }
+        romData.setByte(0x1F0, companionsCount);
+
+        romData.moveTo(0x200); // 0x600
+        for (int i = 0; i < events.length; i++) {
+            romData.setByte(events[i]);
+        }
+        for (int i = 0; i < chests.length; i++) {
+            romData.setByte(chests[i]);
+        }
+        for (int i = 0; i < bosses.length; i++) {
+            romData.setByte(bosses[i]);
+        }
+        romData.setOffset(0);
+    }
+
 
     public String getName() {
         return name;
@@ -163,4 +199,5 @@ public class SaveGame {
                 ", bosses=" + Arrays.toString(bosses) +
                 '}';
     }
+
 }

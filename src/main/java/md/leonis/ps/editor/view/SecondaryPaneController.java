@@ -12,6 +12,7 @@ import md.leonis.ps.editor.model.SaveGameStatus;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_STATUS_OFFSET;
@@ -151,10 +152,16 @@ public class SecondaryPaneController {
 
     @FXML
     public void backButtonClick() {
+        try {
+            saveState.save();
+        } catch (IOException e) {
+            JavaFxUtils.showAlert("Unable save to file :(", Config.saveStateFile.getAbsolutePath(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML
     public void createClick() {
+        // Для Гео уже есть метод - дефолтные данные в 0-м гео
     }
 
     @FXML
@@ -169,7 +176,7 @@ public class SecondaryPaneController {
                 "Up to 5 symbols:",
                 ""
         ).ifPresent(name -> {
-            //write name, reread ROM, change flag (for save)
+            //write name, reread ROM
             saveState.writeName(saveSlotIndex, name.toUpperCase());
             saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, true);
             saveState.updateObject();
@@ -179,7 +186,7 @@ public class SecondaryPaneController {
 
     @FXML
     public void deleteClick() {
-        //erase name, reread ROM, change flag (for save)
+        //erase name, reread ROM
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
         alert.setHeaderText("Delete " + saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");

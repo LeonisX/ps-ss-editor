@@ -36,7 +36,7 @@ public class PrimaryPaneController {
 
         );
         Config.saveStateFile = fileChooser.showOpenDialog(openButton.getScene().getWindow());*/
-        Config.saveStateFile = new File("/home/leonis/.Kega Fusion/ps.ssm");
+        Config.saveStateFile = new File("/home/leonis/Phantasy Star (UE) (V1.2) [!].sav");
         //TODO check
         try {
             Config.saveState = new SaveState(Config.saveStateFile);

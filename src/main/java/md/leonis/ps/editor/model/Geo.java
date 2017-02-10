@@ -44,10 +44,35 @@ public class Geo {
     private int church;   // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
     // 0x418-4FF: 00
 
+
+    public Geo() {
+    }
+
+    public Geo(/*Planets planet, */String name, int x, int y, int map, int direction, int room, int dungeon, int transport, int animation1, int animation2, int y2, int x2, int color, int type, int church) {
+        //this.planet = planet;
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.map = map;
+        this.direction = direction;
+        this.room = room;
+        this.dungeon = dungeon;
+        this.transport = transport;
+        this.animation1 = animation1;
+        this.animation2 = animation2;
+        this.y2 = y2;
+        this.x2 = x2;
+        this.color = color;
+        this.type = type;
+        this.church = church;
+    }
+
     public void readFromRom(Dump romData, int offset) {
         romData.setOffset(offset);
-        x = romData.getShort(0x00);
+        //romData.moveTo(0);
+        x = romData.getShort(0x01);
         y = romData.getShort( 0x05);
+        System.out.println(y);
         map = romData.getShort( 0x08);
         direction = romData.getByte(0x0A);
         room = romData.getByte(0x0C);
@@ -63,6 +88,43 @@ public class Geo {
         romData.setOffset(0);
     }
 
+
+    public void writeToRom(Dump romData, int offset) {
+        //romData.setOffset(offset);
+        //romData.moveTo(0);
+        romData.setShort(0x01, x);
+        romData.setShort( 0x05, y);
+        System.out.println(y);
+        romData.setByte( 0x08, map & 0xFF);
+        romData.setByte( 0x09, map / 0x100 & 0xFF);
+        romData.setByte(0x0A, direction);
+        romData.setByte(0x0C, room);
+        romData.setByte(0x0D, dungeon);
+        romData.setByte(0x0E, transport);
+        romData.setByte(0x0F, animation1);
+        romData.setByte(0x10, animation2);
+        romData.setShort( 0x11, y2);
+        romData.setShort(0x13, x2);
+        romData.setByte(0x15, color);
+        romData.setByte(0x16, type);
+        romData.setByte(0x17, church);
+        //romData.setOffset(0);
+    }
+
+
+    public void copyDataTo(Geo destGeo) {
+        destGeo.setX(x);
+        destGeo.setX2(x2);
+        destGeo.setY(y);
+        destGeo.setY2(y2);
+
+        destGeo.setMap(map);
+        destGeo.setDungeon(dungeon);
+        destGeo.setRoom(room);
+        destGeo.setDirection(direction);
+        destGeo.setColor(color);
+        destGeo.setType(type);
+    }
 
     public Planets getPlanet() {
         return planet;
@@ -213,4 +275,5 @@ public class Geo {
                 ", church=" + church +
                 '}';
     }
+
 }

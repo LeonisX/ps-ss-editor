@@ -5,10 +5,7 @@ import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 public class Config {

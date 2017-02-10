@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import static md.leonis.ps.editor.model.SaveGameStatus.EMPTY;
+
 public class SaveState {
 
     private static int MINIMAL_ROM_SIZE = 8188;
@@ -113,7 +115,14 @@ public class SaveState {
         System.out.println(this);
     }
 
-
+    public void updateDump() {
+        for (int i = 0; i < 5; i++) {
+            if (!saveGames[i].getStatus().equals(EMPTY)) {
+                saveGames[i].writeToRom(romData, i * SAVE_GAME_SIZE + FIRST_SAVE_GAME_OFFSET);
+            }
+            //System.out.println(this);
+        }
+    }
 
     //TODO test
     public String readName(int index) {
@@ -171,4 +180,7 @@ public class SaveState {
         Arrays.fill(romData.getDump(), start, start + SAVE_GAME_SIZE, (byte) 0x00);
     }
 
+    public void save() throws IOException {
+        romData.saveToFile(Config.saveStateFile);
+    }
 }

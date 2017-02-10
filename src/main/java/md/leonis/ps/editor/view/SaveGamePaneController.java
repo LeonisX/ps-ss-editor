@@ -45,10 +45,6 @@ public class SaveGamePaneController {
     @FXML
     public ComboBox<String> direction;
     @FXML
-    public TextField color;
-    @FXML
-    public TextField itemsCount;
-    @FXML
     public TextField church;
     @FXML
     public TextField heroes;
@@ -71,8 +67,6 @@ public class SaveGamePaneController {
     @FXML
     public GridPane gridPane;
     @FXML
-    public TextArea tt;
-    @FXML
     public Slider colorSlider;
     @FXML
     public Pane colorPane1;
@@ -82,8 +76,6 @@ public class SaveGamePaneController {
     public ComboBox<String> geoComboBox;
     @FXML
     public FlowPane allItemsPane;
-    @FXML
-    public Button okAddItemsButton;
     @FXML
     public FlowPane itemsPane;
     @FXML
@@ -181,7 +173,7 @@ public class SaveGamePaneController {
         mesetas.setText(String.valueOf(currentSaveGame.getMesetas()));
         //TODO update
         //companionsCount.setText(String.valueOf(currentSaveGame.getCompanionsCount()));
-        itemsCount.setText(String.valueOf(currentSaveGame.getItemsCount()));
+        //itemsCount.setText(String.valueOf(currentSaveGame.getItemsCount()));
 
 
         //items.setText(Arrays.toString(currentSaveGame.getItems()));
@@ -205,7 +197,7 @@ public class SaveGamePaneController {
 
         direction.setItems(observableDirectionsList);
         direction.getSelectionModel().select(currentSaveGame.getGeo().getDirection());
-        color.setText(String.format("0x%02X", currentSaveGame.getGeo().getColor()));
+        //color.setText(String.format("0x%02X", currentSaveGame.getGeo().getColor()));
 
         if (currentSaveGame.getGeo().getType() == 0x0B) {
             cityRadioButton.setSelected(true);
@@ -217,8 +209,10 @@ public class SaveGamePaneController {
             dungeonVBox.setVisible(true);
         }
 
+/*
         tt.setText("X" + x.getText() + " Y" + y.getText() + " M" + map.getText() + " T" + currentSaveGame.getGeo().getTransport()
                 + " D" + dungeon.getText() + " R" + room.getText() + " Dr" + currentSaveGame.getGeo().getDirection() + " C" + color.getText());
+*/
 
 
         heroes.setText(Arrays.toString(currentSaveGame.getHeroes()));

@@ -1,7 +1,6 @@
 package md.leonis.ps.editor.utils;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -17,8 +16,8 @@ public class JavaFxUtils {
 
     private static BorderPane rootLayout;
 
-    private static int sceneWidth = 800;
-    private static int sceneHeight = 600;
+    private static int sceneWidth = 900;
+    private static int sceneHeight = 720;
 
     public static void showMainPane(Stage primaryStage) {
         primaryStage.setTitle("TiVi Admin Panel");
@@ -48,6 +47,8 @@ public class JavaFxUtils {
             loader.setLocation(MainApp.class.getResource(Config.resourcePath + resource));
             Region innerPanel = loader.load();
             innerPanel.setPrefSize(sceneWidth, sceneHeight);
+            innerPanel.prefHeightProperty().bind(rootLayout.heightProperty());
+            innerPanel.prefWidthProperty().bind(rootLayout.widthProperty());
             Object controller = loader.getController();
             //if (controller instanceof SubPane) ((SubPane) controller).init();
             rootLayout.setCenter(innerPanel);

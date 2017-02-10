@@ -162,11 +162,21 @@ public class SaveGamePaneController {
 
 
     private void updateControls() {
+        System.out.println();
+
+
         x.setText(String.format("0x%04X", currentSaveGame.getGeo().getX()));
         y.setText(String.format("0x%04X", currentSaveGame.getGeo().getY()));
         map.setText(String.format("0x%04X", currentSaveGame.getGeo().getMap()));
         transport.setItems(observableTransportList);
-        transport.getSelectionModel().select(currentSaveGame.getGeo().getTransport());
+        //TODO fix
+        for (int i = 0; i < transportIds.length; i++) {
+            if (transportIds[i] == currentSaveGame.getGeo().getTransport()) {
+                transport.getSelectionModel().select(i);
+                break;
+            }
+        }
+        //transport.getSelectionModel().select(currentSaveGame.getGeo().getTransport());
         animation1.setText(String.format("0x%02X", currentSaveGame.getGeo().getAnimation1()));
         animation2.setText(String.format("0x%02X", currentSaveGame.getGeo().getAnimation2()));
 
@@ -269,5 +279,13 @@ public class SaveGamePaneController {
     public void okAddItemsButtonClick() {
         allItemsPane.setVisible(false);
         plusItemButton.setVisible(true);
+    }
+
+    public void directionChange() {
+        currentSaveGame.getGeo().setDirection(direction.getSelectionModel().getSelectedIndex());
+    }
+
+    public void transportChange() {
+        currentSaveGame.getGeo().setTransport(transportIds[transport.getSelectionModel().getSelectedIndex()]);
     }
 }

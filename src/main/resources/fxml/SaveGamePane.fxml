@@ -89,7 +89,7 @@
                <Label text="Map ID" />
                <TextField fx:id="map" GridPane.columnIndex="1" />
                <Label text="Transport" GridPane.rowIndex="1" />
-               <ComboBox fx:id="transport" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               <ComboBox fx:id="transport" onAction="#transportChange" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </GridPane>
          </VBox>
          <VBox fx:id="dungeonVBox" prefHeight="100.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
@@ -106,7 +106,7 @@
                <Label text="Dungeon ID" />
                <TextField fx:id="dungeon" prefHeight="26.0" prefWidth="88.0" GridPane.columnIndex="1" />
                <Label text="Direction" GridPane.rowIndex="2" />
-               <ComboBox fx:id="direction" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               <ComboBox fx:id="direction" onAction="#directionChange" prefWidth="160.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                <Label text="Room ID" GridPane.rowIndex="1" />
                <TextField fx:id="room" prefHeight="26.0" prefWidth="49.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </GridPane>

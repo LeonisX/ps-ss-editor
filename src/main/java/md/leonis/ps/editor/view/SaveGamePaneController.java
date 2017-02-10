@@ -2,11 +2,14 @@ package md.leonis.ps.editor.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.utils.Config;
@@ -46,8 +49,6 @@ public class SaveGamePaneController {
     @FXML
     public TextField itemsCount;
     @FXML
-    public TextField items;
-    @FXML
     public TextField church;
     @FXML
     public TextField heroes;
@@ -79,6 +80,18 @@ public class SaveGamePaneController {
     public Pane colorPane2;
     @FXML
     public ComboBox<String> geoComboBox;
+    @FXML
+    public FlowPane allItemsPane;
+    @FXML
+    public Button okAddItemsButton;
+    @FXML
+    public FlowPane itemsPane;
+    @FXML
+    public VBox itemsVBox;
+
+    private Button plusItemButton;
+
+    private Font font;
 
     private List<String> directionsList = new ArrayList<>(Arrays.asList("North", "East", "South", "West"));
     private List<String> transportList = new ArrayList<>(Arrays.asList("No", "Landrover", "Hovercraft", "Ice Digger"));
@@ -96,7 +109,7 @@ public class SaveGamePaneController {
         geoComboBox.setItems(observableGeosList);
 
         //System.out.println(String.format("%02X %04X", currentSaveGame.getGeo().getDungeon(), currentSaveGame.getGeo().getMap()));
-        // TODO Geo - equal
+        // TODO Geo - equals()
         for (int i = 0; i < Config.geos.size(); i++) {
             System.out.println(String.format("%02X %04X", Config.geos.get(i).getDungeon() , Config.geos.get(i).getMap()));
             if ((Config.geos.get(i).getDungeon() == currentSaveGame.getGeo().getDungeon())
@@ -106,6 +119,32 @@ public class SaveGamePaneController {
                 break;
             }
         }
+
+        plusItemButton = new Button("+");
+        plusItemButton.setOnAction(e -> addItemsButtonClick());
+
+        plusItemButton.managedProperty().bind(plusItemButton.visibleProperty());
+        allItemsPane.managedProperty().bind(allItemsPane.visibleProperty());
+
+        allItemsPane.setVisible(false);
+        //itemsPane.setVisible(true);
+
+        font = plusItemButton.getFont();
+        System.out.println(font);
+        for (int i = 0; i < 64; i++) {
+            Button button = new Button(Config.getItemName(i + 1));
+            button.setUserData(i + 1);
+            //button.setMinWidth(120);
+            button.setStyle("-fx-font: " + (font.getSize() - 2) + " " + font.getFamily());
+            button.setOnAction(this::addItem);
+            allItemsPane.getChildren().add(button);
+        }
+
+        Button button = new Button("OK");
+        button.setOnAction(e -> okAddItemsButtonClick());
+        button.setStyle("-fx-font: " + (font.getSize() - 2) + " " + font.getFamily());
+        allItemsPane.getChildren().add(button);
+
 
         colorSlider.setLabelFormatter(new StringConverter<Double>() {
             @Override
@@ -125,6 +164,7 @@ public class SaveGamePaneController {
         dungeonVBox.managedProperty().bind(dungeonVBox.visibleProperty());
 
 
+
         updateControls();
     }
 
@@ -142,7 +182,22 @@ public class SaveGamePaneController {
         //TODO update
         //companionsCount.setText(String.valueOf(currentSaveGame.getCompanionsCount()));
         itemsCount.setText(String.valueOf(currentSaveGame.getItemsCount()));
-        items.setText(Arrays.toString(currentSaveGame.getItems()));
+
+
+        //items.setText(Arrays.toString(currentSaveGame.getItems()));
+
+        itemsPane.getChildren().clear();
+        for (int i = 0; i < currentSaveGame.getItemsCount(); i++) {
+            Button button = new Button(Config.getItemName(currentSaveGame.getItems()[i]));
+            button.setUserData(i);
+            //button.setMinWidth(120);
+            button.setOnAction(this::deleteItem);
+            itemsPane.getChildren().add(button);
+        }
+        plusItemButton.setVisible(currentSaveGame.getItemsCount() != currentSaveGame.getItems().length
+        && !allItemsPane.isVisible());
+        itemsPane.getChildren().add(plusItemButton);
+
         church.setText(String.format("0x%02X", currentSaveGame.getGeo().getChurch()));
 
         dungeon.setText(String.format("0x%02X", currentSaveGame.getGeo().getDungeon()));
@@ -172,7 +227,6 @@ public class SaveGamePaneController {
         chests.setText(Arrays.toString(currentSaveGame.getChests()));
     }
 
-
     public void geoComboBoxAction() {
         int index = geoComboBox.getSelectionModel().getSelectedIndex();
         Geo srcGeo = Config.geos.get(index);
@@ -188,5 +242,38 @@ public class SaveGamePaneController {
 
     public void cancelButtonClick() {
         JavaFxUtils.showPane("SecondaryPane.fxml");
+    }
+
+
+    public void addItem(ActionEvent actionEvent) {
+        if (currentSaveGame.getItemsCount() < currentSaveGame.getItems().length) {
+            Button button = (Button) actionEvent.getSource();
+            currentSaveGame.getItems()[currentSaveGame.getItemsCount()] = (int) button.getUserData();
+            currentSaveGame.setItemsCount(currentSaveGame.getItemsCount() + 1);
+            updateControls();
+        }
+    }
+
+
+    private void deleteItem(ActionEvent actionEvent) {
+        Button button = (Button) actionEvent.getSource();
+        int index = (int) button.getUserData();
+        System.out.println(index);
+        currentSaveGame.getItems()[index] = 0;
+        System.arraycopy(currentSaveGame.getItems(), index + 1, currentSaveGame.getItems(),
+                index, currentSaveGame.getItems().length - 1 - index);
+        currentSaveGame.setItemsCount(currentSaveGame.getItemsCount() - 1);
+        updateControls();
+    }
+
+
+    public void addItemsButtonClick() {
+        allItemsPane.setVisible(true);
+        plusItemButton.setVisible(false);
+    }
+
+    public void okAddItemsButtonClick() {
+        allItemsPane.setVisible(false);
+        plusItemButton.setVisible(true);
     }
 }

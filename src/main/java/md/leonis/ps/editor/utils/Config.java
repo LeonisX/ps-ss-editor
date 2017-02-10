@@ -60,6 +60,10 @@ public class Config {
         return languageTable.getProperty("hero" + index);
     }
 
+    public static String getItemName(int index) {
+        return languageTable.getProperty("item" + index);
+    }
+
     public static String getKeyByValue(char value) {
         //System.out.println(Config.languageTable.entrySet().stream().filter(e -> e.getValue().equals(value + "")).findFirst());
         return Config.languageTable.entrySet().stream().filter(e -> e.getValue().equals(value + "")).findFirst()

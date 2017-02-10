@@ -9,7 +9,73 @@ hero2=Myau
 hero3=Tylon
 hero4=Lutz
 
-// TODO maps, items, ...
+// TODO maps,  ...
+
+item0=None
+item1=Wood Cane
+item2=Short Sword
+item3=Iron Sword
+item4=Psycho Wand
+item5=Saber Claw
+item6=Iron Axe
+item7=Titanium Sword
+item8=Ceramic Sword
+item9=Needle Gun
+item10=Silver Tusk
+item11=Heat Gun
+item12=Light Saber
+item13=Laser Gun
+item14=Laconian Sword
+item15=Laconian Axe
+item16=Leather Clothes
+item17=White Cloak
+item18=Light Suit
+item19=Iron Armor
+item20=Spiky Fur
+item21=Zirconian Mail
+item22=Diamond Armor
+item23=Laconian Armor
+item24=Frad Cloak
+item25=Leather Shield
+item26=Bronze Shield
+item27=Iron Shield
+item28=Ceramic Shield
+item29=Animal Glove
+item30=Laser Barrier
+item31=Shield of Perseus
+item32=Laconian Shield
+item33=LandMaster
+item34=FlowMover
+item35=IceDecker
+item36=PelorieMate
+item37=Ruoginin
+item38=Soothe Flute
+item39=Searchlight
+item40=Escape Cloth
+item41=TranCarpet
+item42=Magic Hat
+item43=Alsuline
+item44=Polymeteral
+item45=Dungeon Key
+item46=Telepathy Ball
+item47=Eclipse Torch
+item48=Aeroprism
+item49=Laerma Berries
+item50=Hapsby
+item51=Road Pass
+item52=Passport
+item53=Compass
+item54=Shortcake
+item55=Governor's Letter
+item56=Laconian Pot
+item57=Light Pendant
+item58=Carbunckle Eye
+item59=GasClear
+item60=Damoa's Crystal
+item61=Master System
+item62=Miracle Key
+item63=Zillion
+item64=Secret Thing
 
 
 // Alphabet (need for save slots)

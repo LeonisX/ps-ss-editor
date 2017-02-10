@@ -11,21 +11,22 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="md.leonis.ps.editor.view.SaveGamePaneController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="md.leonis.ps.editor.view.SaveGamePaneController">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <center>
-      <GridPane fx:id="gridPane" prefHeight="585.0" prefWidth="636.0" BorderPane.alignment="CENTER">
+      <GridPane fx:id="gridPane" BorderPane.alignment="CENTER">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="20.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="390.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="690.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -34,13 +35,13 @@
             <RowConstraints vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <Label text="Church ID" GridPane.rowIndex="8" />
          <Label text="Heroes" GridPane.rowIndex="5" />
@@ -52,7 +53,6 @@
          <Label text="Bosses" GridPane.rowIndex="11" />
          <TextField fx:id="church" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          <TextField fx:id="heroes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-         <TextField fx:id="items" GridPane.columnIndex="1" GridPane.rowIndex="6" />
          <TextField fx:id="mesetas" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          <TextField fx:id="itemsCount" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          <TextArea fx:id="events" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
@@ -140,6 +140,10 @@
                <Button mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
             </children>
          </HBox>
+         <VBox fx:id="itemsVBox" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <FlowPane fx:id="itemsPane" hgap="5.0" />
+            <FlowPane fx:id="allItemsPane" hgap="5.0" />
+         </VBox>
       </GridPane>
    </center>
 </BorderPane>

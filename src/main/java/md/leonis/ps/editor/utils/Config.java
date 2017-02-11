@@ -30,7 +30,14 @@ public class Config {
 
     public static SaveGame currentSaveGame = null;
 
-    public static Hero currentHero =  null;
+    public static Hero currentHero = null;
+
+    public static List<String> items = null;
+
+    public static List<String> churchs = null;
+
+    public static List<String> heroes = null;
+
 
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
@@ -53,15 +60,41 @@ public class Config {
             if (inputStream == null) throw new FileNotFoundException("Language table not found: " + fileName);
             languageTable = new Properties();
             languageTable.load(inputStream);
+            items = getItemNames();
+            churchs = getChurchNames();
+            heroes = getHeroesNames();
         }
     }
 
-    public static String getHeroName(int index) {
-        return languageTable.getProperty("hero" + index);
+    private static List<String> getItemNames() {
+        long count = languageTable.keySet().stream()
+                .filter(k -> ((String) k).matches("^item[0-9]*$")).count();
+        List<String> result = new LinkedList<>();
+        for (int i = 0; i < count; i++ ) {
+            result.add(languageTable.getProperty("item" + i));
+        }
+        return result;
     }
 
-    public static String getItemName(int index) {
-        return languageTable.getProperty("item" + index);
+    private static List<String> getChurchNames() {
+        long count = languageTable.keySet().stream()
+                .filter(k -> ((String) k).matches("^church[0-9]$")).count();
+        List<String> result = new LinkedList<>();
+        for (int i = 0; i < count; i++ ) {
+            result.add(languageTable.getProperty("church" + i));
+        }
+        return result;
+    }
+
+
+    private static List<String> getHeroesNames() {
+        long count = languageTable.keySet().stream()
+                .filter(k -> ((String) k).matches("^hero[0-9]$")).count();
+        List<String> result = new LinkedList<>();
+        for (int i = 1; i <= count; i++ ) {
+            result.add(languageTable.getProperty("hero" + i));
+        }
+        return result;
     }
 
     public static String getKeyByValue(char value) {
@@ -113,4 +146,5 @@ public class Config {
             e.printStackTrace();
         }
     }
+
 }

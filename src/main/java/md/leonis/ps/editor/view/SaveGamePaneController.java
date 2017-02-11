@@ -80,6 +80,8 @@ public class SaveGamePaneController {
     public FlowPane itemsPane;
     @FXML
     public VBox itemsVBox;
+    @FXML
+    public ComboBox<String> churchComboBox;
 
     private Button plusItemButton;
 
@@ -99,11 +101,8 @@ public class SaveGamePaneController {
         //TODO pretty show current map
 
         geoComboBox.setItems(observableGeosList);
-
-        //System.out.println(String.format("%02X %04X", currentSaveGame.getGeo().getDungeon(), currentSaveGame.getGeo().getMap()));
         // TODO Geo - equals()
         for (int i = 0; i < Config.geos.size(); i++) {
-            //System.out.println(String.format("%02X %04X", Config.geos.get(i).getDungeon() , Config.geos.get(i).getMap()));
             boolean flag;
             System.out.println(currentSaveGame.getGeo().getType());
             if (currentSaveGame.getGeo().getType() == 0x0B) {
@@ -128,14 +127,12 @@ public class SaveGamePaneController {
         allItemsPane.managedProperty().bind(allItemsPane.visibleProperty());
 
         allItemsPane.setVisible(false);
-        //itemsPane.setVisible(true);
 
         font = plusItemButton.getFont();
         System.out.println(font);
-        for (int i = 0; i < 64; i++) {
-            Button button = new Button(Config.getItemName(i + 1));
-            button.setUserData(i + 1);
-            //button.setMinWidth(120);
+        for (int i = 1; i < Config.items.size(); i++) {
+            Button button = new Button(Config.items.get(i));
+            button.setUserData(i);
             button.setStyle("-fx-font: " + (font.getSize() - 2) + " " + font.getFamily());
             button.setOnAction(this::addItem);
             allItemsPane.getChildren().add(button);
@@ -164,7 +161,8 @@ public class SaveGamePaneController {
         cityVBox.managedProperty().bind(cityVBox.visibleProperty());
         dungeonVBox.managedProperty().bind(dungeonVBox.visibleProperty());
 
-
+        churchComboBox.setItems(FXCollections.observableList(Config.churchs));
+        transport.setItems(observableTransportList);
 
         updateControls();
     }
@@ -177,7 +175,7 @@ public class SaveGamePaneController {
         x.setText(String.format("%04X", currentSaveGame.getGeo().getX()));
         y.setText(String.format("%04X", currentSaveGame.getGeo().getY()));
         map.setText(String.format("%04X", currentSaveGame.getGeo().getMap()));
-        transport.setItems(observableTransportList);
+
         for (int i = 0; i < transportIds.length; i++) {
             if (transportIds[i] == currentSaveGame.getGeo().getTransport()) {
                 transport.getSelectionModel().select(i);
@@ -188,18 +186,11 @@ public class SaveGamePaneController {
         animation2.setText(String.format("%02X", currentSaveGame.getGeo().getAnimation2()));
 
         mesetas.setText(String.valueOf(currentSaveGame.getMesetas()));
-        //TODO update
-        //companionsCount.setText(String.valueOf(currentSaveGame.getCompanionsCount()));
-        //itemsCount.setText(String.valueOf(currentSaveGame.getItemsCount()));
-
-
-        //items.setText(Arrays.toString(currentSaveGame.getItems()));
 
         itemsPane.getChildren().clear();
         for (int i = 0; i < currentSaveGame.getItemsCount(); i++) {
-            Button button = new Button(Config.getItemName(currentSaveGame.getItems()[i]));
+            Button button = new Button(Config.items.get(currentSaveGame.getItems()[i]));
             button.setUserData(i);
-            //button.setMinWidth(120);
             button.setOnAction(this::deleteItem);
             itemsPane.getChildren().add(button);
         }
@@ -207,15 +198,21 @@ public class SaveGamePaneController {
         && !allItemsPane.isVisible());
         itemsPane.getChildren().add(plusItemButton);
 
-        //TODO combobox
-        church.setText(String.format("%02X", currentSaveGame.getGeo().getChurch()));
-
         dungeon.setText(String.format("0x%02X", currentSaveGame.getGeo().getDungeon()));
         room.setText(String.format("0x%02X", currentSaveGame.getGeo().getRoom()));
 
         direction.setItems(observableDirectionsList);
         direction.getSelectionModel().select(currentSaveGame.getGeo().getDirection());
-        //color.setText(String.format("0x%02X", currentSaveGame.getGeo().getColor()));
+
+        for (int i = 0; i < Config.churchs.size(); i++) {
+            if (Config.churchs.get(i).equals(currentSaveGame.getGeo().getChurch())) {
+                churchComboBox.getSelectionModel().select(i);
+                break;
+            }
+        }
+
+        churchComboBox.getSelectionModel().select(currentSaveGame.getGeo().getChurch());
+
 
         if (currentSaveGame.getGeo().getType() == 0x0B) {
             cityRadioButton.setSelected(true);
@@ -226,13 +223,6 @@ public class SaveGamePaneController {
             //cityVBox.setVisible(false);
             dungeonVBox.setVisible(true);
         }
-
-/*
-        tt.setText("X" + x.getText() + " Y" + y.getText() + " M" + map.getText() + " T" + currentSaveGame.getGeo().getTransport()
-                + " D" + dungeon.getText() + " R" + room.getText() + " Dr" + currentSaveGame.getGeo().getDirection() + " C" + color.getText());
-*/
-
-
         heroes.setText(Arrays.toString(currentSaveGame.getHeroes()));
         bosses.setText(Arrays.toString(currentSaveGame.getBosses()));
         events.setText(Arrays.toString(currentSaveGame.getEvents()));
@@ -248,8 +238,8 @@ public class SaveGamePaneController {
 
     public void okButtonClick() {
         currentSaveGame.setMesetas(Integer.parseInt(mesetas.getText()));
-        //currentSaveGame.getGeo().setX(Integer.parseInt(x.getText()));
-        //currentSaveGame.getGeo().setY(Integer.parseInt(y.getText()));
+        currentSaveGame.getGeo().setX(Integer.parseInt(x.getText(), 16));
+        currentSaveGame.getGeo().setY(Integer.parseInt(y.getText(), 16));
         Config.saveState.updateDump();
         JavaFxUtils.showPane("SecondaryPane.fxml");
     }
@@ -297,5 +287,9 @@ public class SaveGamePaneController {
 
     public void transportChange() {
         currentSaveGame.getGeo().setTransport(transportIds[transport.getSelectionModel().getSelectedIndex()]);
+    }
+
+    public void churchComboBoxAction() {
+        currentSaveGame.getGeo().setChurch(churchComboBox.getSelectionModel().getSelectedIndex());
     }
 }

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
@@ -37,23 +36,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
             <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
          </rowConstraints>
          <Label text="Last visited church" GridPane.rowIndex="7" />
          <Label text="Heroes" GridPane.rowIndex="5" />
          <Label text="Items" GridPane.rowIndex="6" />
          <Label text="Mesetas" GridPane.rowIndex="4" />
-         <Label text="Events" GridPane.rowIndex="8" />
-         <Label text="Chests" GridPane.rowIndex="9" />
-         <Label text="Bosses" GridPane.rowIndex="10" />
-         <TextField fx:id="heroes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          <TextField fx:id="mesetas" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-         <TextArea fx:id="events" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-         <TextArea fx:id="chests" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-         <TextArea fx:id="bosses" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="10" />
          <Label text="Location" GridPane.rowIndex="1" />
          <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <RadioButton fx:id="cityRadioButton" mnemonicParsing="false" selected="true" text="Planet surface, cities">
@@ -103,7 +92,7 @@
          </HBox>
          <ComboBox fx:id="geoComboBox" onAction="#geoComboBoxAction" prefHeight="26.0" prefWidth="338.0" visibleRowCount="20" GridPane.columnIndex="1" />
          <Label text="Locations:" />
-         <HBox alignment="BOTTOM_RIGHT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+         <HBox alignment="BOTTOM_RIGHT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
             <Button mnemonicParsing="false" onAction="#okButtonClick" text="    OK    " />
             <Button mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
          </HBox>
@@ -112,6 +101,7 @@
             <FlowPane fx:id="allItemsPane" hgap="5.0" />
          </VBox>
          <ComboBox fx:id="churchComboBox" onAction="#churchComboBoxAction" prefHeight="26.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+         <VBox fx:id="heroesVBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       </GridPane>
    </center>
 </BorderPane>

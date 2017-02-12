@@ -92,7 +92,7 @@ public class SecondaryPaneController {
             switch (saveState.getSaveGames()[i].getStatus()) {
                 case DELETED:
                     Font font = button.getFont();
-                    System.out.println(font);
+                    //System.out.println(font);
                     button.setStyle("-fx-font: " + (font.getSize() - 1) + " " + font.getFamily() + "; -fx-text-fill: gray");
                     button.setText("deleted");
                     break;
@@ -101,7 +101,7 @@ public class SecondaryPaneController {
                     break;
                 case EMPTY:
                     Font font2 = button.getFont();
-                    System.out.println(font2);
+                    //System.out.println(font2);
                     button.setStyle("-fx-font: " + (font2.getSize() - 1) + " " + font2.getFamily() + "; -fx-text-fill: gray");
                     button.setText("empty");
                     break;

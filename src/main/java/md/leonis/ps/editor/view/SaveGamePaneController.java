@@ -5,18 +5,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.StringConverter;
+import md.leonis.extractor.model.HeroNode;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,16 +44,6 @@ public class SaveGamePaneController {
     @FXML
     public ComboBox<String> direction;
     @FXML
-    public TextField church;
-    @FXML
-    public TextField heroes;
-    @FXML
-    public TextArea bosses;
-    @FXML
-    public TextArea events;
-    @FXML
-    public TextArea chests;
-    @FXML
     public VBox dungeonVBox;
     @FXML
     public VBox cityVBox;
@@ -82,22 +71,36 @@ public class SaveGamePaneController {
     public VBox itemsVBox;
     @FXML
     public ComboBox<String> churchComboBox;
+    @FXML
+    public VBox heroesVBox;
 
     private Button plusItemButton;
-
-    private Font font;
 
     private List<String> directionsList = new ArrayList<>(Arrays.asList("North", "East", "South", "West"));
     private List<String> transportList = new ArrayList<>(Arrays.asList("No", "Landrover", "Hovercraft", "Ice Digger"));
     private int[] transportIds = new int[]{0x00, 0x04, 0x08, 0x0C};
 
-    ObservableList<String> observableDirectionsList = FXCollections.observableList(directionsList);
-    ObservableList<String> observableTransportList = FXCollections.observableList(transportList);
+    private List<HeroNode> heroNodes = new LinkedList<>();
 
-    ObservableList<String> observableGeosList = FXCollections.observableList(Config.geos.stream().map(Geo::getName).collect(Collectors.toList()));
+    private ObservableList<String> observableDirectionsList = FXCollections.observableList(directionsList);
+    private ObservableList<String> observableTransportList = FXCollections.observableList(transportList);
+    private ObservableList<String> observableGeosList = FXCollections.observableList(Config.geos.stream().map(Geo::getName).collect(Collectors.toList()));
+
 
     @FXML
     private void initialize() {
+
+        //
+        // Alisa                            revive heal hire retire/dismiss
+        for (int i = 0; i < 4; i++) {
+            heroNodes.add((new HeroNode(i)));
+            heroesVBox.getChildren().add(heroNodes.get(i).getBorderPane());
+        }
+
+
+        //geoComboBox.getScene().lookup()
+
+
         //TODO pretty show current map
 
         geoComboBox.setItems(observableGeosList);
@@ -128,7 +131,7 @@ public class SaveGamePaneController {
 
         allItemsPane.setVisible(false);
 
-        font = plusItemButton.getFont();
+        Font font = plusItemButton.getFont();
         System.out.println(font);
         for (int i = 1; i < Config.items.size(); i++) {
             Button button = new Button(Config.items.get(i));
@@ -204,13 +207,6 @@ public class SaveGamePaneController {
         direction.setItems(observableDirectionsList);
         direction.getSelectionModel().select(currentSaveGame.getGeo().getDirection());
 
-        for (int i = 0; i < Config.churchs.size(); i++) {
-            if (Config.churchs.get(i).equals(currentSaveGame.getGeo().getChurch())) {
-                churchComboBox.getSelectionModel().select(i);
-                break;
-            }
-        }
-
         churchComboBox.getSelectionModel().select(currentSaveGame.getGeo().getChurch());
 
 
@@ -223,10 +219,10 @@ public class SaveGamePaneController {
             //cityVBox.setVisible(false);
             dungeonVBox.setVisible(true);
         }
-        heroes.setText(Arrays.toString(currentSaveGame.getHeroes()));
-        bosses.setText(Arrays.toString(currentSaveGame.getBosses()));
-        events.setText(Arrays.toString(currentSaveGame.getEvents()));
-        chests.setText(Arrays.toString(currentSaveGame.getChests()));
+        //heroes.setText(Arrays.toString(currentSaveGame.getHeroes()));
+        //bosses.setText(Arrays.toString(currentSaveGame.getBosses()));
+        //events.setText(Arrays.toString(currentSaveGame.getEvents()));
+        //chests.setText(Arrays.toString(currentSaveGame.getChests()));
     }
 
     public void geoComboBoxAction() {
@@ -249,7 +245,7 @@ public class SaveGamePaneController {
     }
 
 
-    public void addItem(ActionEvent actionEvent) {
+    private void addItem(ActionEvent actionEvent) {
         if (currentSaveGame.getItemsCount() < currentSaveGame.getItems().length) {
             Button button = (Button) actionEvent.getSource();
             currentSaveGame.getItems()[currentSaveGame.getItemsCount()] = (int) button.getUserData();
@@ -271,12 +267,12 @@ public class SaveGamePaneController {
     }
 
 
-    public void addItemsButtonClick() {
+    private void addItemsButtonClick() {
         allItemsPane.setVisible(true);
         plusItemButton.setVisible(false);
     }
 
-    public void okAddItemsButtonClick() {
+    private void okAddItemsButtonClick() {
         allItemsPane.setVisible(false);
         plusItemButton.setVisible(true);
     }

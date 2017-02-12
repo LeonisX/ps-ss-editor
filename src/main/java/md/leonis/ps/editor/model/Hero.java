@@ -25,9 +25,6 @@ public class Hero {
 
 //TODO research for all heroes start equipment
 
-    //TODO read from romData
-
-
     public static Hero readFromRom(Dump romData, int index) {
         return new Hero(Config.heroes.get(index), romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getShort() ,romData.getByte(),
                 romData.getByte(), romData.getByte(),romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(),

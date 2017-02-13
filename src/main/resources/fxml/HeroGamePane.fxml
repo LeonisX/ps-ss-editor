@@ -83,7 +83,7 @@
             <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <TextField fx:id="experience" prefWidth="100.0" />
                <Label text="next level:" />
-               <Label text="400" />
+               <Label fx:id="nextLevel" text="400" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <ComboBox fx:id="weapon" onAction="#weaponAction" prefWidth="300.0" />

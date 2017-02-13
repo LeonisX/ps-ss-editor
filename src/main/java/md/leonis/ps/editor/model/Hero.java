@@ -1,12 +1,15 @@
 package md.leonis.ps.editor.model;
 
 
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
+import md.leonis.ps.editor.utils.JavaFxUtils;
 
 
 public class Hero {
@@ -92,6 +95,19 @@ public class Hero {
         hireButton = new Button("hire");
         customizeButton = new Button("customize");
 
+        healButton.setUserData(index);
+        reviveButton.setUserData(index);
+        hireButton.setUserData(index);
+        customizeButton.setUserData(index);
+
+        healButton.setOnAction(this::healButtonClick);
+        reviveButton.setOnAction(this::healButtonClick);
+        //TODO
+        //hireButton.setOnAction(this::healButtonClick);
+        customizeButton.setOnAction(this::customizeButtonClick);
+
+
+
         healButton.managedProperty().bind(healButton.visibleProperty());
         reviveButton.managedProperty().bind(reviveButton.visibleProperty());
         hireButton.managedProperty().bind(hireButton.visibleProperty());
@@ -100,10 +116,11 @@ public class Hero {
 
         leftHBox = new HBox(nameLabel, textLabel);
         rightHBox = new HBox(healButton, reviveButton, hireButton, customizeButton);
+        rightHBox.setSpacing(5);
         borderPane = new BorderPane(leftHBox);
         borderPane.setRight(rightHBox);
 
-        update(index);
+        update();
     }
 
     private Hero alisaInitial() {
@@ -112,11 +129,17 @@ public class Hero {
                 0x00, 0x00);
     }
 
-    public void update(int index) {
+    public void update() {
         boolean exist = level > 0;
-        //TODO health (great 95%, tired 70%, injured 50, dead)
         if (exist) {
-            textLabel.setText("level: " + level + "; health: injured");
+            double health = (maxHp + maxMp) == 0 ? 0 : (hp + mp) * 100.0 / (maxHp + maxMp);
+            System.out.println("H:"+health);
+            String state = Config.states.get(0);
+            if (health < 90) state = Config.states.get(1);
+            if (health < 60) state = Config.states.get(2);
+            if (health < 30) state = Config.states.get(3);
+            if (!isAlive) state = Config.states.get(4);
+            textLabel.setText("level: " + level + "; health: " + state);
         } else {
             textLabel.setText("somewhere far away...");
         }
@@ -125,6 +148,22 @@ public class Hero {
         hireButton.setVisible(!exist);
         customizeButton.setVisible(exist);
     }
+
+    private void healButtonClick(ActionEvent actionEvent) {
+        Integer index = (Integer) ((Node) actionEvent.getSource()).getUserData();
+        Hero hero = Config.currentSaveGame.getHeroes()[index];
+        hero.setAlive(true);
+        hero.setHp(hero.getMaxHp());
+        hero.setMp(hero.getMaxMp());
+        hero.update();
+    }
+
+    private void customizeButtonClick(ActionEvent actionEvent) {
+        Integer index = (Integer) ((Node) actionEvent.getSource()).getUserData();
+        Config.currentHero = Config.currentSaveGame.getHeroes()[index];
+        JavaFxUtils.showPane("HeroGamePane.fxml");
+    }
+
 
     public String getName() {
         return name;

@@ -1,12 +1,16 @@
 package md.leonis.ps.editor.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import md.leonis.ps.editor.utils.Config;
+import md.leonis.ps.editor.utils.JavaFxUtils;
 
 import static md.leonis.ps.editor.utils.Config.currentHero;
-import static md.leonis.ps.editor.utils.Config.currentSaveGame;
 
 public class HeroGamePaneController {
 
@@ -33,41 +37,62 @@ public class HeroGamePaneController {
     @FXML
     public TextField experience;
     @FXML
-    public ComboBox weapon;
+    public Label nextLevel;
     @FXML
-    public ComboBox armor;
+    public ComboBox<String> weapon;
     @FXML
-    public ComboBox shield;
+    public ComboBox<String> armor;
+    @FXML
+    public ComboBox<String> shield;
     @FXML
     public TextField attack;
     @FXML
     public TextField defense;
     @FXML
-    public ComboBox level;
+    public ComboBox<Integer> level;
     @FXML
     public Slider combatSpells;
     @FXML
     public Slider curativeSpells;
-
 
     @FXML
     public ImageView image;
     @FXML
     public ImageView icon;
 
+    private ObservableList<String> observableWeaponsList = FXCollections.observableList(Config.weaponNames);
+    private ObservableList<String> observableArmorsList = FXCollections.observableList(Config.armorNames);
+    private ObservableList<String> observableShieldsList = FXCollections.observableList(Config.shieldNames);
+
+    //TODO
+    //TODO - dump all levels from ROM - we need this!!!!!!!!!!!!
     @FXML
     private void initialize() {
         name.setText(currentHero.getName());
+        for (int i = 1; i <= 30; i++) {
+            level.getItems().add(i);
+        }
+        level.getSelectionModel().select(currentHero.getLevel() - 1);
+        weapon.setItems(observableWeaponsList);
+        armor.setItems(observableArmorsList);
+        shield.setItems(observableShieldsList);
+        // state - we don't need this for save state
+        level.setOnAction(this::levelAction);
+        weapon.setOnAction(this::weaponAction);
+        armor.setOnAction(this::armorAction);
+        shield.setOnAction(this::shieldAction);
+        update();
+    }
+
+    private void update() {
         hp.setText(Integer.toString(currentHero.getHp()));
         mp.setText(Integer.toString(currentHero.getMp()));
         experience.setText(Integer.toString(currentHero.getExperience()));
-        hp.setText(Integer.toString(currentHero.getHp()));
-        hp.setText(Integer.toString(currentHero.getHp()));
         if (currentHero.getLevel() > 30) {
             currentHero.setLevel(30);
         }
-        level.getSelectionModel().select(currentHero.getLevel());
         experience.setText(Integer.toString(currentHero.getExperience()));
+        //TODO nextLevel
         maxHp.setText(Integer.toString(currentHero.getMaxHp()));
         maxMp.setText(Integer.toString(currentHero.getMaxMp()));
 
@@ -77,27 +102,43 @@ public class HeroGamePaneController {
         //TODO customize 0 .. max
         combatSpells.setValue(currentHero.getCombatSpells());
         curativeSpells.setValue(currentHero.getCurativeSpells());
-
-        //TODO fill lists
-        //private int weapon;         // 0x50A. 1 byte
-        //private int armor;          // 0x50B. 1 byte
-        //private int shield;         // 0x50C. 1 byte
-        // state - we don't need this for save state
     }
 
-    public void okButtonClick(ActionEvent actionEvent) {
+    public void okButtonClick() {
+        //TODO checks, error handler
+        currentHero.setHp(Integer.parseInt(hp.getText()));
+        currentHero.setMp(Integer.parseInt(mp.getText()));
+        currentHero.setMaxHp(Integer.parseInt(maxHp.getText()));
+        currentHero.setMaxMp(Integer.parseInt(maxMp.getText()));
+
+        if (currentHero.getHp() == 0) currentHero.setAlive(false);
+
+        currentHero.setExperience(Integer.parseInt(experience.getText()));
+
+        currentHero.setAttack(Integer.parseInt(attack.getText()));
+        currentHero.setDefense(Integer.parseInt(defense.getText()));
+
+        currentHero.setCombatSpells((int) combatSpells.getValue());
+        currentHero.setCurativeSpells((int) curativeSpells.getValue());
+
+        currentHero.update();
+
+        JavaFxUtils.showPane("SaveGamePane.fxml");
     }
 
-    public void weaponAction(ActionEvent actionEvent) {
+    public void weaponAction(Event event) {
     }
 
-    public void armorAction(ActionEvent actionEvent) {
+    public void armorAction(Event event) {
     }
 
-    public void shieldAction(ActionEvent actionEvent) {
+    public void shieldAction(Event event) {
     }
 
-    public void levelAction(ActionEvent actionEvent) {
+    public void levelAction(Event event) {
+        currentHero.setLevel(level.getSelectionModel().getSelectedIndex() + 1);
+        //TODO update all datas conform level.
+        update();
     }
 
     public void allowButtonClick(ActionEvent actionEvent) {

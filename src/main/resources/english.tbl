@@ -2,12 +2,14 @@
 //TODO other versions:
 //english, brazilian, french, japan, korean, russian_old, russian
 
+none=None
+
 // The names of heroes
 
-hero1=Alisa
-hero2=Myau
-hero3=Tylon
-hero4=Lutz
+hero0=Alisa
+hero1=Myau
+hero2=Tylon
+hero3=Lutz
 
 // TODO maps,  ...
 
@@ -21,116 +23,74 @@ church6=Casba
 church7=Twintown
 church8=Skure
 
-
-; 0 - Alisa
-; 1 - Myau
-; 2 - Tylon
-; 3 - Lutz
-
 ;       title             attack   use by
-weapon1=Wood Cane       ;   3   ;   0,2,3
-weapon2=Short Sword     ;   4   ;   0,2,3
-weapon3=Iron Sword      ;   12  ;   0,2
-weapon4=Psycho Wand     ;   10  ;   0,2,3
-weapon5=Saber Claw      ;   10  ;   1
-weapon6=Iron Axe        ;   10  ;   2
-weapon7=Titanium Sword  ;   21  ;   0,2
-weapon8=Ceramic Sword   ;   31  ;   0,2
-weapon9=Needle Gun      ;   18  ;   2
-weapon10=Silver Tusk    ;   30  ;   1
-weapon11=Heat Gun       ;   30  ;   2
-weapon12=Light Saber    ;   46  ;   0,2
-weapon13=Laser Gun      ;   50  ;   2
-weapon14=Laconian Sword ;   60  ;   0,2
-weapon15=Laconian Axe   ;   80  ;   2
+weapon0=Wood Cane       ;   3   ;   0,2,3
+weapon1=Short Sword     ;   4   ;   0,2,3
+weapon2=Iron Sword      ;   12  ;   0,2
+weapon3=Psycho Wand     ;   10  ;   0,2,3
+weapon4=Saber Claw      ;   10  ;   1
+weapon5=Iron Axe        ;   10  ;   2
+weapon6=Titanium Sword  ;   21  ;   0,2
+weapon7=Ceramic Sword   ;   31  ;   0,2
+weapon8=Needle Gun      ;   18  ;   2
+weapon9=Silver Tusk    ;   30  ;   1
+weapon10=Heat Gun       ;   30  ;   2
+weapon11=Light Saber    ;   46  ;   0,2
+weapon12=Laser Gun      ;   50  ;   2
+weapon13=Laconian Sword ;   60  ;   0,2
+weapon14=Laconian Axe   ;   80  ;   2
 
-item0=None
-item1=Wood Cane
-item2=Short Sword
-item3=Iron Sword
-item4=Psycho Wand
-item5=Saber Claw
-item6=Iron Axe
-item7=Titanium Sword
-item8=Ceramic Sword
-item9=Needle Gun
-item10=Silver Tusk
-item11=Heat Gun
-item12=Light Saber
-item13=Laser Gun
-item14=Laconian Sword
-item15=Laconian Axe
+armor0=Leather Clothes  ;   5   ;   0,2
+armor1=White Cloak      ;   5   ;   3
+armor2=Light Suit       ;   15  ;   0,2
+armor3=Iron Armor       ;   20  ;   2
+armor4=Spiky Fur        ;   30  ;   1
+armor5=Zirconian Mail   ;   30  ;   0,2
+armor6=Diamond Armor    ;   60  ;   0,2
+armor7=Laconian Armor   ;   80  ;   2
+armor8=Frad Cloak       ;   40  ;   3
 
-armor1=Leather Clothes  ;   5   ;   0,2
-armor2=White Cloak      ;   5   ;   3
-armor3=Light Suit       ;   15  ;   0,2
-armor4=Iron Armor       ;   20  ;   2
-armor5=Spiky Fur        ;   30  ;   1
-armor6=Zirconian Mail   ;   30  ;   0,2
-armor7=Diamond Armor    ;   60  ;   0,2
-armor8=Laconian Armor   ;   80  ;   2
-armor9=Frad Cloak       ;   40  ;   3
+shield0=Leather Shield      ;   3   ;   0,2
+shield1=Bronze Shield       ;   8   ;   2
+shield2=Iron Shield         ;   15  ;   0,2
+shield3=Ceramic Shield      ;   23  ;   0,2
+shield4=Animal Glove        ;   40  ;   1
+shield5=Laser Barrier       ;   30  ;   0,2,3
+shield6=Shield of Perseus   ;   40  ;   2
+shield7=Laconian Shield     ;   50  ;   0,2
 
-item16=Leather Clothes
-item17=White Cloak
-item18=Light Suit
-item19=Iron Armor
-item20=Spiky Fur
-item21=Zirconian Mail
-item22=Diamond Armor
-item23=Laconian Armor
-item24=Frad Cloak
-
-shield1=Leather Shield      ;   3   ;   0,2
-shield2=Bronze Shield       ;   8   ;   2
-shield3=Iron Shield         ;   15  ;   0,2
-shield4=Ceramic Shield      ;   23  ;   0,2
-shield5=Animal Glove        ;   40  ;   1
-shield6=Laser Barrier       ;   30  ;   0,2,3
-shield7=Shield of Perseus   ;   40  ;   2
-shield8=Laconian Shield     ;   50  ;   0,2
-
-item25=Leather Shield
-item26=Bronze Shield
-item27=Iron Shield
-item28=Ceramic Shield
-item29=Animal Glove
-item30=Laser Barrier
-item31=Shield of Perseus
-item32=Laconian Shield
-
-item33=LandMaster
-item34=FlowMover
-item35=IceDecker
-item36=PelorieMate
-item37=Ruoginin
-item38=Soothe Flute
-item39=Searchlight
-item40=Escape Cloth
-item41=TranCarpet
-item42=Magic Hat
-item43=Alsuline
-item44=Polymeteral
-item45=Dungeon Key
-item46=Telepathy Ball
-item47=Eclipse Torch
-item48=Aeroprism
-item49=Laerma Berries
-item50=Hapsby
-item51=Road Pass
-item52=Passport
-item53=Compass
-item54=Shortcake
-item55=Governor's Letter
-item56=Laconian Pot
-item57=Light Pendant
-item58=Carbunckle Eye
-item59=GasClear
-item60=Damoa's Crystal
-item61=Master System
-item62=Miracle Key
-item63=Zillion
-item64=Secret Thing
+item0=LandMaster
+item1=FlowMover
+item2=IceDecker
+item3=PelorieMate
+item4=Ruoginin
+item5=Soothe Flute
+item6=Searchlight
+item7=Escape Cloth
+item8=TranCarpet
+item9=Magic Hat
+item10=Alsuline
+item11=Polymeteral
+item12=Dungeon Key
+item13=Telepathy Ball
+item14=Eclipse Torch
+item15=Aeroprism
+item16=Laerma Berries
+item17=Hapsby
+item18=Road Pass
+item19=Passport
+item20=Compass
+item21=Shortcake
+item22=Governor's Letter
+item23=Laconian Pot
+item24=Light Pendant
+item25=Carbunckle Eye
+item26=GasClear
+item27=Damoa's Crystal
+item28=Master System
+item29=Miracle Key
+item30=Zillion
+item31=Secret Thing
 
 
 // Alphabet (need for save slots)

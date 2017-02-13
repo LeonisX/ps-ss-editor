@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -44,6 +45,13 @@ public class Config {
     //public static List<Item> combatSpells = null;
     //public static List<Item> curativeSpells = null;
 
+    public static List<String> weaponNames = null;
+    public static List<String> armorNames = null;
+    public static List<String> shieldNames = null;
+
+    public static String none;
+
+    public static List<String> states = new LinkedList<>(Arrays.asList("great", "tired", "injured", "weak", "dead"));
 
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
@@ -66,6 +74,9 @@ public class Config {
             if (inputStream == null) throw new FileNotFoundException("Language table not found: " + fileName);
             languageTable = new Properties();
             languageTable.load(inputStream);
+
+
+
             churchs = getChurchNames();
             heroes = getHeroesNames();
 
@@ -73,17 +84,38 @@ public class Config {
             armors = getArmors();
             shields = getShields();
 
+            weaponNames = getNames(weapons);
+            armorNames = getNames(armors);
+            shieldNames = getNames(shields);
+
+            none = languageTable.getProperty("none");
+
             items = getItemNames();
+
+            prepend(weaponNames);
+            prepend(armorNames);
+            prepend(shieldNames);
         }
+    }
+
+    private static List<String> getNames(List<Item> items) {
+        List<String> result = new LinkedList<>();
+        items.forEach(i -> result.add(i.getName()));
+        return result;
     }
 
     //TODO -> weapons,...
     private static List<String> getItemNames() {
         List<String> items = getGroup("item");
-        items.addAll(1, shields.stream().map(Item::getName).collect(Collectors.toList()));
-        items.addAll(1, armors.stream().map(Item::getName).collect(Collectors.toList()));
-        items.addAll(1, weapons.stream().map(Item::getName).collect(Collectors.toList()));
+        items.addAll(0, shieldNames);
+        items.addAll(0, armorNames);
+        items.addAll(0, weaponNames);
+        prepend(items);
         return items;
+    }
+
+    private static void prepend(List<String> strings) {
+        strings.add(0, none);
     }
 
     private static List<String> getChurchNames() {
@@ -158,7 +190,7 @@ public class Config {
         long count = languageTable.keySet().stream()
                 .filter(k -> ((String) k).matches("^" + group + "[0-9]*$")).count();
         List<String> result = new LinkedList<>();
-        for (int i = 1; i <= count; i++ ) {
+        for (int i = 0; i < count; i++ ) {
             result.add(languageTable.getProperty(group + i));
         }
         return result;

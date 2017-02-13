@@ -8,14 +8,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.StringConverter;
-import md.leonis.extractor.model.HeroNode;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,8 +78,6 @@ public class SaveGamePaneController {
     private List<String> transportList = new ArrayList<>(Arrays.asList("No", "Landrover", "Hovercraft", "Ice Digger"));
     private int[] transportIds = new int[]{0x00, 0x04, 0x08, 0x0C};
 
-    private List<HeroNode> heroNodes = new LinkedList<>();
-
     private ObservableList<String> observableDirectionsList = FXCollections.observableList(directionsList);
     private ObservableList<String> observableTransportList = FXCollections.observableList(transportList);
     private ObservableList<String> observableGeosList = FXCollections.observableList(Config.geos.stream().map(Geo::getName).collect(Collectors.toList()));
@@ -93,8 +89,8 @@ public class SaveGamePaneController {
         //
         // Alisa                            revive heal hire retire/dismiss
         for (int i = 0; i < 4; i++) {
-            heroNodes.add((new HeroNode(i)));
-            heroesVBox.getChildren().add(heroNodes.get(i).getBorderPane());
+            //System.out.println(currentSaveGame.getHeroes()[i].getBorderPane());
+            heroesVBox.getChildren().add(currentSaveGame.getHeroes()[i].getBorderPane());
         }
 
 

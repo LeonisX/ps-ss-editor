@@ -1,9 +1,6 @@
 package md.leonis.ps.editor.utils;
 
-import md.leonis.ps.editor.model.Geo;
-import md.leonis.ps.editor.model.Hero;
-import md.leonis.ps.editor.model.SaveGame;
-import md.leonis.ps.editor.model.SaveState;
+import md.leonis.ps.editor.model.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,6 +11,7 @@ import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class Config {
     /*static String apiPath;
@@ -38,6 +36,14 @@ public class Config {
 
     public static List<String> heroes = null;
 
+    // http://www.pscave.com/ps1/faqwalkthrough2.txt
+    //TODO read from ROM
+    public static List<Item> weapons = null;
+    public static List<Item> armors = null;
+    public static List<Item> shields = null;
+    //public static List<Item> combatSpells = null;
+    //public static List<Item> curativeSpells = null;
+
 
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
@@ -60,41 +66,32 @@ public class Config {
             if (inputStream == null) throw new FileNotFoundException("Language table not found: " + fileName);
             languageTable = new Properties();
             languageTable.load(inputStream);
-            items = getItemNames();
             churchs = getChurchNames();
             heroes = getHeroesNames();
+
+            weapons = getWeapons();
+            armors = getArmors();
+            shields = getShields();
+
+            items = getItemNames();
         }
     }
 
+    //TODO -> weapons,...
     private static List<String> getItemNames() {
-        long count = languageTable.keySet().stream()
-                .filter(k -> ((String) k).matches("^item[0-9]*$")).count();
-        List<String> result = new LinkedList<>();
-        for (int i = 0; i < count; i++ ) {
-            result.add(languageTable.getProperty("item" + i));
-        }
-        return result;
+        List<String> items = getGroup("item");
+        items.addAll(1, shields.stream().map(Item::getName).collect(Collectors.toList()));
+        items.addAll(1, armors.stream().map(Item::getName).collect(Collectors.toList()));
+        items.addAll(1, weapons.stream().map(Item::getName).collect(Collectors.toList()));
+        return items;
     }
 
     private static List<String> getChurchNames() {
-        long count = languageTable.keySet().stream()
-                .filter(k -> ((String) k).matches("^church[0-9]$")).count();
-        List<String> result = new LinkedList<>();
-        for (int i = 0; i < count; i++ ) {
-            result.add(languageTable.getProperty("church" + i));
-        }
-        return result;
+        return getGroup("church");
     }
 
-
     private static List<String> getHeroesNames() {
-        long count = languageTable.keySet().stream()
-                .filter(k -> ((String) k).matches("^hero[0-9]$")).count();
-        List<String> result = new LinkedList<>();
-        for (int i = 1; i <= count; i++ ) {
-            result.add(languageTable.getProperty("hero" + i));
-        }
-        return result;
+        return getGroup("hero");
     }
 
     public static String getKeyByValue(char value) {
@@ -103,21 +100,11 @@ public class Config {
                 .map(objectEntry -> objectEntry.getKey().toString()).orElse("");
     }
 
-    //public static Gson gson = new Gson();
-
     public static List<Geo> geos;
 
     static {
         ClassLoader classLoader = Config.class.getClassLoader();
         File file = new File(classLoader.getResource("results.csv").getFile());
-/*        JsonReader jsonReader = null;
-        try {
-            jsonReader = new JsonReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return gson.fromJson(jsonReader, new TypeToken<List<Geo>>(){}.getType());*/
-
         geos = new LinkedList<>();
         try {
             List<String> list = Files.readAllLines(file.toPath(), Charset.defaultCharset() );
@@ -147,4 +134,33 @@ public class Config {
         }
     }
 
+    public static List<Item> getWeapons() {
+        return getItem("weapon");
+    }
+
+
+    public static List<Item> getArmors() {
+        return getItem("armor");
+    }
+
+    public static List<Item> getShields() {
+        return getItem("shield");
+    }
+
+
+    private static List<Item> getItem(String group) {
+        return getGroup(group).stream()
+                .map(value -> new Item(value.split(";")))
+                .collect(Collectors.toList());
+    }
+
+    private static List<String> getGroup(String group) {
+        long count = languageTable.keySet().stream()
+                .filter(k -> ((String) k).matches("^" + group + "[0-9]*$")).count();
+        List<String> result = new LinkedList<>();
+        for (int i = 1; i <= count; i++ ) {
+            result.add(languageTable.getProperty(group + i));
+        }
+        return result;
+    }
 }

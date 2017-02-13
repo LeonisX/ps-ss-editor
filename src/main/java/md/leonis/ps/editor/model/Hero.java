@@ -1,8 +1,13 @@
 package md.leonis.ps.editor.model;
 
 
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
+
 
 public class Hero {
 
@@ -23,10 +28,20 @@ public class Hero {
     private int combatSpells;   // 0x50E. 1 byte
     private int curativeSpells; // 0x50F. 1 byte
 
+    private BorderPane borderPane;
+    private HBox leftHBox;
+    private HBox rightHBox;
+    private Label nameLabel;
+    private Label textLabel;
+    private Button customizeButton;
+    private Button healButton;
+    private Button reviveButton;
+    private Button hireButton;
+
 //TODO research for all heroes start equipment
 
     public static Hero readFromRom(Dump romData, int index) {
-        return new Hero(Config.heroes.get(index), romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getShort() ,romData.getByte(),
+        return new Hero(index, romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getShort() ,romData.getByte(),
                 romData.getByte(), romData.getByte(),romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(),
                 romData.getByte(), romData.getByte(), romData.getByte());
     }
@@ -50,8 +65,8 @@ public class Hero {
         romData.setByte(curativeSpells);
     }
 
-    public Hero(String name, boolean isAlive, int hp, int mp, int experience, int level, int maxHp, int maxMp, int attack, int defense, int weapon, int armor, int shield, int state, int combatSpells, int curativeSpells) {
-        this.name = name;
+    public Hero(int index, boolean isAlive, int hp, int mp, int experience, int level, int maxHp, int maxMp, int attack, int defense, int weapon, int armor, int shield, int state, int combatSpells, int curativeSpells) {
+        this.name = Config.heroes.get(index);
         this.isAlive = isAlive;
         this.hp = hp;
         this.mp = mp;
@@ -67,12 +82,48 @@ public class Hero {
         this.state = state;
         this.combatSpells = combatSpells;
         this.curativeSpells = curativeSpells;
+
+        nameLabel = new Label(name);
+        nameLabel.setStyle("-fx-font-weight: bold;");
+        nameLabel.setPrefWidth(70);
+        textLabel = new Label();
+        healButton = new Button("heal");
+        reviveButton = new Button("revive");
+        hireButton = new Button("hire");
+        customizeButton = new Button("customize");
+
+        healButton.managedProperty().bind(healButton.visibleProperty());
+        reviveButton.managedProperty().bind(reviveButton.visibleProperty());
+        hireButton.managedProperty().bind(hireButton.visibleProperty());
+        //TODO currentHero
+        customizeButton.managedProperty().bind(customizeButton.visibleProperty());
+
+        leftHBox = new HBox(nameLabel, textLabel);
+        rightHBox = new HBox(healButton, reviveButton, hireButton, customizeButton);
+        borderPane = new BorderPane(leftHBox);
+        borderPane.setRight(rightHBox);
+
+        update(index);
     }
 
     private Hero alisaInitial() {
-        return new Hero(Config.heroes.get(1), true, 0x10, 0x00, 0x00 ,0x01, 0x10,
+        return new Hero(0, true, 0x10, 0x00, 0x00 ,0x01, 0x10,
                 0x00,0x0C, 0x0D, 0x02, 0x10, 0x00, 0x00,
                 0x00, 0x00);
+    }
+
+    public void update(int index) {
+        boolean exist = level > 0;
+        //TODO health (great 95%, tired 70%, injured 50, dead)
+        if (exist) {
+            textLabel.setText("level: " + level + "; health: injured");
+        } else {
+            textLabel.setText("somewhere far away...");
+        }
+        healButton.setVisible((maxHp > hp || maxHp > hp) && exist);
+        reviveButton.setVisible(!isAlive && exist);
+        hireButton.setVisible(!exist);
+        customizeButton.setVisible(exist);
     }
 
     public String getName() {
@@ -201,6 +252,78 @@ public class Hero {
 
     public void setCurativeSpells(int curativeSpells) {
         this.curativeSpells = curativeSpells;
+    }
+
+    public BorderPane getBorderPane() {
+        return borderPane;
+    }
+
+    public void setBorderPane(BorderPane borderPane) {
+        this.borderPane = borderPane;
+    }
+
+    public HBox getLeftHBox() {
+        return leftHBox;
+    }
+
+    public void setLeftHBox(HBox leftHBox) {
+        this.leftHBox = leftHBox;
+    }
+
+    public HBox getRightHBox() {
+        return rightHBox;
+    }
+
+    public void setRightHBox(HBox rightHBox) {
+        this.rightHBox = rightHBox;
+    }
+
+    public Label getNameLabel() {
+        return nameLabel;
+    }
+
+    public void setNameLabel(Label nameLabel) {
+        this.nameLabel = nameLabel;
+    }
+
+    public Label getTextLabel() {
+        return textLabel;
+    }
+
+    public void setTextLabel(Label textLabel) {
+        this.textLabel = textLabel;
+    }
+
+    public Button getCustomizeButton() {
+        return customizeButton;
+    }
+
+    public void setCustomizeButton(Button customizeButton) {
+        this.customizeButton = customizeButton;
+    }
+
+    public Button getHealButton() {
+        return healButton;
+    }
+
+    public void setHealButton(Button healButton) {
+        this.healButton = healButton;
+    }
+
+    public Button getReviveButton() {
+        return reviveButton;
+    }
+
+    public void setReviveButton(Button reviveButton) {
+        this.reviveButton = reviveButton;
+    }
+
+    public Button getHireButton() {
+        return hireButton;
+    }
+
+    public void setHireButton(Button hireButton) {
+        this.hireButton = hireButton;
     }
 
     @Override

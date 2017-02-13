@@ -45,7 +45,7 @@ public class PrimaryPaneController {
             /*StringWriter sw = new StringWriter();
             e.printStackTrace(new PrintWriter(sw));*/
             JavaFxUtils.showAlert("Read Save State Error", e.getMessage(), Alert.AlertType.ERROR);
-            //e.printStackTrace();
+            e.printStackTrace();
         }
 
     }

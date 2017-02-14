@@ -11,6 +11,9 @@ import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
+import static md.leonis.ps.editor.utils.Config.currentHero;
+import static md.leonis.ps.editor.utils.Config.currentHeroIndex;
+
 
 public class Hero {
 
@@ -104,8 +107,7 @@ public class Hero {
 
         healButton.setOnAction(this::healButtonClick);
         reviveButton.setOnAction(this::healButtonClick);
-        //TODO
-        //hireButton.setOnAction(this::healButtonClick);
+        hireButton.setOnAction(this::hireButtonClick);
         customizeButton.setOnAction(this::customizeButtonClick);
 
 
@@ -135,7 +137,6 @@ public class Hero {
         boolean exist = level > 0;
         if (exist) {
             double health = (maxHp + maxMp) == 0 ? 0 : (hp + mp) * 100.0 / (maxHp + maxMp);
-            System.out.println("H:"+health);
             String state = Config.states.get(0);
             if (health < 90) state = Config.states.get(1);
             if (health < 60) state = Config.states.get(2);
@@ -148,11 +149,11 @@ public class Hero {
         healButton.setVisible((maxHp > hp || maxHp > hp) && exist);
         reviveButton.setVisible(!isAlive && exist);
         hireButton.setVisible(!exist);
-        customizeButton.setVisible(exist);
+        customizeButton.setVisible(exist && isAlive);
     }
 
     private void healButtonClick(ActionEvent actionEvent) {
-        Integer index = (Integer) ((Node) actionEvent.getSource()).getUserData();
+        int index = (int) ((Node) actionEvent.getSource()).getUserData();
         Hero hero = Config.currentSaveGame.getHeroes()[index];
         hero.setAlive(true);
         hero.setHp(hero.getMaxHp());
@@ -165,6 +166,13 @@ public class Hero {
         JavaFxUtils.showPane("HeroGamePane.fxml");
     }
 
+
+    private void hireButtonClick(ActionEvent actionEvent) {
+        int index = (int) ((Node) actionEvent.getSource()).getUserData();
+        Config.selectCurrentHero(index);
+        currentHero.setLevel(1);
+        currentHero.update();
+    }
 
     public String getName() {
         return name;
@@ -210,8 +218,19 @@ public class Hero {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void setLevel(int levelId) {
+        level = levelId;
+        Level lev = Config.getLevel(currentHeroIndex, levelId);
+        hp = lev.getHp();
+        mp = lev.getMp();
+        maxHp = lev.getHp();
+        maxMp = lev.getMp();
+        experience = lev.getExperience();
+        attack = lev.getAttack();
+        defense = lev.getDefense();
+        combatSpells = lev.getCombatSpells();
+        curativeSpells = lev.getCurativeSpells();
+        isAlive = hp > 0;
     }
 
     public int getMaxHp() {

@@ -128,8 +128,10 @@ public class HeroGamePaneController {
 
         weapon.getSelectionModel().select(currentHero.getWeapon());
         if (allowButton.isVisible()) {
-            armor.getSelectionModel().select(currentHero.getArmor() - 15);
-            shield.getSelectionModel().select(currentHero.getShield() - 24);
+            int armorIndex = Math.max(currentHero.getArmor() - 15, 0);
+            int shieldIndex = Math.max(currentHero.getShield() - 24, 0);
+            armor.getSelectionModel().select(armorIndex);
+            shield.getSelectionModel().select(shieldIndex);
         } else {
             armor.getSelectionModel().select(currentHero.getArmor());
             shield.getSelectionModel().select(currentHero.getShield());
@@ -143,7 +145,7 @@ public class HeroGamePaneController {
                     return Config.spells.get(0);
                 } else {
                     int spellIndex = Config.battleSpells[currentHeroIndex][object.intValue() - 1];
-                    return Config.spells.get(spellIndex);
+                    return Config.spells.get(spellIndex).replace(" ", "\n");
                 }
             }
             @Override
@@ -159,7 +161,7 @@ public class HeroGamePaneController {
                     return Config.spells.get(0);
                 } else {
                     int spellIndex = Config.overworldSpells[currentHeroIndex][object.intValue() - 1];
-                    return Config.spells.get(spellIndex);
+                    return Config.spells.get(spellIndex).replace(" ", "\n");
                 }
             }
             @Override
@@ -230,18 +232,7 @@ public class HeroGamePaneController {
 
     public void levelAction(Event event) {
         currentHero.setLevel(level.getSelectionModel().getSelectedIndex() + 1);
-        Level level = Config.getLevel(currentHeroIndex, currentHero.getLevel());
-        String data = Config.levels.getProperty(String.format("hero%s-%s", currentHeroIndex, currentHero.getLevel()));
-        String[] chunks = data.split(";");
-        currentHero.setHp(level.getHp());
-        currentHero.setMp(level.getMp());
-        currentHero.setMaxHp(level.getHp());
-        currentHero.setMaxMp(level.getMp());
-        currentHero.setExperience(level.getExperience());
-        currentHero.setAttack(level.getAttack());
-        currentHero.setDefense(level.getDefense());
-        currentHero.setCombatSpells(level.getCombatSpells());
-        currentHero.setCurativeSpells(level.getCurativeSpells());
+        currentHero.update();
         update();
     }
 

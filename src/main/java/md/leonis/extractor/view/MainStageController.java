@@ -7,12 +7,23 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.FlowPane;
+import md.leonis.bin.ByteOrder;
 import md.leonis.extractor.model.*;
 import md.leonis.extractor.utils.*;
+import md.leonis.ps.editor.model.Level;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static md.leonis.extractor.model.Palette.*;
 import static md.leonis.extractor.utils.BitUtils.getBit;
@@ -51,6 +62,10 @@ public class MainStageController {
     private MapPiece[][] mapPieces7; // 7 localities
 
 
+    private List<String> getLevels(int index) {
+        return IntStream.range(1, 31).mapToObj(i -> "hero" + index + "-" + i + "=" + (new Level(dump)).toCSV()).collect(Collectors.toList());
+    }
+
     @FXML
     private void initialize() {
         canvas.setWidth(16 * 16);
@@ -60,6 +75,23 @@ public class MainStageController {
         final GraphicsContext smsPaletteGc = smsPaletteCanvas.getGraphicsContext2D();
         final GraphicsContext paletteGc = paletteCanvas.getGraphicsContext2D();
 
+        // dump level stats
+        dump.setByteOrder(ByteOrder.LITTLE_ENDIAN);
+        dump.moveTo(0xF8AF);
+        List<String> allLevels =
+                Stream.of(getLevels(0), getLevels(1), getLevels(2), getLevels(3))
+                        .flatMap(Collection::stream).collect(Collectors.toList());
+        dump.setByteOrder(ByteOrder.BIG_ENDIAN);
+
+        Path out = Paths.get("src/main/resources/levels.csv");
+        try {
+            Files.write(out, allLevels, Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        // dump all rle-compressed data
         // TODO dump raw data, calculate crc32 of byte blocks
         for (int i = 0x0D670, lastIndex = i; i < dump.size() - 16; i++) {
             dump.moveTo(i);
@@ -172,6 +204,7 @@ public class MainStageController {
         }
 
     }
+
 
 
     private MapPiece[][] readMapPieces(int start, int count) {

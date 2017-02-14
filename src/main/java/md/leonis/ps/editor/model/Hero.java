@@ -83,7 +83,9 @@ public class Hero {
         this.armor = armor;
         this.shield = shield;
         this.state = state;
+        //TODO battle??
         this.combatSpells = combatSpells;
+        //TODO overworld
         this.curativeSpells = curativeSpells;
 
         nameLabel = new Label(name);
@@ -159,8 +161,7 @@ public class Hero {
     }
 
     private void customizeButtonClick(ActionEvent actionEvent) {
-        Integer index = (Integer) ((Node) actionEvent.getSource()).getUserData();
-        Config.currentHero = Config.currentSaveGame.getHeroes()[index];
+        Config.selectCurrentHero((int) ((Node) actionEvent.getSource()).getUserData());
         JavaFxUtils.showPane("HeroGamePane.fxml");
     }
 

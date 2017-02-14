@@ -7,10 +7,13 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.util.StringConverter;
+import md.leonis.ps.editor.model.Level;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
 import static md.leonis.ps.editor.utils.Config.currentHero;
+import static md.leonis.ps.editor.utils.Config.currentHeroIndex;
 
 public class HeroGamePaneController {
 
@@ -59,13 +62,14 @@ public class HeroGamePaneController {
     public ImageView image;
     @FXML
     public ImageView icon;
+    @FXML
+    public Label nextLevelString;
 
     private ObservableList<String> observableWeaponsList = FXCollections.observableList(Config.weaponNames);
     private ObservableList<String> observableArmorsList = FXCollections.observableList(Config.armorNames);
     private ObservableList<String> observableShieldsList = FXCollections.observableList(Config.shieldNames);
+    private ObservableList<String> observableItemsList = FXCollections.observableList(Config.items);
 
-    //TODO
-    //TODO - dump all levels from ROM - we need this!!!!!!!!!!!!
     @FXML
     private void initialize() {
         name.setText(currentHero.getName());
@@ -73,15 +77,29 @@ public class HeroGamePaneController {
             level.getItems().add(i);
         }
         level.getSelectionModel().select(currentHero.getLevel() - 1);
-        weapon.setItems(observableWeaponsList);
-        armor.setItems(observableArmorsList);
-        shield.setItems(observableShieldsList);
+        fillCombos();
         // state - we don't need this for save state
         level.setOnAction(this::levelAction);
         weapon.setOnAction(this::weaponAction);
         armor.setOnAction(this::armorAction);
         shield.setOnAction(this::shieldAction);
+
+        nextLevelString.managedProperty().bind(nextLevelString.visibleProperty());
+        allowButton.managedProperty().bind(allowButton.visibleProperty());
+        dontAllowButton.managedProperty().bind(dontAllowButton.visibleProperty());
         update();
+    }
+
+    private void fillCombos() {
+        if (allowButton.isVisible()) {
+            weapon.setItems(observableWeaponsList);
+            armor.setItems(observableArmorsList);
+            shield.setItems(observableShieldsList);
+        } else {
+            weapon.setItems(observableItemsList);
+            armor.setItems(observableItemsList);
+            shield.setItems(observableItemsList);
+        }
     }
 
     private void update() {
@@ -91,32 +109,82 @@ public class HeroGamePaneController {
         if (currentHero.getLevel() > 30) {
             currentHero.setLevel(30);
         }
+        boolean maxLevel = currentHero.getLevel() == 30;
+        nextLevel.setVisible(!maxLevel);
+        nextLevelString.setVisible(!maxLevel);
         experience.setText(Integer.toString(currentHero.getExperience()));
-        //TODO nextLevel
+        if (!maxLevel) {
+            Level level = Config.getLevel(currentHeroIndex, currentHero.getLevel() + 1);
+            int diff = level.getExperience() - currentHero.getExperience();
+            if (diff < 0) diff = 0;
+            nextLevel.setText(String.valueOf(diff));
+        }
+
         maxHp.setText(Integer.toString(currentHero.getMaxHp()));
         maxMp.setText(Integer.toString(currentHero.getMaxMp()));
 
         attack.setText(Integer.toString(currentHero.getAttack()));
         defense.setText(Integer.toString(currentHero.getDefense()));
 
-        //TODO customize 0 .. max
+        weapon.getSelectionModel().select(currentHero.getWeapon());
+        if (allowButton.isVisible()) {
+            armor.getSelectionModel().select(currentHero.getArmor() - 15);
+            shield.getSelectionModel().select(currentHero.getShield() - 24);
+        } else {
+            armor.getSelectionModel().select(currentHero.getArmor());
+            shield.getSelectionModel().select(currentHero.getShield());
+        }
+
+        combatSpells.setMax(Config.getLevel(currentHeroIndex, 30).getCombatSpells());
+        combatSpells.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double object) {
+                if (object.equals(0.0)) {
+                    return Config.spells.get(0);
+                } else {
+                    int spellIndex = Config.battleSpells[currentHeroIndex][object.intValue() - 1];
+                    return Config.spells.get(spellIndex);
+                }
+            }
+            @Override
+            public Double fromString(String string) {
+                return null;
+            }
+        });
+        curativeSpells.setMax(Config.getLevel(currentHeroIndex, 30).getCurativeSpells());
+        curativeSpells.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double object) {
+                if (object.equals(0.0)) {
+                    return Config.spells.get(0);
+                } else {
+                    int spellIndex = Config.overworldSpells[currentHeroIndex][object.intValue() - 1];
+                    return Config.spells.get(spellIndex);
+                }
+            }
+            @Override
+            public Double fromString(String string) {
+                return null;
+            }
+        });
         combatSpells.setValue(currentHero.getCombatSpells());
         curativeSpells.setValue(currentHero.getCurativeSpells());
     }
 
+
     public void okButtonClick() {
         //TODO checks, error handler
-        currentHero.setHp(Integer.parseInt(hp.getText()));
-        currentHero.setMp(Integer.parseInt(mp.getText()));
-        currentHero.setMaxHp(Integer.parseInt(maxHp.getText()));
-        currentHero.setMaxMp(Integer.parseInt(maxMp.getText()));
+        currentHero.setHp(correctByte(hp.getText()));
+        currentHero.setMp(correctByte(mp.getText()));
+        currentHero.setMaxHp(correctByte(maxHp.getText()));
+        currentHero.setMaxMp(correctByte(maxMp.getText()));
 
         if (currentHero.getHp() == 0) currentHero.setAlive(false);
 
-        currentHero.setExperience(Integer.parseInt(experience.getText()));
+        currentHero.setExperience(correctShort(experience.getText()));
 
-        currentHero.setAttack(Integer.parseInt(attack.getText()));
-        currentHero.setDefense(Integer.parseInt(defense.getText()));
+        currentHero.setAttack(correctByte(attack.getText()));
+        currentHero.setDefense(correctByte(defense.getText()));
 
         currentHero.setCombatSpells((int) combatSpells.getValue());
         currentHero.setCurativeSpells((int) curativeSpells.getValue());
@@ -126,27 +194,66 @@ public class HeroGamePaneController {
         JavaFxUtils.showPane("SaveGamePane.fxml");
     }
 
+    private int correctByte(String textValue) {
+        int value = Integer.parseInt(textValue);
+        if (value < 0) return 0;
+        if (value > 255) return 255;
+        return value;
+    }
+
+    private int correctShort(String textValue) {
+        int value = Integer.parseInt(textValue);
+        if (value < 0) return 0;
+        if (value > 65535) return 65535;
+        return value;
+    }
+
     public void weaponAction(Event event) {
+        currentHero.setWeapon(weapon.getSelectionModel().getSelectedIndex());
     }
 
     public void armorAction(Event event) {
+        if (allowButton.isVisible()) {
+            currentHero.setArmor(armor.getSelectionModel().getSelectedIndex() + 15);
+        } else {
+            currentHero.setArmor(armor.getSelectionModel().getSelectedIndex());
+        }
     }
 
     public void shieldAction(Event event) {
+        if (allowButton.isVisible()) {
+            currentHero.setShield(shield.getSelectionModel().getSelectedIndex() + 24);
+        } else {
+            currentHero.setShield(shield.getSelectionModel().getSelectedIndex());
+        }
     }
 
     public void levelAction(Event event) {
         currentHero.setLevel(level.getSelectionModel().getSelectedIndex() + 1);
-        //TODO update all datas conform level.
+        Level level = Config.getLevel(currentHeroIndex, currentHero.getLevel());
+        String data = Config.levels.getProperty(String.format("hero%s-%s", currentHeroIndex, currentHero.getLevel()));
+        String[] chunks = data.split(";");
+        currentHero.setHp(level.getHp());
+        currentHero.setMp(level.getMp());
+        currentHero.setMaxHp(level.getHp());
+        currentHero.setMaxMp(level.getMp());
+        currentHero.setExperience(level.getExperience());
+        currentHero.setAttack(level.getAttack());
+        currentHero.setDefense(level.getDefense());
+        currentHero.setCombatSpells(level.getCombatSpells());
+        currentHero.setCurativeSpells(level.getCurativeSpells());
         update();
     }
 
     public void allowButtonClick(ActionEvent actionEvent) {
-    }
-
-    public void dontAllowButtonClick(ActionEvent actionEvent) {
+        allowButton.setVisible(!allowButton.isVisible());
+        dontAllowButton.setVisible(!dontAllowButton.isVisible());
+        fillCombos();
     }
 
     public void dismissButtonClick(ActionEvent actionEvent) {
+        currentHero.setLevel(0);
+        currentHero.update();
+        JavaFxUtils.showPane("SaveGamePane.fxml");
     }
 }

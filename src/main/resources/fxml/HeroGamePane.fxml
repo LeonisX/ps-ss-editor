@@ -60,7 +60,7 @@
             </rowConstraints>
             <Label text="Health Points *" />
             <Label text="Mana Points *" GridPane.rowIndex="1" />
-            <Label text="Experience" GridPane.rowIndex="2" />
+            <Label text="Experience **" GridPane.rowIndex="2" />
             <Label text="Level" GridPane.rowIndex="3" />
             <Label text="Combat Spells" GridPane.rowIndex="6" />
             <Label text="Curative Spells" GridPane.rowIndex="7" />
@@ -82,17 +82,17 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <TextField fx:id="experience" prefWidth="100.0" />
-               <Label text="next level:" />
+               <Label fx:id="nextLevelString" text="next level:" />
                <Label fx:id="nextLevel" text="400" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
-               <ComboBox fx:id="weapon" onAction="#weaponAction" prefWidth="300.0" />
+               <ComboBox fx:id="weapon" onAction="#weaponAction" prefWidth="320.0" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
-               <ComboBox fx:id="armor" onAction="#armorAction" prefWidth="300.0" />
+               <ComboBox fx:id="armor" onAction="#armorAction" prefWidth="320.0" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
-               <ComboBox fx:id="shield" onAction="#shieldAction" prefWidth="300.0" />
+               <ComboBox fx:id="shield" onAction="#shieldAction" prefWidth="320.0" />
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <TextField fx:id="attack" prefWidth="50.0" />
@@ -104,14 +104,15 @@
                <ComboBox fx:id="level" onAction="#levelAction" prefWidth="100.0" />
             </HBox>
             <HBox GridPane.columnIndex="1" GridPane.rowIndex="6">
-               <Slider fx:id="combatSpells" majorTickUnit="1.0" max="5.0" minorTickCount="0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+               <Slider fx:id="combatSpells" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             </HBox>
             <HBox GridPane.columnIndex="1" GridPane.rowIndex="7">
-               <Slider fx:id="curativeSpells" majorTickUnit="1.0" max="5.0" minorTickCount="0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+               <Slider fx:id="curativeSpells" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" minorTickCount="0" prefWidth="320.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             </HBox>
             <HBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
                <Button fx:id="allowButton" mnemonicParsing="false" onAction="#allowButtonClick" text="Allow the use of other people's things" />
-               <Button fx:id="dontAllowButton" mnemonicParsing="false" onAction="#dontAllowButtonClick" text="Don't allow the use of other people's things" />
+               <Button fx:id="dontAllowButton" mnemonicParsing="false" onAction="#allowButtonClick" text="Don't allow the use of other people's things" visible="false" />
+               <Label text="***" />
             </HBox>
          </GridPane>
          <Label alignment="BOTTOM_LEFT" prefHeight="57.0" text="* Change these characteristics will bring temporary effect.">

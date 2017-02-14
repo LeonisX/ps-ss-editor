@@ -21,7 +21,7 @@ public class Config {
 
     public static Properties languageTable;
 
-    public static final String resourcePath = "/fxml/";
+    static final String resourcePath = "/fxml/";
 
     public static File saveStateFile;
 
@@ -29,6 +29,7 @@ public class Config {
 
     public static SaveGame currentSaveGame = null;
 
+    public static Integer currentHeroIndex;
     public static Hero currentHero = null;
 
     public static List<String> items = null;
@@ -36,6 +37,8 @@ public class Config {
     public static List<String> churchs = null;
 
     public static List<String> heroes = null;
+
+    public static List<String> spells = null;
 
     // http://www.pscave.com/ps1/faqwalkthrough2.txt
     //TODO read from ROM
@@ -52,6 +55,12 @@ public class Config {
     public static String none;
 
     public static List<String> states = new LinkedList<>(Arrays.asList("great", "tired", "injured", "weak", "dead"));
+
+    public static Properties levels;
+
+    public static int[][] battleSpells = {{4, 9, 14, 3, 1}, {10, 12, 17, 7}, {}, {3, 11, 18, 6, 13}};
+    public static int[][] overworldSpells = {{4, 15}, {10, 16, 2}, {}, {10, 2, 11, 5, 8}};
+
 
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
@@ -75,10 +84,26 @@ public class Config {
             languageTable = new Properties();
             languageTable.load(inputStream);
 
-
-
             churchs = getChurchNames();
             heroes = getHeroesNames();
+            spells = getSpellsNames();
+
+/*            for (int i = 0; i < 4; i++) {
+                System.out.println(i);
+                int max = getLevel(i, 30).getCombatSpells();
+                for (int j = 0; j < max; j++) {
+                    System.out.println(spells.get(battleSpells[i][j]));
+                }
+                System.out.println();
+            }
+            for (int i = 0; i < 4; i++) {
+                System.out.println(i);
+                int max = getLevel(i, 30).getCurativeSpells();
+                for (int j = 0; j < max; j++) {
+                    System.out.println(spells.get(overworldSpells[i][j]));
+                }
+                System.out.println();
+            }*/
 
             weapons = getWeapons();
             armors = getArmors();
@@ -98,13 +123,21 @@ public class Config {
         }
     }
 
+    public static void loadLevels() throws IOException {
+        String fileName = "levels.csv";
+        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
+            if (inputStream == null) throw new FileNotFoundException("Levels file not found: " + fileName);
+            levels = new Properties();
+            levels.load(inputStream);
+        }
+    }
+
     private static List<String> getNames(List<Item> items) {
         List<String> result = new LinkedList<>();
         items.forEach(i -> result.add(i.getName()));
         return result;
     }
 
-    //TODO -> weapons,...
     private static List<String> getItemNames() {
         List<String> items = getGroup("item");
         items.addAll(0, shieldNames);
@@ -124,6 +157,10 @@ public class Config {
 
     private static List<String> getHeroesNames() {
         return getGroup("hero");
+    }
+
+    public static List<String> getSpellsNames() {
+        return getGroup("spell");
     }
 
     public static String getKeyByValue(char value) {
@@ -170,7 +207,6 @@ public class Config {
         return getItem("weapon");
     }
 
-
     public static List<Item> getArmors() {
         return getItem("armor");
     }
@@ -195,4 +231,14 @@ public class Config {
         }
         return result;
     }
+
+    public static void selectCurrentHero(int index) {
+        currentHeroIndex = index;
+        Config.currentHero = Config.currentSaveGame.getHeroes()[index];
+    }
+
+    public static Level getLevel(int heroId, int level) {
+        return Level.fromCSV(Config.levels.getProperty(String.format("hero%s-%s", heroId, level)));
+    }
+
 }

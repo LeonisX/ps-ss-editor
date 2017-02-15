@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import md.leonis.bin.ByteOrder;
 import md.leonis.extractor.model.DungeonMap;
 import md.leonis.extractor.utils.JavaFxUtils;
 
@@ -15,11 +14,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 import static md.leonis.extractor.utils.Config.dump;
 
@@ -39,26 +35,23 @@ public class MapsPaneController {
         for (int i = 0; i < maps.length; i++) {
             System.out.println(Integer.toHexString(i));
             maps[i] = new DungeonMap(dump);
-
-            //TODO buttons
             Button button = new Button(String.format("%02X", i));
             button.setUserData(i);
-            button.setOnMouseMoved(event -> onMouseMove(event));
+            button.setOnMouseMoved(this::onMouseMove);
             flowPane.getChildren().add(button);
         }
-        /*
-        List<String> allLevels =
-                Stream.of(getLevels(0), getLevels(1), getLevels(2), getLevels(3))
-                        .flatMap(Collection::stream).collect(Collectors.toList());
-        dump.setByteOrder(ByteOrder.BIG_ENDIAN);
 
-        Path out = Paths.get("src/main/resources/levels.csv");
+
+        //TODO not csv, but properties
+        Path out = Paths.get("src/main/resources/dungeons.csv");
         try {
-            Files.write(out, allLevels, Charset.defaultCharset());
+            Files.write(out,
+                    IntStream.range(0, maps.length).mapToObj(i -> String.format("dungeon%s=%s", i, maps[i].toProperty()))
+                            .collect(Collectors.toList()), Charset.defaultCharset());
         } catch (IOException e) {
             e.printStackTrace();
         }
-*/
+
 
     }
 

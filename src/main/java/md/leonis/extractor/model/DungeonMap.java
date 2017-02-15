@@ -2,6 +2,9 @@ package md.leonis.extractor.model;
 
 import md.leonis.bin.Dump;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class DungeonMap {
                                     // 01234567     89ABCDEF
     private static String textTiles = "░█▲▼─┼╪▐" + "◊9───┼╪F";
@@ -22,12 +25,14 @@ public class DungeonMap {
             int pair = dump.getByte();
             int left = pair >>> 4 & 0xF;
             int right = pair & 0xF;
-            if (left == 0xD) System.out.println("D");
-            if (right ==0xD) System.out.println("D");
-            if (left == 0xF) System.out.println("F");
-            if (right == 0xF) System.out.println("F");
             data[i * 2] = left;
             data[i * 2 + 1] = right;
+        }
+    }
+
+    public DungeonMap(String dump) {
+        for (int i = 0; i < dump.length(); i++) {
+            data[i] = Integer.parseInt(String.valueOf(dump.charAt(i)), 16);
         }
     }
 
@@ -53,5 +58,9 @@ public class DungeonMap {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public String toProperty() {
+        return Arrays.stream(data).mapToObj(d -> String.format("%X", d)).collect(Collectors.joining());
     }
 }

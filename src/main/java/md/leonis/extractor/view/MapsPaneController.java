@@ -43,10 +43,13 @@ public class MapsPaneController {
 
 
         //TODO not csv, but properties
+
+        //TODO manual edit maps (chests -> traps, bosses)
+        //TODO visit hidden areas
         Path out = Paths.get("src/main/resources/dungeons.csv");
         try {
             Files.write(out,
-                    IntStream.range(0, maps.length).mapToObj(i -> String.format("dungeon%s=%s", i, maps[i].toProperty()))
+                    IntStream.range(0, maps.length).mapToObj(i -> maps[i].toProperty(i))
                             .collect(Collectors.toList()), Charset.defaultCharset());
         } catch (IOException e) {
             e.printStackTrace();

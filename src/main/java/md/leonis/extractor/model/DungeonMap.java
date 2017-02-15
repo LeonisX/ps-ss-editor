@@ -4,6 +4,7 @@ import md.leonis.bin.Dump;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class DungeonMap {
                                     // 01234567     89ABCDEF
@@ -60,7 +61,13 @@ public class DungeonMap {
         return stringBuilder.toString();
     }
 
-    public String toProperty() {
-        return Arrays.stream(data).mapToObj(d -> String.format("%X", d)).collect(Collectors.joining());
+    public String toProperty(int index) {
+
+        String result = Arrays.stream(data).mapToObj(d -> String.format("%X", d)).collect(Collectors.joining());
+        String[] chunks = result.split("(?<=\\G.{16})");
+
+
+
+        return IntStream.range(0, chunks.length).mapToObj(i -> String.format("dungeon%02X-%2X=%s\n", index, i, chunks[i])).collect(Collectors.joining());
     }
 }

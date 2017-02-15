@@ -3,7 +3,7 @@ package md.leonis.extractor.model;
 import md.leonis.bin.Dump;
 
 public class DungeonMap {
-                                    // 0123456789ABCDEF
+                                    // 01234567     89ABCDEF
     private static String textTiles = "░█▲▼─┼╪▐" + "◊9───┼╪F";
     private static String textTiles2= "░█▲▼─┼╪▒" + "◊9▲▼☺☺☺F";
     // 8 - сундуки, ловушки

@@ -38,11 +38,10 @@ public class SaveGame {
         romData.setOffset(offset);
         //read heroes
         romData.moveTo(0x100); // 0x500
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         for (int i = 0; i < 4; i++) {
             heroes[i] = Hero.readFromRom(romData, i);
         }
-
-        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         mesetas = romData.getShort(0x1E0);
         romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         itemsCount = romData.getByte(0x1E2);
@@ -65,18 +64,22 @@ public class SaveGame {
     }
 
 
+
+    //TODO after save game t0 2 slot, first == deleted!!!!
+
     public void writeToRom(Dump romData, int offset) {
         romData.setOffset(offset);
         romData.erase(0, SAVE_GAME_SIZE);
         romData.moveTo(0);
         geo.writeToRom(romData, offset);
         //write heroes
+        // experience, mesetas - Little Endian;
+        // x, y, map - Big Endian
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         romData.moveTo(0x100); // 0x500
         for (int i = 0; i < 4; i++) {
             heroes[i].writeToRom(romData);
         }
-
-        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         romData.setShort(0x1E0, mesetas);
         romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         romData.setByte(0x1E2, itemsCount);

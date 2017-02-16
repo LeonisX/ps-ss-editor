@@ -52,6 +52,19 @@ public class MapsPaneController {
         //TODO таблицы для сундуков, маркеров выходов
         //TODO вероятно в medusas tower (07) скрытая дверь справа. проверить, поправить если что
         //TODO dung 14 - на выходе дверь???
+
+        //TODO нужна раскладка входов-выходов
+        //TODO нужна раскладка сундуков
+        //TODO нужна раскладка боссов
+
+        //TODO нужна таблица цветов подземелий
+
+        //TODO нужен список подземелий: dungeonIdXY=title
+        //TODO список карт dungeonId=color
+        //TODO список подземелий: dungeonIdXY=roomId;titleId;level;test commentId
+
+        //TODO в данный момент просто пройтись по подземельям и сделать дампы C300-C316
+
 /*        Path out = Paths.get("src/main/resources/dungeons.csv");
         try {
             Files.write(out,

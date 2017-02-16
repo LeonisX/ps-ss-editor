@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
@@ -57,7 +58,10 @@ public class Hero {
         romData.setBoolean(isAlive);
         romData.setByte(hp);
         romData.setByte(mp);
+        //ByteOrder byteOrder = romData.getByteOrder();
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         romData.setShort(experience);
+        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         romData.setByte(level);
         romData.setByte(maxHp);
         romData.setByte(maxMp);
@@ -125,12 +129,6 @@ public class Hero {
         borderPane.setRight(rightHBox);
 
         update();
-    }
-
-    private Hero alisaInitial() {
-        return new Hero(0, true, 0x10, 0x00, 0x00 ,0x01, 0x10,
-                0x00,0x0C, 0x0D, 0x02, 0x10, 0x00, 0x00,
-                0x00, 0x00);
     }
 
     public void update() {

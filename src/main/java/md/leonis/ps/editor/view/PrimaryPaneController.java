@@ -27,7 +27,7 @@ public class PrimaryPaneController {
     }
 
     public void openButtonClick() {
-/*        FileChooser fileChooser = new FileChooser();
+        FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         //fileChooser.setInitialDirectory(new File(workDir));
         fileChooser.getExtensionFilters().addAll(
@@ -35,8 +35,8 @@ public class PrimaryPaneController {
                 new FileChooser.ExtensionFilter("All saves", "*.sav", "*.ssm")
 
         );
-        Config.saveStateFile = fileChooser.showOpenDialog(openButton.getScene().getWindow());*/
-        Config.saveStateFile = new File("/home/leonis/ps.sav");
+        Config.saveStateFile = fileChooser.showOpenDialog(openButton.getScene().getWindow());
+        //Config.saveStateFile = new File("/home/leonis/ps.sav");
         //TODO check
         try {
             Config.saveState = new SaveState(Config.saveStateFile);

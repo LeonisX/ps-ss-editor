@@ -102,6 +102,9 @@ public class HeroGamePaneController {
         }
     }
 
+    //TODO bug - Alisa can select Axes, Guns, ...
+    //TODO bug - calculate attach/defense, using items characteristics. Verify with
+    // real game data (change equipped items)
     private void update() {
         hp.setText(Integer.toString(currentHero.getHp()));
         mp.setText(Integer.toString(currentHero.getMp()));

@@ -16,7 +16,7 @@
    <center>
       <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <font>
-            <Font name="Courier New" size="13.0" />
+            <Font name="DejaVu Sans Mono Bold" size="14.0" />
          </font></TextArea>
    </center>
 </BorderPane>

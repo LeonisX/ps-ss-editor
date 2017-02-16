@@ -46,14 +46,20 @@ public class MapsPaneController {
 
         //TODO manual edit maps (chests -> traps, bosses)
         //TODO visit hidden areas
-        Path out = Paths.get("src/main/resources/dungeons.csv");
+
+
+        //TODO mark exits!!!
+        //TODO таблицы для сундуков, маркеров выходов
+        //TODO вероятно в medusas tower (07) скрытая дверь справа. проверить, поправить если что
+        //TODO dung 14 - на выходе дверь???
+/*        Path out = Paths.get("src/main/resources/dungeons.csv");
         try {
             Files.write(out,
                     IntStream.range(0, maps.length).mapToObj(i -> maps[i].toProperty(i))
                             .collect(Collectors.toList()), Charset.defaultCharset());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
     }

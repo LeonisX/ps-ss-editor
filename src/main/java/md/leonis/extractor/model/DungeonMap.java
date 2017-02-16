@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class DungeonMap {
-                                    // 01234567     89ABCDEF
-    private static String textTiles = "░█▲▼─┼╪▐" + "◊9───┼╪F";
-    private static String textTiles2= "░█▲▼─┼╪▒" + "◊9▲▼☺☺☺F";
+                                    // 01234567     89ABCDEF     GHIJKLMN
+    private static String textTiles = "░█▲▼─═≡▒" + "«●───═≡!" + "ΩΩΩi─═≡≡";
+    private static String textTiles2= "░█▲▼─═≡▒" + "»●▲▼☺☺☺!" + "▲▼─iiii!";
     // 8 - сундуки, ловушки
     // 9 - не используется TODO переиначить на ловушки
     // A, B - подъём, спуск за дверью
@@ -17,6 +17,16 @@ public class DungeonMap {
     // D - человек за запертой дверью
     // E - dark falz, lassic за м.дверью
     // F - не используется TODO переиначить на боссов
+    // G - вход вверх
+    // H - вход
+//≡═─
+    // план такой. чтобы не мучиться - надо перекроить данж ¤¥∆⌂☺□↑↓▼▲⌂<>‼↑↓∩∆Ω│├┤║╬|{}[i]()-=¯_¯¯_∏●«»!!÷-Ξ=≠≡═─◄►█►<>{}()‹›
+    // ░█▒▲▼─┼╪
+    // ░░
+    // ██
+    // ▒▒
+    // (↑)
+    // [▲]
 
 
     private int[] data = new int[16 * 16]; // 8 bytes x 16 rows in ROM
@@ -63,11 +73,14 @@ public class DungeonMap {
 
     public String toProperty(int index) {
 
-        String result = Arrays.stream(data).mapToObj(d -> String.format("%X", d)).collect(Collectors.joining());
-        String[] chunks = result.split("(?<=\\G.{16})");
+        String result = Arrays.stream(data).mapToObj(d -> "" + textTiles.charAt(d) + textTiles2.charAt(d)).collect(Collectors.joining());
+        String[] chunks = result.split("(?<=\\G.{32})");
 
 
 
-        return IntStream.range(0, chunks.length).mapToObj(i -> String.format("dungeon%02X-%2X=%s\n", index, i, chunks[i])).collect(Collectors.joining());
+        return IntStream.range(0, chunks.length)
+                .mapToObj(i -> String.format("dungeon%02X-%X=%s\n", index, i, chunks[i]))
+                .collect(Collectors.joining());
     }
+
 }

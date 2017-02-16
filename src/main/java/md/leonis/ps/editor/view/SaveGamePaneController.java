@@ -103,14 +103,16 @@ public class SaveGamePaneController {
         // TODO Geo - equals()
         for (int i = 0; i < Config.geos.size(); i++) {
             boolean flag;
-            System.out.println(currentSaveGame.getGeo().getType());
+            byte byte1 = (byte) (currentSaveGame.getGeo().getMap() >>> 8);
+            byte byte2 = (byte) (currentSaveGame.getGeo().getMap());
+            int map = byte1 * 256 +byte2;
             if (currentSaveGame.getGeo().getType() == 0x0B) {
                 flag = ((Config.geos.get(i).getDungeon() == currentSaveGame.getGeo().getDungeon())
-                        & (Config.geos.get(i).getMap() == currentSaveGame.getGeo().getMap())
+                        & (Config.geos.get(i).getMap() == map)
                         & (Config.geos.get(i).getX() == currentSaveGame.getGeo().getX())
                         & (Config.geos.get(i).getY() == currentSaveGame.getGeo().getY()));
             } else {
-                flag = (Config.geos.get(i).getMap() == currentSaveGame.getGeo().getMap());
+                flag = (Config.geos.get(i).getMap() == map);
             }
             if (flag) {
                 geoComboBox.getSelectionModel().select(i);
@@ -168,9 +170,6 @@ public class SaveGamePaneController {
 
 
     private void updateControls() {
-        System.out.println();
-
-
         x.setText(String.format("%04X", currentSaveGame.getGeo().getX()));
         y.setText(String.format("%04X", currentSaveGame.getGeo().getY()));
         map.setText(String.format("%04X", currentSaveGame.getGeo().getMap()));
@@ -225,6 +224,7 @@ public class SaveGamePaneController {
         int index = geoComboBox.getSelectionModel().getSelectedIndex();
         Geo srcGeo = Config.geos.get(index);
         srcGeo.copyDataTo(currentSaveGame.getGeo());
+        save();
         updateControls();
     }
 

@@ -179,7 +179,7 @@ public class Config {
             List<String> list = Files.readAllLines(file.toPath(), Charset.defaultCharset() );
             list.forEach(r -> {
                 String[] chunks = r.replace("\"","").split(";");
-                String map = chunks[2].substring(2) + chunks[2].substring(0, 2);
+                String map = chunks[2]/*.substring(2) + chunks[2].substring(0, 2)*/;
                 //System.out.println(chunks[2] + " " + map);
                 geos.add(new Geo(chunks[8],
                         Integer.parseInt(chunks[0], 16),

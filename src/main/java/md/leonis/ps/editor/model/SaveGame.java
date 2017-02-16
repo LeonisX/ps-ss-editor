@@ -80,8 +80,11 @@ public class SaveGame {
         for (int i = 0; i < 4; i++) {
             heroes[i].writeToRom(romData);
         }
-        romData.setShort(0x1E0, mesetas);
         romData.setByteOrder(ByteOrder.BIG_ENDIAN);
+        //System.out.println(Integer.toHexString(romData.getIndex()));
+        //System.out.println(mesetas);
+        romData.setShort(0x1E0, mesetas);
+
         romData.setByte(0x1E2, itemsCount);
         for (int i = 0; i < itemsCount; i ++) {
             romData.setByte(0x1C0 + i, items[i]);
@@ -89,14 +92,14 @@ public class SaveGame {
         romData.setByte(0x1F0, companionsCount);
 
         romData.moveTo(0x200); // 0x600
-        for (int i = 0; i < events.length; i++) {
-            romData.setByte(events[i]);
+        for (int event : events) {
+            romData.setByte(event);
         }
-        for (int i = 0; i < chests.length; i++) {
-            romData.setByte(chests[i]);
+        for (int chest : chests) {
+            romData.setByte(chest);
         }
-        for (int i = 0; i < bosses.length; i++) {
-            romData.setByte(bosses[i]);
+        for (int boss : bosses) {
+            romData.setByte(boss);
         }
         romData.setOffset(0);
     }

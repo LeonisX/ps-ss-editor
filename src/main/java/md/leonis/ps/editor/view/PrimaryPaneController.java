@@ -31,13 +31,14 @@ public class PrimaryPaneController {
         fileChooser.setTitle("Open Resource File");
         //fileChooser.setInitialDirectory(new File(workDir));
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All files", "*.*"),
-                new FileChooser.ExtensionFilter("All saves", "*.sav", "*.ssm")
+                new FileChooser.ExtensionFilter("All saves", "*.sav", "*.ssm"),
+                new FileChooser.ExtensionFilter("All files", "*.*")
 
         );
         Config.saveStateFile = fileChooser.showOpenDialog(openButton.getScene().getWindow());
         //Config.saveStateFile = new File("/home/leonis/ps.sav");
         //TODO check
+        //TODO when cancel - error
         try {
             Config.saveState = new SaveState(Config.saveStateFile);
             JavaFxUtils.showPane("SecondaryPane.fxml");

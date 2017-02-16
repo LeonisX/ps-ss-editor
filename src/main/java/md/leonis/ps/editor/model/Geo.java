@@ -32,6 +32,7 @@ public class Geo {
 
     private int direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
     // 0x40B: 00
+    //TODO YX (Medusa's tower)
     private int room;   // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
     private int dungeon;// 0x40D        Dungeon #. Examples: Medusa's Cave, outdoor: 00; Camineet Warehouse: 02
                         // (00-3A) Interesting things: some dungeons intersects (Scion/Naula caves, ...)

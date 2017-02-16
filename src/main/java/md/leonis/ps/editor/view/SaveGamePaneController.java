@@ -229,11 +229,15 @@ public class SaveGamePaneController {
     }
 
     public void okButtonClick() {
+        save();
+        JavaFxUtils.showPane("SecondaryPane.fxml");
+    }
+
+    public void save() {
         currentSaveGame.setMesetas(Integer.parseInt(mesetas.getText()));
         currentSaveGame.getGeo().setX(Integer.parseInt(x.getText(), 16));
         currentSaveGame.getGeo().setY(Integer.parseInt(y.getText(), 16));
         Config.saveState.updateDump();
-        JavaFxUtils.showPane("SecondaryPane.fxml");
     }
 
     public void cancelButtonClick() {

@@ -19,6 +19,8 @@ public class JavaFxUtils {
     private static int sceneWidth = 900;
     private static int sceneHeight = 720;
 
+    public static Object currentController;
+
     public static void showMainPane(Stage primaryStage) {
         primaryStage.setTitle("TiVi Admin Panel");
         try {
@@ -49,7 +51,7 @@ public class JavaFxUtils {
             innerPanel.setPrefSize(sceneWidth, sceneHeight);
             innerPanel.prefHeightProperty().bind(rootLayout.heightProperty());
             innerPanel.prefWidthProperty().bind(rootLayout.widthProperty());
-            Object controller = loader.getController();
+            currentController = loader.getController();
             //if (controller instanceof SubPane) ((SubPane) controller).init();
             rootLayout.setCenter(innerPanel);
         } catch (IOException e) {

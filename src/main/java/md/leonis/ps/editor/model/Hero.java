@@ -11,6 +11,7 @@ import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
+import md.leonis.ps.editor.view.SaveGamePaneController;
 
 import static md.leonis.ps.editor.utils.Config.currentHero;
 import static md.leonis.ps.editor.utils.Config.currentHeroIndex;
@@ -160,6 +161,7 @@ public class Hero {
     }
 
     private void customizeButtonClick(ActionEvent actionEvent) {
+        ((SaveGamePaneController) JavaFxUtils.currentController).save();
         Config.selectCurrentHero((int) ((Node) actionEvent.getSource()).getUserData());
         JavaFxUtils.showPane("HeroGamePane.fxml");
     }

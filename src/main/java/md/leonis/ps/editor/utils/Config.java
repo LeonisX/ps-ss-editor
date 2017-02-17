@@ -184,7 +184,8 @@ public class Config {
                 geos.add(new Geo(chunks[8],
                         Integer.parseInt(chunks[0], 16),
                         Integer.parseInt(chunks[1],16),
-                        Integer.parseInt(map,16), // map
+                        Integer.parseInt(chunks[2].substring(0, 2), 16), // mapLayer
+                        Integer.parseInt(chunks[2].substring(2), 16), // mapId
                         Integer.parseInt(chunks[5],16),
                         Integer.parseInt(chunks[4],16),
                         Integer.parseInt(chunks[3],16),

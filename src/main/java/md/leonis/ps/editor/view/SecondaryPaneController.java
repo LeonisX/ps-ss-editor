@@ -77,7 +77,8 @@ public class SecondaryPaneController {
                 text += "Mesetas: " + currentSaveGame.getMesetas() + "\n";
                 text += "Items: " + currentSaveGame.getItemsCount() + "\n";
                 if (currentSaveGame.getGeo().getType() == 0x0D) {
-                    text += "Map Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getMap()) + "\n";
+                    text += "Map Id: 0x" + String.format("%02X", currentSaveGame.getGeo().getMapLayer()) + " ";
+                    text += String.format("%02X", currentSaveGame.getGeo().getMapId()) + "\n";
                 } else {
                     text += "Dungeon Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getDungeon()) + "\n";
                     text += "Room Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getRoom()) + "\n";

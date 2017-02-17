@@ -1,12 +1,10 @@
 package md.leonis.ps.editor.model;
 
-
-import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 
 public class Geo {
 
-    private Planets planet;
+    private Planets planet; //TODO need???
     private String name;
 
     // 0x400: 00 - X, but inverse. In SS always 00. Probably offset in tilemap
@@ -15,7 +13,7 @@ public class Geo {
     // 0x404: 00 - Y, but inverse. In SS always 00. Probably offset in tilemap
     private int y;        // 0x405-0x406  Y coordinate on Map. Examples: 0001, 5001. 405 max B0
     // 0x407: 00
-    private int map;    // 0x408-0x409  Map #. Examples: 00 00 — Palma, 04 04 — Camineet
+    private int mapLayer;    // 0x408 Map layer. Whole planet or group of maps. Examples: 00 - Palma, 04 — Camineet, Parolit,...
     // map: 00 00
     // 00 = Palma
     // 01 = Motavia
@@ -27,9 +25,7 @@ public class Geo {
     // 08 = Skure, Twintown (entrances)
     // 09 = Skure, Twintown
     // 0A = Air Castle
-    // Second number - # of map (0x00 - 0x17)
-
-
+    private int mapId;    // 0x409  Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
     private int direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
     // 0x40B: 00
     //TODO YX (Medusa's tower)
@@ -50,13 +46,14 @@ public class Geo {
     public Geo() {
     }
 
-    public Geo(/*Planets planet, */String name, int x, int y, int map, int direction, int room, int dungeon, int transport, int animation1, int animation2, int y2, int x2, int color, int type, int church) {
+    public Geo(/*Planets planet, */String name, int x, int y, int mapLayer, int mapId, int direction, int room, int dungeon, int transport, int animation1, int animation2, int y2, int x2, int color, int type, int church) {
         //this.planet = planet;
         if (type == 0x0B) transport = 0; // Fix for transport on dungeon exit
         this.name = name;
         this.x = x;
         this.y = y;
-        this.map = map;
+        this.mapLayer = mapLayer;
+        this.mapId = mapId;
         this.direction = direction;
         this.room = room;
         this.dungeon = dungeon;
@@ -74,7 +71,8 @@ public class Geo {
         romData.setOffset(offset);
         x = romData.getShort(0x01);
         y = romData.getShort( 0x05);
-        map = romData.getShort( 0x08);
+        mapLayer = romData.getByte( 0x08);
+        mapId = romData.getByte( 0x09);
         direction = romData.getByte(0x0A);
         room = romData.getByte(0x0C);
         dungeon = romData.getByte(0x0D);
@@ -93,9 +91,8 @@ public class Geo {
     public void writeToRom(Dump romData, int offset) {
         romData.setShort(0x01, x);
         romData.setShort( 0x05, y);
-        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
-        romData.setShort( 0x08, map);
-        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
+        romData.setByte( 0x08, mapLayer);
+        romData.setByte( 0x09, mapId);
         romData.setByte(0x0A, direction);
         romData.setByte(0x0C, room);
         romData.setByte(0x0D, dungeon);
@@ -113,7 +110,8 @@ public class Geo {
     public void copyDataTo(Geo destGeo) {
         destGeo.setX(x);
         destGeo.setY(y);
-        destGeo.setMap(map);
+        destGeo.setMapLayer(mapLayer);
+        destGeo.setMapId(mapId);
         destGeo.setDungeon(dungeon);
         destGeo.setRoom(room);
         destGeo.setDirection(direction);
@@ -155,12 +153,20 @@ public class Geo {
         this.y2 = y;
     }
 
-    public int getMap() {
-        return map;
+    public int getMapLayer() {
+        return mapLayer;
     }
 
-    public void setMap(int map) {
-        this.map = map;
+    public void setMapLayer(int mapLayer) {
+        this.mapLayer = mapLayer;
+    }
+
+    public int getMapId() {
+        return mapId;
+    }
+
+    public void setMapId(int mapId) {
+        this.mapId = mapId;
     }
 
     public int getDirection() {
@@ -242,7 +248,8 @@ public class Geo {
                 ", name='" + name + '\'' +
                 ", x=" + x +
                 ", y=" + y +
-                ", map=" + map +
+                ", mapLayer=" + mapLayer +
+                ", mapId=" + mapId +
                 ", direction=" + direction +
                 ", room=" + room +
                 ", dungeon=" + dungeon +
@@ -256,5 +263,4 @@ public class Geo {
                 ", church=" + church +
                 '}';
     }
-
 }

@@ -1,0 +1,9 @@
+type=watchpoint address=C315 end=C315 enabled=false suspend=false read=false write=true condition= location=ram
+type=instruction address=6DA7 end=6DA7 enabled=false suspend=false condition=
+type=watchpoint address=F619 end=F716 enabled=false suspend=false read=true write=true condition= location=rom
+type=instruction address=6DE2 end=6DE4 enabled=false suspend=false condition=
+type=instruction address=6D7F end=6D81 enabled=false suspend=false condition=
+type=watchpoint address=C30C end=C30C enabled=false suspend=false read=false write=true condition= location=ram
+type=instruction address=78BD end=78BE enabled=false suspend=false condition=
+type=watchpoint address=C30D end=C30D enabled=false suspend=false read=false write=true condition= location=ram
+type=watchpoint address=C500 end=C7FF enabled=true suspend=false read=false write=true condition= location=ram

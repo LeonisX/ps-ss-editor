@@ -1,0 +1,64 @@
+00 Port_Joypad
+01 Port_SerialData
+02 Port_SerialControl
+04 Port_DividerRegister
+05 Port_TimerCounter
+06 Port_TimerModulo
+07 Port_TimerControl
+0f Port_InterruptFlag
+10 Port_Channel1Sweep
+11 Port_Channel1LengthAndPattern
+12 Port_Channel1VolumeEnvelope
+13 Port_Channel1FrequencyLo
+14 Port_Channel1FrequencyHi
+16 Port_Channel2LengthAndPattern
+17 Port_Channel2VolumeEnvelope
+18 Port_Channel2FrequencyLo
+19 Port_Channel2FrequencyHi
+1a Port_Channel3OnOrOff
+1b Port_Channel3Length
+1c Port_Channel3OutputLevel
+1d Port_Channel3FrequencyLo
+1e Port_Channel3FrequencyHi
+20 Port_Channel4Length
+21 Port_Channel4VolumeEnvelope
+22 Port_Channel4PolynomialCounter
+23 Port_Channel4Counter
+24 Port_ChannelControl
+25 Port_SoundOutputTerminal
+26 Port_SoundOnOrOff
+
+30 WavePatternRAM
+
+40 Port_LCDcontrol
+41 Port_LCDCstatus
+42 Port_ScrollY
+43 Port_ScrollX
+44 Port_LY
+45 Port_LYC
+46 Port_DMA_OAM
+47 Port_BGP
+48 Port_OBP0
+49 Port_OBP1
+4a Port_WY
+4b Port_WX
+
+4d Port_SpeedSwitch
+
+4f Port_VRAM_Bank
+
+51 Port_HDMA_SourceHigh
+52 Port_HDMA_SourceLow
+53 Port_HDMA_DestinationHigh
+54 Port_HDMA_DestinationLow
+55 Port_HDMA_Length
+56 Port_InfraredPort
+
+68 Port_BG_PaletteIndex
+69 Port_BG_PaletteData
+6A Port_Sprite_PaletteIndex
+6B Port_Sprite_PaletteData
+
+70 Port_WRAM_Bank
+
+ff Port_InterruptEnable

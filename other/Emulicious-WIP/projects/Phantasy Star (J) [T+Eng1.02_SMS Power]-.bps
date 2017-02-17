@@ -1,0 +1,1 @@
+type=watchpoint address=0 end=0 enabled=false suspend=false read=false write=false condition= location=ram

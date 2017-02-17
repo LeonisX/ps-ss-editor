@@ -244,6 +244,7 @@ public class SaveGamePaneController {
 
     public void saveMesetas() {
         currentSaveGame.setMesetas(Integer.parseInt(mesetas.getText()));
+        //System.out.println(currentSaveGame.getMesetas());
         //Config.saveState.updateDump();
     }
 

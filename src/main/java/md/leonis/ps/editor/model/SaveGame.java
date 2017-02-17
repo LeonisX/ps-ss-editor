@@ -80,10 +80,14 @@ public class SaveGame {
         for (int i = 0; i < 4; i++) {
             heroes[i].writeToRom(romData);
         }
-        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
+
         //System.out.println(Integer.toHexString(romData.getIndex()));
         //System.out.println(mesetas);
+        //System.out.println(Integer.toHexString(offset));
+        //System.out.println(mesetas);
+
         romData.setShort(0x1E0, mesetas);
+        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
 
         romData.setByte(0x1E2, itemsCount);
         for (int i = 0; i < itemsCount; i ++) {

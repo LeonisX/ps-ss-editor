@@ -60,9 +60,9 @@ public class Hero {
         romData.setByte(hp);
         romData.setByte(mp);
         //ByteOrder byteOrder = romData.getByteOrder();
-        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
+        //romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         romData.setShort(experience);
-        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
+        //romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         romData.setByte(level);
         romData.setByte(maxHp);
         romData.setByte(maxMp);

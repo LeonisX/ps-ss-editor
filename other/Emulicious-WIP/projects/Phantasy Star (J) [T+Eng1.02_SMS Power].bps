@@ -1,0 +1,1 @@
+type=watchpoint address=C501 end=C7FF enabled=true suspend=false read=false write=true condition= location=ram

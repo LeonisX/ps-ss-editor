@@ -28,7 +28,7 @@ public class Geo {
     private int mapId;    // 0x409  Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
     private int direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
     // 0x40B: 00
-    //TODO YX (Medusa's tower)
+    //TODO YX (Medusa's tower) XY (Dezorian Cavern #5)
     private int room;   // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
     private int dungeon;// 0x40D        Dungeon #. Examples: Medusa's Cave, outdoor: 00; Camineet Warehouse: 02
                         // (00-3A) Interesting things: some dungeons intersects (Scion/Naula caves, ...)

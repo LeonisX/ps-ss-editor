@@ -205,8 +205,8 @@ public class SaveGamePaneController {
         && !allItemsPane.isVisible());
         itemsPane.getChildren().add(plusItemButton);
 
-        dungeon.setText(String.format("0x%02X", currentSaveGame.getGeo().getDungeon()));
-        room.setText(String.format("0x%02X", currentSaveGame.getGeo().getRoom()));
+        dungeon.setText(String.format("%02X", currentSaveGame.getGeo().getDungeon()));
+        room.setText(String.format("%02X", currentSaveGame.getGeo().getRoom()));
 
         direction.setItems(observableDirectionsList);
         direction.getSelectionModel().select(currentSaveGame.getGeo().getDirection());
@@ -252,6 +252,8 @@ public class SaveGamePaneController {
         saveMesetas();
         currentSaveGame.getGeo().setX(Integer.parseInt(x.getText(), 16));
         currentSaveGame.getGeo().setY(Integer.parseInt(y.getText(), 16));
+        currentSaveGame.getGeo().setRoom(Integer.parseInt(room.getText(), 16));
+        currentSaveGame.getGeo().setDungeon(Integer.parseInt(dungeon.getText(), 16));
         Config.saveState.updateDump();
     }
 

@@ -14,14 +14,13 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static md.leonis.extractor.utils.Config.dump;
+import static md.leonis.extractor.utils.Config.resourcePath;
 
 
 public class MainStageController {
@@ -122,8 +121,42 @@ public class MainStageController {
         //TODO нужна раскладка боссов
 
         //TODO нужен список подземелий: dungeonIdXY=title
+        List<String> dungeonNames = geos.stream()
+                .filter(Geo::isDungeon)
+                .filter(Geo::isClearName)
+                .sorted(Comparator.comparing(Geo::getName))
+                .map(Geo::getDungeonNameProperty)
+                .collect(Collectors.toList());
+        dungeonNames.forEach(System.out::println);
+
+        System.out.println("==============================");
+
+        int[] k = new int[1];
+        List<String> commentNames = geos.stream()
+                .filter(Geo::hasNameComment)
+                .map(Geo::getNameComment)
+                .distinct()
+                .sorted()
+                .map(d -> String.format("comment%X=%s", k[0]++, d))
+                .collect(Collectors.toList());
+        commentNames.forEach(System.out::println);
+
+        //Geo g = new Geo("test #1");
+        //System.out.println(g.getLevel());
         //TODO список карт dungeonId=color
+
+        System.out.println("==============================");
+
         //TODO список подземелий: dungeonIdXY=roomId;titleId;level;test commentId
+        List<String> dungeons = geos.stream()
+                .filter(Geo::isDungeon)
+                .sorted(Comparator.comparing(Geo::getDungeon))
+                .map(geo -> geo.getDungeonProperty(dungeonNames.stream().map(d -> d.split("=")[1]).collect(Collectors.toList()),
+                        commentNames.stream().map(d -> d.split("=")[1]).collect(Collectors.toList())))
+                .collect(Collectors.toList());
+        dungeons.forEach(System.out::println);
+
+
         JavaFxUtils.showAlert("Confirmation", "All data was processed", Alert.AlertType.INFORMATION);
     }
 }

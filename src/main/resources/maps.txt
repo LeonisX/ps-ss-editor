@@ -208,7 +208,7 @@ C642	FF	D1	Ruoginin
 Naula Cave #4
 00 B0 05 00 00 50 00 00 00 00 00 00 21 10 00 00 00 50 00 B0 05 04 0B
 C640	FF	61	Flash
-Naula Cave #4 (near Cake Shop)
+Naula Cave #4 (Cake Shop)
 00 B0 05 00 00 50 00 00 00 00 01 00 64 10 00 00 00 50 00 B0 05 04 0B
 Iala Cave #3
 00 00 07 00 00 10 04 00 00 00 02 00 CE 11 00 00 00 10 04 00 07 04 0B
@@ -254,7 +254,7 @@ C655	FF	81	Searchlight
 C656	FF	C8	Escape Cloth
 Passageway to Avion Island (Avion side)
 00 20 01 00 00 50 03 00 00 00 02 00 21 16 00 00 00 50 03 20 01 04 0B
-Forgotten Tower (Avion Tower)
+Forgotten Tower
 00 E0 07 00 00 10 03 00 00 00 00 00 D7 17 00 00 03 10 03 E0 07 02 0B
 C657	FF	AA	20 Mesetas
 Forgotten Tower #2
@@ -294,7 +294,7 @@ C669	FF	8C	Searchlight
 C66A	FF	CA	50 Mesetas
 C6CD	FF	B1	Boss 	Motavian Peasant
 C506	01	68	Give Governor letter to Lutz. Unlock entrance to Gothic Passage
-Mahal Cave #2 (near Lutz)
+Mahal Cave #2 (Lutz)
 00 00 03 00 00 30 00 00 01 01 02 00 68 1D 00 00 00 30 00 00 03 07 0B
 Mahal Cave
 00 00 03 00 00 30 00 00 01 01 01 00 69 1E 00 00 00 30 00 00 03 07 0B
@@ -377,7 +377,7 @@ C689	FF	18	20 Mesetas	Trap
 C68A	FF	A3	Empty	Trap
 Corona Tower #4
 00 D0 02 00 00 70 00 00 02 02 03 00 E4 2E 00 00 02 70 00 D0 02 08 0B
-Corona Tower #4 (near Eclipse Torch)
+Corona Tower #4 (Eclipse Torch)
 00 D0 02 00 00 70 00 00 02 02 02 00 2D 2E 00 00 02 70 00 D0 02 08 0B
 Passageway on Dezoris 1
 00 F0 02 00 00 00 07 00 02 02 03 00 DD 2F 00 00 03 00 07 F0 02 09 0B
@@ -410,7 +410,7 @@ Dezorian Cave #2
 00 20 00 00 00 40 02 00 02 02 00 00 55 33 00 02 02 40 02 20 00 09 0B
 C690	FF	19	Empty	Trap
 C6D7	FF	D9	Boss Biting Fly
-Dezorian Cave (Laconian Shield Cave)
+Dezorian Cave
 00 50 00 00 00 40 02 00 02 02 00 00 D3 34 00 02 02 40 02 50 00 09 0B
 C691	FF	16	50 Mesetas
 C692	FF	1E	Magic Hat

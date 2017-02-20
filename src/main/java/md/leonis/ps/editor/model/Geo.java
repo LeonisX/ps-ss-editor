@@ -2,6 +2,8 @@ package md.leonis.ps.editor.model;
 
 import md.leonis.bin.Dump;
 
+import java.util.List;
+
 public class Geo {
 
     private Planets planet; //TODO need???
@@ -133,6 +135,14 @@ public class Geo {
                 String.format("\"%02X\"", color) + ";" +
                 String.format("\"%02X\"", type) + ";" +
                 name;
+    }
+
+    public boolean isDungeon() {
+        return type == 0x0B;
+    }
+
+    public boolean isCity() {
+        return !isDungeon();
     }
 
     public Planets getPlanet() {
@@ -278,5 +288,53 @@ public class Geo {
                 ", type=" + type +
                 ", church=" + church +
                 '}';
+    }
+
+    public String getDungeonNamePropertyName() {
+        return String.format("dungeon%02X%04X%04X=", dungeon, x, y);
+    }
+    
+    public String getDungeonNameProperty() {
+        return getDungeonNamePropertyName() + name;
+    }
+
+    public boolean isClearName() {
+        return !(hasNameComment() || hasLevel());
+    }
+
+    public String getNameComment() {
+        if (!hasNameComment()) return "";
+        return name.substring(name.indexOf('(') + 1, name.length() - 1);
+    }
+
+    public boolean hasNameComment() {
+        return name.contains("(");
+    }
+    
+    private String getCleanName() {
+        if (isClearName()) return name.trim();
+        return removeNameComment(name.split("#")[0].trim());
+    }
+
+    public String getDungeonProperty(List<String> dungeonNames, List<String> commentNames) {
+        //dungeonIdXY=roomId;titleId;level;test commentId
+        //System.out.println(getCleanName());
+        String comment = (commentNames.indexOf(getNameComment()) < 0) ? "" : String.format("%02X", commentNames.indexOf(getNameComment()));
+        return getDungeonNamePropertyName() +
+                String.format("%02X;%02X;%s;%s", room, dungeonNames.indexOf(getCleanName()), getLevel(), comment);
+    }
+
+    public String getLevel() {
+        if (!hasLevel()) return "";
+        return removeNameComment(name.split("#")[1].trim());
+    }
+
+    private String removeNameComment(String substring) {
+        if (!hasNameComment()) return substring;
+        return substring.split("\\(")[0].trim();
+    }
+
+    private boolean hasLevel() {
+        return name.contains("#");
     }
 }

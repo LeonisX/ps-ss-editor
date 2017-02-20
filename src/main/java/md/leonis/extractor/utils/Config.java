@@ -1,6 +1,7 @@
 package md.leonis.extractor.utils;
 
 import md.leonis.bin.Dump;
+import md.leonis.extractor.model.DungeonMap;
 import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
@@ -27,6 +28,8 @@ public class Config {
 
     public static Dump dump;
 
+    public static DungeonMap[] dungeonMaps = new DungeonMap[0x3D];
+
     static {
         try {
             dump = new Dump(new File("/home/leonis/ps.sms"));
@@ -48,4 +51,16 @@ public class Config {
         }
     }
 
+    public static void loadMaps() {
+        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("dungeons.properties")) {
+            if (inputStream == null) throw new FileNotFoundException("Dungeons file not found...");
+            Properties prop = new Properties();
+            prop.load(inputStream);
+            for (int i = 0; i < dungeonMaps.length; i++) {
+                dungeonMaps[i] = new DungeonMap(prop, i);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

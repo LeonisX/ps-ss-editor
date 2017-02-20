@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import md.leonis.extractor.model.DungeonMap;
+import md.leonis.extractor.utils.Config;
 import md.leonis.extractor.utils.JavaFxUtils;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class MapsPaneController {
     public FlowPane flowPane;
     @FXML
     public TextArea textArea;
+    @FXML
+    public TextArea textArea2;
 
     private DungeonMap[] maps = new DungeonMap[0x3D]; //3D
 
@@ -41,31 +44,17 @@ public class MapsPaneController {
             flowPane.getChildren().add(button);
         }
 
-
-        //TODO not csv, but properties
-
-        //TODO manual edit maps (chests -> traps, bosses)
-        //TODO visit hidden areas
-
-
-        //TODO mark exits!!!
-        //TODO таблицы для сундуков, маркеров выходов
-        //TODO вероятно в medusas tower (07) скрытая дверь справа. проверить, поправить если что
-        //TODO dung 14 - на выходе дверь???
-
         //TODO нужна раскладка входов-выходов
         //TODO нужна раскладка сундуков
         //TODO нужна раскладка боссов
-
-        //TODO нужна таблица цветов подземелий
 
         //TODO нужен список подземелий: dungeonIdXY=title
         //TODO список карт dungeonId=color
         //TODO список подземелий: dungeonIdXY=roomId;titleId;level;test commentId
 
-        //TODO в данный момент просто пройтись по подземельям и сделать дампы C300-C316
 
-/*        Path out = Paths.get("src/main/resources/dungeons.csv");
+
+/*        Path out = Paths.get("src/main/resources/dungeons.properties");
         try {
             Files.write(out,
                     IntStream.range(0, maps.length).mapToObj(i -> maps[i].toProperty(i))
@@ -81,6 +70,7 @@ public class MapsPaneController {
     private void onMouseMove(MouseEvent event) {
         int index = (int) ((Node) event.getSource()).getUserData();
         textArea.setText(maps[index].drawAsText());
+        textArea2.setText(Config.dungeonMaps[index].drawAsText2());
     }
 
     public void bigTilesMouseMoved() {

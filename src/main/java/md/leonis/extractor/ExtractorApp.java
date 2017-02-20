@@ -10,6 +10,7 @@ public class ExtractorApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Config.loadProperties();
+        Config.loadMaps();
         JavaFxUtils.showMainPane(primaryStage);
     }
 

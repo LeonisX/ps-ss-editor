@@ -4,6 +4,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="md.leonis.extractor.view.MapsPaneController">
@@ -14,9 +15,19 @@
          </children></FlowPane>
    </bottom>
    <center>
-      <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="DejaVu Sans Mono Bold" size="14.0" />
-         </font></TextArea>
+      <HBox spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextArea fx:id="textArea">
+               <font>
+                  <Font name="DejaVu Sans Mono Bold" size="14.0" />
+               </font>
+            </TextArea>
+            <TextArea fx:id="textArea2" layoutX="10.0" layoutY="10.0">
+               <font>
+                  <Font name="DejaVu Sans Mono Bold" size="14.0" />
+               </font>
+            </TextArea>
+         </children>
+      </HBox>
    </center>
 </BorderPane>

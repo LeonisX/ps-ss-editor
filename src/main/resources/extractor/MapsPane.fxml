@@ -22,11 +22,6 @@
                   <Font name="DejaVu Sans Mono Bold" size="14.0" />
                </font>
             </TextArea>
-            <TextArea fx:id="textArea2" layoutX="10.0" layoutY="10.0">
-               <font>
-                  <Font name="DejaVu Sans Mono Bold" size="14.0" />
-               </font>
-            </TextArea>
          </children>
       </HBox>
    </center>

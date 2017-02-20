@@ -7,7 +7,12 @@ import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class Config {
     /*static String apiPath;
@@ -30,12 +35,16 @@ public class Config {
 
     public static DungeonMap[] dungeonMaps = new DungeonMap[0x3D];
 
+    public static List<String> mapRaw;
+
     static {
         try {
             dump = new Dump(new File("/home/leonis/ps.sms"));
+            loadMapsTxt();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
@@ -62,5 +71,10 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void loadMapsTxt() throws IOException {
+        Path file = Paths.get(Config.class.getClassLoader().getResource("maps.txt").getFile());
+        mapRaw = Files.lines(file).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 }

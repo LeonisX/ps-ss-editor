@@ -22,6 +22,10 @@ public class Dump {
     //TODO методы для доступа и проверки
     //всякие указатели
 
+    public Dump(int size) {
+        dump = new byte[size];
+    }
+
     public Dump(File file) throws IOException {
         //this.file = file;
         dump = Files.readAllBytes(file.toPath());

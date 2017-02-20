@@ -46,6 +46,10 @@ public class Geo {
     public Geo() {
     }
 
+    public Geo(String name) {
+        this.name = name;
+    }
+
     public Geo(/*Planets planet, */String name, int x, int y, int mapLayer, int mapId, int direction, int room, int dungeon, int transport, int animation1, int animation2, int y2, int x2, int color, int type, int church) {
         //this.planet = planet;
         if (type == 0x0B) transport = 0; // Fix for transport on dungeon exit
@@ -117,6 +121,18 @@ public class Geo {
         destGeo.setDirection(direction);
         destGeo.setColor(color);
         destGeo.setType(type);
+    }
+
+    public String toCSV() {
+        return String.format("\"%04X\"", x) + ";" +
+                String.format("\"%04X\"", y) + ";" +
+                String.format("\"%02X%02X\"", mapLayer, mapId) + ";" +
+                String.format("\"%02X\"", dungeon) + ";" +
+                String.format("\"%02X\"", room) + ";" +
+                String.format("\"%02X\"", direction) + ";" +
+                String.format("\"%02X\"", color) + ";" +
+                String.format("\"%02X\"", type) + ";" +
+                name;
     }
 
     public Planets getPlanet() {

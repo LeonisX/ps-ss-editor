@@ -31,6 +31,8 @@ public class Config {
 
     public static Hero currentHero =  null;
 
+    public static List<String> items = null;
+
     public static Dump dump;
 
     public static DungeonMap[] dungeonMaps = new DungeonMap[0x3D];
@@ -76,5 +78,33 @@ public class Config {
     public static void loadMapsTxt() throws IOException {
         Path file = Paths.get(Config.class.getClassLoader().getResource("maps.txt").getFile());
         mapRaw = Files.lines(file).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+    }
+
+    public static void loadLanguageTable() throws IOException {
+        String fileName = "english.tbl";
+        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
+            if (inputStream == null) throw new FileNotFoundException("Language table not found: " + fileName);
+            languageTable = new Properties();
+            languageTable.load(inputStream);
+
+        }
+    }
+
+    public static String getKeyByValue(char value) {
+        return getKeyByValue(value + "");
+    }
+
+    public static String getKeyByValue(String value) {
+        return Config.languageTable.entrySet().stream()
+                .filter(e -> {
+                    String v = e.getValue().toString().trim();
+                    if (v.isEmpty()) return false;
+                    if (v.equals(";")) return v.equals(value);
+                    //System.out.println(v);
+
+                    //if (v.split(";").length == 0) System.out.println(e);
+                    return v.split(";")[0].trim().equals(value);
+                }).findFirst()
+                .map(objectEntry -> objectEntry.getKey().toString()).orElse("");
     }
 }

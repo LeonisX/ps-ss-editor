@@ -35,6 +35,7 @@ C504	04	Wait a time, then return to Dr. Luveno
 C504	05	Wait a time, then return to Dr. Luveno
 C504	06	Wait a time, then return to Dr. Luveno
 C504	07	Come to Dr. Luveno with Hapsby. Now Luveno is accesible.
+C507	FF	Find Soothe Flute in Gothic
 Eppi
 10 F0 03 00 A0 A0 01 00 05 08 02 00 5E 02 00 00 00 A0 01 F0 03 00 0D
 C604	00	Talk with old man in Eppi. Unlock Dungeon Key in Camineet Warehouse
@@ -82,19 +83,19 @@ C601	FF	E8	20 Mesetas
 C602	FF	7C	10 Mesetas
 Gothic Passageway
 00 A0 00 00 00 10 02 00 04 05 00 00 DE 00 00 00 00 10 02 A0 00 04 0B
-C504	02	5D	Assistent went to help a Dr. Luveno
+C504	02	5D	Assistant went to help a Dr. Luveno
 Gothic Passageway (Gothic entrance)
 00 50 02 00 00 A0 00 00 05 07 02 00 2E 00 00 00 00 A0 00 50 02 04 0B
 Baya Marlay Cave
 00 10 07 00 00 80 00 00 00 00 00 00 5A 00 00 02 02 80 00 10 07 04 0B
-C6C0	FF	53	Boss Mad Doctor
+C6C0	FF	53	Boss: Mad Doctor
 Triada Prison
 00 C0 02 00 00 30 06 00 00 00 00 00 D2 01 00 00 00 30 06 C0 02 05 0B
 C603	FF	17	Empty	Trap
-C6C1	FF	5D	Boss	Skeletons
+C6C1	FF	5D	Monsters: Skeletons
 C503	01	69	For the first time to talk with Dr. Luveno
 C503	02	69	Second time to speak with Dr. Luveno
-C504	01	69	A third talk with Dr. Luveno. Now assistent will come out from passageway
+C504	01	69	A third talk with Dr. Luveno. Now assistant will come out from passageway
 Camineet Warehouse
 00 40 06 00 00 A0 00 00 04 04 00 00 5E 02 00 00 00 A0 00 40 06 02 0B
 C604	FF	17	Dungeon Key
@@ -143,7 +144,7 @@ Medusa Tower #4 (Man)
 00 A0 01 00 00 B0 05 00 00 00 01 00 A7 07 00 00 01 B0 05 A0 01 01 0B
 Medusa Tower #5
 00 A0 01 00 00 B0 05 00 00 00 02 00 63 08 00 00 01 B0 05 A0 01 01 0B
-C6C3	FF	65	Boss Herex
+C6C3	FF	65	Monsters: Herex
 Baya Marlay #-3
 00 00 06 00 00 20 01 00 00 00 00 00 2E 08 00 01 03 20 01 00 06 01 0B
 C621	FF	C3	Ruoginin
@@ -161,7 +162,7 @@ C626	FF	91	Light Pendant
 Medusa Tower #7
 00 A0 01 00 00 B0 05 00 00 00 03 00 44 0A 00 00 01 B0 05 A0 01 01 0B
 C627	FF	61	Empty	Trap
-C6C5	FF	67	Boss Medusa	Laconian Axe
+C6C5	FF	67	Boss: Medusa	Laconian Axe
 Baya Marlay #-1
 00 00 06 00 00 20 01 00 00 00 00 00 91 0A 00 01 03 20 01 00 06 01 0B
 C628	FF	EE	PelorieMate
@@ -200,14 +201,14 @@ Baya Marlay #5 (Damoa)
 
 Iala Cave #4
 00 00 07 00 00 10 04 00 00 00 01 00 E4 10 00 00 00 10 04 00 07 04 0B
-C6C9	FF	C7	Boss Skeletons	Saber Claw
+C6C9	FF	C7	Monsters: Skeletons Saber Claw
 C63E	FF	1E	PelorieMate
 C63F	FF	8B	Empty	Trap
 C641	FF	9C	Searchlight
 C642	FF	D1	Ruoginin
 Naula Cave #4
 00 B0 05 00 00 50 00 00 00 00 00 00 21 10 00 00 00 50 00 B0 05 04 0B
-C640	FF	61	Flash
+C640	FF	61	Searchlight
 Naula Cave #4 (Cake Shop)
 00 B0 05 00 00 50 00 00 00 00 01 00 64 10 00 00 00 50 00 B0 05 04 0B
 Iala Cave #3
@@ -221,7 +222,7 @@ C643	FF	26	10 Mesetas
 Iala Cave #2
 00 00 07 00 00 10 04 00 00 00 02 00 C3 12 00 00 00 10 04 00 07 04 0B
 C648	FF	19	Empty	Trap
-C649	FF	1E	Cola
+C649	FF	1E	PelorieMate
 C64A	FF	CC	Searchlight
 C64C	FF	92	20 Mesetas
 C64D	FF	94	Empty	Trap
@@ -284,7 +285,7 @@ C6CB	FF	5A	Red Dragon	Laconian Sword
 Mahal Cave #3
 00 00 03 00 00 30 00 00 01 01 00 00 93 1C 00 00 00 30 00 00 03 07 0B
 C665	FF	31	2000 Mesetas
-C6CC	FF	1E	Boss Red Dragon
+C6CC	FF	1E	Monsters: Red Dragon
 Mahal Cave #2
 00 00 03 00 00 30 00 00 01 01 03 00 C7 1D 00 00 00 30 00 00 03 07 0B
 C666	FF	1B	Searchlight
@@ -292,7 +293,7 @@ C667	FF	21	Ruoginin
 C668	FF	41	Ruoginin	Trap
 C669	FF	8C	Searchlight
 C66A	FF	CA	50 Mesetas
-C6CD	FF	B1	Boss 	Motavian Peasant
+C6CD	FF	B1	Monsters: Motavian Peasants
 C506	01	68	Give Governor letter to Lutz. Unlock entrance to Gothic Passage
 Mahal Cave #2 (Lutz)
 00 00 03 00 00 30 00 00 01 01 02 00 68 1D 00 00 00 30 00 00 03 07 0B
@@ -343,7 +344,7 @@ C67D	FF	78	5000 Mesetas	Trap
 Casba Cave
 00 50 05 00 00 30 07 00 01 01 00 00 D3 27 00 00 00 30 07 50 05 07 0B
 C67E	FF	71	500 Mesetas
-C6CF	FF	9E	Boss Red Dragon	Light Saber
+C6CF	FF	9E	Boss: Red Dragon	Light Saber
 Casba Cave (Casba side)
 00 50 05 00 00 30 07 00 01 01 00 00 DC 27 00 00 00 30 07 50 05 07 0B
 Passageway to Skray
@@ -356,9 +357,9 @@ Guaron Morgue #2
 C680	FF	99	Ruoginin
 Guaron Morgue
 00 90 04 00 00 B0 07 00 02 02 03 00 DD 2A 00 01 00 B0 07 90 04 0A 0B
-C6D4	FF	73	Boss Zombie
-C6D5	FF	73	Boss Zombie
-C6D6	FF	B1	Boss Zombie
+C6D4	FF	73	Monsters: Zombies
+C6D5	FF	73	Monsters: Zombies
+C6D6	FF	B1	Monsters: Zombies
 C681	FF	99	Laconian Armor
 Corona Tower
 00 D0 02 00 00 70 00 00 02 02 00 00 D1 2B 00 00 02 70 00 D0 02 08 0B
@@ -409,7 +410,7 @@ Dezorian Cave #3
 Dezorian Cave #2
 00 20 00 00 00 40 02 00 02 02 00 00 55 33 00 02 02 40 02 20 00 09 0B
 C690	FF	19	Empty	Trap
-C6D7	FF	D9	Boss Biting Fly
+C6D7	FF	D9	Monsters: Biting Fly
 Dezorian Cave
 00 50 00 00 00 40 02 00 02 02 00 00 D3 34 00 02 02 40 02 50 00 09 0B
 C691	FF	16	50 Mesetas
@@ -417,7 +418,7 @@ C692	FF	1E	Magic Hat
 C693	FF	EE	Ceramic Shield
 Air Castle Dungeon #5
 00 70 01 00 00 00 01 00 0A 17 02 00 94 35 00 01 03 00 01 70 01 06 0B
-C517	FF	C2	LaShiec's Shadow Warrior
+C517	FF	C2	Beat LaShiec's Shadow Warrior
 Air Castle Dungeon #4
 00 70 01 00 00 00 01 00 0A 17 01 00 B4 36 00 01 03 00 01 70 01 06 0B
 Air Castle Dungeon #3

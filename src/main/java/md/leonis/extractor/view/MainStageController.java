@@ -6,6 +6,7 @@ import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 import md.leonis.extractor.model.DungeonMap;
 import md.leonis.extractor.utils.*;
+import md.leonis.ps.editor.model.Event;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.model.Level;
 
@@ -20,7 +21,6 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static md.leonis.extractor.utils.Config.dump;
-import static md.leonis.extractor.utils.Config.resourcePath;
 
 
 public class MainStageController {
@@ -48,9 +48,11 @@ public class MainStageController {
         JavaFxUtils.showAlert("Confirmation", "All maps was dumped from ROM", Alert.AlertType.INFORMATION);
     }
 
+
     public void showDungeonMapsClick() {
         JavaFxUtils.showPane("MapsPane.fxml");
     }
+
 
     public void dumpLevelStatsClick() {
         dump.setByteOrder(ByteOrder.LITTLE_ENDIAN);
@@ -77,19 +79,21 @@ public class MainStageController {
         JavaFxUtils.showPane("RlePane.fxml");
     }
 
+
+
     public void processRawMapsDataClick() {
-
-
         String name = "";
         // need????
         Geo currentGeo = null;
         List<Geo> geos = new LinkedList<>();
+        List<Event> allEvents = new LinkedList<>();
+        Map<String, String> phrases = new LinkedHashMap<>();
 
         for (String line: Config.mapRaw) {
             // chests, bosses, ...
             if (line.contains("\t")) {
-                System.out.println("chests, bosses, ...");
-                //TODO process
+                System.out.println("chests, bosses, ...: " + line);
+                allEvents.add(new Event(line, phrases));
                 continue;
             }
             // map data
@@ -115,6 +119,9 @@ public class MainStageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //TODO начал проверять евенты
+        //по ходу, начиная с байя марлай сейвы убиты. посмотреть что дома, если что - перепройти
 
         //TODO нужна раскладка входов-выходов
         //TODO нужна раскладка сундуков
@@ -143,7 +150,6 @@ public class MainStageController {
 
         //Geo g = new Geo("test #1");
         //System.out.println(g.getLevel());
-        //TODO список карт dungeonId=color
 
         System.out.println("==============================");
 
@@ -155,6 +161,13 @@ public class MainStageController {
                         commentNames.stream().map(d -> d.split("=")[1]).collect(Collectors.toList())))
                 .collect(Collectors.toList());
         dungeons.forEach(System.out::println);
+
+
+        System.out.println("==============================");
+        allEvents.stream().sorted((e1, e2) -> Integer.valueOf(e1.getRelativeAddress()).compareTo(e2.getRelativeAddress())).forEach(System.out::println);
+
+        System.out.println("==============================");
+        phrases.entrySet().forEach(System.out::println);
 
 
         JavaFxUtils.showAlert("Confirmation", "All data was processed", Alert.AlertType.INFORMATION);

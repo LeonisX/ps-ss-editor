@@ -4,8 +4,6 @@ package md.leonis.ps.editor.model;
 import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 
-import java.util.Arrays;
-
 import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_SIZE;
 
 public class SaveGame {

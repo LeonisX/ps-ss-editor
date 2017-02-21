@@ -164,8 +164,12 @@ public class Config {
     }
 
     public static String getKeyByValue(char value) {
-        //System.out.println(Config.languageTable.entrySet().stream().filter(e -> e.getValue().equals(value + "")).findFirst());
-        return Config.languageTable.entrySet().stream().filter(e -> e.getValue().equals(value + "")).findFirst()
+        return getKeyByValue(value + "");
+    }
+
+    public static String getKeyByValue(String value) {
+        return Config.languageTable.entrySet().stream()
+                .filter(e -> e.getValue().toString().split(";")[0].trim().equals(value)).findFirst()
                 .map(objectEntry -> objectEntry.getKey().toString()).orElse("");
     }
 

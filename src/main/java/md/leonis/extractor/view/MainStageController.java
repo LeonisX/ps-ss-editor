@@ -6,6 +6,7 @@ import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 import md.leonis.extractor.model.DungeonMap;
 import md.leonis.extractor.utils.*;
+import md.leonis.ps.editor.model.DungeonData;
 import md.leonis.ps.editor.model.Event;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.model.Level;
@@ -127,48 +128,96 @@ public class MainStageController {
         //TODO нужна раскладка сундуков
         //TODO нужна раскладка боссов
 
+        System.out.println("DungeonNames ==============================");
         //TODO нужен список подземелий: dungeonIdXY=title
-        List<String> dungeonNames = geos.stream()
+        Map<String, String> dungeonNames = geos.stream()
                 .filter(Geo::isDungeon)
                 .filter(Geo::isClearName)
                 .sorted(Comparator.comparing(Geo::getName))
-                .map(Geo::getDungeonNameProperty)
-                .collect(Collectors.toList());
-        dungeonNames.forEach(System.out::println);
+                .collect(Collectors.toMap(Geo::getClearDungeonKey, Geo::getName));
 
-        System.out.println("==============================");
+        dungeonNames.entrySet().forEach(System.out::println);
+
+        System.out.println("CommentNames==============================");
 
         int[] k = new int[1];
-        List<String> commentNames = geos.stream()
+        Map<String, String> commentNames = geos.stream()
                 .filter(Geo::hasNameComment)
                 .map(Geo::getNameComment)
                 .distinct()
                 .sorted()
-                .map(d -> String.format("comment%X=%s", k[0]++, d))
-                .collect(Collectors.toList());
-        commentNames.forEach(System.out::println);
+                .collect(Collectors.toMap(d -> String.format("comment%02X", k[0]++), d -> d));
+
+        commentNames.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).forEach(System.out::println);
+
+        Config.languageTable.putAll(commentNames);
 
         //Geo g = new Geo("test #1");
         //System.out.println(g.getLevel());
 
-        System.out.println("==============================");
+        Config.languageTable.putAll(phrases);
+        Config.languageTable.putAll(commentNames);
+        Config.languageTable.putAll(dungeonNames);
+
+
+        System.out.println("Dungeons==============================");
 
         //TODO список подземелий: dungeonIdXY=roomId;titleId;level;test commentId
-        List<String> dungeons = geos.stream()
+        Geo.increment = 0;
+        /*Map<String, String> dungeons = geos.stream()
                 .filter(Geo::isDungeon)
                 .sorted(Comparator.comparing(Geo::getDungeon))
-                .map(geo -> geo.getDungeonProperty(dungeonNames.stream().map(d -> d.split("=")[1]).collect(Collectors.toList()),
-                        commentNames.stream().map(d -> d.split("=")[1]).collect(Collectors.toList())))
+                .collect(Collectors.toMap(Geo::getDungeonIndex,
+                        geo -> geo.getDungeonValue(dungeonNames, commentNames)));
+
+        dungeons.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).forEach(System.out::println);*/
+
+        List<DungeonData> dungeonDatas = geos.stream()
+                .filter(Geo::isDungeon)
+                .sorted(Comparator.comparing(Geo::getDungeon))
+                .map(DungeonData::new)
                 .collect(Collectors.toList());
-        dungeons.forEach(System.out::println);
+
+        dungeonDatas.stream().sorted(Comparator.comparing(DungeonData::getId)).forEach(d -> {
+            System.out.println("D : " + d);
+            System.out.println("Df: " + d.fromCSV(d.toMapEntry()));
+            System.out.println(d.fineView());
+            System.out.println(d.toMapEntry());
+        });
 
 
-        System.out.println("==============================");
-        allEvents.stream().sorted((e1, e2) -> Integer.valueOf(e1.getRelativeAddress()).compareTo(e2.getRelativeAddress())).forEach(System.out::println);
+        System.out.println("AllEvents==============================");
+        //allEvents.stream().sorted((e1, e2) -> Integer.valueOf(e1.getRelativeAddress()).compareTo(e2.getRelativeAddress())).forEach(System.out::println);
 
-        System.out.println("==============================");
-        phrases.entrySet().forEach(System.out::println);
+        System.out.println("Phrases==============================");
+        //phrases.entrySet().forEach(System.out::println);
 
+
+
+        //dungeonNames.entrySet().stream()
+/*
+        dungeons.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).forEach(e -> {
+            String[] chunks = e.getValue().split(";");
+            //System.out.println(e.getValue());
+            //System.out.println(chunks.length);
+            System.out.print(Config.languageTable.getProperty(chunks[1]));
+*//*            if (chunks.length == 2) {
+                System.out.println();
+                return;
+            }*//*
+
+            if (!chunks[2].equals("1")) {
+                System.out.print(" #" + chunks[2]);
+            }
+            if (chunks.length == 4) {
+                System.out.print(" (" + Config.languageTable.getProperty(chunks[3]) + ")");
+            }
+            //System.out.print( " ----: " + chunks[1]);
+            System.out.print( " x: " + chunks[1].substring(7, 11));
+            System.out.print( " y: " + chunks[1].substring(11, 15));
+            System.out.print( " dungeonId: " + chunks[1].substring(15));
+            System.out.println( " roomId: " + chunks[0]);
+        });*/
 
         JavaFxUtils.showAlert("Confirmation", "All data was processed", Alert.AlertType.INFORMATION);
     }

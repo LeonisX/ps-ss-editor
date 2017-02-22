@@ -3,8 +3,12 @@ package md.leonis.ps.editor.model;
 import md.leonis.bin.Dump;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Geo {
+
+    public static int increment = 0;
 
     private Planets planet; //TODO need???
     private String name;
@@ -290,13 +294,6 @@ public class Geo {
                 '}';
     }
 
-    public String getDungeonNamePropertyName() {
-        return String.format("dungeon%02X%04X%04X=", dungeon, x, y);
-    }
-    
-    public String getDungeonNameProperty() {
-        return getDungeonNamePropertyName() + name;
-    }
 
     public boolean isClearName() {
         return !(hasNameComment() || hasLevel());
@@ -310,22 +307,19 @@ public class Geo {
     public boolean hasNameComment() {
         return name.contains("(");
     }
-    
-    private String getCleanName() {
+
+    public String getCleanName() {
         if (isClearName()) return name.trim();
         return removeNameComment(name.split("#")[0].trim());
     }
 
-    public String getDungeonProperty(List<String> dungeonNames, List<String> commentNames) {
+    public String getClearDungeonKey() {
         //dungeonIdXY=roomId;titleId;level;test commentId
-        //System.out.println(getCleanName());
-        String comment = (commentNames.indexOf(getNameComment()) < 0) ? "" : String.format("%02X", commentNames.indexOf(getNameComment()));
-        return getDungeonNamePropertyName() +
-                String.format("%02X;%02X;%s;%s", room, dungeonNames.indexOf(getCleanName()), getLevel(), comment);
+        return String.format("dungeon%02X%04X%04X", dungeon, x, y);
     }
 
     public String getLevel() {
-        if (!hasLevel()) return "";
+        if (!hasLevel()) return "1";
         return removeNameComment(name.split("#")[1].trim());
     }
 
@@ -337,4 +331,5 @@ public class Geo {
     private boolean hasLevel() {
         return name.contains("#");
     }
+
 }

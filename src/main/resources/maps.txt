@@ -1,4 +1,4 @@
-Palma (near Camineet)
+Palma
 30 D0 04 00 30 30 03 00 00 00 02 00 5E 02 00 00 00 30 03 D0 04 00 0D
 Palma (near Gothic)
 00 00 03 00 10 10 04 00 00 00 00 00 2E 00 00 00 00 10 04 00 03 00 0D
@@ -6,9 +6,11 @@ Palma (near Drasgow)
 30 D0 06 00 10 10 06 00 00 00 01 00 67 0A 00 02 02 10 06 D0 06 00 0D
 Palma (near Baya Marlay)
 00 00 06 00 10 30 01 00 00 00 03 00 15 00 00 01 03 30 01 00 06 00 0D
+Motavia
+40 C0 05 00 10 10 02 00 01 01 00 00 2E 00 00 02 01 10 02 C0 05 00 0D
 Motavia (Perseus Island)
 00 00 04 00 60 60 02 00 01 01 02 00 5E 02 00 00 01 60 02 00 04 00 0D
-Dezoris (near Skray)
+Dezoris
 C0 40 02 00 50 50 05 00 02 02 03 00 25 22 00 00 03 50 05 40 02 00 0D
 Dezoris (near 3-rd cavern passageway)
 70 90 00 00 30 30 05 00 02 02 00 00 87 30 04 01 03 30 05 90 00 00 0D
@@ -119,8 +121,8 @@ C60E	FF	58	Searchlight
 
 Medusa Tower
 00 A0 01 00 00 B0 05 00 00 00 00 00 D8 04 00 00 01 B0 05 A0 01 01 0B
-C60F	13	FF	20 Mesetas
-C610	E5	FF	PelorieMate
+C60F	FF	13	20 Mesetas
+C610	FF	E5	PelorieMate
 C612	FF	1D	Empty	Trap
 Medusa Tower #2
 00 A0 01 00 00 B0 05 00 00 00 02 00 6D 05 00 00 01 B0 05 A0 01 01 0B
@@ -335,7 +337,7 @@ C679	FF	EE	PelorieMate
 Casba Cave #3
 00 50 05 00 00 30 07 00 01 01 00 00 93 25 00 00 00 30 07 50 05 07 0B
 C67A	FF	86	100 Mesetas
-C67A	FF	8A	Empty	Trap
+C67B	FF	8A	Empty	Trap
 C67C	FF	3E	100 Mesetas
 C6CE	FF	1D	Dragon Wise	Carbunckle Eye
 Casba Cave #2
@@ -427,15 +429,15 @@ Air Castle Dungeon #2
 00 70 01 00 00 00 01 00 0A 17 02 00 64 38 00 01 03 00 01 70 01 06 0B
 Air Castle Dungeon
 00 70 01 00 00 00 01 00 0A 17 00 00 D6 39 00 01 03 00 01 70 01 06 0B
+C516	FF	CC	Beat LaShiec
 Air Castle Dungeon (LaShiec)
 00 70 01 00 00 00 01 00 0A 17 03 00 CC 39 00 01 03 00 01 70 01 06 0B
-C516	FF	CC	Beat LaShiec
 Aeroprism Cave
 00 E0 03 00 00 70 06 00 02 02 00 00 DD 3A 00 00 00 70 06 E0 03 0A 0B
 C694	FF	82	Magic Hat
+C6D8	FF	79	Golem	Aeroprism
 Aeroprism Cave (Otegami Chie-chan)
 00 E0 03 00 00 70 06 00 02 02 01 00 97 3A 00 00 00 70 06 E0 03 0A 0B
-C6D8	FF	79	Golem	Aeroprism
 Credits #2
 00 10 06 00 00 30 02 00 00 00 02 00 98 3B 00 02 02 30 02 10 06 0B 0B
 Credits

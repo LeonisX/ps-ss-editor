@@ -6,10 +6,7 @@ import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 import md.leonis.extractor.model.DungeonMap;
 import md.leonis.extractor.utils.*;
-import md.leonis.ps.editor.model.DungeonData;
-import md.leonis.ps.editor.model.Event;
-import md.leonis.ps.editor.model.Geo;
-import md.leonis.ps.editor.model.Level;
+import md.leonis.ps.editor.model.*;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -82,9 +79,9 @@ public class MainStageController {
 
 
 
+    //евентам нужна привязка к картам
     public void processRawMapsDataClick() {
         String name = "";
-        // need????
         Geo currentGeo = null;
         List<Geo> geos = new LinkedList<>();
         List<Event> allEvents = new LinkedList<>();
@@ -94,7 +91,7 @@ public class MainStageController {
             // chests, bosses, ...
             if (line.contains("\t")) {
                 System.out.println("chests, bosses, ...: " + line);
-                allEvents.add(new Event(line, phrases));
+                allEvents.add(new Event(currentGeo, line, phrases));
                 continue;
             }
             // map data
@@ -123,13 +120,14 @@ public class MainStageController {
 
         //TODO начал проверять евенты
         //по ходу, начиная с байя марлай сейвы убиты. посмотреть что дома, если что - перепройти
+        // проверить C516	11	DE	Beat Dark Faltz
 
         //TODO нужна раскладка входов-выходов
         //TODO нужна раскладка сундуков
         //TODO нужна раскладка боссов
 
         System.out.println("DungeonNames ==============================");
-        //TODO нужен список подземелий: dungeonIdXY=title
+        //список подземелий: dungeonIdXY=title
         Map<String, String> dungeonNames = geos.stream()
                 .filter(Geo::isDungeon)
                 .filter(Geo::isClearName)
@@ -137,6 +135,16 @@ public class MainStageController {
                 .collect(Collectors.toMap(Geo::getClearDungeonKey, Geo::getName));
 
         dungeonNames.entrySet().forEach(System.out::println);
+
+        System.out.println("CitiesNames ==============================");
+        //список городов: dungeonIdXY=title
+        Map<String, String> citiesNames = geos.stream()
+                .filter(Geo::isCity)
+                .filter(Geo::isClearName)
+                .sorted(Comparator.comparing(Geo::getName))
+                .collect(Collectors.toMap(Geo::getClearCityKey, Geo::getName));
+
+        citiesNames.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).forEach(System.out::println);
 
         System.out.println("CommentNames==============================");
 
@@ -150,19 +158,18 @@ public class MainStageController {
 
         commentNames.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).forEach(System.out::println);
 
+        //TODO put manual
         Config.languageTable.putAll(commentNames);
-
-        //Geo g = new Geo("test #1");
-        //System.out.println(g.getLevel());
-
         Config.languageTable.putAll(phrases);
         Config.languageTable.putAll(commentNames);
         Config.languageTable.putAll(dungeonNames);
+        Config.languageTable.putAll(citiesNames);
 
 
         System.out.println("Dungeons==============================");
 
-        //TODO список подземелий: dungeonIdXY=roomId;titleId;level;test commentId
+        //список подземелий: dungeonIdXY=roomId;titleId;level;test commentId
+        System.out.println("DungeonDatas==============================");
         Geo.increment = 0;
         /*Map<String, String> dungeons = geos.stream()
                 .filter(Geo::isDungeon)
@@ -178,7 +185,24 @@ public class MainStageController {
                 .map(DungeonData::new)
                 .collect(Collectors.toList());
 
-        dungeonDatas.stream().sorted(Comparator.comparing(DungeonData::getId)).forEach(d -> {
+        //TODO put manual
+        dungeonDatas.stream().sorted(Comparator.comparing(DungeonData::getTitle)).forEach(d -> {
+            System.out.println("D : " + d);
+            System.out.println("Df: " + d.fromCSV(d.toMapEntry()));
+            System.out.println(d.fineView());
+            System.out.println(d.toMapEntry());
+        });
+
+        System.out.println("CityDatas==============================");
+        Geo.increment = 0;
+        List<CityData> cityDatas = geos.stream()
+                .filter(Geo::isCity)
+                .sorted(Comparator.comparing(Geo::getClearCityKey))
+                .map(CityData::new)
+                .collect(Collectors.toList());
+
+//TODO put manual
+        cityDatas.stream().sorted(Comparator.comparing(CityData::getTitle)).forEach(d -> {
             System.out.println("D : " + d);
             System.out.println("Df: " + d.fromCSV(d.toMapEntry()));
             System.out.println(d.fineView());
@@ -187,7 +211,35 @@ public class MainStageController {
 
 
         System.out.println("AllEvents==============================");
-        //allEvents.stream().sorted((e1, e2) -> Integer.valueOf(e1.getRelativeAddress()).compareTo(e2.getRelativeAddress())).forEach(System.out::println);
+        //TODO bind events to maps
+        Event.counter = 0;
+        allEvents.forEach(e -> {
+            if (e.getGeo().getType() == 0x0B) { //dungeons
+                System.out.println("!!!!!!!!!!!!!!!!!!!!" + e.getGeo().getName());
+                dungeonDatas.forEach(d -> System.out.println(d.fineView()));
+                e.setLocationId(
+                        dungeonDatas.stream().filter(d -> (d.fineView().equals(e.getGeo().getName()))).findFirst().get().getDungeonKey()
+                );
+            } else {
+                System.out.println("!!!!!!!!!!!!!!!!!!!!" + e.getGeo().getName());
+                cityDatas.forEach(c -> System.out.println(c.fineView()));
+                e.setLocationId(
+                        cityDatas.stream().filter(c -> (c.fineView().equals(e.getGeo().getName()))).findFirst().get().getCityKey()
+                );
+            }
+        });
+
+        allEvents.stream().sorted((e1, e2) -> Integer.valueOf(e1.getRelativeAddress()).compareTo(e2.getRelativeAddress())).forEach(System.out::println);
+
+
+        //TODO put manual
+        allEvents.stream().sorted(Comparator.comparing(Event::getRelativeAddress)).forEach(e -> {
+            //System.out.println("D : " + e);
+            //System.out.println("Df: " + e.fromCSV(e.toMapEntry()));
+            System.out.println(e.fineView(dungeonDatas, cityDatas));
+            //System.out.println(e.toMapEntry());
+        });
+
 
         System.out.println("Phrases==============================");
         //phrases.entrySet().forEach(System.out::println);

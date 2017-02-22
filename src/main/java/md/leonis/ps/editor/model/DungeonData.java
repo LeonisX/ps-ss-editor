@@ -33,6 +33,7 @@ public class DungeonData {
     public String getDungeonKey() {
         return String.format("dungeon%02X", id);
     }
+
     public String getDungeonValue() {
         String titleId = Config.getKeyByValue(title);
         //System.out.println(titleId);
@@ -58,7 +59,7 @@ public class DungeonData {
         return new AbstractMap.SimpleEntry<String, String>(getDungeonKey(), getDungeonValue());
     }
 
-    public DungeonData fromCSV(Map.Entry<String, String> entry) {
+    public static DungeonData fromCSV(Map.Entry<String, String> entry) {
         //String[] vals = csv.split("=");
         String key = entry.getKey();
         String value = entry.getValue();

@@ -2,9 +2,6 @@ package md.leonis.ps.editor.model;
 
 import md.leonis.bin.Dump;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class Geo {
 
@@ -316,6 +313,10 @@ public class Geo {
     public String getClearDungeonKey() {
         //dungeonIdXY=roomId;titleId;level;test commentId
         return String.format("dungeon%02X%04X%04X", dungeon, x, y);
+    }
+
+    public String getClearCityKey() {
+        return String.format("city%02X%02X", mapLayer, mapId);
     }
 
     public String getLevel() {

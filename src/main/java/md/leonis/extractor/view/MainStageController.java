@@ -240,6 +240,26 @@ public class MainStageController {
             //System.out.println(e.toMapEntry());
         });
 
+        //todo delete. only for audit
+        String[] loc = {""};
+        Integer[] di = {-1};
+        allEvents.stream().sorted(Comparator.comparing(Event::getLocationId)).forEach(e -> {
+            //System.out.println("D : " + e);
+            //System.out.println("Df: " + e.fromCSV(e.toMapEntry()));
+            if (e.getLocationId().startsWith("city")) return;
+            if (!loc[0].equals(e.getLocationId())) {
+                int dungeonId = Integer.parseInt(e.getLocationId().replace("dungeon", ""), 16);
+                DungeonData dungeonData = dungeonDatas.stream().filter(d -> d.getId() == dungeonId).findFirst().get();
+                int did = dungeonData.getDungeonId();
+                if (did != di[0]) {
+                    System.out.println(String.format("Dungeon #%02X", did));
+                }
+                di[0] = did;
+            }
+            e.audit(dungeonDatas, cityDatas);
+            //System.out.println(e.toMapEntry());
+        });
+
 
         System.out.println("Phrases==============================");
         //phrases.entrySet().forEach(System.out::println);

@@ -1,6 +1,7 @@
 package md.leonis.extractor.model;
 
 import md.leonis.bin.Dump;
+import md.leonis.extractor.utils.Config;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -95,6 +96,23 @@ public class DungeonMap {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public void audit(int i) {
+        System.out.println("Dungeon #" + String.format("%02X", i));
+        for (int y = 0; y < 16; y++) {
+            for (int x = 0; x < 16; x++) {
+                int value = map[y][x];
+                if (value == 14) System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
+                if (value == 15) System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
+                if (value == 16) System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
+                if (value == 23) System.out.println("       !!Quest " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+                if (value == 16) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+                if (value == 17) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+                if (value == 18) System.out.println("       Boss " + String.format("%01X%01X    ", y, x, tiles.get(map[y][x])));
+                if (value == 19) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+            }
+        }
     }
 
     public String toProperty(int index) {

@@ -15,7 +15,7 @@ public class Event {
     private int newValue;
     private int roomId;
     private List<String> textIds = new LinkedList<>();
-    private  Geo geo;
+    private Geo geo;
 
     public Event() {
     }
@@ -118,6 +118,20 @@ public class Event {
         return stringBuilder.toString();
     }
 
+
+    public void audit(List<DungeonData> dungeonDatas, List<CityData> cityDatas) {
+        //System.out.print(locationId);
+        int dungeonId = Integer.parseInt(locationId.replace("dungeon", ""), 16);
+        DungeonData dungeonData = dungeonDatas.stream().filter(d -> d.getId() == dungeonId).findFirst().get();
+        //int did = dungeonData.getDungeonId();
+        System.out.print("    " + String.format("%02X ", roomId));
+        StringBuilder stringBuilder2 = new StringBuilder();
+        textIds.forEach(t -> stringBuilder2.append("     ").append(Config.languageTable.getProperty(t).split(";")[0].trim()));
+        System.out.println(stringBuilder2);
+
+    }
+
+
     public String getLocationId() {
         return locationId;
     }
@@ -186,4 +200,5 @@ public class Event {
                 //", geo=" + geo +
                 '}';
     }
+
 }

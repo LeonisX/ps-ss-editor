@@ -23,6 +23,8 @@ public class MapsPaneController {
             button.setUserData(i);
             button.setOnMouseMoved(this::onMouseMove);
             flowPane.getChildren().add(button);
+
+            Config.dungeonMaps[i].audit(i);
         }
     }
 

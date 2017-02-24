@@ -91,6 +91,7 @@ Gothic Passageway (Gothic entrance)
 Baya Marlay Cave
 00 10 07 00 00 80 00 00 00 00 00 00 5A 00 00 02 02 80 00 10 07 04 0B
 C6C0	FF	53	Boss: Mad Doctor
+
 Triada Prison
 00 C0 02 00 00 30 06 00 00 00 00 00 D2 01 00 00 00 30 06 C0 02 05 0B
 C603	FF	17	Empty	Trap
@@ -98,6 +99,7 @@ C6C1	FF	5D	Monsters: Skeletons
 C503	01	69	For the first time to talk with Dr. Luveno
 C503	02	69	Second time to speak with Dr. Luveno
 C504	01	69	A third talk with Dr. Luveno. Now assistant will come out from passageway
+
 Camineet Warehouse
 00 40 06 00 00 A0 00 00 04 04 00 00 5E 02 00 00 00 A0 00 40 06 02 0B
 C604	FF	17	Dungeon Key
@@ -108,7 +110,6 @@ C606	FF	3A	30 Mesetas
 C607	FF	63	20 Mesetas
 Avion Warehouse (Dr. Mad's side)
 00 90 01 00 00 70 04 00 05 0A 00 00 DE 02 00 00 00 70 04 90 01 02 0B
-
 
 Medusa Tower #-1
 00 A0 01 00 00 B0 05 00 00 00 02 00 DD 03 00 00 01 B0 05 A0 01 01 0B
@@ -124,12 +125,14 @@ Medusa Tower
 C60F	FF	13	20 Mesetas
 C610	FF	E5	PelorieMate
 C612	FF	1D	Empty	Trap
+
 Medusa Tower #2
 00 A0 01 00 00 B0 05 00 00 00 02 00 6D 05 00 00 01 B0 05 A0 01 01 0B
 C613	FF	5B	10 Mesetas
 C614	FF	A1	5 Mesetas
 C615	FF	A3	Empty	Trap
 C616	FF	DD	Ruoginin
+
 Medusa Tower #3
 00 A0 01 00 00 B0 05 00 00 00 03 00 C2 06 00 00 01 B0 05 A0 01 01 0B
 C619	FF	55	35 Mesetas
@@ -137,6 +140,7 @@ C61A	FF	93	Empty	Trap
 C61C	FF	29	10 Mesetas
 Medusa Tower #3 (Man)
 00 A0 01 00 00 B0 05 00 00 00 02 00 33 06 00 00 01 B0 05 A0 01 01 0B
+
 Medusa Tower #4
 00 A0 01 00 00 B0 05 00 00 00 00 00 49 07 00 00 01 B0 05 A0 01 01 0B
 C61D	FF	65	Ruoginin
@@ -144,6 +148,7 @@ C61E	FF	AC	100 Mesetas	Trap
 C620	FF	89	Empty	Trap
 Medusa Tower #4 (Man)
 00 A0 01 00 00 B0 05 00 00 00 01 00 A7 07 00 00 01 B0 05 A0 01 01 0B
+
 Medusa Tower #5
 00 A0 01 00 00 B0 05 00 00 00 02 00 63 08 00 00 01 B0 05 A0 01 01 0B
 C6C3	FF	65	Monsters: Herex
@@ -152,8 +157,10 @@ Baya Marlay #-3
 C621	FF	C3	Ruoginin
 C622	FF	C5	50 Mesetas	Trap
 C623	FF	EE	Empty	Trap
+C6C2	FF	29	Monsters: Skull Soldier
 Baya Marlay #-3 (Man)
 00 00 06 00 00 20 01 00 00 00 00 00 91 08 00 01 03 20 01 00 06 01 0B
+
 Medusa Tower #6
 00 A0 01 00 00 B0 05 00 00 00 02 00 51 09 00 00 01 B0 05 A0 01 01 0B
 C624	FF	64	PelorieMate
@@ -161,6 +168,7 @@ Baya Marlay #-2
 00 00 06 00 00 20 01 00 00 00 01 00 8A 09 00 01 03 20 01 00 06 01 0B
 C625	FF	EE	Ruoginin
 C626	FF	91	Light Pendant
+
 Medusa Tower #7
 00 A0 01 00 00 B0 05 00 00 00 03 00 44 0A 00 00 01 B0 05 A0 01 01 0B
 C627	FF	61	Empty	Trap
@@ -172,34 +180,42 @@ C629	FF	17	500 Mesetas
 C62A	FF	E3	500 Mesetas
 C62B	FF	A9	Escape Cloth
 C62C	FF	AB	Empty	Trap
+C6C4	FF	48	Monsters: Biting Fly
+
 Baya Marlay
 00 00 06 00 00 20 01 00 00 00 00 00 B9 0B 00 01 03 20 01 00 06 01 0B
 C62D	FF	71	Short Sword
-C62e	FF	ED	Light Saber
+C62E	FF	ED	Light Saber
 C62F	FF	1C	Ruoginin
 C630	FF	63	Iron Sword
+
 Baya Marlay #2
 00 00 06 00 00 20 01 00 00 00 02 00 DE 0C 00 01 03 20 01 00 06 01 0B
-C631	FF	11	Miracle Key
+C631	FF	11	Miracle Key Trap
 C632	FF	2B	20 Mesetas
 C633	FF	A5	Ruoginin
+C6C7	FF	85	Monsters: Mad Stalker
+C6C8	FF	A9	Monsters: Mad Stalker
+
 Baya Marlay #3
 00 00 06 00 00 20 01 00 00 00 00 00 B1 0D 00 01 03 20 01 00 06 01 0B
 C634	FF	68	100 Mesetas
 C635	FF	EB	Iron Axe
 C636	FF	EE	Empty Trap
 C638	FF	E8	Empty Trap
+
 Baya Marlay #4
 00 00 06 00 00 20 01 00 00 00 01 00 16 0E 00 01 03 20 01 00 06 01 0B
 C639	FF	11	Ruoginin
 C63A	FF	41	Empty	Trap
 C63B	FF	AC	Ruoginin
 C63C	FF	E9	Empty	Trap
+
 Baya Marlay #5
 00 00 06 00 00 20 01 00 00 00 01 00 6C 0F 00 01 03 20 01 00 06 01 0B
+C63D	FF	0F	Ruoginin
 Baya Marlay #5 (Damoa)
 00 00 06 00 00 20 01 00 00 00 01 00 C4 0F 00 01 03 20 01 00 06 01 0B
-
 
 Iala Cave #4
 00 00 07 00 00 10 04 00 00 00 01 00 E4 10 00 00 00 10 04 00 07 04 0B
@@ -213,6 +229,7 @@ Naula Cave #4
 C640	FF	61	Searchlight
 Naula Cave #4 (Cake Shop)
 00 B0 05 00 00 50 00 00 00 00 01 00 64 10 00 00 00 50 00 B0 05 04 0B
+
 Iala Cave #3
 00 00 07 00 00 10 04 00 00 00 02 00 CE 11 00 00 00 10 04 00 07 04 0B
 C644	FF	5E	50 Mesetas
@@ -221,6 +238,7 @@ C646	FF	7D	20 Mesetas
 Naula Cave #3
 00 B0 05 00 00 50 00 00 00 00 02 00 57 11 00 00 00 50 00 B0 05 04 0B
 C643	FF	26	10 Mesetas
+
 Iala Cave #2
 00 00 07 00 00 10 04 00 00 00 02 00 C3 12 00 00 00 10 04 00 07 04 0B
 C648	FF	19	Empty	Trap
@@ -231,6 +249,7 @@ C64D	FF	94	Empty	Trap
 Naula Cave #2
 00 B0 05 00 00 50 00 00 00 00 01 00 54 12 00 00 00 50 00 B0 05 04 0B
 C64B	FF	77	Short Sword
+
 Iala Cave
 00 00 07 00 00 10 04 00 00 00 00 00 DE 13 00 00 00 10 04 00 07 04 0B
 C64E	FF	1E	PelorieMate
@@ -239,6 +258,7 @@ C650	FF	A5	Empty
 C651	FF	EC	Empty
 Naula Cave
 00 B0 05 00 00 50 00 00 00 00 03 00 13 13 00 00 00 50 00 B0 05 04 0B
+
 Baya Marlay Prison
 00 10 06 00 00 30 02 00 00 00 00 00 CB 14 00 02 02 30 02 10 06 03 0B
 
@@ -248,7 +268,8 @@ Baya Marlay Jail
 00 10 06 00 00 30 02 00 00 00 01 00 9C 15 00 02 02 30 02 10 06 03 0B
 Dr. Mad' House
 00 60 01 00 00 50 04 00 05 0A 00 00 D8 15 00 00 00 50 04 60 01 03 0B
-C518	FF	C8	Kill Dr. Mad; Receive Laconian Pot
+C518	FF	C8	Kill Dr. Mad, receive Laconian Pot
+
 Passageway to Avion Island
 00 20 01 00 00 50 03 00 00 00 00 00 DE 16 00 00 00 50 03 20 01 04 0B
 C653	FF	3E	100 Mesetas
@@ -257,13 +278,16 @@ C655	FF	81	Searchlight
 C656	FF	C8	Escape Cloth
 Passageway to Avion Island (Avion side)
 00 20 01 00 00 50 03 00 00 00 02 00 21 16 00 00 00 50 03 20 01 04 0B
+
 Forgotten Tower
 00 E0 07 00 00 10 03 00 00 00 00 00 D7 17 00 00 03 10 03 E0 07 02 0B
 C657	FF	AA	20 Mesetas
+
 Forgotten Tower #2
 00 E0 07 00 00 10 03 00 00 00 01 00 6C 18 00 00 03 10 03 E0 07 02 0B
 C659	FF	16	Empty	Trap
 C6CA	FF	1C	Red Slime
+
 Forgotten Tower #3
 00 E0 07 00 00 10 03 00 00 00 02 00 78 19 00 00 03 10 03 E0 07 02 0B
 C65A	FF	1A	Ruoginin
@@ -274,20 +298,24 @@ C65E	FF	74	Ruoginin
 C65F	FF	A3	Empty	Trap
 Forgotten Tower #3 (Man)
 00 E0 07 00 00 10 03 00 00 00 00 00 3E 19 00 00 03 10 03 E0 07 02 0B
+
 Forgotten Tower #4
 00 E0 07 00 00 10 03 00 00 00 00 00 2C 1A 00 00 03 10 03 E0 07 02 0B
 C660	FF	1E	Empty	Trap
 C661	FF	33	20 Mesetas
 C662	FF	51	Ruoginin
 C663	FF	CB	Empty
+
 Forgotten Tower #5
 00 E0 07 00 00 10 03 00 00 00 03 00 B3 1B 00 00 03 10 03 E0 07 02 0B
 C664	FF	E1	Ruoginin
-C6CB	FF	5A	Red Dragon	Laconian Sword
+C6CB	FF	5A	Boss: Red Dragon	Laconian Sword
+
 Mahal Cave #3
 00 00 03 00 00 30 00 00 01 01 00 00 93 1C 00 00 00 30 00 00 03 07 0B
 C665	FF	31	2000 Mesetas
 C6CC	FF	1E	Monsters: Red Dragon
+
 Mahal Cave #2
 00 00 03 00 00 30 00 00 01 01 03 00 C7 1D 00 00 00 30 00 00 03 07 0B
 C666	FF	1B	Searchlight
@@ -299,21 +327,23 @@ C6CD	FF	B1	Monsters: Motavian Peasants
 C506	01	68	Give Governor letter to Lutz. Unlock entrance to Gothic Passage
 Mahal Cave #2 (Lutz)
 00 00 03 00 00 30 00 00 01 01 02 00 68 1D 00 00 00 30 00 00 03 07 0B
+
 Mahal Cave
 00 00 03 00 00 30 00 00 01 01 01 00 69 1E 00 00 00 30 00 00 03 07 0B
 C66B	FF	1E	PelorieMate
 C66C	FF	11	20 Mesetas
+
 Passageway to Paseo Palace #3
 00 70 01 00 00 A0 00 00 07 0E 00 00 79 1F 00 02 03 A0 00 70 01 06 0B
-C516	11	DE	Beat Dark Faltz
+
 Passageway to Paseo Palace #2
 00 70 01 00 00 A0 00 00 07 0E 00 00 1A 20 00 02 03 A0 00 70 01 06 0B
+
 Passageway to Paseo Palace
 00 90 01 00 00 90 01 00 07 0E 00 00 D4 21 00 00 00 90 01 90 01 06 0B
 C511	FF	94	Give Shortcake to Robot Police
 Paseo Palace Dungeon
 00 70 01 00 00 A0 00 00 07 0E 00 00 E6 21 00 02 03 A0 00 70 01 06 0B
-
 
 Tajimu's Cave #3
 00 30 02 00 00 60 05 00 01 01 00 00 AC 22 00 00 01 60 05 30 02 07 0B
@@ -323,54 +353,65 @@ C66F	FF	91	Empty	Trap
 C670	FF	EA	Titanium Sword
 C671	FF	EE	Empty	Trap
 C672	FF	E3	500 Mesetas	Trap
+
 Tajimu's Cave #2
 00 30 02 00 00 60 05 00 01 01 01 00 C7 23 00 00 01 60 05 30 02 07 0B
 C673	FF	79	Searchlight
 C674	FF	91	Empty Trap
 C675	FF	C1	Ruoginin
+
 Tajimu's Cave
 00 30 02 00 00 60 05 00 01 01 00 00 D9 24 00 00 01 60 05 30 02 07 0B
 C676	FF	47	3000 Mesetas
 C677	FF	11	White Cloak
 C678	FF	1E	Wood Cane
 C679	FF	EE	PelorieMate
+
 Casba Cave #3
 00 50 05 00 00 30 07 00 01 01 00 00 93 25 00 00 00 30 07 50 05 07 0B
 C67A	FF	86	100 Mesetas
 C67B	FF	8A	Empty	Trap
 C67C	FF	3E	100 Mesetas
-C6CE	FF	1D	Dragon Wise	Carbunckle Eye
+C6CE	FF	1D	Boss: Dragon Wise	Carbunckle Eye
+
 Casba Cave #2
 00 50 05 00 00 30 07 00 01 01 02 00 A6 26 00 00 00 30 07 50 05 07 0B
 C67D	FF	78	5000 Mesetas	Trap
+
 Casba Cave
 00 50 05 00 00 30 07 00 01 01 00 00 D3 27 00 00 00 30 07 50 05 07 0B
 C67E	FF	71	500 Mesetas
 C6CF	FF	9E	Boss: Red Dragon	Light Saber
 Casba Cave (Casba side)
 00 50 05 00 00 30 07 00 01 01 00 00 DC 27 00 00 00 30 07 50 05 07 0B
+
 Passageway to Skray
 00 B0 00 00 00 B0 00 00 08 13 02 00 23 28 00 00 03 B0 00 B0 00 0A 0B
 C67F	FF	D1	500 Mesetas
 Passageway to Twintown
 00 10 03 00 00 10 01 00 08 14 00 00 DD 28 00 02 00 10 01 10 03 0A 0B
+
 Guaron Morgue #2
 00 90 04 00 00 B0 07 00 02 02 02 00 49 29 00 01 00 B0 07 90 04 0A 0B
 C680	FF	99	Ruoginin
+
 Guaron Morgue
 00 90 04 00 00 B0 07 00 02 02 03 00 DD 2A 00 01 00 B0 07 90 04 0A 0B
 C6D4	FF	73	Monsters: Zombies
 C6D5	FF	73	Monsters: Zombies
 C6D6	FF	B1	Monsters: Zombies
 C681	FF	99	Laconian Armor
+
 Corona Tower
 00 D0 02 00 00 70 00 00 02 02 00 00 D1 2B 00 00 02 70 00 D0 02 08 0B
 C682	FF	79	Escape Cloth
+
 Corona Tower #2
 00 D0 02 00 00 70 00 00 02 02 02 00 78 2C 00 00 02 70 00 D0 02 08 0B
 C683	FF	45	Empty	Trap
 C684	FF	ED	Ruoginin
 C685	FF	4B	500 Mesetas
+
 Corona Tower #3
 00 D0 02 00 00 70 00 00 02 02 02 00 58 2D 00 00 02 70 00 D0 02 08 0B
 C686	FF	18	20 Mesetas
@@ -378,10 +419,12 @@ C687	FF	83	PelorieMate
 C688	FF	AD	Searchlight
 C689	FF	18	20 Mesetas	Trap
 C68A	FF	A3	Empty	Trap
+
 Corona Tower #4
 00 D0 02 00 00 70 00 00 02 02 03 00 E4 2E 00 00 02 70 00 D0 02 08 0B
 Corona Tower #4 (Eclipse Torch)
 00 D0 02 00 00 70 00 00 02 02 02 00 2D 2E 00 00 02 70 00 D0 02 08 0B
+
 Passageway on Dezoris 1
 00 F0 02 00 00 00 07 00 02 02 03 00 DD 2F 00 00 03 00 07 F0 02 09 0B
 C68C	FF	2B	Empty	Trap
@@ -394,51 +437,64 @@ C68B	FF	11	Laconian Shield
 C68D	FF	73	Empty	Trap
 Dezorian Cave #6 (Dead End)
 00 50 00 00 00 40 02 00 02 02 00 00 51 2F 00 02 02 40 02 50 00 09 0B
+
 Passageway on Dezoris 2
 00 70 01 00 00 60 06 00 02 02 03 00 ED 30 00 00 03 60 06 70 01 09 0B
 Passageway on Dezoris 5
 00 90 05 00 00 20 03 00 02 02 00 00 79 30 00 00 00 20 03 90 05 09 0B
 Dezorian Cave #5
 00 20 00 00 00 40 02 00 02 02 01 00 34 30 00 02 02 40 02 20 00 09 0B
+
 Passageway on Dezoris 4
 00 30 02 00 00 50 03 00 02 02 01 00 E2 31 00 02 00 50 03 30 02 09 0B
 Dezorian Cave #4
 00 20 00 00 00 40 02 00 02 02 03 00 12 31 00 02 02 40 02 20 00 09 0B
+
 Passageway on Dezoris 3
 00 90 00 00 00 30 05 00 02 02 00 00 DB 32 00 02 00 30 05 90 00 09 0B
 C68F	FF	3B	Empty	Trap
 Dezorian Cave #3
 00 20 00 00 00 40 02 00 02 02 00 00 25 32 00 02 02 40 02 20 00 09 0B
+
 Dezorian Cave #2
 00 20 00 00 00 40 02 00 02 02 00 00 55 33 00 02 02 40 02 20 00 09 0B
 C690	FF	19	Empty	Trap
 C6D7	FF	D9	Monsters: Biting Fly
+
 Dezorian Cave
 00 50 00 00 00 40 02 00 02 02 00 00 D3 34 00 02 02 40 02 50 00 09 0B
 C691	FF	16	50 Mesetas
 C692	FF	1E	Magic Hat
 C693	FF	EE	Ceramic Shield
+
 Air Castle Dungeon #5
 00 70 01 00 00 00 01 00 0A 17 02 00 94 35 00 01 03 00 01 70 01 06 0B
 C517	FF	C2	Beat LaShiec's Shadow Warrior
+
 Air Castle Dungeon #4
 00 70 01 00 00 00 01 00 0A 17 01 00 B4 36 00 01 03 00 01 70 01 06 0B
+
 Air Castle Dungeon #3
 00 70 01 00 00 00 01 00 0A 17 00 00 84 37 00 01 03 00 01 70 01 06 0B
+
 Air Castle Dungeon #2
 00 70 01 00 00 00 01 00 0A 17 02 00 64 38 00 01 03 00 01 70 01 06 0B
+
 Air Castle Dungeon
 00 70 01 00 00 00 01 00 0A 17 00 00 D6 39 00 01 03 00 01 70 01 06 0B
-C516	FF	CC	Beat LaShiec
+C516	01	CC	Beat LaShiec
 Air Castle Dungeon (LaShiec)
 00 70 01 00 00 00 01 00 0A 17 03 00 CC 39 00 01 03 00 01 70 01 06 0B
+
 Aeroprism Cave
 00 E0 03 00 00 70 06 00 02 02 00 00 DD 3A 00 00 00 70 06 E0 03 0A 0B
 C694	FF	82	Magic Hat
 C6D8	FF	79	Golem	Aeroprism
 Aeroprism Cave (Otegami Chie-chan)
 00 E0 03 00 00 70 06 00 02 02 01 00 97 3A 00 00 00 70 06 E0 03 0A 0B
+
 Credits #2
 00 10 06 00 00 30 02 00 00 00 02 00 98 3B 00 02 02 30 02 10 06 0B 0B
+
 Credits
 00 10 06 00 00 30 02 00 00 00 00 00 F7 3C 00 02 02 30 02 10 06 03 0B

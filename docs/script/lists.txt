@@ -1,0 +1,346 @@
+; Phantasy Star lists
+
+; Width = limit 10 chars
+;
+; +  = conditional space
+; @  = newline
+; %  = hyphen
+; [] = do not draw in menus, only during narratives
+
+; ~  = a
+; #  = an
+; ^  = the
+; &  = some
+
+; empty item (blank)
+ 
+
+
+; weapons
+
+;~Wood Cane
+;~Short@ Sword
+;#Iron Sword
+;~Psycho@ Wand
+;~Saber Claw
+;#Iron Axe
+;~Titanium@ Sword
+;~Ceramic@ Sword
+;~Needle Gun
+;~Silver@ Tusk
+;~Heat Gun
+;~Light@ Saber
+;~Laser Gun
+;~Laconian@ Sword
+;~Laconian@ Axe
+
+Деревянный посох
+Короткий@ меч
+Железный@ меч
+Психо%@+жезл
+Сабельная@ клешня
+Железный@ топор
+Титановый@ меч
+Карбоновый меч
+Игольная@ пушка
+Серебряные когти
+Тепловая@ пушка
+Световая@ сабля
+Лазерная@ пушка
+Лакониевый меч
+Лакониевый топор
+
+
+; armor
+
+;~Leather@ Clothes
+;~White@ Cloak
+;~Light Suit
+;#Iron Armor
+;~Spiky [Squirrel ]Fur
+;~Zirconian@ Mail
+;~Diamond@ Armor
+;~Laconian@ Armor
+;^Frad Cloak
+
+Кожаная@ одежда
+Белый@ плащ
+Лёгкий@ костюм
+Железный@ доспех
+Шипованая@ шкура
+Титановая@ кольчуга
+Алмазный@ доспех
+Лакониевый доспех
+Сияющая@ мантия
+
+
+; shields
+
+;~Leather@ Shield
+;~Bronze@ Shield
+;#Iron@ Shield
+;~Ceramic@ Shield
+;#Animal@ Glove
+;~Laser@ Barrier
+;^Shield of@ Perseus
+;~Laconian@ Shield
+
+Кожаный@ щит
+Бронзовый@ щит
+Железный@ щит
+Карбоновый щит
+Звериные@ перчатки
+Лазерный@ барьер
+Щит Персея
+Лакониевый щит
+
+; vehicles
+
+;^LandMaster
+;^FlowMover
+;^IceDecker
+
+Вездеход
+Катер
+Ледобур
+
+; items
+
+;~Pelorie%@+Mate
+;~Ruoginin
+;^Soothe@ Flute
+;~Search%@+light
+;#Escape@ Cloth
+;~TranCarpet
+;~Magic Hat
+;#Alsuline
+;~Poly%@+meteral
+;~Dungeon@ Key
+;~Telepathy@ Ball
+;^Eclipse@ Torch
+;^Aeroprism
+;^Laerma@ Berries
+;Hapsby
+;~Road Pass
+;~Passport
+;~Compass
+;~Shortcake
+;^Governor[-General]'s@ Letter
+;~Laconian@ Pot
+;^Light@ Pendant
+;^Carbunckle@ Eye
+;~GasClear
+;Damoa's@ Crystal
+;~Master@ System
+;^Miracle@ Key
+;Zillion
+;~Secret@ Thing
+
+Пелоримэйт
+Руогинин
+Флейта@ упокоения
+Фонарик
+Малый@ телепорт
+Телепорт
+Волшебная@ шляпа
+Алсулин
+Поли%@+метерал
+Подземный@ ключ
+Шар@ телепатии
+Пламя@ затмения
+Аэропризма
+Ягоды@ Лаэрмы
+Хапсби
+Пропуск
+Паспорт
+Компас
+Пирог
+Письмо@ Генерала
+Лакониевый горшок
+Кулон@ света
+Глаз @Карбункула
+Противогаз
+Кристалл@ Дамои
+Мастер@ Систем
+Волшебный@ ключ
+Зиллион
+Особый@ товар
+#
+
+; ------------------------------------------------
+
+; Names
+
+;Alisa
+;Myau
+;Tylon
+;Lutz
+
+Алиса
+Миау
+Тайлон
+Лутц
+#
+
+; ------------------------------------------------
+
+; Monsters
+; #0 = <blank name> (don't delete the line with one space)
+
+ 
+;^Monster@ Fly
+;^Green@ Slime
+;^Wing Eye
+;^Maneater
+;^Scorpius
+;^Giant@ Naiad
+;^Blue@ Slime
+;^Motavian@ Peasant
+;^Devil Bat
+;^Killer@ Plant
+;^Biting@ Fly
+;^Motavian@ Teaser
+;^Herex
+;^Sandworm
+;^Motavian@ Maniac
+;^Gold Lens
+;^Red Slime
+;^Bat Man
+;^Horseshoe@ Crab
+;^Shark King
+;^Lich
+;^Tarantula
+;^Manticort
+;^Skeleton
+;^Ant-lion
+;^Marshes
+;^Dezorian
+;^Desert@ Leech
+;^Cryon
+;^Big Nose
+;^Ghoul
+;^Ammonite
+;^Executor
+;^Wight
+;^Skull@ Soldier
+;^Snail
+;^Manticore
+;^Serpent
+;^Leviathan
+;^Dorouge
+;^Octopus
+;^Mad@ Stalker
+;^Dezorian@ Head
+;^Zombie
+;^Living@ Dead
+;^Robot@ Police
+;^Cyborg@ Mage
+;^Flame@ Lizard
+;Tajim
+;^Gaia
+;^Machine@ Guard
+;^Big Eater
+;^Talos
+;^Snake@ Lord
+;^Death@ Bearer
+;^Chaos@ Sorcerer
+;^Centaur
+;^Ice Man
+;^Vulcan
+;^Red@ Dragon
+;^Green@ Dragon
+;LaShiec
+;^Mammoth
+;^King Saber
+;^Dark@ Marauder
+;^Golem
+;Medusa
+;^Frost@ Dragon
+;Dragon@ Wise
+;Gold Drake
+;Mad Doctor
+;LaShiec
+;Dark Force
+;Nightmare
+
+Мухомонстр
+Зелёная@ слизь
+Крылатый@ глаз
+Людоед
+Скорпион
+Большая@ наяда
+Синяя@ слизь
+Мотавианин
+Адский@ глаз
+Растение-@+убийца
+Кусачий@ скорпион
+Задира@ с Мотавии
+Херекс
+Песчаный@ червь
+Маниак@ с Мотавии
+Златолинз
+Красная@ слизь
+Летучая@ мышь
+Подковный@ краб
+Акулий@ лорд
+Лич
+Тарантул
+Мантикорт
+Скелет
+Муравьиный лев
+Болотник
+Дезолианин
+Пустынный@ червь
+Крион
+Большенос
+Упырь
+Аммонит
+Палач
+Тень
+Скелет@ солдат
+Улитка
+Мантикора
+Змей
+Левиафан
+Пустынный@ лич
+Осьминог
+Безумный@ сталкер
+Главарь@ дезолиан
+Зомби
+Живой труп
+Постовой@ робот
+Маг-@+киборг
+Саламандра
+Тадзиму
+Гигант
+Мехостража
+Людоедище
+Талос
+Змеиный@ лорд
+Рыцарь@ смерти
+Маг хаоса
+Кентавр
+Ледовик
+Вулкан
+Красный@ дракон
+Зелёный@ дракон
+Ласиек
+Мамонт
+Лорд мечей
+Тёмный@ мародёр
+Голем
+Медуза
+Ледяной@ дракон
+Мудрый@ дракон
+Золотой@ дракон
+Безумный@ доктор
+Ласиек
+Тёмная@ сила
+Кошмар
+#
+
+; ----------------------------------------------------
+
+; End
+
+#

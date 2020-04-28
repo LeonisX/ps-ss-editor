@@ -1,0 +1,121 @@
+Plugins Pack for Kega Fusion 3.0 and later, Regen and VBA-M
+===========================================================
+
+
+2013/04/27 Revision:
+-------------------
+- Add xBR v3.4 + LVL3 + Noblend
+
+
+2012/04/30 Revision:
+-------------------
+- Add DDT3x (xBR variation)
+
+
+2012/01/05 Revision:
+-------------------
+- Add xBR 3.3b version (+source 3.5): 2xBR, 3xBR, 4xBR
+
+
+2009/10/19 Revision:
+-------------------
+- Plugins Updated: 
+Genesis NTSC filter (blargg): Modified the NTSC filter plugin. Now you can instantly see the 
+changes you make (like Hue, Contrast etc..) in the NTSC configuration dialog. [Regen]
+
+
+2009/04/05 Revision:
+-------------------
+- Add Quad, QuadRaw
+
+
+2008/12/25 revision by Steeve Snake:
+-----------------------------------
+- Plugins Updated: 
+  They've been fixed and optimised, so you might want to use them instead of the older ones.
+  (2xPM HQ+LQ, 2xSAI, Double, DoubleRaw, Hqnx, MDNTSC, Scalenx)
+
+
+2008/05/21 Revision:
+-------------------
+- Add g2xscale
+
+
+2008/05/18 revision:
+-------------------
+- Add 4xSAI, lcd3x, lcd3x_nommx, lcd3x_vblend
+
+
+2008/03/19 revision:
+-------------------
+- Add Interpolation, normal2x
+
+
+2008/01/23 revision:
+-------------------
+- Add mdntsc, mdntsc_sse
+
+
+2008/01/07 revision:
+-------------------
+- Add EPX
+
+
+2007/04/12 revision:
+-------------------
+- Add Hq2xS, Hq3xS, Hq4xS, Lq2x, Lq2xS, Lq3xS, Lq4xS
+
+
+2006/01/10 revision:
+-------------------
+
+2xPM v0.2 released:
+
+- Improved 2xPM LQ quality. Depending on the game, it may be slower or faster than before.
+
+  PS (by Jets): Fixed version (build: Jan 10, 2006)
+
+
+2005/03/05 revision:
+-------------------
+
+- 2xPM v0.2 released
+
+
+2005/02/22 revision:
+-------------------
+
+- Add 2xPM HQ+LQ v0.1
+	* Suggestions and/or comments: pjmedina3@yahoo.com
+	* Site: http://2xpm.freeservers.com
+
+
+First Release pack 2004 November:
+--------------------------------
+Bilinear, BilinearPlus, Eagle, lq4x, lq3x, SuperScale75, ScanLineTv, SuperEagle, SuperScale, Super2xSaI
+
+
+
+Information:
+===========
+
+_RenderPluginsSrc.rar		--> 1st release source
+    |
+    |_2xpm_v02_fusion_src.zip	--> 2xPM Source revision (Jan 10, 2006)
+    |__mdntsc.zip		--> MDNTSC source by Blargg's
+
+_RenderPlugsSrc_v2.zip		--> 2008/12/25 source revision by Snake
+
+
+
+-------------------
+Installation steps:
+-------------------
+
+Just unzip the files in Kega's plugins folder.
+
+
+
+--
+Pack & ChangeLog by Jets 
+www.Emu-France.com

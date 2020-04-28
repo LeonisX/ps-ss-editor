@@ -1,0 +1,2191 @@
+<width 12></center><wrap><height 02>
+
+; Special code legend:
+;
+; <internal hint *> = immediately follows a <number> flag.
+;                     couple with <use suffix> to append a 's'. meseta(s).
+
+; *************************************
+; *** Camineet Residential District ***
+; *************************************
+
+[002]
+; Woman
+;You're doing what?<wait more>
+Что ты собираешься делать?<wait more> 
+
+[004]
+;Alisa...taking on LaShiec is crazy, but I know how stubborn you are, so I'll do what I can to help.<wait more>
+;If you get hurt, come back here and your old pal Suelo will fix you up.<wait>
+Алиса, идти против<line>Ласиека - безумие.<line>Но мне знакомо<line>твоё упорство.<line>И я сделаю всё<line>возможное, чтобы<line>помочь тебе.<wait more>
+Если тебя ранят,<line>приходи сюда и<line>позволь своей<line>старой подруге<line>Селин подлатать<line>тебя.<wait>
+
+[006]
+;Please get some rest.<wait more>
+;Don’t overdo it, okay? You will always be welcome here.<wait>
+Пожалуйста, чувствуй себя как дома!<wait more>
+Не перенапрягайся, ладно? Тебе здесь всегда рады.<wait>
+
+[008]
+; Man
+;My name is Nekiseh. I'm sorry to hear about your brother.<wait more>
+Меня зовут Некис. Сочувствую твоей потере.<wait more>
+
+[00A]
+;Last we heard, Tylon was staying in a town called Shion.<wait more>
+По последним сведениям, Тайлон остановился в Сионе.<wait more>
+
+[00C]
+;Nero asked me to hold on to this Laconian Pot.<wait more>
+Нерон оставил мне на хранение этот Лакониевый горшок.<wait more>
+
+[00E]
+;He would have wanted you to have this. Here, take it.<wait>
+Твой брат хотел бы, чтобы он был у тебя. Возьми!<wait>
+
+[010]
+;I'm sorry, I can't risk helping you any more. Good luck.<wait>
+Прости, больше мне нечем тебе помочь. Удачи!<wait>
+
+[012]
+; Man
+;How long are they going to hold us under martial law like this?<wait>
+Долго они ещё будут держать нас на военном положении?<wait>
+
+[014]
+; Man
+;You'll need a Dungeon Key if you want to open locked doors.<wait>
+Чтобы открыть запертые двери, тебе понадобится Подземный ключ.<wait>
+
+[016]
+; Man
+;Some dungeons are pitch black, you'll need a light.<wait>
+В некоторых подземельях очень темно, и чтобы спуститься туда, нужен источник света.<wait>
+
+[018]
+; Man
+;I can't believe the spaceport requires a Roadpass now.<wait more>
+;How am I supposed to get home?<wait>
+Не могу поверить... В космопорт не пускают без Пропуска.<wait more>
+Как же мне теперь попасть домой?<wait>
+
+[01A]
+; Man
+;I've heard that illegal goods are traded in port towns.<wait>
+Я слышал, что в<line>порту можно<line>купить запрещённые<line>
+товары.<wait>
+
+[01C]
+; Police
+;Citizens are advised to remain inside the residential area.<wait>
+Гражданам не рекомендуется покидать охраняемую территорию.<wait>
+
+[01E]
+; Police
+;Unless you have a death wish, you should remain inside.<wait>
+Если не хотите<line>
+погибнуть, вам лучше остаться здесь.<wait>
+
+[020]
+; Police
+;Sorry, we're on high security alert. Access denied.<wait>
+Извините, у нас высокий уровень тревоги. Доступ запрещён.<wait>
+
+[022]
+; Police
+;A signed Roadpass is required to access the spaceport.<wait>
+Чтобы пройти в космопорт, вам нужен подписанный Пропуск.<wait>
+
+[024]
+; Police
+;Access granted. Go on through.<wait>
+Доступ разрешён. Проходите.<wait>
+
+
+; ************************************
+; *** Parolit Residential District ***
+; ************************************
+
+[026]
+; Woman
+;Welcome to Parolit residential district.<wait>
+Добро пожаловать в Паролит.<wait>
+
+[028]
+; Man
+;It's easy to get lost in the forest, be careful.<wait>
+Будь осторожней, в лесу очень легко заблудиться.<wait>
+
+[02A]
+; Man
+;I've heard that a monster called Medusa was awakened in the cave south of here.<wait more>
+Я слышал, что в пещере к югу отсюда пробудилось чудовище, называемое<line>Медузой.<wait more>
+
+[02C]
+;Rumor has it she turns all who look at her into stone!<wait>
+По слухам она обращает в камень всех, кто осмелится взглянуть на неё!<wait>
+
+[02E]
+; Man
+;If you go east, you’ll come to a port town called Shion.<wait>
+Пойдя на восток, ты попадёшь в портовый город Сион.<wait>
+
+[030]
+; Man
+;You can get to Paseo on planet Motavia from the spaceport.<wait more>
+;But due to heightened security, you'll need a Roadpass.<wait>
+Из космопорта можно отправиться на Мотавию в город Пасео.<wait more>
+Но вот чтобы<line>попасть в сам<line>космопорт, нужен<line>Пропуск.<wait>
+
+[032]
+; Man
+;Did you know there's an abandoned catacomb leading west, to the Gothic Woods?<wait more>
+;Supposedly it's somewhere nearby, but I can't find it.<wait>
+Где-то тут должны быть заброшенные катакомбы, ведущие на запад, в лес Готика.<wait more>
+Я точно знаю, что вход туда неподалёку, но не могу его найти.<wait>
+
+
+; ***********************
+; *** Port town Shion ***
+; ***********************
+
+[034]
+; Man
+;Yeah, Tylon was here. He said something about going south, to slay Medusa.<wait more>
+Да, я встречал Тайлона здесь. Он говорил, что собирается пойти на юг, чтобы уничтожить Медузу.<wait more>
+
+[036]
+;He had a strange, talking animal with him! It had a bottle of medicine around its neck.<wait more>
+С ним был странный говорящий зверёк, у которого на шее<line>висел бутылёк с каким-то снадобьем.<wait more>
+
+[038]
+;I wonder what it was?<wait>
+Интересно, что же там было?<wait>
+
+[03A]
+;It's about time someone took on LaShiec. God be with you.<wait>
+Давно уже надо было взяться за Ласиека. Да поможет тебе Всевышний.<wait>
+
+[03C]
+;This is going to sound crazy, but I found a talking animal wandering Medusa's dungeon.<wait more>
+Я поймал говорящего зверька, бродящего по подземелью Медузы.<wait more>
+
+[03E]
+;I sold it to a trader in Paseo. The little guy was worth a fortune!<wait>
+И продал его торговцу из Пасео. Это была выгодная сделка!<wait>
+
+[040]
+;The economy's plummeted since LaShiec came into power.<wait more>
+;I'm so broke, I don't know what to do...<wait>
+С тех пор как<line>Ласиек пришёл к<line>власти, экономика<line>неуклонно рушится.<wait more>
+Я почти разорился и не знаю, что делать...<wait>
+
+[042]
+;Iala Cave lies on the peninsula south of town.<wait>
+Пещера Иала находится на полуострове к югу от города.<wait>
+
+[044]
+;Welcome to Shion.<wait more>
+;We had a bustling trade economy here, until LaShiec's embargo.<wait more>
+;Now most of us are desperate for work.<wait>
+Добро пожаловать в Сион.<wait more>
+До того как<line>Ласиек ввёл эмбарго, здесь велась оживлённая торговля.<wait more>
+А теперь многие<line>отчаялись найти себе работу.<wait>
+
+[046]
+;You'd have to be some kind of idiot to go into Eppi Forest without a Compass.<wait>
+Самый верный способ самоубийства - отправиться в лес Эппи без Компаса.<wait>
+
+[048]
+;The only way to open a door sealed with magic is to cast a spell of your own.<wait>
+Дверь, запечатанную магией, можно открыть только особым заклинанием.<wait>
+
+[04A]
+;If you head north, you'll find a knoll called Baya Marlay, but you won’t be able to get to it.<wait>
+К северу отсюда находится холм Байя Марлай, вот только забраться на него невозможно.<wait>
+
+[04C]
+;I used to go spelunking in Naula cave, on the coast north of Baya Marlay.<wait more>
+;But with all these monsters suddenly appearing, I wouldn't even try to get there now.<wait>
+Мне нравится исследовать пещеру Наула на побережье к северу от Байя Марлай.<wait more>
+Но теперь, внезапно<line>появившиеся монстры мешают мне туда добраться.<wait>
+
+
+; ************
+; *** Eppi ***
+; ************
+
+[04E]
+;It wouldn't surprise me if the Governor-general of Motavia approved of what you're doing.<wait>
+Не удивлюсь, если Генерал-губернатор Мотавии одобрит ваше начинание.<wait>
+
+[050]
+;All the great Espers live on Motavia.<wait>
+Все сильные Эсперы живут на Мотавии.<wait>
+
+[052]
+;Long ago, a professor named Luveno had a research laboratory in the Gothic Woods.<wait more>
+;I wonder if it's still there?<wait>
+Давным-давно<line>где-то в лесу<line>Готика была<line>лаборатория<line>профессора Лувено.<wait more>
+Интересно, она ещё там.<wait>
+
+[054]
+;Welcome to Eppi Village!<wait more>
+;We don't get many visitors lately, now that the forest is crawling with monsters.<wait>
+Добро пожаловать в Эппи!<wait more>
+С тех пор как лес наводнили монстры, к нам мало кто приходит.<wait>
+
+[056]
+;Taking on ol' LaShiec, are you?<wait more>
+;You're either a fool, or you're tougher than you look.<wait more>
+;Either way, I admire your bravery. Are you in need of a Dungeon Key?<end>
+Идёте против Ласиека?<wait more>
+Вы или глупцы, или сильнее, чем выглядите.<wait more>
+В любом случае, я уважаю вашу храбрость. Вам нужен Подземный ключ?<end>
+
+[058]
+;I hid one inside the warehouse on the outskirts of Camineet's residential district.<wait more>
+;It's all yours. Good luck.<wait>
+Я спрятал один на складе на окраине Каминита.<wait more>
+Можете забрать его себе. Удачи!<wait>
+
+[05A]
+; <end>
+; Continues 058
+
+[05C]
+;Do you know what the hardest, strongest material in the world is?<end>
+А знаете ли вы, какой материал самый твёрдый и самый прочный?<end>
+
+[05E]
+;It's Laconia! Laconian weapons are the strongest around!<wait>
+Это - Лакония! Лакониевое оружие<line>самое острое.<wait>
+
+
+[060]
+;Oh. Okay.<wait>
+Что ж, хорошо.<wait>
+
+[062]
+;Do you know about the planets of Algol?<end>
+Вы знаете планеты системы Альго?<end>
+
+[064]
+;There are <number><internal hint 02> planet<use suffix>: Palma, Motavia, and Dezoris.<wait more>
+В системе три планеты: Палма, Мотавия и Дезолис.<wait more>
+
+[066]
+;The three planets have a distinct geology.<wait more>
+;Palma is a planet of greenery.<line>
+;Motavia is a planet of sand.<line>
+;Dezoris is a planet of ice.<wait more>
+Каждая из них<line>обладает своими<line>уникальными<line>особенностями.<wait more>
+На Палме богатая биосфера.<line>
+Мотавиия тонет в песках.<line>
+А Дезолис скован льдами.<wait more>
+
+[068]
+;To tell you the truth, I fear for the future of our planets.<wait>
+По правде говоря, меня пугает будущее наших планет.<wait>
+
+
+; **************************
+; *** Camineet Spaceport ***
+; **************************
+
+[06A]
+;Welcome to Palma's Spaceport. You can travel to Paseo on Motavia from here.<wait>
+Добро пожаловать в Космопорт Палмы. Отсюда вы можете отправиться в Пасео на Мотавию.<wait>
+
+[06C]
+;These ships are headed toward Paseo, the capital of Motavia. The Governor-general lives there.<wait>
+Эти корабли направляются в Пасео, столицу Мотавии. Там живёт Генерал-<line>губернатор.<wait>
+
+[06E]
+;Before space travel was commercialized, spaceships were built at a research laboratory in Gothic.<wait>
+До того как<line>космические<line>путешествия<line>поставили на<line>коммерческие<line>рельсы, корабли<line>строились только в<line>лаборатории<line>Готика.<wait>
+
+[070]
+;Do you have a passport?<end>
+У вас есть паспорт?<end>
+
+[072]
+;Are you here to apply for a Passport?<end>
+Вы пришли, чтобы получить паспорт?<end>
+
+[074]
+;I'm required by law to ask you a series of questions.<wait more>
+;Have you ever been convicted of a crime?<end>
+Мне нужно задать вам несколько вопросов.<wait more>
+Вы были ранее<line>судимы?<end>
+
+[076]
+;Do you suffer from an illness that may be irritated by travel?<end>
+Вы страдаете<line>хроническими<line>заболеваниями,<line>которые могут<line>обостриться в<line>полёте?<end>
+
+[078]
+;There is a handling fee of <number><internal hint 02> meseta<use suffix>. Can you pay?<end>
+Пошлина составляет <number><internal hint 02> месет. Вы можете оплатить?<end>
+
+[07A]
+;Okay then, I'll issue you a passport.<line>
+;Here you are.<wait more>
+;Next in line!<wait>
+Хорошо, я выдам вам паспорт.<line>
+Пожалуйста.<wait more>
+Следующий!<wait>
+
+[07C]
+;Very well. Next in line, please?<wait>
+Хорошо. Следующий!<wait>
+
+[07E]
+;I'm sorry, you don't qualify. Next?<wait>
+Извините, вы не проходите. Следующий!<wait>
+
+
+; ***********************
+; *** Paseo Spaceport ***
+; ***********************
+
+[080]
+;This is Paseo, the only spaceport on Motavia.<wait>
+Это Пасео, единственный космопорт Мотавии.<wait>
+
+[082]
+;It's ant-lion breeding season, be careful out there.<wait>
+Сейчас у муравьиных львов брачный сезон, так что будьте осторожны.<wait>
+
+[084]
+;I hear there's a cake shop in Naula cave on Palma.<wait more>
+;I wonder if it gets any business, in a cave like that?<wait>
+Говорят, в пещере Наула на Палме есть булочная.<wait more>
+Интересно, приносит ли она доход.<wait>
+
+
+; *************
+; *** Paseo ***
+; *************
+
+[086]
+;Even the Governor-general is on bad terms with LaShiec.<wait>
+Даже Генерал-губернатор не в ладах с Ласиеком.<wait>
+
+[088]
+;To meet with the Governor-General, you need to present a gift.<wait>
+Чтобы встретиться с Генерал-<line>губернатором, вам нужно преподнести ему какой-нибудь подарок.<wait>
+
+[08A]
+;The Governor-General loves sweets.<wait>
+Генерал-губернатор любит сладости.<wait>
+
+[08C]
+;The cave Mahal is located in the mountains north of Paseo.<wait>
+Пещера Махал находится в горах к северу от Пасео.<wait>
+
+[08E]
+;This is Paseo, Motavia’s capital city.<wait>
+Добро пожаловать<line>в Пасео, столицу<line>Мотавии.<wait>
+
+[090]
+;You can't cross over ant-lions on foot.<wait>
+Обойти муравьиных львов пешком не получится.<wait>
+
+[092]
+;Ever seen a talking cat before?<wait more>
+;Rare. Real rare. One of a kind if I'm not mistaken.<wait more>
+;<number> million<internal hint 02> meseta<use suffix>, and it's yours. How 'bout it?<end>  Никогда не видели говорящего кота?<wait more>
+Редкость. Настоящая редкость. Единственный в своём роде.<wait more>
+<number> миллионов<internal hint 02> месет, и он ваш. Берёте?<end>
+
+[094]
+;Whoa, seriously?<wait more>
+;Hey, where are you going?<wait>
+Что, серьёзно?<wait more>
+Эй, вы куда?<wait>
+
+[096]
+;That's too bad.<wait more>
+;...hold on, now. Is that a Laconian Pot?<wait more>
+Очень жаль.<wait more>
+Погодите-ка. А это не Лакониевый горшок?<wait more>
+
+[098]
+;How 'bout a trade, the pot for the kitty?<end>
+Может обменяете горшок на котёнка?<end>
+
+[09A]
+;I hate to see the little guy go, but I can't pass up a trade like this.<wait more>
+;Take good care of 'im.<wait>
+Мне жаль, что он уходит, но не могу упустить такой выгодной сделки.<wait more>
+Позаботьтесь о<line>нём!<wait>
+
+[09C]
+;Halt! Did you bring a gift for the Governor- general?<end>
+Стоять! Вы принесли дар Генерал-<line>губернатору?<end>
+
+[09E]
+;Ah, Shortcake. He'll be pleased. I'll hold on to this for you.<wait more>
+;Proceed.<wait>
+О, пирожное! Он будет доволен. Оставьте его мне.<wait more>
+Проходите.<wait>
+
+[0A0]
+;These are not suitable gifts!<wait>
+Эти подарки не подойдут!<wait>
+
+[0A2]
+;I can't grant you access without a gift!<wait>
+Я не могу пропустить вас без подарка!<wait>
+
+[0A4]
+;Welcome. You have traveled far. Please, sit.<wait more>
+;I know why you are here. You've certainly made no secret of it.<wait more>
+Приветствую. Вы, наверно, устали с дороги, присаживайтесь!<wait more>
+Я знаю, зачем вы пришли, хотя вы и не скрывали этого.<wait more>
+
+[0A6]
+;You plan to overthrow LaShiec, do you not?<wait more>
+;LaShiec is a powerful man. No, more than a man.<wait more>
+;He's beyond those constraints. He's something else entirely.<wait more>
+;You're very brave to take him on.<wait more>
+;But bravery, I fear, will not be enough.<wait more>
+;However, there's something inside you, something very powerful.<wait more>
+;It is a power that you must discover on your own.<wait more>
+;I can tell you no more. Not yet.<wait more>
+;Go. Destroy him. I won't stop you.<wait more>
+;In fact, I will offer you assistance.<wait more>
+Вы собрались свергнуть Ласиека, да?<wait more>
+Ласиек - могущественный человек, нет, даже больше, чем человек.<wait more>
+Он - что-то совершенно иное. Все эти репрессии - его рук дело.<wait more>
+Вы очень храбры, раз выступили против него.<wait more>
+Но, боюсь, одной храбрости будет недостаточно.<wait more>
+Но в вас что-то есть, что-то очень сильное.<wait more>
+И силу эту вы должны пробудить самостоятельно.<wait more>
+Больше я вам ничего сказать не могу, пока...<wait more>
+Идите. Уничтожьте его. Я не стану вас останавливать.<wait more>
+Фактически, я предлагаю вам помощь.<wait more>
+
+[0A8]
+;A powerful Esper named Lutz lives in Mahal cave, north of here.<line>
+;Take this letter to him. He will understand.<wait more>
+К северу отсюда, в пещере Махал, живёт могущественный эспер по имени Лутц.<line>
+Отнесите ему это письмо. Он поймёт.<wait more>
+
+[0AA]
+;Return here when you have defeated LaShiec. I have faith in you.<wait>
+Возвращайтесь, когда победите Ласиека. Я верю в вас.<wait>
+
+[0AA-2]
+;Return here when you have defeated LaShiec. God be with you.<wait>
+Возвращайтесь, когда победите Ласиека. Да хранит вас Господь.<wait>
+
+
+[0AC]
+;Since the orders are from the Governor-general, Lutz will probably listen.<wait>
+Раз это приказ<line>Генерал-<line>губернатора, Лутц,<line>скорее всего,<line>прислушается.<wait>
+
+[0AE]
+;Who are you?<wait more>
+Кто вы такие?<wait more>
+
+[0B0]
+;I'm trying to train. Don't interrupt me.<wait>
+Я пытаюсь сосредоточиться, не мешайте.<wait>
+
+[0B2]
+;HELLO<wait>
+;Yahoo!<wait>
+Привет!<wait>
+
+[0B4]
+;zzz...<wait>
+Хр-пф-хр-пф...<wait>
+
+[0B6]
+;You look tired, why don't you rest here for a while?<wait>
+Вы выглядите<line>уставшими, если пожелаете, можете отдохнуть здесь.<wait>
+
+[0B8]
+;Good luck out there. You're going to need it.<wait>
+Удачи! Снаружи она вам понадобится.<wait>
+
+
+; ********************
+; *** Gothic Woods ***
+; ********************
+
+[0BA]
+;I could really use a PelorieMate. Can you spare one?<end>
+Мне очень нужен Пелоримэйт. Можете со мной поделиться?<end>
+
+[0BC]
+;Thanks.<wait more>
+;I suppose you're looking for Doc Luveno.<wait more>
+;Yeah, his lab used to be here.<wait more>
+Спасибо!<wait more>
+Полагаю, вы ищете доктора Лувено.<wait more>
+Когда-то здесь была его лаборатория.<wait more>
+
+[0BE]
+;Not no more, though. They finally locked that loon up.<wait more>
+;He's being held in Triada, a prison south of here.<wait>
+Но не теперь. В конце концов её закрыли.<wait more>
+А доктора бросили в тюрьму к югу отсюда.<wait>
+
+[0C0]
+; <end>
+; Continues 0BE
+
+[0C2]
+;Then I ain't helping. Get lost.<wait>
+Тогда нам не о чем<line>говорить.<line>Убирайтесь.<wait>
+
+[0C4]
+;Thank you, stranger.<wait more>
+;At the end of the path leading into the mountains is an ancient tower.<wait more>
+Спасибо.<wait more>
+Горная дорога ведёт к древней башне.<wait more>
+
+[0C6]
+;Word on the street is ol' Medusa is hiding out there.<wait more>
+;Unless you fancy being a statue, you best stay away.<wait>
+Поговаривают, что там прячется Медуза.<wait more>
+Если не собираетесь становиться статуями, держитесь оттуда подальше.<wait>
+
+[0C8]
+; <end>
+; Continues 0C6
+
+
+; *******************************
+; *** Dr. Luveno's Laboratory ***
+; *******************************
+
+[0CA]
+;Greetings. What took you so long?<wait more>
+;Let's get started. First, go fetch my assistant.<wait more>
+Приветствую. Что вас так задержало?<wait more>
+Итак, приступим. Сперва, сходите за моим ассистентом.<wait more>
+
+[0CC]
+;He’s probably hiding inside the underground passageway.<wait more>
+;A bit paranoid, that one.<wait>
+Он, видимо, прячется где-то в подземном проходе.<wait more>
+Он слегка параноидален, знаете ли.<wait>
+
+[0CE]
+;Well? Let's see it.<wait>
+Что ж? Посмотрим.<wait>
+
+[0D0]
+;You don’t have enough? Go get some more!<wait>
+Этого недостаточно. Добудьте побольше!<wait>
+
+[0D2]
+;Success! This is my finest work yet.<wait more>
+;I call it the Luveno. Got a nice ring to it, don't you think?<wait>
+Отлично! Это моя лучшая работа.<wait more>
+Я назову его Лувено. Хорошо звучит, не находите?<wait>
+
+[0D4]
+;If you don’t do as I say, there’s no way I can help you.<wait>
+Если вы не будете<line>делать, что я<line>говорю, то на<line>помощь не<line>рассчитывайте.<wait>
+
+[0D6]
+;But I'm afraid the Luveno can’t be piloted by a human...<wait>
+Боюсь, человеку не справиться с пилотированием Лувено.<wait>
+
+[0D8]
+;How’s the Luveno holding up? Take good care of it.<wait>
+Как там Лувено? Надеюсь, вы хорошо о нём заботитесь.<wait>
+
+[0DA]
+;Ah, so you've wasted my time. Wonderful.<wait more>
+;Good luck getting back into the spaceport.<wait>
+Вы просто тратите<line>моё время.<line>Замечательно!<wait more>
+Удачно добраться до космопорта.<wait>
+
+[0DC]
+;Don't distract me! I'm very busy.<wait>
+Не отвлекайте, я очень занят!<wait>
+
+
+; **********************
+; *** Toriada Prison ***
+; **********************
+
+[0DE]
+;Yes, I'm Dr. Luveno. If you're here to rescue me, forget it!<wait more>
+;I'm not going anywhere.<wait>
+доктор Лувено? Да,<line>это я. Но если вы<line>пришли спасти<line>меня, забудьте об<line>этом!<wait more>
+Я никуда не пойду.<wait>
+
+[0E0]
+;What? Build a spaceship?! Are you loony?<wait more>
+;Please, I'm an old man. Leave me be.<wait>
+Что? Построить космический корабль?! Вы в своём уме?<wait more>
+Пожалуйста, оставьте меня в покое!<wait>
+
+[0E2]
+;You're not going to leave, are you? Very well.<wait more>
+;I'll help you out, but you must do exactly as I say. Understood?<end>
+Вы не собираетесь уходить? Что ж, ладно.<wait more>
+Я помогу, но вы должны выполнять всё, что я скажу. Я понятно<line>объясняю?<end>
+
+[0E4]
+;Fine. Meet me in Gothic, I'll prepare you a ship.<wait more>
+;Don’t worry about me, I'm tougher than I look.<wait>
+Хорошо, встретимся<line>в Готике, я<line>построю вам<line>корабль.<wait more>
+За меня не волнуйтесь, я сильнее, чем выгляжу.<wait>
+
+[0E6]
+;Do you have a Road Pass?<end>
+У вас есть пропуск?<end>
+
+[0E8]
+;Intruder detected. Initiating termination sequence.<wait>
+Обнаружен нарушитель. Запуск программы уничтожения.<wait>
+
+[0EA]
+;Thanks. Y'know, no matter what people say, spiders are actually very wise creatures.<wait>
+Спасибо. Знаете, неважно, что говорят, но пауки очень умные<line>создания.<wait>
+
+[0EC]
+;Have you heard of Hapsby the robot?<end>
+Вы слышали о<line>роботе Хапсби?<end>
+
+[0EE]
+;The other side of the mountain's completely covered in lava.<wait more>
+;Damned volcanoes put me out of a home!<wait>
+Лава полностью покрывает другую сторону горы.<wait more>
+Проклятый вулкан отрезал мне путь домой!<wait>
+
+[0F0]
+;The tower in the mountains of Gothic is called Medusa’s Tower.<wait>
+Башня в горах<line>возле Готика<line>называется Башней<line>Медузы.<wait>
+
+[0F2]
+;It has been so long since I've seen another person.<wait more>
+;Won't you stay for a while and talk to me?<end>
+Я так давно не встречал людей.<wait more>
+Может быть,<line>останетесь<line>ненадолго и<line>поговорите со<line>мной?<end>
+
+[0F4]
+;A chemical called Polymeteral will dissolve any material!<wait more>
+;...well, anything except Laconia, of course.<wait>
+Химикат, называемый Полиметерал, разъедает все<line>известные<line>материалы!<wait more>
+Ну, кроме Лаконии, конечно.<wait>
+
+[0F6]
+;What? You busted out Doc?<wait more>
+;What?! He's building you a spaceship?!<wait more>
+;He's too old for this. I'd better go help him out.<wait>
+Что? Вы освободили доктора?<wait more>
+Что?! Он строит для вас корабль?!<wait more>
+Он для этого слишком стар. Лучше я пойду, помогу ему.<wait>
+
+[0F8]
+;NO MAN THAT GOES INTO THE ROOM IN THE FAR CORNER HAS EVER COME OUT ALIVE ;AHAHAHA<wait>
+;I've seen plenty of men go into the inner chamber.<wait more>
+;Coming out, though, is a different story.<wait more>
+;I've never seen anyone come out of there alive.<wait>
+Множество людей заходило во внутреннюю комнату.<wait more>
+А вот с выходящими отдельная история.<wait more>
+Я ни разу не видел, чтобы оттуда кто-нибудь выходил.<wait>
+
+[0FA]
+;It looks like this person’s been turned to stone. Could this be Tylon?<wait>
+Похоже, этого человека обратили в камень. Неужели это Тайлон?<wait>
+
+[0FC]
+;YOU WILL SOON FIND OUT THE TRUTH<wait>
+;You've gotten far. Soon you will know the truth.<wait>
+Вы так далеко забрались. Скоро вы узнаете правду.<wait>
+
+[0FE]
+;HALT! GO BACK! YOUR LAST CHANCE<wait>
+;Get out of here!<wait more>
+;You don't know what you're up against!.<wait>
+Убирайтесь!<wait more>
+Вы не знаете, против чего выступаете!<wait>
+
+[100]
+;HOW BRAVE BUT BE CAREFUL OF TRAPS<wait>
+;Oh, what a brave young lady you are! Beware of traps.<wait>
+;(changing because there are no ladies if Alisa is dead)
+;It's brave of you to come here. Beware of hidden traps!<wait>
+Как храбро было с вашей стороны прийти сюда. Берегитесь скрытых ловушек!<wait>
+
+; ***************
+; *** Bartevo ***
+; ***************
+
+[102]
+;This is MY turf!<wait more>
+;And this house? MY house!<wait more>
+;And those big piles of junk?<wait more>
+;That's right. MY junk.<wait more>
+;MINE.<wait more>
+;All of it.<wait more>
+;Don't touch my junk! I'm watching you.<wait>
+Это моя земля!<wait more>
+А этот дом? Мой дом!<wait more>
+А эти большие кучи мусора?<wait more>
+Правильно. Мои кучи!<wait more>
+Моё!<wait more>
+Всё моё!<wait more>
+Не трогайте мой мусор! Я слежу за вами!<wait>
+
+[104]
+;I built a robot named Hapsby years ago, he's a good pilot.<wait more>
+;He's probably still in that scrap heap in Bortevo.<wait more>
+;Go fetch him, will you?<wait more>
+;Careful though, Bortevo's surrounded by lava.<wait more>
+;Don't give me that look! You agreed to follow my instructions.<wait more>
+;I've upheld my end of the bargain, now go do yours.<wait>
+Много лет назад я<line>построил робота<line>Хапсби, он хороший<line>пилот.<wait more>
+Возможно, он всё ещё в той куче металлолома в Бортево.<wait more>
+Идите и приведите его сюда.<wait more>
+Только аккуратно, Бортево окружён лавой со всех сторон.<wait more>
+Не смотрите на меня так! Вы согласились выполнять мои приказы.<wait more>
+Я выполнил свою часть уговора, теперь ваша очередь.<wait>
+
+[106]
+;Someone told me that there’s a perfectly good robot discarded in one of these scrap heaps.<wait more>
+Я слышал, что где-то среди этих куч металлолома был выброшен отличный робот.<wait more>
+
+[108]
+;I wonder if it’s true?<wait>
+Интересно, правда ли это?<wait>
+
+[10A]
+;I've heard that they sell a chemical called Polymeteral in Avion Village.<wait>
+Говорят, что в деревне Авион до<line>сих пор торгуют Полиметералом.<wait>
+
+
+; ************
+; *** Lore ***
+; ************
+
+[10C]
+;This is Lore Village.<wait more>
+;Well, it used to be, before LaShiec stepped into office.<wait more>
+;Now it's just a wasteland for the starving.<wait>
+Добро пожаловать в<line>деревню Лори.<wait more>
+Ну, когда-то была,<line>ещё до того, как<line>Ласиек пришёл к<line>власти.<wait more>
+А теперь это лишь безжизненная пустошь.<wait>
+
+[10E]
+;Have you heard of a jewel called the Carbunckle Eye?<wait more>
+А вы слышали о<line>драгоценном камне,<line>известном как Глаз<line>Карбункула?<wait more>
+
+[110]
+;It’s rumored to be held by a dragon in Casba.<wait more>
+;What does a dragon need a jewel for anyway?<wait>
+По слухам, его охраняет дракон в Касбе.<wait more>
+И для чего дракону драгоценность?<wait>
+
+[112]
+;Hey, since you're here, you might as well pay Avion a visit.<wait more>
+;It's a small town like this one, on the western tip of the island.<wait>
+Раз уж вы здесь, может посетите<line>Авион?<wait more>
+Это маленький город в западной части острова.<wait>
+
+[114]
+;Have you heard about Laerma trees?<end>
+А вы слышали о<line>деревьях Лаэрмы?<end>
+
+[116]
+;I hear the Altiplano plateau on Dezoris is totally covered with 'em.<wait>
+Говорят, плато<line>Альтиплано на Дезолисе полностью покрыто ими.<wait>
+
+[118]
+;It's about time someone went after that brute. Good luck.<wait>
+Ну наконец-то, хоть кто-то выступил против этого тирана. Удачи!<wait>
+
+[11A]
+;LaShiec's no pushover. His black magic could destroy you.<wait more>
+;I've heard certain crystals can protect you against such magic.<wait more>
+;It's just a rumor, though. Don't quote me on that.<wait>
+Ласиека непросто одолеть. Его тёмная магия может уничтожить вас.<wait more>
+Говорят, некоторые кристаллы могут защитить от такой магии.<wait more>
+Хотя, это только слухи.<wait>
+
+; *************
+; *** Avion ***
+; *************
+
+[11C]
+;This village is called Avion.<wait>
+Добро пожаловать в<line>Авион.<wait>
+
+[11E]
+;LaShiec’s evil influence has corrupted our village, too!<wait more>
+;Please, you have to stop him!<wait>
+Пагубное влияние Ласиека коснулось и нашей деревни!<wait more>
+Пожалуйста, остановите его!<wait>
+
+[120]
+;A really strange man recently moved here.<wait more>
+;Quiet guy. Rumor has it he's experimenting on animals.<wait more>
+;And that strange pot!<wait more>
+;He's always walking around with it clutched to his chest.<wait more>
+Недавно здесь появился очень странный человек.<wait more>
+Такой тихий, но поговаривают, что он ставит опыты на животных.<wait more>
+И ещё тот странный горшок!<wait more>
+Он бродил по<line>округе, не расставаясь со<line>своим горшком.<wait more>
+
+[122]
+;First the lava cuts us off from society, then this guy moves in.<wait more>
+;What's this town coming to?<wait>
+Сначала лава отрезала нас от остального мира, затем пришёл этот парень.<wait more>
+Что ждёт этот город?<wait>
+
+[124]
+;It’s a robot made of Laconia!<wait more>
+;Luveno created Hapsby as a prototype spaceship pilot.<wait more>
+;It was abandoned in a scrap heap and left to rot. What a waste...<wait>
+Это Лакониевый робот!<wait more>
+Лувено создал Хапсби, как прототип пилота космического корабля.<wait more>
+Он был выброшен в металлолом. Как неосмотрительно...<wait>
+
+[126]
+;I’d like to travel through space someday.<wait>
+Вот бы в космосе полетать...<wait>
+
+[128]
+;Our new neighbor sure knows a lot about animals.<wait more>
+;He told me the weirdest thing about Musk Cats.<wait more>
+;He says if they eat a certain berry, they grow huge, and can fly!<wait more>
+;I told him he was nuts, of course.<wait more>
+Наш новый сосед действительно<line>много знает о<line>животных.<wait more>
+Он поведал мне странную историю о Мускусных Котах.<wait more>
+Будто бы, если накормить их особыми ягодами, они увеличатся в размерах и смогут летать!<wait more>
+А по мне, так это<line>какая-то ересь.<wait more>
+
+[12A]
+;What kind of berry? Hm. Sorry, I can't recall.<wait>
+Какими именно<line>ягодами? Хм... Извините, что-то не припомню.<wait>
+
+[12C]
+;Greetings. I am pilot robot Hapsby.<wait more>
+;I will assist you in the operation of any Luveno brand spacecraft.<wait>
+Приветствую. Я - Хапсби, робот-пилот.<wait more>
+Я могу пилотировать любую посудину, построенную Лувено.<wait>
+
+; ***********
+; *** Uzo ***
+; ***********
+
+[12E]
+; ??? ??????? ?-?<line>
+;This is Uzo Village, on Motavia.<wait>
+Добро пожаловать в Юзо.<wait>
+
+[130]
+; ?????? ??????- ???????? ???? ??????.<wait>
+;Ant-lions? No problem! You can drive a LandMaster right over 'em.<wait>
+Муравьиные львы? Не проблема. На Вездеходе можно ездить прямо по<line>ним.<wait>
+
+[132]
+; ?-?? ???? ??? ???<line>
+;To the South of Uzo lies a village called Casba.<wait>
+К югу от Юзо<line>расположена деревня Касба.<wait>
+
+[134]
+; ???? ?????? ?????<line>
+;It looks like a dragon is holed up inside Casba Cave. They say there’s a jewel in its head.<wait>
+Похоже, в пещере Касбы обитает дракон. Поговаривают, что его лоб украшен драгоценным камнем.<wait>
+
+[136]
+; ??-???? ??? ????<line>
+;Have you heard of a cloak called the Frad Mantle? <wait more>
+Вы слышали о<line>накидке, называемой Сияющая мантия?<wait more>
+
+[138]
+; ??? ????????<line>
+;From what I hear, it’s really light, yet has excellent protective power.<wait>
+По слухам, она очень лёгкая, хотя и обеспечивает отличную защиту.<wait>
+
+[13A]
+; ?-???-? ??? ????????????.<end>
+;Have you heard of the Soothe Flute?<end>
+Вы слышали о<line>Флейте упокоения?<end>
+
+[13C]
+; ????.??????.<wait>
+;Oh.<wait more>
+;Very well.<wait>
+Да?<wait more>
+Ну не важно.<wait>
+
+[13E]
+; ???????? ??? ?????? ?????? ???????<wait more>
+;Well, this is a secret, but I went and buried one on the outskirts of Gothic village.<wait more>
+Скажу по секрету, я закопал одну такую на окраине Готика.<wait more>
+
+[140]
+; ???? ???????.????<line>
+;Don’t tell anybody I told you that!<wait>
+Никому об этом не рассказывайте!<wait>
+
+[142]
+; ??? ???? ?????<line>
+;I don’t know what you’re talking about.<wait more>
+;I run a legitimate business here.<wait>
+Не знаю, о чём вы говорите.<wait more>
+У меня здесь легальный бизнес.<wait>
+
+[144]
+; ?????? ???.<line>
+;I already told you once, I don't deal with illegal goods.<wait more>
+;Get out of my store.<wait>
+Я уже говорил, что ничем противозаконным не торгую.<wait more>
+Убирайтесь из моего магазина.<wait>
+
+[146]
+; ???????.???? ???????????.???? ????.<wait>
+;You're not going to give up, are you?<wait more>
+;Here, just take it. One Roadpass, signed and certified.<wait more>
+;If anyone asks you about two dead couriers, deny everything.<wait>
+А вы довольно<line>упорны.<wait more>
+Что ж, вот, возьмите один заверенный и зарегистрированный пропуск.<wait more>
+Если кто-нибудь спросит о двух мёртвых курьерах, отрицайте всё.<wait>
+
+
+; *************************
+; *** Baya Mahrey Tower ***
+; *************************
+
+[148]
+; ??? ?????? ?????<line>
+;I am Damoa, the greatest fortuneteller in the world!<wait more>
+Приветствую, я - величайший предсказатель, Дамоа!<wait more>
+
+[14A]
+; ??? ????? ?????.<end>
+;Do you believe in my powers of divination?<end>
+Верите ли вы в силу моего предвидения?<end>
+
+[14C]
+; ?????? ??? ?????<line>
+; ????.<wait more>
+; ??? ??????? ???<line>
+;I've got a friend in Bartevo.<wait more>
+;I guess things are pretty bad there right now, what with those pools of lava and all.<wait more>
+;If you see him, could you say 'hi' to him for me?<wait>
+Скверные дела<line>творятся в<line>Бартево, вся эта<line>лава, да и<line>остальное...<wait more>
+А ведь один из моих друзей сейчас там.<wait more>
+Если встретите<line>его, передайте<line>привет от меня.<wait>
+
+[14E]
+; ??.??.<wait>
+;Good. Good.<wait>
+Хорошо-хорошо.<wait>
+
+[150]
+; ???? ?????? ????<line>
+;I sense that you are searching for something, yes?<end>
+Я чувствую, что вы кое-что ищете, да?<end>
+
+[152]
+; ?????.  ????<line>
+;What did you say?  Such impudence!  Leave at once!<wait>
+Да как вы смеете?! Какая наглость! Выметайтесь!<wait>
+
+[154]
+; ???? ????? ??-??<line>
+;I sense that you are looking for Alex Ossale, yes?<end>
+Мне кажется, что вы ищете Алекса Оссали, нет?<end>
+
+[156]
+; ??? ????? ??? ???????. ?????.<end>
+;Everything I say is correct. Understood?<end>
+Я не могу ошибаться! Это понятно?<end>
+
+[158]
+; ?? ???????.<wait>
+;Then perhaps you should come back later.<wait>
+Тогда вам следует прийти попозже.<wait>
+
+[15A]
+; ??? ??????.<end>
+;Do you defy me?<end>
+Вы меня игнорируете?<end>
+
+[15C]
+; ?????.???? ????<line>
+;Is that so? You show considerable promise.<wait more>
+Правда? Вы показали достойное почтение.<wait more>
+
+[15E]
+; ???? ?????? ???.<wait>
+;I shall reward you with this crystal.<wait>
+В награду я дам вам этот кристалл.<wait>
+
+
+[160]
+; ??? ???-?? ???<line>
+; ????? ????.<end>
+;DO YOU COME IN FULL KNOWLEDGE OF THE TOWER OF BAYA MALAY<end>
+;Did you come here thinking it was Baya Marlay tower?<end>
+Вы пришли сюда, зная, что это<line>башня Байя Марлай?<end>
+
+[162]
+; ????? ??? ????<line>
+; ?????.<wait>
+;You will surely be destroyed by heaven's wrath!<wait>
+Вас покарает гнев небесный!<wait>
+
+[164]
+; ??? ????????.<wait>
+;GO BACK BEFORE IT IS TOO LATE<wait>
+;Then you should turn back.<wait>
+Тогда вам нужно возвращаться.<wait>
+;this appears to be in response to an answer to the question above
+
+; *************
+; *** Casba ***
+; *************
+
+[166]
+; ??? ??? ??? ????.<wait>
+;This is Casba Village.<wait>
+Добро пожаловать в Касбу.<wait>
+
+[168]
+; ????? ????? ?????<line>
+;A dragon has holed himself up in our cave! I’m scared!<wait>
+В нашей пещере<line>поселился дракон. Он такой страшный!<wait>
+
+[16A]
+; ?????? ???? ????<line>
+;.........<wait>
+...<wait>
+
+[16C]
+; ???? ??? ????? ??<line>
+;There are stories told in the village surrounded by mist.<wait more>
+В деревне, окружённой туманом, знают множество историй.<wait more>
+
+[16E]
+; ???.????? ??????<line>
+; ??????? ???????.<wait>
+;They speak of some sort of legendary shield.<wait more>
+;Apparently, Perseus once used it to confront a monster.<wait>
+В некоторых говорится о<line>легендарном щите.<wait more>
+О том, которым пользовался Персей, чтобы победить монстра.<wait>
+
+[170]
+; ??? ????? ??? ???<wait more>
+; ?????? ????? ??????????????.<wait more>
+;There's a terrible poison mist west of here.<wait more>
+;I don't think you can get through it without protection.<wait>
+Территория к западу отсюда затянута ядовитым туманом.<wait more>
+Не думаю, что его можно преодолеть без защиты.<wait>
+
+[172]
+; ??-?-?- ??? ?????<line>
+;Do you know what a FlowMover is?<end>
+Вы слышали о<line>Катере на воздушной подушке?<end>
+
+[174]
+; ?????? ??????? ??????? ???????????<wait more>
+;So you know what junk they are!<wait more>
+;I bought one in Shion city, on Palma.<wait more>
+;It broke down, so I dumped it in Bartevo.<wait more>
+Значит, знаете,<line>какая это рухлядь!<wait more>
+Я купил один в Сионе, на Палме.<wait more>
+А он взял и сломался. И я его выбросил в Бартево.<wait more>
+
+[176]
+; ????? ???????.<line>
+;What a waste!<wait>
+Ну и мусор!<wait>
+
+[178]
+; ??-?-?-? ????.<wait more>
+;You found a FlowMover.<wait more>
+Найден Катер на воздушной подушке.<wait more>
+
+[17A]
+; ??????? ????.<wait>
+;Hapsby fixed the parts that were broken, so you can use it now!<wait>
+Хапсби починил повреждённые<line>части, и теперь<line>его можно<line>использовать!<wait>
+
+[17C]
+; ??? ?????. ??????<line>
+; ???? ?????.<wait>
+;Oh, they're marvelous! When they work, of course.<wait more>
+;They can glide smoothly across the top of the water.<wait>
+Ах, он такой чудесный! Когда исправен, конечно.<wait more>
+На нём можно перемещаться по<line>водной глади.<wait>
+
+
+; ***************
+; *** Drasgow ***
+; ***************
+
+[17E]
+; ??? ????-. ??????<line>
+;This is Drasgow, a tiny city floating on the sea.<wait>
+Это Драсго, маленький плавучий городок.<wait>
+
+[180]
+; ?? ??? ??? ?????<line>
+;Wow! I didn't expect to see visitors here anytime soon.<wait more>
+Ого! Не ожидал встретить посетителей так скоро.<wait more>
+
+[182]
+; ????? ?????<line>
+; ?????????.<wait>
+;Not since LaShiec put an embargo on sea travel, anyway.<wait more>
+;How the heck did you get here?<wait>
+По крайней мере, с тех пор как Ласиек наложил запрет на путешествия по<line>морю.<wait more>
+Как вам удалось добраться сюда?<wait>
+
+[184]
+; ????? ???? ?????<line>
+;I hear that there's an enchanted sword in Avion Tower.<wait>
+Поговаривают, что<line>в башне Авион<line>хранится<line>зачарованный меч.<wait>
+
+[186]
+; ???? ??? ??? ???<line>
+;I once saw a huge floating rock in the sky!<wait>
+Однажды я видел огромную скалу, парящую в небе!<wait>
+
+[188]
+; ??????-???-?.<wait more>
+;My name is Choko Oneesan.<wait more>
+Меня зовут Чоко Онисан.<wait more>
+
+[18A]
+; ????? ????? ?????.<wait>
+; FC: You're doing wonderfully, keep it up!<wait>
+; PJ: Be tough and carry on your adventure!<wait>
+;Be tough and carry on your adventure!<wait>
+Хорошенько постарайтесь в своём приключении!<wait>
+
+[18C]
+; ???? ?????? ?? ????????- ??? ????<wait more>
+;Do you know what a GasClear is? They protect you from poison gas.<wait more>
+;A shop near here sells them, but I can't find it!<wait more>
+Слышали о<line>Противогазах? Они защищают от ядовитых газов.<wait more>
+Их можно купить в магазине неподалёку. Вот только найти его я так и не смог!<wait more>
+
+[18E]
+; ??? ?????? ??????<line>
+;Maybe if I head left, up ahead...<wait>
+Может, если я буду поворачивать налево...<wait>
+
+[190]
+; ??? ??????????.<line>
+;This is an item shop. What can I do for you?<wait more>
+Добро пожаловать в магазин. Чем могу помочь?<wait more>
+
+[192]
+; ?-?????.????????.<line>
+; ????????.<wait>
+;...actually, I lied. This isn't an item shop at all.<wait more>
+;What? Don't look at me like that.<wait>
+...Вообще-то, я солгал. Это совсем не магазин.<wait more>
+Что? Не смотрите на меня так!<wait>
+
+[194]
+; ?????? ???? ???<line>
+;I’ll bet you’re surprised to find a shop in a place like this, huh?<wait more>
+Готов поспорить, что вы не ожидали найти магазин в таком месте.<wait more>
+
+[196]
+; ?????- <number>?????.<line>
+;GasClears are <number><internal hint 02> meseta<use suffix> each. Pretty cheap, no? Want one?<end>
+Противогаз стоит <number><internal hint 02> месет за штуку. Дёшево, не правда ли? Берёте?<end>
+
+[198]
+; ?????.?????.<wait>
+;Thanks. Come again!<wait>
+Спасибо, Приходите ещё!<wait>
+
+[19A]
+; ???????-. ?????-.
+;What?! You don’t have any money?<wait more>
+Что?! У вас нет денег?<wait more>
+
+[19C]
+; ?? ??????.<line>
+;What the hell?! I'm not selling you ANYTHING now!<wait>
+В чём дело?! У меня больше нечего продать!<wait>
+
+[19C-2]
+;Suit yourself. I'll be here when you change your mind.<wait>
+Удачи! Я буду здесь, если вдруг передумаете.<wait>
+
+[19E]
+; ??-??-?? ?????.<wait>
+;Access denied.<wait more>
+;Space travel is now entirely off limits to all citizens.<wait more>
+;This is a matter of national security.<wait>
+Доступ запрещён.<wait more>
+Космические полёты недоступны для всех граждан.<wait more>
+Это дело<line>национальной<line>безопасности.<wait>
+
+[1A0]
+; ???-?? ????????.<wait>
+;We'll be confiscating your passport now.<wait>
+Мы конфискуем ваш паспорт.<wait>
+
+
+; *************
+; *** Skray ***
+; *************
+
+[1A2]
+; ??? ??????? ???.<line>
+;Welcome to Skray! Stick around, it's warm down here.<wait>
+Добро пожаловать в Скрэй! Здесь довольно тепло.<wait>
+
+[1A4]
+; ???????? ???? ????????? ??????.<wait>
+;Almost all of the immigrants from Palma live in this town.<wait>
+Почти все<line>иммигранты с Палмы живут в этом городе.<wait>
+
+[1A6]
+; ??? ????????<line>
+; ???????? ??? ?????<wait more>
+;Native Dezolians don't live here in Skray.<wait more>
+;There are some in a village inside the northern mountains.<wait>
+Коренные дезолиане не живут в этом городе.<wait more>
+Они обитают в деревне у северных гор.<wait>
+
+[1A8]
+; ????? ????? ????????? ?????.<wait>
+; <end>
+; Continues 1A6
+
+[1AA]
+; ?? ??-?? ??????.<line>
+; ????? ????? ???<wait more>
+;Overthrowing LaShiec, are you?<wait more>
+;I hope you're adequately equipped.<wait more>
+Собираетесь свергнуть Ласиека?<wait more>
+Надеюсь, у вас хорошая экипировка.<wait more>
+
+[1AC]
+; ?-? ??? ?-?? ?-?-<line>
+;You'll need a sword, axe, shield, and armor made from laconia.<wait more>
+Вам нужны меч,<line>топор, щит и<line>доспехи, сделанные<line>из лаконии.<wait more>
+
+[1AE]
+; ???? ??? ??????<line>
+;I wouldn't use anything less powerful if I were you.<wait more>
+На вашем месте, без них я бы не выступал против Ласиека.<wait more>
+
+[1B0]
+; ??? ??????.<wait>
+;May your journey be safe.<wait>
+Пусть ваш путь будет безопасным!<wait>
+
+[1B2]
+; ????? ??? ??? ???????? ???????.<wait more>
+;Laconia is more than just strong, it's sacred.<wait more>
+;LaShiec knows this, of course.<wait more>
+;That's why laconian equipment is so hard to find!<wait more>
+Лакония не только прочна, но и священна.<wait more>
+И Ласиек об этом, естественно, знает.<wait more>
+Вот почему так трудно найти лакониевые<line>предметы!<wait more>
+
+[1B4]
+; ??-?? ??? ????<line>
+;He's afraid of it!<wait>
+Он их боится!<wait>
+
+[1B6]
+; ????? ???????????.<wait>
+; <end>
+; Continues 1B4
+
+[1B8]
+; ??????? ????????.<wait>
+;Dezoris is covered entirely in ice.<wait more>
+;Not exactly the flourishing greenery of Palma, is it?<wait>
+Дезолис полностью покрыт ледяной коркой.<wait more>
+Совсем непохоже на вечнозелёную Палму.<wait>
+
+[1BA]
+; ???? ???????<line>
+;They say that parts of the ice mountains crumble easily.<wait>
+Говорят, некоторые ледяные скалы можно легко расколоть.<wait>
+
+[1BC]
+; ??????????? ????<line>
+;Altiplano plateau is surrounded by mountains of ice.<wait>
+Плато Альтиплано<line>окружено ледяными скалами.<wait>
+
+[1BE]
+; ????? ?????? ???<line>
+;This planet has a solar eclipse once every hundred years.<wait more>
+На этой планете раз в сто лет случается солнечное<line>затмение.<wait more>
+
+[1C0]
+; ????? ????? ????<line>
+;A flame lit during an eclipse is called an Eclipse Torch.<wait more>
+Пламя, зажжённое<line>во время затмения,<line>называется<line>Пламенем Затмения.<wait more>
+
+[1C2]
+; ?????? ??????<line>
+;Native Dezolians believe Eclipse Torches carry divine power.<wait>
+Коренные дезолиане верят, что Пламя Затмения обладает божественной силой.<wait>
+
+[1C4]
+; ????? ???????<line>
+; ???? ?????????.<wait more>
+;Whatever nonsense LaShiec's gotten involved with has gone too far.<wait more>
+;I've heard dead bodies in Guaran Morgue have come back to life!<wait more>
+Ласиек зашёл слишком далеко в своих злодеяниях.<wait more>
+Говорят, мертвые тела из гуаранского морга вернулись к жизни!<wait more>
+
+[1C6]
+; ?????.<wait>
+;Please, stop him. This is horrible!<wait>
+Это ужасно! Пожалуйста, остановите его.<wait>
+
+
+; ****************************
+; *** Native Dezorian Town ***
+; ****************************
+
+;Notes: The truth-telling Dezorians and the lying Dezorians
+; speak different dialects of Japanese.  The truth-tellers
+; end their sentences with ZURA, and the liars end theirs
+; with DASU.  In this English version, the truth -tellers
+; say things like 'it does' and 'you will' at the ends
+; of sentences, and the liars say things like, 'no joke',
+; 'seriously', etc. in their sentences.
+; [Paul Jensen]
+
+;Truth-tellers
+;-------------
+
+[1C8]
+; ???? ????<line>
+; ????????.??????.<wait>
+;I wouldn't trust anyone in the neighboring village.<wait more>
+;Raving pack of pathological liars, they are.<wait>
+Я бы не доверял никому из соседней деревни. <wait more>
+Банда паталогических лжецов, да-да.<wait>
+
+[1CA]
+; ????? ??? ???????<line>
+; ??????? ????.<wait>
+;You might want to check out the Corona Tower.<wait more>
+;On the other side of the mountains to the north, it is.<wait>
+Вам стоит<line>проверить Башню<line>под названием<line>Корона.<wait more>
+Она с другой стороны северных гор, да-да.<wait>
+
+[1CC]
+; ??????? ???? ?????????? ????.<wait more>
+;To the west of Corona Tower lies Dezoris Cave, it does.<wait more>
+К западу от башни Корона находится пещера Дезолиса, да-да.<wait more>
+
+[1CE]
+; ???? ???? ????.<line>
+; ??????.<wait>
+;We have friends there, we do.<wait more>
+;Give them our regards, you will?<wait>
+У нас там есть друзья, да-да.<wait more>
+Передадите им привет от нас, да?<wait>
+
+[1D0]
+; ??????-?? ??????-<line>
+; ??? ???? ?????.<wait more>
+;Laerma trees bear strange fruits.<wait more>
+;They're called Laerma Berries, they are.<wait more>
+У дерева Лаэрмы довольно странные<line>плоды.<wait more>
+Они называются Ягоды Лаэрмы, да-да.<wait more>
+
+[1D2]
+; ?? ???? ??????<line>
+;They're tasty. I want to eat them, I do.<wait more>
+И они очень вкусные. Я бы хотел попробовать одну, да-да.<wait more>
+
+[1D4]
+; ????? ??? ?????<line>
+; ???????????.<wait>
+;The problem is, we have to put them in a Laconian jar.<wait more>
+;If we don't, they get all dried up, they do.<wait>
+Правда, есть одна проблемка, их нужно хранить в лакониевой таре.<wait more>
+Иначе, они быстро засыхают, да-да.<wait>
+
+[1D6]
+; ??????? ?????<line>
+;Heard of something called an Aeroprism, have you?<end>
+Слышали когда-нибудь об Аэропризме, да?<end>
+
+[1D8]
+; ???? ??? ????<line>
+;I hear you can see other worlds with one, you can.<wait>
+Говорят, с её помощью можно увидеть иные миры, да-да.<wait>
+
+[1DA]
+; ??? ??????????.<wait>
+;I’d really like to look into one sometime, I would.<wait>
+Вот бы хоть раз взглянуть на такую, да-да.<wait>
+
+[1DC]
+; ?????? ???? ????<line>
+;All us villagers hate Palmans, we do.<wait>
+Все наши селяне ненавидят палманийцев, да-да!<wait>
+
+;Liars
+;-----
+
+[1DE]
+; ???????? ????????<line>
+; ?????.<wait>
+;Yep. In Corona Tower, there’s a fountain of youth.<wait more>
+;Seriously.<wait>
+Привет. Где-то в башне Корона есть фонтан молодости.<wait more>
+Серьёзно.<wait>
+
+[1E0]
+; ????? ????? ??<line>
+; <number>??? ?-????????.<wait>
+;You can warp from the 10th underground level of Dezoris Cave.<wait more>
+;No joke. I wouldn't lie to you.<wait>
+С 10-го подземного этажа пещеры Дезолис можно сразу попасть на поверхность.<wait more>
+Без шуток. Я бы не стал вам лгать.<wait>
+
+[1E2]
+; ??????-? ????????<line>
+; ???? ?????? ?????.<wait>
+;Laerma Berries are blue, and we use them to dye our clothes.<wait more>
+;That's what we do.<wait>
+Ягоды Лаэрмы синего цвета и мы красим ими свою одежду.<wait more>
+Серьёзно.<wait>
+
+[1E4]
+; ??????-? ??? ?????? ???? ?? ?????.<wait>
+;You can use a crystal to make berries grow on a Laerma tree.<wait more>
+;I kid you not!<wait>
+Рост ягод на дереве Лаэрмы можно спровоцировать кристаллом.<wait more>
+Без шуток!<wait>
+
+[1E6]
+; ?????? ???? ?????<line>
+;This village welcomes all Palmans. Seriously.<wait>
+Палманийцам здесь всегда рады. Серьёзно.<wait>
+
+[1E7]
+;Those guys in the other village are all liars. For real.<wait>
+Всё население<line>соседней деревни - лжецы. Без шуток!<wait>
+
+
+; *************
+; *** Sopia ***
+; *************
+
+[1E8]
+; ????? ???? ????.<wait more>
+; ????? ???<line>
+;This village is called Sopia. Welcome.<wait more>
+;I’m glad you were able to make it through the mist.<wait>
+Эта деревня называется Сопия. Добро пожаловать.<wait more>
+Рада, что вы<line>смогли пройти<line>сквозь туман.<wait>
+
+[1EA]
+; ???? ????? ?????<line>
+;I am the head of this village.<wait more>
+Я староста этой деревни.<wait more>
+
+[1EC]
+; ??? ???? ????? ???? ??? ???????.<wait more>
+;We in Sopia are very poor. We're outcasts. <wait more>
+;The mist shuts us off from other towns.<wait more>
+Жители Сопии очень бедны. Мы - отверженные. <wait more>
+Туман отрезал нас от остальных городов.<wait more>
+
+[1EE]
+; ??? <number>??? ????<line>
+;Might you donate <number><internal hint 02> meseta<use suffix> to us?<end>
+Не могли бы вы пожертвовать нам <number><internal hint 02> месет?<end>
+
+[1F0]
+; ?????.??????.???.<wait>
+;I see. I’m sorry to hear that. Ohhh...<wait>
+Понятно. Жаль это слышать. Ох...<wait>
+
+[1F2]
+; ????? ????????.<line>
+;So you are poor as well, are you? Such sad times these are.<wait>
+Значит вы тоже небогато живёте, да? Тяжёлые времена наступили...<wait>
+
+[1F4]
+; ?????.<line>
+;Thank you. Perhaps I can help you, in return.<wait more>
+Спасибо! Возможно, в благодарность, я смогу вам помочь.<wait more>
+
+[1F6]
+; ?????? ???-??<line>
+; ?????? ???? ???<wait more>
+;I imagine you're looking for Perseus' shield.<wait more>
+;According local legend, Perseus used it to slay Medusa.<wait more>
+;It's rumored to be on an island in the lake.<wait more>
+;I've heard that it's buried under a cactus.<wait more>
+;I'm sorry, that's all I know. Good luck.<wait>
+Полагаю, вы ищете<line>щит Персея.<wait more>
+Согласно местной легенде, с его помощью Персей победил Медузу.<wait more>
+По слухам, он находится на острове посреди озера.<wait more>
+Я слышал, что он погребён под кактусом.<wait more>
+Это всё, что мне известно. Удачи вам!<wait>
+
+[1F8]
+; ??????? ??? ?????<line>
+; ??? ?????????.<wait>
+; <end>
+; Continues 1F6
+
+[1FA]
+; ??? ?-?-? ??????.<line>
+;Hi, I'm Gamer Miki! Do you own a Master System?<end>
+Привет, я геймер Мики! У тебя есть своя Мастер Систем?<end>
+
+[1FC]
+; ?? ???????? ?-?-?.??? ????????? ?-?.<wait>
+;Yay! Isn't the FM sound amazing?!<wait>
+Отлично! Правда ведь ФМ звук великолепен?<wait>
+
+[1FE]
+; ???- ??? ??? ???<line>
+; ??????- ?- ?? ??.<wait>
+;WHAT?!<wait more>
+;Shame on you! Hurry up and buy one!<wait>
+Как так?!<wait more>
+Позорище! Поторопись и купи!<wait>
+
+[200]
+; ??-?? ?????? ???<line>
+;Before LaShiec's powerful grasp, this village was very wealthy.<wait>
+Жители этой<line>деревни не знали<line>горя, пока Ласиек<line>не дорвался до<line>власти.<wait>
+
+[202]
+; ????? ???? ??? ?????? ??? ???? ???.<wait>
+;Have you met Tajimu? He's a monk.<wait more>
+;He's living in the mountains south of the lake.<wait>
+Вы встречались с Тадзиму? Он монах.<wait more>
+Он живет в горах к югу от озера.<wait>
+
+[204]
+; ?????? ???? ????<line>
+;I heard that Palma is a beautiful planet. Is it true?<end>
+Говорят, Палма - очень красивая планета. Это правда?<end>
+
+[206]
+; ???????-.<wait>
+;Anywhere's better than a town surrounded by poison mist.<wait>
+По сравнению с городом, окружённым ядовитым газом, любое место<line>покажется раем.<wait>
+
+[208]
+; ?????.???? ???<line>
+;Oh, I see. I want to go to a place with cleaner air.<wait>
+Эх, понятно. Хотелось бы побывать на свежем воздухе.<wait>
+
+[20A]
+; ?????.<wait more>
+;Thanks. Please come again.<wait>
+Спасибо! Приходите ещё.<wait>
+
+[20C]
+; ??.<wait>
+;Cheapskate!<wait>
+Скряга!<wait>
+
+[20E]
+; ????????.<wait>
+;Do I look like an idiot?!<wait>
+Я похож на идиота?!<wait>
+
+[210]
+;.........<wait>
+...<wait>
+
+[212]
+; ???.????? ???????<line>
+; ????.<wait more>
+; ???? ??????????.<wait>
+;Your father was the best king Algol has ever known.<wait more>
+;And more than that, he was a good man.<wait more>
+;He would be proud of you today.<wait>
+Твой отец был величайшим из королей Альго.<wait more>
+И более того, он был хорошим человеком.<wait more>
+Он мог бы тобой гордиться.<wait>
+
+
+; **************************
+; *** Baya Mahrey Prison ***
+; **************************
+
+[214]
+; ?? ???? ?????????<line>
+;Oh, so you are confined in here as well. How sad.<wait more>
+Ах, вас тоже сюда заточили. Вот незадача-то.<wait more>
+
+[216]
+; ????? ????? ????????? ??? ?????<wait more>
+; ???? ????.<wait>
+;Sure, there's a way out of here. But what's the point?<wait more>
+;Life is so much less complicated here.<wait>
+Уверен, отсюда есть выход. Его нужно только найти.<wait more>
+Жизнь здесь настолько запутана...<wait>
+
+[218]
+; ?????? ???????<line>
+;You’d better not go any further -- there’s a security guard up ahead.<wait>
+Дальше вам лучше<line>не ходить, впереди серьёзная охрана.<wait>
+
+[21A]
+; ??????? ????????.<wait>
+;Now would be a good time to turn around and go home.<wait>
+Самое время развернуться и пойти домой.<wait>
+
+[21C]
+; ?-???? ??????.<end>
+;Do you have a roadpass?<end>
+У вас есть пропуск?<end>
+
+[21E]
+; ????<line>
+;This is a fake. Where did you get this?<wait more>
+Это подделка.<line>Где вы его взяли?<wait more>
+
+[220]
+; ?????? ???? ?????.??? ???????.<wait>
+;Well, you certainly picked the right place to get locked up.<wait more>
+;Come with me.<wait>
+Ха, несомненно, вы выбрали хорошее<line>место для заключения.<wait more>
+Идите за мной.<wait>
+
+[222]
+; ??? ???? ????????.?? ????.<wait>
+;Did you come to let me out of here?<wait more>
+;Oh, please help me. I don't want to die.<wait>
+Вы пришли чтобы освободить меня?<wait more>
+Ах, пожалуйста, спасите меня! Я не хочу умирать!<wait>
+
+[224]
+; ??-?? ???????<line>
+; ?????.<wait>
+;Overthrow LaShiec? That’s impossible.<wait more>
+;You can't kill the unkillable man.<wait>
+Свергнуть Ласиека? Это невозможно!<wait more>
+Нельзя убить неуязвимого человека!<wait>
+
+[226]
+; ?????? ??-?? ?????????????. ????.<wait>
+;We’re all going to end up as sacrifices for LaShiec!<wait>
+Мы все будем принесены в жертву Ласиеку!<wait>
+
+[228]
+; ??????? ????<line>
+;Did you get the armor in Guaran?<end>
+Вы нашли доспехи в Гуаране?<end>
+
+[22A]
+; ??? ?????? ??????<line>
+;You can find it on the other side of a pitfall.<wait>
+Вам стоит поискать их на другом краю пропасти.<wait>
+
+[22C]
+; ???? ????.<wait>
+;Wow, you're amazing!<wait>
+Ого, вы великолепны!<wait>
+
+[22E]
+; ??-?? ??????? ??<line>
+; ?? ?????<wait more>
+;LaShiec's more dangerous than most people realize.<wait more>
+;His magical powers to snatch away your very soul!<wait>
+Ласиек намного<line>опаснее, чем думают люди.<wait more>
+Его магическая сила опустошит ваши души!<wait>
+
+[230]
+; ???.??? ????.<line>
+; ?? ???? ?????????.<wait>
+;That's a pity. He would have wanted this for you.<wait more>
+;Still, you are welcome here at any time.<wait>
+Это так печально. Он бы хотел передать вам это.<wait more>
+Вам здесь всегда рады!<wait>
+
+[232]
+; ???-?? ???????<line>
+; ?????.<wait more>
+;There’s a tower on top of the knoll of Baya Marlay.<wait more>
+;I wonder what secrets lie within?<wait>
+На вершине холма Байя Марлай стоит башня.<wait more>
+Интересно, какие тайны сокрыты там?<wait>
+
+
+; ********************
+; *** Corona Tower ***
+; ********************
+
+[234]
+; ???????. ?????<line>
+;Why have you come here? Stay out of trouble, hear me?<wait>
+Что вы тут забыли?.. Шли бы вы отсюда, слышите?<wait>
+
+[236]
+; ??? ??????.<wait>
+;I’ve got a bad feeling about this.<wait>
+У меня плохое предчувствие от всего этого.<wait>
+
+[238]
+; ???? ??? ?????.<line>
+;Be careful up ahead. You should turn left at the fork in the path.<wait>
+Поосторожней там, впереди. На развилке вам лучше повернуть налево.<wait>
+
+[23A]
+; ????? ????? ???<line>
+; ??? ?????? ?????<wait more>
+;You didn't hear this from me, but...<wait more>
+;Lord LaShiec fears the crystal held by Damoa the fortuneteller.<wait more>
+Я вам этого не говорил, но...<wait more>
+Лорд Ласиек опасается кристалла, хранящегося у предсказательницы Дамои.<wait more>
+
+[23C]
+; ?????? ??-????<line>
+;There must be something secret about it.<wait>
+В этом есть что-то таинственное.<wait>
+
+[23E]
+; ?? ?? ?????? ???<line>
+; ? ?????? ??? ???<wait more>
+;Do you see this flame in my hand? This is the Eclipse Torch.<wait more>
+;This is the sacred fire of the centennial eclipse.<wait more>
+;It's beautiful, holy, and, indeed, very valuable.<wait more>
+Видите пламя у<line>меня в руке? Это<line>Пламя Затмения.<wait more>
+Священный огонь столетнего затмения.<wait more>
+Он прекрасен и, несомненно, бесценен.<wait more>
+
+[240]
+; ???. ????? ?????<line>
+; ????? ?????? ???<wait more>
+;I might be willing to part with some of it, for, say...<wait more>
+;...a dragon's crystal.<wait more>
+Я мог бы обменять немного огня на, скажем...<wait more>
+Глаз Карбункула.<wait more>
+
+[242]
+; ??? ???? ??? ???.<end>
+;What do you say?<end>
+Что скажете?<end>
+
+[244]
+; ?? ??????-??<line>
+;Excellent. Here you are, then.<wait>
+Отлично! Тогда вот, возьмите.<wait>
+
+[246]
+; ??????.????? ????<line>
+;You don’t want it? Then why have you come here?<wait>
+Он вам не нужен? Тогда зачем вы пришли?<wait>
+
+[248]
+; ????? ??????????.<line>
+;You have no jewel! Don’t be foolish!<wait>
+У вас его нет!<line>Не пытайтесь меня обмануть!<wait>
+
+[24A]
+; ??????? ???? ???<line>
+; ??????.<wait more>
+; ??-??-?? <number>????<line>
+;Hey, welcome, glad you could make it. Sorry about the location.<wait more>
+;With all these tax hikes, it's all I could afford. You know how it is.<wait more>
+;My world famous shortcakes are <number><internal hint 02> meseta<use suffix>. Would you like one?<end>
+Добро пожаловать! Рад, что вы зашли. Простите, что так далеко забрался.<wait more>
+Из-за повышения налогов, это всё, что я могу себе<line>позволить.<wait more>
+Я продаю свои всемирно известные пироги по <number><internal hint 02> месет за штуку. Возьмёте один?<end>
+
+
+; ********************
+; *** Tajim's Cave ***
+; ********************
+
+[24C]
+; ?? ???? ???. ???<line>
+; ??-?? ??? ??????.<wait>
+;Ah, Lutz, my pupil!<wait more>
+;You plan to overthrow LaShiec, eh?<wait>
+О, Лутц, ученик мой!<wait more>
+Ты задумал свергнуть Ласиека?<wait>
+
+[24E]
+; ?? ?????? ???? ??<line>
+; ???.??? ???????.<wait>
+;Then you must pass one final test.<wait more>
+;Let's duel.<wait>
+Тогда тебе предстоит пройти последний тест.<wait more>
+Сразимся.<wait>
+
+[250]
+; ????????.???.<wait more>
+; ????????? ?????.<wait more>
+;You have grown strong, Lutz.<wait more>
+;I can't teach you any more.<wait more>
+Лутц, ты обрёл великую силу.<wait more>
+Мне больше нечему тебя учить.<wait more>
+
+[252]
+; ????? ????????<line>
+;Take this. It's a Frad Cloak.<wait more>
+Возьми, это<line>Сияющая мантия.<wait more>
+
+[254]
+; ???? ???? ???????<line>
+; ????. ?? ?????.<wait>
+;It will protect your body from harm.<line>
+;Now go, my boy.<wait>
+Она защитит тебя.<line>
+А теперь, иди, мальчик мой.<wait>
+
+[256]
+; ???? ?????? ?????.??????????.<wait>
+;You need more training, my boy.<wait more>
+;Come back when you're ready. I'll be waiting.<wait>
+Тебе нужно больше практики, мальчик мой.<wait more>
+Возвращайся, когда будешь готов. Я подожду.<wait>
+
+[258]
+; ?? ??? ??????? ??.<wait>
+;I have nothing left to teach you, my boy.<wait>
+Мне больше нечему тебя учить, мальчик мой.<wait>
+
+[25A]
+; ???????? ?????.<line>
+;And who might you people be?<wait more>
+И кто это тут у нас?<wait more>
+
+[25C]
+; ??? ??.??????.<end>
+;My pupil, Lutz, is in Mahal Cave. Do you know him?<end>
+Мой ученик, Лутц, тренируется в пещере Махал. Вы с ним встречались?<end>
+
+[25E]
+; ??? ????? ??????<line>
+; ??. ?????? ?????.<wait>
+;I have something that I must tell him.<wait more>
+;Please tell him to come see me.<wait>
+Я бы хотел с ним поговорить кое о чём.<wait more>
+Пожалуйста, передайте ему, чтобы навестил меня.<wait>
+
+[260]
+; ???. ??? ????<line>
+;I see. Then there is no point in talking with you any further.<wait>
+Понятно. Тогда нам не о чем больше разговаривать.<wait>
+
+
+; **********************************
+; *** The Illusionary Aerocastle ***
+; **********************************
+
+[262]
+; ?????? ?????<line>
+; ?????????.<wait more>
+;Hello there.<wait more>
+;I know why you're here. We've been watching you closely.<wait more>
+Привет вам!<wait more>
+Я знаю, зачем вы прибыли сюда. Мы внимательно<line>наблюдали за вами.<wait more>
+
+[264]
+; ??????? ??.<wait>
+;This is where your journey ends, I'm afraid.<wait>
+Боюсь, здесь ваше<line>путешествие и<line>закончится.<wait>
+
+[266]
+; ??? ??-????<line>
+; ??????.<wait more>
+;Who am I? I am LaShiec's shadow warrior.<wait more>
+;You've beaten me, but it will do you no good.<wait more>
+Кто я? Я теневой<line>защитник Ласиека.<wait more>
+Вы победили меня, но пользы вам от этого не будет.<wait more>
+
+[268]
+; ???????????<line>
+;Lord LaShiec is unkillable. He'll destroy you all.<wait>
+Лорд Ласиек неуязвим. Он уничтожит вас.<wait>
+
+[26A]
+; ??-???? ?????.<wait>
+;.........<wait>
+...<wait>
+
+[26C]
+; ???? ???? ???.<line>
+; ??? ??????.<wait more>
+; ???? ??? ???????.<end>
+;Ah, it's you. I thought you might come.<wait more>
+;I know a great deal about you, child.<wait more>
+;I know you loved your brother, dearly. Nero, was it?<wait more>
+;Yes.<wait more>
+;I know more than that. I know your name, too. Your real name.<wait more>
+;Foolish child. You don't even know your own bloodline.<wait more>
+;You have no idea what's inside of you.<wait more>
+;And I know why you're here, too.<wait more>
+;You plan to kill me. Don't you, child?<end>
+О, это вы.<line>Я ждал вас.<wait more>
+Дитя, мне многое<line>известно о тебе.<wait more>
+Я знал твоего любимого брата. Его звали Нерон, да?<wait more>
+Да.<wait more>
+И более того. Я знаю твоё имя. Твоё настоящее<line>имя.<wait more>
+Глупое дитя! Ты даже не знаешь собственной родословной.<wait more>
+Ты понятия не имеешь, кем являешься!<wait more>
+И зачем ты здесь, я тоже знаю.<wait more>
+Ты собираешься меня убить. Так ведь, дитя?<end>
+
+[26E]
+; ???.?????<wait more>
+; ?? ????? ???????<line>
+;Yes, of course you do. Your courage is admirable.<wait more>
+;You are much like your father.<wait more>
+;I'll take little pleasure in killing you.<wait>
+Да, конечно! Твоя храбрость превосходна!<wait more>
+Ты очень похожа на своего отца.<wait more>
+Мне будет приятно<line>тебя убивать!<wait>
+
+[270]
+; ???? ????<line>
+;Please. I've no time for games. Come, let's do this.<wait>
+Пожалуйста, у меня нет времени на игры. Подойди, сделаем это!<wait>
+
+
+; **************
+; *** Ending ***
+; **************
+
+[272]
+; ??.??? ??????.<wait more>
+; ???? ???? ????<wait more>
+;Oh, goodness.<wait more>
+;My mind and body were...taken over, by an evil force.<wait more>
+;It's a wonder I'm still alive. Thank you.<wait more>
+О, господи.<wait more>
+Мои тело и разум... были одержимы тёмной силой.<wait more>
+Чудо, что я ещё жив. Спасибо вам!<wait more>
+
+[274]
+; ???? ??? ?????<line>
+; ??????????.<wait more>
+;You've done it. You've saved Algol.<wait more>
+;History shall repeat your names, always.<wait more>
+Вы совершили великое дело. Вы спасли Альго.<wait more>
+Ваши имена навсегда останутся в истории.<wait more>
+
+[276]
+; ??? ???? ???????.<line>
+; ????? ??????<wait more>
+;Alisa. There's something I must tell you.<wait more>
+;It's a secret I've kept from you, to spare your life.<wait more>
+;Now that LaShiec is gone, it's safe to come out with it.<wait more>
+;Alisa...your father was the king of Algol.<wait more>
+;His royal blood is inside you. It has given you strength.<wait more>
+Алиса, я должен тебе кое-что рассказать.<wait more>
+Я скрывал эту тайну, чтобы сохранить твою жизнь.<wait more>
+Но теперь, когда Ласиек повержен, её можно раскрыть.<wait more>
+Алиса... Твой отец был королём Альго.<wait more>
+В твоих жилах течёт королевская кровь, и она придаёт тебе сил.<wait more>
+
+
+[278]
+; ???????? ????????.????? ??? ???.<wait more>
+; ????.<line>
+;We are without a leader, Alisa.<wait more>
+;Will you succeed your father and become Algol’s queen?<end>
+Алиса, сейчас у нас нет лидера.<wait more>
+Примешь ли ты наследие отца и станешь королевой Альго?<end>
+
+[27A]
+; ??? ???? ??????.<line>
+; ??? ???? ?????.<wait more>
+; (World)
+; RAISE THE AEROPRISM TOWARDS THE HEAVENS. YOU SHOULD THEN BE ABLE TO SEE THE DARK CASTLE<wait>
+;I’m Otegami Chie-chan! Thanks for all your letters.<line>
+;Please tell us what you think of this game. We’ll be waiting.<wait>
+;Um, what the fuck? -Frank
+;Raise the Aeroprism toward the sky, from the highest peak.<wait more>
+;It should reveal the dark castle above.<wait>
+Направьте Аэропризму в небо<line>с высочайшей<line>вершины.<wait more>
+И она откроет путь к тёмному замку.<wait>
+
+[27C]
+; ?
+; Do not touch -- will affect [282]
+
+[27E]
+; ?
+; Do not touch -- will affect [282]
+
+[280]
+; ?
+; Do not touch -- will affect [282]
+
+[282]
+; ? ??? ???<line>
+;Hey! Keep outta my turf!<wait>
+Эй! Руки прочь от моего хлама!<wait>
+
+[284]
+; ??????? ???????<line>
+;I guess I’ve got to do what Dr. Luveno says. Go on through.<wait>
+Полагаю, мне придётся выполнять приказы доктора Лувено. Проходите.<wait>
+
+[286]
+; ???????? ?????<line>
+; ???????? ????? ???<wait more>
+;There are intelligent aliens on Motavia and Dezoris.<line>
+;Life on another planet! Can you imagine it?<wait>
+На Мотавии и Дезолисе обитают разумные существа.<line>
+Жизнь на другой планете! Только представьте!<wait>
+
+[288]
+; ???? ????-??<line>
+; ????-???? ?????.<wait>
+;There are intelligent monsters, but they speak a different language than ours.<wait more>
+;You'd have to be some kind of magician to understand them.<wait>
+Иногда встречаются разумные монстры, но они не говорят на нашем языке.<wait more>
+Чтобы понять их, нужно обладать особыми магическими способностями.<wait>
+
+[28A]
+; ????????? ??? ???<line>
+;I made a fortune selling that Laconian Pot! Thanks!<wait>
+Спасибо! Я так выгодно продал тот лакониевый горшок.<wait>
+
+[28C]
+; ?? ??? ?????<line>
+; ???????. ???<wait more>
+;Right. It looks like my staff is assembled.<wait more>
+;What, you don't think two people can build a spaceship?<wait more>
+;I'll have you know I've been building these since you were in diapers!<wait more>
+Отлично! Похоже<line>моя команда в сборе.<wait more>
+Что? Вы же не думаете, что два человека не смогут построить космолёт?<wait more>
+Чтобы вы знали, я<line>строил их, когда<line>вы ещё под стол<line>пешком ходили!<wait more>
+
+[28E]
+; ?????? <number>???<line>
+; ??????? ??? ????.<end>
+;Now then, buying a spaceship isn't like buying some Peloriemate.<wait more>
+;This is a serious investment, and it will cost you serious money.<wait more>
+;I require <number><internal hint 02> meseta<use suffix> upfront. Can you cover that?<end>
+Покупка космолёта - это вам не в булочную сходить.<wait more>
+Это серьёзные<line>инвестиции, которые требуют серьёзных денег.<wait more>
+В качестве задатка мне нужно <number><internal hint 02> месет. Вы располагаете такой суммой?<end>
+
+[290]
+; ?????.?? ?????<line>
+; ?????.????????.<wait>
+;Splendid. We'll begin construction immediately.<wait more>
+;This is going to require some time, I'm a bit rusty.<wait more>
+;Why don't you go slay some Slimes, or whatever it is you people do?<wait>
+Прекрасно! Мы немедленно<line>начинаем строительство.<wait more>
+На это потребуется некоторое время. Я немного<line>подзаржавел.<wait more>
+Почему бы вам не пойти поупражняться на Слизи, или чем вы там ещё занимаетесь?<wait>
+
+[292]
+; ????? ????? ?????.?? ??????????.<wait>
+;Please, you can't rush perfection.<wait more>
+;Unless you want to end up stranded in space, give us time.<wait more>
+;Can't you go wander around a cave or something? We're very busy.<wait>
+Пожалуйста, не отвлекайте нас! Процесс нельзя ускорить.<wait more>
+Если вы хотите<line>полететь к звёздам, придётся подождать.<wait more>
+Может, пока<line>обследуете какую-<line>нибудь пещеру?<line>Мы очень заняты.<wait>
+
+[294]
+; ??.??? ?????? ???<line>
+; ????? ?????.<wait more>
+; ??? ??? ???????.<line>
+; ????? ????.<wait>
+;Ah, my little Hapsby, you've come home!<wait more>
+;Excellent. With Hapsby you can pilot the Luveno through space!<wait more>
+;And just in time, too. Spaceport security has gotten tighter.<wait more>
+;Go on! The Luveno is docked just outside the village!<wait more>
+;Go try it out!<wait>
+О, мой маленький Хапсби, ты вернулся домой!<wait more>
+Превосходно! Хапсби сможет пилотировать Лувено.<wait more>
+И как раз вовремя! Охрана космопорта недавно усилилась.<wait more>
+Вперёд! Лувено стоит за деревней!<wait more>
+Испытайте его!<wait>
+
+[296]
+; ?? ??? ??.<line>
+;Here, kitty kitty! Come here!<end>
+Сюда, кис-кис-кис! Иди ко мне!<end>
+
+[298]
+; ?????.????? ?????.<wait>
+;Ho ho, that was fun! Who's next?<wait>
+Хо-хо, а это забавно! Кто следующий?<wait>
+
+[29A]
+; ??? ???? ?????<line>
+;I said come HERE.<wait>
+Я сказал ко мне!<wait>
+
+[29C]
+; ?????? ???????.<line>
+;You must be tired from your journey. Why don’t you rest here for a while?<wait>
+Должно быть, вы устали в своём путешествии. Почему бы вам немного здесь не отдохнуть?<wait>
+
+[29E]
+; ?? ????? ????<line>
+; ??????.<wait more>
+; ????? ??????.<line>
+; ??? ??????.<wait>
+; Governor-General (return after dream):
+;THAT WAS QUICK! OH I SEE YOU ARE NOT THROUGH WITH LASHIEC YOU HAD BEST REST ;AT THE INN<wait>
+;There is not a single moment to lose.<wait more>
+;Please be careful.<line>
+;I pray for your safety.<wait>
+Нельзя терять времени!<wait more>
+Пожалуйста, будьте осторожны.<line>
+Я буду за вас молиться.<wait>
+
+[2A0]
+; ??? ???? ???.<delay>
+;You fell into a deep sleep...<delay>
+На вас накатывает глубокий сон...<delay>
+
+[2A2]
+; ????? ?????.<wait>
+;It was all a dream...<wait>
+Это был сон...<wait>
+
+[2A4]
+; ??? ???? ????.<line>
+;This is Alisa's home. Nero's presence can still be felt here.<wait>
+Это дом Алисы.<wait more>
+Здесь всё ещё чувствуется присутствие<line>
+Нерона.<wait>
+
+[2A6]
+; ??.???? ???.<wait more>
+;Empty! Where is the Governor-General?<wait>
+Никого! Где Генерал-<line>губернатор?<wait>
+
+[2A8]
+; ??.???????.?????.<line>
+; ?????? ???????.<wait>
+;YOU HAVE GOTTEN YOURSELF KILLED COME LETS TRY ONE MORE TIME<wait>
+;Hey there. Are you dead? What a pity.<line>
+;Revive and try again.<wait>
+Все герои погибли? Какая жалость.<line>
+Возродитесь и попробуйте ещё раз.<wait>
+
+[2AA]
+; ??-?? ????.<wait more>
+; ???? ???? ??????.<wait more>
+; ????? ??? ???<line>
+;Lord LaShiec has fallen. Nero's dying wish was granted.<wait more>
+;This is the beginning of a new life in Algol.<wait more>
+;The only thing left to do is tell the Governor-general in Paseo.<wait>
+Лорд Ласиек повержен. Посмертное желание Нерона исполнено.<wait more>
+Это начало новой эпохи в жизни Альго.<wait more>
+Осталось только сообщить об этом Генерал-<line>губернатору в<line>Пасео.<wait>

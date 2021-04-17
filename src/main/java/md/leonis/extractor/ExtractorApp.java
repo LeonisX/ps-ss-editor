@@ -15,7 +15,6 @@ public class ExtractorApp extends Application {
         JavaFxUtils.showMainPane(primaryStage);
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }

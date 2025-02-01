@@ -65,7 +65,7 @@ public class Event {
     }
 
     public String getEventValue() {
-        String text = textIds.stream().collect(Collectors.joining(";"));
+        String text = String.join(";", textIds);
         return String.format("%04X;%02X;%01X;%s;%s", relativeAddress, roomId, newValue, locationId, text);
     }
 
@@ -88,9 +88,7 @@ public class Event {
         event.setNewValue(Integer.parseInt(chunks[2], 16));
         event.setLocationId(chunks[3]);
         //TODO textz
-        for (int i = 4; i < chunks.length; i++) {
-            event.textIds.add(chunks[i]);
-        }
+        event.textIds.addAll(Arrays.asList(chunks).subList(4, chunks.length));
         return event;
     }
 
@@ -128,7 +126,6 @@ public class Event {
         StringBuilder stringBuilder2 = new StringBuilder();
         textIds.forEach(t -> stringBuilder2.append("     ").append(Config.languageTable.getProperty(t).split(";")[0].trim()));
         System.out.println(stringBuilder2);
-
     }
 
 
@@ -200,5 +197,4 @@ public class Event {
                 //", geo=" + geo +
                 '}';
     }
-
 }

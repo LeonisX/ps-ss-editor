@@ -7,6 +7,7 @@ import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,7 +42,7 @@ public class Config {
 
     static {
         try {
-            dump = new Dump(new File("/home/leonis/ps.sms"));
+            dump = new Dump(new File("./other/ps.sms"));
             loadMapsTxt();
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,7 +77,12 @@ public class Config {
     }
 
     public static void loadMapsTxt() throws IOException {
-        Path file = Paths.get(Config.class.getClassLoader().getResource("maps.txt").getFile());
+        Path file;
+        try {
+            file = Paths.get(Config.class.getClassLoader().getResource("maps.txt").toURI());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         mapRaw = Files.lines(file).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 

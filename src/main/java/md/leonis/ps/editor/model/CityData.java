@@ -77,7 +77,6 @@ public class CityData {
                 '}';
     }
 
-
     public int getMapLayer() {
         return mapLayer;
     }
@@ -117,5 +116,4 @@ public class CityData {
     public void setComment(String comment) {
         this.comment = comment;
     }
-
 }

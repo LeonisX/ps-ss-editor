@@ -19,7 +19,6 @@ import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_STATUS_OFFSET;
 import static md.leonis.ps.editor.utils.Config.currentSaveGame;
 import static md.leonis.ps.editor.utils.Config.saveState;
 
-
 //TODO после чтения проверять равенство x, y ,x2, y2
 
 public class SecondaryPaneController {
@@ -94,7 +93,7 @@ public class SecondaryPaneController {
                 case DELETED:
                     Font font = button.getFont();
                     //System.out.println(font);
-                    button.setStyle("-fx-font: " + (font.getSize() - 1) + " " + font.getFamily() + "; -fx-text-fill: gray");
+                    button.setStyle("-fx-font: " + (font.getSize() - 1) + " " + font.getFamily() + "; -fx-text-fill: rgb(128,128,128)");
                     button.setText("deleted");
                     break;
                 case ACTIVE:
@@ -103,7 +102,7 @@ public class SecondaryPaneController {
                 case EMPTY:
                     Font font2 = button.getFont();
                     //System.out.println(font2);
-                    button.setStyle("-fx-font: " + (font2.getSize() - 1) + " " + font2.getFamily() + "; -fx-text-fill: gray");
+                    button.setStyle("-fx-font: " + (font2.getSize() - 1) + " " + font2.getFamily() + "; -fx-text-fill: rgb(128,128,128)");
                     button.setText("empty");
                     break;
             }
@@ -216,7 +215,6 @@ public class SecondaryPaneController {
             saveState.updateObject();
             initialize();
         }
-
     }
 
     @FXML

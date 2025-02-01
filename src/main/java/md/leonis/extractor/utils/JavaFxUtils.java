@@ -17,8 +17,8 @@ public class JavaFxUtils {
 
     private static BorderPane rootLayout;
 
-    private static int sceneWidth = 800;
-    private static int sceneHeight = 600;
+    private static final int sceneWidth = 800;
+    private static final int sceneHeight = 600;
 
     public static void showMainPane(Stage primaryStage) {
         primaryStage.setTitle("TiVi Admin Panel");

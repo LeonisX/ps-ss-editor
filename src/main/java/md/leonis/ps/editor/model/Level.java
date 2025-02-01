@@ -27,7 +27,7 @@ public class Level {
         this.attack = dump.getByte();
         this.defense = dump.getByte();
         this.mp = dump.getByte();
-        this.experience = dump.getShort();
+        this.experience = dump.getWord();
         this.combatSpells = dump.getByte();
         this.curativeSpells = dump.getByte();
     }
@@ -56,7 +56,6 @@ public class Level {
                 Integer.parseInt(chunks[6], 16)
         );
     }
-
 
     @Override
     public String toString() {
@@ -126,5 +125,4 @@ public class Level {
     public void setCurativeSpells(int curativeSpells) {
         this.curativeSpells = curativeSpells;
     }
-
 }

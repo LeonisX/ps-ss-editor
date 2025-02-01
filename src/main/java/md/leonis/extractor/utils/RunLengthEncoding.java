@@ -50,7 +50,7 @@ public class RunLengthEncoding {
     %00000000             ; end of bitplane
     */
     public static Integer[] decode(Dump dump, int startAddress) {
-        dump.moveTo(startAddress);
+        dump.moveToAddress(startAddress);
         return decode(dump);
     }
 

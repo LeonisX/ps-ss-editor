@@ -9,13 +9,6 @@ import md.leonis.ps.editor.model.SaveState;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.List;
-
 public class PrimaryPaneController {
 
     @FXML

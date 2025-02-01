@@ -65,10 +65,10 @@ public class HeroGamePaneController {
     @FXML
     public Label nextLevelString;
 
-    private ObservableList<String> observableWeaponsList = FXCollections.observableList(Config.weaponNames);
-    private ObservableList<String> observableArmorsList = FXCollections.observableList(Config.armorNames);
-    private ObservableList<String> observableShieldsList = FXCollections.observableList(Config.shieldNames);
-    private ObservableList<String> observableItemsList = FXCollections.observableList(Config.items);
+    private final ObservableList<String> observableWeaponsList = FXCollections.observableList(Config.weaponNames);
+    private final ObservableList<String> observableArmorsList = FXCollections.observableList(Config.armorNames);
+    private final ObservableList<String> observableShieldsList = FXCollections.observableList(Config.shieldNames);
+    private final ObservableList<String> observableItemsList = FXCollections.observableList(Config.items);
 
     @FXML
     private void initialize() {
@@ -103,8 +103,7 @@ public class HeroGamePaneController {
     }
 
     //TODO bug - Alisa can select Axes, Guns, ...
-    //TODO bug - calculate attach/defense, using items characteristics. Verify with
-    // real game data (change equipped items)
+    //TODO bug - calculate attack/defense, using items characteristics. Verify with real game data (change equipped items)
     private void update() {
         hp.setText(Integer.toString(currentHero.getHp()));
         mp.setText(Integer.toString(currentHero.getMp()));
@@ -176,7 +175,6 @@ public class HeroGamePaneController {
         curativeSpells.setValue(currentHero.getCurativeSpells());
     }
 
-
     public void okButtonClick() {
         //TODO checks, error handler
         currentHero.setHp(correctByte(hp.getText()));
@@ -202,15 +200,13 @@ public class HeroGamePaneController {
     private int correctByte(String textValue) {
         int value = Integer.parseInt(textValue);
         if (value < 0) return 0;
-        if (value > 255) return 255;
-        return value;
+        return Math.min(value, 255);
     }
 
     private int correctShort(String textValue) {
         int value = Integer.parseInt(textValue);
         if (value < 0) return 0;
-        if (value > 65535) return 65535;
-        return value;
+        return Math.min(value, 65535);
     }
 
     public void weaponAction(Event event) {

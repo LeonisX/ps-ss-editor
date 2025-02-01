@@ -74,14 +74,13 @@ public class SaveGamePaneController {
 
     private Button plusItemButton;
 
-    private List<String> directionsList = new ArrayList<>(Arrays.asList("North", "East", "South", "West"));
-    private List<String> transportList = new ArrayList<>(Arrays.asList("No", "Landrover", "Hovercraft", "Ice Digger"));
-    private int[] transportIds = new int[]{0x00, 0x04, 0x08, 0x0C};
+    private final List<String> directionsList = new ArrayList<>(Arrays.asList("North", "East", "South", "West"));
+    private final List<String> transportList = new ArrayList<>(Arrays.asList("No", "Landrover", "Hovercraft", "Ice Digger"));
+    private final int[] transportIds = new int[]{0x00, 0x04, 0x08, 0x0C};
 
-    private ObservableList<String> observableDirectionsList = FXCollections.observableList(directionsList);
-    private ObservableList<String> observableTransportList = FXCollections.observableList(transportList);
-    private ObservableList<String> observableGeosList = FXCollections.observableList(Config.geos.stream().map(Geo::getName).collect(Collectors.toList()));
-
+    private final ObservableList<String> observableDirectionsList = FXCollections.observableList(directionsList);
+    private final ObservableList<String> observableTransportList = FXCollections.observableList(transportList);
+    private final ObservableList<String> observableGeosList = FXCollections.observableList(Config.geos.stream().map(Geo::getName).collect(Collectors.toList()));
 
     @FXML
     private void initialize() {
@@ -93,9 +92,7 @@ public class SaveGamePaneController {
             heroesVBox.getChildren().add(currentSaveGame.getHeroes()[i].getBorderPane());
         }
 
-
         //geoComboBox.getScene().lookup()
-
 
         //TODO pretty show current map
 
@@ -152,7 +149,6 @@ public class SaveGamePaneController {
         button.setOnAction(e -> okAddItemsButtonClick());
         button.setStyle("-fx-font: " + (font.getSize() - 2) + " " + font.getFamily());
         allItemsPane.getChildren().add(button);
-
 
         colorSlider.setLabelFormatter(new StringConverter<Double>() {
             @Override
@@ -271,7 +267,6 @@ public class SaveGamePaneController {
         }
     }
 
-
     private void deleteItem(ActionEvent actionEvent) {
         Button button = (Button) actionEvent.getSource();
         int index = (int) button.getUserData();
@@ -282,7 +277,6 @@ public class SaveGamePaneController {
         currentSaveGame.setItemsCount(currentSaveGame.getItemsCount() - 1);
         updateControls();
     }
-
 
     private void addItemsButtonClick() {
         allItemsPane.setVisible(true);

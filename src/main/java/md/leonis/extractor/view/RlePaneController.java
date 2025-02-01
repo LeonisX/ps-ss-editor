@@ -79,7 +79,7 @@ public class RlePaneController {
 
         // dump level stats
         dump.setByteOrder(ByteOrder.LITTLE_ENDIAN);
-        dump.moveTo(0xF8AF);
+        dump.moveToAddress(0xF8AF);
         List<String> allLevels =
                 Stream.of(getLevels(0), getLevels(1), getLevels(2), getLevels(3))
                         .flatMap(Collection::stream).collect(Collectors.toList());
@@ -96,7 +96,7 @@ public class RlePaneController {
         // dump all rle-compressed data
         // TODO dump raw data, calculate crc32 of byte blocks
         for (int i = 0x0D670, lastIndex = i; i < dump.size() - 16; i++) {
-            dump.moveTo(i);
+            dump.moveToAddress(i);
             Integer[][] bitPlanes = fastReadBitPlanes();
             if ((bitPlanes[3] != null) && (dump.getIndex() - i > 16) && (lastIndex != dump.getIndex())) {
                 lastIndex = dump.getIndex();
@@ -219,9 +219,9 @@ public class RlePaneController {
                     i, Integer.toHexString(pointersIndex), Integer.toHexString(pointersIndex + 0xA2 - 1)));
 
             for (int k = 0; k < 0xA2 / 2; k++) {
-                dump.moveTo(pointersIndex + k * 2);
+                dump.moveToAddress(pointersIndex + k * 2);
                 int address = dump.getByte() + (dump.getByte() - 0x80) * 0x100;
-                dump.moveTo(start + address); // 60000, 34000, 38000
+                dump.moveToAddress(start + address); // 60000, 34000, 38000
                 System.out.print(String.format("MapPieces #%1s/%2s 0x%5S-", i, k, Integer.toHexString(dump.getIndex())));
                 mapPieces[i][k] = new MapPiece(RunLengthEncoding.decode(dump));
                 int index = dump.getIndex();
@@ -240,7 +240,7 @@ public class RlePaneController {
     private BigTile[] readBigTiles(int start, int bigTilesCount) {
         //int bigTilesCount = Math.toIntExact(Math.round((finish * 1.0 - start) / 8));
         BigTile[] bigTiles = new BigTile[bigTilesCount];
-        dump.moveTo(start); // 58000 // 0x74000
+        dump.moveToAddress(start); // 58000 // 0x74000
         for (int i = 0; i < bigTilesCount; i++) {
             System.out.println(String.format("BigTile #%3s 0x%5S-0x%5S", i, Integer.toHexString(dump.getIndex()), Integer.toHexString(dump.getIndex() + 8 - 1)));
             bigTiles[i] = new BigTile(dump);
@@ -250,7 +250,7 @@ public class RlePaneController {
 
 
     private Tile[] readTiles(int start) {
-        dump.moveTo(start); //58570 //0x747B8
+        dump.moveToAddress(start); //58570 //0x747B8
         Integer[][] bitPlanes = readBitPlanes();
         return initializeTiles(bitPlanes);
     }
@@ -297,9 +297,6 @@ public class RlePaneController {
         return bitPlanes;
     }
 
-
-
-
     private void saveCanvas(Canvas canvas, String fileName) {
         WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
         try {
@@ -318,8 +315,6 @@ public class RlePaneController {
             }
         }
     }
-
-
 
     private void drawTiles(GraphicsContext tileGc, Tile[] tiles, Palette palette) {
         for (int i = 0, index = 0; i < 32; i++) {

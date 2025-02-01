@@ -169,7 +169,14 @@ public class Config {
 
     public static String getKeyByValue(String value) {
         return Config.languageTable.entrySet().stream()
-                .filter(e -> e.getValue().toString().split(";")[0].trim().equals(value)).findFirst()
+                .filter(e -> {
+                    String val = e.getValue().toString();
+                    if (val.length() == 1) {
+                        return val.equals(value);
+                    } else {
+                        return val.split(";")[0].trim().equals(value);
+                    }
+                }).findFirst()
                 .map(objectEntry -> objectEntry.getKey().toString()).orElse("");
     }
 

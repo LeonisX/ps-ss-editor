@@ -20,7 +20,6 @@ import java.util.stream.Stream;
 
 import static md.leonis.extractor.utils.Config.dump;
 
-
 public class MainStageController {
 
     @FXML
@@ -30,7 +29,7 @@ public class MainStageController {
 
     public void dumpDungeonMapsClick() {
         DungeonMap[] maps = new DungeonMap[0x3D]; //3D
-        dump.moveTo(0x3DF6E);
+        dump.moveToAddress(0x3DF6E);
         for (int i = 0; i < maps.length; i++) {
             maps[i] = new DungeonMap(dump);
         }
@@ -54,7 +53,7 @@ public class MainStageController {
 
     public void dumpLevelStatsClick() {
         dump.setByteOrder(ByteOrder.LITTLE_ENDIAN);
-        dump.moveTo(0xF8AF);
+        dump.moveToAddress(0xF8AF);
         List<String> allLevels =
                 Stream.of(getLevels(0), getLevels(1), getLevels(2), getLevels(3))
                         .flatMap(Collection::stream).collect(Collectors.toList());
@@ -78,7 +77,6 @@ public class MainStageController {
     }
 
 
-
     //евентам нужна привязка к картам
     public void processRawMapsDataClick() {
         String name = "";
@@ -87,7 +85,7 @@ public class MainStageController {
         List<Event> allEvents = new LinkedList<>();
         Map<String, String> phrases = new LinkedHashMap<>();
 
-        for (String line: Config.mapRaw) {
+        for (String line : Config.mapRaw) {
             // chests, bosses, ...
             if (line.contains("\t")) {
                 System.out.println("chests, bosses, ...: " + line);
@@ -108,7 +106,7 @@ public class MainStageController {
             // name
             name = line;
             System.out.println("Name: " + line);
-        };
+        }
 
         Path out = Paths.get("src/main/resources/maps.csv");
         try {
@@ -229,8 +227,7 @@ public class MainStageController {
             }
         });
 
-        allEvents.stream().sorted((e1, e2) -> Integer.valueOf(e1.getRelativeAddress()).compareTo(e2.getRelativeAddress())).forEach(System.out::println);
-
+        allEvents.stream().sorted(Comparator.comparingInt(Event::getRelativeAddress)).forEach(System.out::println);
 
         //TODO put manual
         allEvents.stream().sorted(Comparator.comparing(Event::getRelativeAddress)).forEach(e -> {
@@ -252,7 +249,7 @@ public class MainStageController {
                 DungeonData dungeonData = dungeonDatas.stream().filter(d -> d.getId() == dungeonId).findFirst().get();
                 int did = dungeonData.getDungeonId();
                 if (did != di[0]) {
-                    System.out.println(String.format("Dungeon #%02X", did));
+                    System.out.printf("Dungeon #%02X%n", did);
                 }
                 di[0] = did;
             }
@@ -263,7 +260,6 @@ public class MainStageController {
 
         System.out.println("Phrases==============================");
         //phrases.entrySet().forEach(System.out::println);
-
 
 
         //dungeonNames.entrySet().stream()

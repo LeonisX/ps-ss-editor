@@ -1,13 +1,11 @@
 package md.leonis.ps.editor.model;
 
-
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
@@ -15,7 +13,6 @@ import md.leonis.ps.editor.view.SaveGamePaneController;
 
 import static md.leonis.ps.editor.utils.Config.currentHero;
 import static md.leonis.ps.editor.utils.Config.currentHeroIndex;
-
 
 public class Hero {
 
@@ -49,11 +46,10 @@ public class Hero {
 //TODO research for all heroes start equipment
 
     public static Hero readFromRom(Dump romData, int index) {
-        return new Hero(index, romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getShort() ,romData.getByte(),
+        return new Hero(index, romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getWord() ,romData.getByte(),
                 romData.getByte(), romData.getByte(),romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(),
                 romData.getByte(), romData.getByte(), romData.getByte());
     }
-
 
     public void writeToRom(Dump romData) {
         romData.setBoolean(isAlive);
@@ -61,7 +57,7 @@ public class Hero {
         romData.setByte(mp);
         //ByteOrder byteOrder = romData.getByteOrder();
         //romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
-        romData.setShort(experience);
+        romData.setWord(experience);
         //romData.setByteOrder(ByteOrder.BIG_ENDIAN);
         romData.setByte(level);
         romData.setByte(maxHp);
@@ -116,7 +112,6 @@ public class Hero {
         customizeButton.setOnAction(this::customizeButtonClick);
 
 
-
         healButton.managedProperty().bind(healButton.visibleProperty());
         reviveButton.managedProperty().bind(reviveButton.visibleProperty());
         hireButton.managedProperty().bind(hireButton.visibleProperty());
@@ -145,7 +140,7 @@ public class Hero {
         } else {
             textLabel.setText("somewhere far away...");
         }
-        healButton.setVisible((maxHp > hp || maxHp > hp) && exist);
+        healButton.setVisible((maxHp > hp || maxMp > mp) && exist);
         reviveButton.setVisible(!isAlive && exist);
         hireButton.setVisible(!exist);
         customizeButton.setVisible(exist && isAlive);
@@ -165,7 +160,6 @@ public class Hero {
         Config.selectCurrentHero((int) ((Node) actionEvent.getSource()).getUserData());
         JavaFxUtils.showPane("HeroGamePane.fxml");
     }
-
 
     private void hireButtonClick(ActionEvent actionEvent) {
         int index = (int) ((Node) actionEvent.getSource()).getUserData();
@@ -406,5 +400,4 @@ public class Hero {
                 ", curativeSpells=" + curativeSpells +
                 '}';
     }
-
 }

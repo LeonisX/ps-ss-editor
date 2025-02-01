@@ -1,6 +1,5 @@
 package md.leonis.extractor.model;
 
-
 public class Map {
 
     private String name;

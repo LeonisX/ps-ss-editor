@@ -16,8 +16,8 @@ public class JavaFxUtils {
 
     private static BorderPane rootLayout;
 
-    private static int sceneWidth = 900;
-    private static int sceneHeight = 720;
+    private static final int sceneWidth = 900;
+    private static final int sceneHeight = 720;
 
     public static Object currentController;
 

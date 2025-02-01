@@ -1,9 +1,8 @@
 package md.leonis.extractor.model;
 
 import md.leonis.bin.Dump;
-import md.leonis.extractor.utils.Config;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,10 +12,10 @@ import java.util.stream.IntStream;
 
 public class DungeonMap {
                                     // 01234567     89ABCDEF     GHIJKLMN     OPQRSTUV
-    private static String textTiles = "░█▲▼─═≡▒" + "«●───═≡!" + "ΩΩΩi─═≡≡" + "!PQRSTUV";
-    private static String textTiles2= "░█▲▼─═≡▒" + "»●▲▼☺☺☺!" + "▲▼─iiii!" + "iPQRSTUV";
+    private static final String textTiles = "░█▲▼─═≡▒" + "«●───═≡!" + "ΩΩΩi─═≡≡" + "!PQRSTUV";
+    private static final String textTiles2= "░█▲▼─═≡▒" + "»●▲▼☺☺☺!" + "▲▼─iiii!" + "iPQRSTUV";
 
-    private static List<String> tiles = new ArrayList<>(Arrays.asList(
+    private static final List<String> tiles = new ArrayList<>(Arrays.asList(
             //0     1     2     3     4     5     6     7     8     9
             "██", "░░", "▒▒", "()", "──", "══", "≡≡", "Ω▲", "Ω▼", "Ω─",
             //10   11    12    13    14    15    16    17    18    19
@@ -25,10 +24,9 @@ public class DungeonMap {
             "ii", "i─", "i═", "TY", "??"
     ));
 
+    private final int[] data = new int[16 * 16]; // 8 bytes x 16 rows in ROM
 
-    private int[] data = new int[16 * 16]; // 8 bytes x 16 rows in ROM
-
-    private int[][] map = new int[16][16];
+    private final int[][] map = new int[16][16];
 
     public DungeonMap(Dump dump) {
         for (int i = 0; i < 0x80; i++) {
@@ -50,11 +48,7 @@ public class DungeonMap {
         for (int y = 0; y < 16; y++) {
             //map[y] = new int[16];
             String line = prop.getProperty(String.format("dungeon%02X-%X", index, y));
-            try {
-                line = new String(line.getBytes("ISO-8859-1"), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            line = new String(line.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             for (int x = 0; x < 16; x++) {
                 String tile = line.substring(x * 2, x * 2 + 2);
                 if (!tiles.contains(tile)) System.out.println("Tile not found: " + tile);
@@ -109,7 +103,7 @@ public class DungeonMap {
                 if (value == 23) System.out.println("       !!Quest " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
                 if (value == 16) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
                 if (value == 17) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
-                if (value == 18) System.out.println("       Boss " + String.format("%01X%01X    ", y, x, tiles.get(map[y][x])));
+                if (value == 18) System.out.println("       Boss " +  String.format("%01X%01X    %s", y, x, tiles.get(map[y][x])));
                 if (value == 19) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
             }
         }
@@ -120,11 +114,8 @@ public class DungeonMap {
         String result = Arrays.stream(data).mapToObj(d -> "" + textTiles.charAt(d) + textTiles2.charAt(d)).collect(Collectors.joining());
         String[] chunks = result.split("(?<=\\G.{32})");
 
-
-
         return IntStream.range(0, chunks.length)
                 .mapToObj(i -> String.format("dungeon%02X-%X=%s\n", index, i, chunks[i]))
                 .collect(Collectors.joining());
     }
-
 }

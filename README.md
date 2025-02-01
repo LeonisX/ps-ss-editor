@@ -1,6 +1,25 @@
-# Phantasy Star Save State Editor
+Phantasy Star Save State Editor
+===============================
 
 A huge study of one of the greatest games of Sega Master System's library.
+
+Run
+---
+
+### Editor:
+
+    mvn clean javafx:run
+
+### Resources extractor:
+
+    mvn clean javafx:run@extractor
+
+### The right way
+
+https://stackoverflow.com/questions/53668630/how-to-run-javafx-applications-in-intellij-idea-ide
+
+Old info
+--------
 
 первый экран: загрузка сохранёнки
 [пакетное преобразование]

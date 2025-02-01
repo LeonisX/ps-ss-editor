@@ -6,7 +6,7 @@ import md.leonis.bin.Dump;
 
 public class BigTile {
 
-    private TileMap[] tileMaps = new TileMap[4];
+    private final TileMap[] tileMaps = new TileMap[4];
 
     public BigTile(Dump dump) {
         //dump.moveTo(offset);

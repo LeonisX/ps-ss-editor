@@ -45,7 +45,6 @@ public class Geo {
     private int church;   // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
     // 0x418-4FF: 00
 
-
     public Geo() {
     }
 
@@ -76,8 +75,8 @@ public class Geo {
 
     public void readFromRom(Dump romData, int offset) {
         romData.setOffset(offset);
-        x = romData.getShort(0x01);
-        y = romData.getShort( 0x05);
+        x = romData.getWord(0x01);
+        y = romData.getWord( 0x05);
         mapLayer = romData.getByte( 0x08);
         mapId = romData.getByte( 0x09);
         direction = romData.getByte(0x0A);
@@ -86,18 +85,17 @@ public class Geo {
         transport = romData.getByte(0x0E);
         animation1 = romData.getByte(0x0F);
         animation2 = romData.getByte(0x10);
-        y2 = romData.getShort( 0x11);
-        x2 = romData.getShort(0x13);
+        y2 = romData.getWord( 0x11);
+        x2 = romData.getWord(0x13);
         color = romData.getByte(0x15);
         type = romData.getByte(0x16);
         church = romData.getByte(0x17);
         romData.setOffset(0);
     }
 
-
     public void writeToRom(Dump romData, int offset) {
-        romData.setShort(0x01, x);
-        romData.setShort( 0x05, y);
+        romData.setWord(0x01, x);
+        romData.setWord( 0x05, y);
         romData.setByte( 0x08, mapLayer);
         romData.setByte( 0x09, mapId);
         romData.setByte(0x0A, direction);
@@ -106,13 +104,12 @@ public class Geo {
         romData.setByte(0x0E, transport);
         romData.setByte(0x0F, animation1);
         romData.setByte(0x10, animation2);
-        romData.setShort( 0x11, y2);
-        romData.setShort(0x13, x2);
+        romData.setWord( 0x11, y2);
+        romData.setWord(0x13, x2);
         romData.setByte(0x15, color);
         romData.setByte(0x16, type);
         romData.setByte(0x17, church);
     }
-
 
     public void copyDataTo(Geo destGeo) {
         destGeo.setX(x);

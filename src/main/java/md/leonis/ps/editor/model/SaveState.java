@@ -2,6 +2,7 @@ package md.leonis.ps.editor.model;
 
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
+import md.leonis.ps.editor.utils.ValidationException;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,15 +51,23 @@ public class SaveState {
     }
 
     private void testInnerData() {
-        if (romData.size() < MINIMAL_ROM_SIZE) throw new RuntimeException("Save State too small");
+        if (romData.size() < MINIMAL_ROM_SIZE) throw new ValidationException("Save State file is too small!");
         //TODO other sizes
         romData.moveToAddress(0);
-        if (!romData.readString(START_TEXT.length()).equals(START_TEXT)) throw new RuntimeException("Corrupted header / not Phantasy Star Save State");
-        if (!romData.checkZeroes(FIRST_ZEROES_SIZE)) throw new RuntimeException("Garbage in header / not Phantasy Star Save State");
+        if (!romData.readString(START_TEXT.length()).equals(START_TEXT)) {
+            throw new ValidationException("Not a Phantasy Star Save State: corrupted header!");
+        }
+        if (!romData.checkZeroes(FIRST_ZEROES_SIZE)) {
+            throw new ValidationException("Not a Phantasy Star Save State: garbage in header!");
+        }
         romData.moveToAddress(SECOND_ZEROES_OFFSET);
-        if (!romData.checkZeroes(SECOND_ZEROES_SIZE)) throw new RuntimeException("Garbage in header / not Phantasy Star Save State");
+        if (!romData.checkZeroes(SECOND_ZEROES_SIZE)) {
+            throw new ValidationException("Not a Phantasy Star Save State: garbage in header!");
+        }
         for (int i = 0; i < 5; i ++) {
-            if (romData.getByte(0x126 + i * 0x24) - 0xC1 != i + 1 ) throw new RuntimeException("Corrupt save slots listing");
+            if (romData.getByte(0x126 + i * 0x24) - 0xC1 != i + 1 ) {
+                throw new ValidationException("Save slots listing is corrupted!");
+            }
         }
 
         romData.moveToAddress(SAVE_GAME_STATUS_OFFSET);
@@ -122,13 +131,13 @@ public class SaveState {
 
     //TODO test
     public String readName(int index) {
-        String name = "";
+        StringBuilder name = new StringBuilder();
         for (int i = 0; i < 5; i ++) {
             romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + i * 2);
             //TODO charset select
-            name += Config.languageTable.getProperty(Integer.toHexString(romData.getByte()));
+            name.append(Config.languageTable.getProperty(Integer.toHexString(romData.getByte())));
         }
-        return name;
+        return name.toString();
     }
 
 

@@ -22,7 +22,7 @@ public class JavaFxUtils {
     public static Object currentController;
 
     public static void showMainPane(Stage primaryStage) {
-        primaryStage.setTitle("TiVi Admin Panel");
+        primaryStage.setTitle("Phantasy Star Save State Editor");
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(Config.resourcePath + "MainStage.fxml"));

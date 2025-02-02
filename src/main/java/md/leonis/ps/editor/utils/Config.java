@@ -1,5 +1,6 @@
 package md.leonis.ps.editor.utils;
 
+import md.leonis.bin.Dump;
 import md.leonis.ps.editor.model.*;
 
 import java.io.File;
@@ -27,6 +28,7 @@ public class Config {
     public static boolean fusionSave;
 
     public static SaveState saveState;
+    public static SaveState blankSaveState;
     public static SaveState newSaveState;
 
     public static SaveGame currentSaveGame = null;
@@ -66,9 +68,16 @@ public class Config {
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
 
+    public static void loadBlankSaveState() throws IOException {
+        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("blank.ssm")) {
+            if (inputStream == null) throw new FileNotFoundException("BlankSaveState file isn't found...");
+            blankSaveState = new SaveState(new Dump(inputStream.readAllBytes()));
+        }
+    }
+
     public static void loadProperties() throws IOException {
         try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("config.properties")) {
-            if (inputStream == null) throw new FileNotFoundException("Property file not found...");
+            if (inputStream == null) throw new FileNotFoundException("Property file isn't found...");
             Properties prop = new Properties();
             prop.load(inputStream);
             /*apiPath = prop.getProperty("api.path");
@@ -81,7 +90,7 @@ public class Config {
     public static void loadLanguageTable() throws IOException {
         String fileName = "english.tbl";
         try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
-            if (inputStream == null) throw new FileNotFoundException("Language table not found: " + fileName);
+            if (inputStream == null) throw new FileNotFoundException("Language table isn't found: " + fileName);
             languageTable = new Properties();
             languageTable.load(inputStream);
 
@@ -127,7 +136,7 @@ public class Config {
     public static void loadLevels() throws IOException {
         String fileName = "levels.csv";
         try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream(fileName)) {
-            if (inputStream == null) throw new FileNotFoundException("Levels file not found: " + fileName);
+            if (inputStream == null) throw new FileNotFoundException("Levels file isn't found: " + fileName);
             levels = new Properties();
             levels.load(inputStream);
         }

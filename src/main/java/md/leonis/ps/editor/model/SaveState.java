@@ -74,6 +74,8 @@ public class SaveState {
 
     public SaveState(Dump romData) {
         this.romData = romData;
+        romData.setCharset("windows-1252");
+        updateObject();
     }
 
     private void testInnerData() {
@@ -175,7 +177,6 @@ public class SaveState {
             romData.setByte(0x10);
         }
 
-        System.out.println(name);
         for (int i = 0; i < name.length(); i++) {
             //System.out.println(name.charAt(i));
             //System.out.println(Config.getKeyByValue(name.charAt(i)));

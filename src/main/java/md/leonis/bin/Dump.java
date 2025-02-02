@@ -38,6 +38,10 @@ public class Dump {
         dump = Files.readAllBytes(path);
     }
 
+    public Dump(byte[] array) throws IOException {
+        dump = array;
+    }
+
     public void saveToFile(String file) throws IOException {
         saveToFile(Paths.get(file));
     }

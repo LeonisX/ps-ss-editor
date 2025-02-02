@@ -12,6 +12,7 @@ public class MainApp extends Application {
         Config.loadLevels();
         Config.loadProperties();
         Config.loadLanguageTable();
+        Config.loadBlankSaveState();
         JavaFxUtils.showMainPane(primaryStage);
     }
 

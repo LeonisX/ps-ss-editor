@@ -15,8 +15,7 @@ import md.leonis.ps.editor.utils.JavaFxUtils;
 import java.util.Optional;
 
 import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_STATUS_OFFSET;
-import static md.leonis.ps.editor.utils.Config.currentSaveGame;
-import static md.leonis.ps.editor.utils.Config.saveState;
+import static md.leonis.ps.editor.utils.Config.*;
 
 //TODO после чтения проверять равенство x, y ,x2, y2
 
@@ -156,7 +155,13 @@ public class SecondaryPaneController {
 
     @FXML
     public void createClick() {
-        // Для Гео уже есть метод - дефолтные данные в 0-м гео
+        saveState.getSaveGames()[saveSlotIndex] = blankSaveState.getSaveGames()[0];
+        saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, true);
+        saveState.writeName(saveSlotIndex, blankSaveState.getSaveGames()[0].getName());
+        saveState.updateDump();
+        saveState.save();
+        saveState.updateObject();
+        initialize();
     }
 
     @FXML

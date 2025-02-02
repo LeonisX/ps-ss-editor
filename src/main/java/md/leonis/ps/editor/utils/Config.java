@@ -71,7 +71,7 @@ public class Config {
     public static void loadBlankSaveState() throws IOException {
         try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream("blank.ssm")) {
             if (inputStream == null) throw new FileNotFoundException("BlankSaveState file isn't found...");
-            blankSaveState = new SaveState(new Dump(inputStream.readAllBytes()));
+            blankSaveState = new SaveState(new Dump(inputStream));
         }
     }
 

@@ -31,6 +31,29 @@ public class SaveGame {
     private int[] bosses = new int[0x040];// 0x7C1-0x7D8  defeated bosses. 00 -> FF
     // Other data: zeroes
 
+    //Если сохраниться на старте:
+    //Game #0
+    //Name:  -> GAME
+    //
+    //Geo #0
+    //X: 00 00 -> 06 10
+    //Y: 00 00 -> 01 00
+    //MapLayer: 0 -> 4
+    //MapId: 0 -> 4
+    //X2: 00 00 -> 06 10
+    //Y2: 00 00 -> 01 00
+    //Type: 0 -> 13
+    //
+    //Hero #0
+    //IsAlive: false -> true
+    //Level: 0 -> 1
+    //HP: 0 of 0 -> 16 of 16
+    //Attack: 0 -> 12
+    //Defense: 0 -> 13
+    //Weapon: 0 -> 2
+    //Armor: 0 -> 16
+
+
     public void readFromRom(Dump romData, int offset) {
         geo = new Geo();
         geo.readFromRom(romData, offset);

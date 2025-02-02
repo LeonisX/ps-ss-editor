@@ -42,7 +42,7 @@ public class Geo {
     private int y2;       // 0x411-0x412  Y coordinate on Map. Same as 0x405-0x406
     private int x2;       // 0x413-0x414  X coordinate on Map. Same as 0x401-0x402
     private int color;    // 0x415        Dungeon color. (00-0A) Examples: 02: light green, 03: blue? 04: blue, 05: light blue, 06: yellow, 07: pink,...
-    private int type;     // 0x416        Type of environment. 0D: outdoor, cities; 0B: dungeons
+    private int type;     // 0x416        Type of environment. 0D (13): outdoor, cities; 0B (11): dungeons
     private int church;   // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
     private int[] unknown_418_4FF = new int[232]; // 0x418-0x4FF  ?????????????   232 bytes     00
 

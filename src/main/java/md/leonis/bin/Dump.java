@@ -2,6 +2,7 @@ package md.leonis.bin;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -38,8 +39,12 @@ public class Dump {
         dump = Files.readAllBytes(path);
     }
 
+    public Dump(InputStream inputStream) throws IOException {
+        dump = inputStream.readAllBytes();
+    }
+
     public Dump(byte[] array) throws IOException {
-        dump = array;
+        dump = array.clone();
     }
 
     public void saveToFile(String file) throws IOException {

@@ -21,6 +21,8 @@ https://stackoverflow.com/questions/53668630/how-to-run-javafx-applications-in-i
 Old info
 --------
 
+TODO overwrite memory is SS0 file.
+
 первый экран: загрузка сохранёнки
 [пакетное преобразование]
 

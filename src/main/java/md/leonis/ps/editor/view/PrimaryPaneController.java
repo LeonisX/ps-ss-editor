@@ -14,17 +14,29 @@ public class PrimaryPaneController {
 
     @FXML
     public Button openButton;
+    @FXML
+    public Button trackButton;
 
     @FXML
     private void initialize() {
     }
 
     public void openButtonClick() {
+        loadSaveStateAndOpenPane("SecondaryPane.fxml");
+    }
+
+    public void trackButtonClick() {
+        loadSaveStateAndOpenPane("TrackPane.fxml");
+    }
+
+    private void loadSaveStateAndOpenPane(String pane) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        //fileChooser.setInitialDirectory(new File(workDir));
+        if (Config.saveStateFile != null) {
+            fileChooser.setInitialDirectory(Config.saveStateFile.getParentFile());
+        }
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All saves", "*.sav", "*.ssm"),
+                new FileChooser.ExtensionFilter("All saves", "*.sav", "*.ssm", "*.ss0"),
                 new FileChooser.ExtensionFilter("All files", "*.*")
 
         );
@@ -32,10 +44,11 @@ public class PrimaryPaneController {
 
         if (Config.saveStateFile != null && Config.saveStateFile.exists()) {
             try {
+                Config.fusionSave = Config.saveStateFile.toString().endsWith("ss0");
                 Config.saveState = new SaveState(Config.saveStateFile);
-                JavaFxUtils.showPane("SecondaryPane.fxml");
+                JavaFxUtils.showPane(pane);
             } catch (Exception e) {
-                JavaFxUtils.showAlert("Read Save State Error", e.getMessage(), Alert.AlertType.ERROR);
+                JavaFxUtils.showAlert("Save State Read Error", e.getMessage(), Alert.AlertType.ERROR);
                 if (! (e instanceof ValidationException)) {
                     e.printStackTrace();
                 }

@@ -167,7 +167,7 @@ public class SaveGamePaneController {
         cityVBox.managedProperty().bind(cityVBox.visibleProperty());
         dungeonVBox.managedProperty().bind(dungeonVBox.visibleProperty());
 
-        churchComboBox.setItems(FXCollections.observableList(Config.churchs));
+        churchComboBox.setItems(FXCollections.observableList(Config.churches));
         transport.setItems(observableTransportList);
 
         updateControls();
@@ -251,12 +251,12 @@ public class SaveGamePaneController {
         currentSaveGame.getGeo().setRoom(Integer.parseInt(room.getText(), 16));
         currentSaveGame.getGeo().setDungeon(Integer.parseInt(dungeon.getText(), 16));
         Config.saveState.updateDump();
+        Config.saveState.save();
     }
 
     public void cancelButtonClick() {
         JavaFxUtils.showPane("SecondaryPane.fxml");
     }
-
 
     private void addItem(ActionEvent actionEvent) {
         if (currentSaveGame.getItemsCount() < currentSaveGame.getItems().length) {

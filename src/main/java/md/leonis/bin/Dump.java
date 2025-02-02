@@ -91,6 +91,29 @@ public class Dump {
         return getByte();
     }
 
+    public void getBytes(int address, int[] array) {
+        moveToAddress(address);
+        for (int i = 0; i < array.length; i++) {
+            array[i] = getByte();
+        }
+    }
+
+    public int[] getBytes(int address, int size) {
+        moveToAddress(address);
+        int[] array = new int[size];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = getByte();
+        }
+        return array;
+    }
+
+    public void setBytes(int address, int[] array) {
+        moveToAddress(address);
+        for (int j : array) {
+            setByte(j);
+        }
+    }
+
     // 2 bytes
     public int getWord() {
         int result;

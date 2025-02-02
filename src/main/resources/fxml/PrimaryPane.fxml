@@ -2,19 +2,24 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="md.leonis.ps.editor.view.PrimaryPaneController">
-   <center>
-      <Button fx:id="openButton" mnemonicParsing="false" onAction="#openButtonClick" text="Open Save State" BorderPane.alignment="CENTER" />
-   </center>
-   <bottom>
-       <HBox alignment="BOTTOM_RIGHT">
-           <Button mnemonicParsing="false" onAction="#closeButtonClick" text="Close" />
-       </HBox>
-   </bottom>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="md.leonis.ps.editor.view.PrimaryPaneController">
+    <center>
+        <VBox spacing="5.0" alignment="CENTER">
+            <Button fx:id="openButton" mnemonicParsing="false" onAction="#openButtonClick" text="Open Save State"
+                    BorderPane.alignment="CENTER"/>
+            <Button fx:id="trackButton" mnemonicParsing="false" onAction="#trackButtonClick" text="Track Save State"
+                    BorderPane.alignment="CENTER"/>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="BOTTOM_RIGHT">
+            <Button mnemonicParsing="false" onAction="#closeButtonClick" text="Close"/>
+        </HBox>
+    </bottom>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
 </BorderPane>

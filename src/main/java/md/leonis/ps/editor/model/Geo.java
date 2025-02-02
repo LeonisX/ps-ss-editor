@@ -2,6 +2,7 @@ package md.leonis.ps.editor.model;
 
 import md.leonis.bin.Dump;
 
+import java.util.Arrays;
 
 public class Geo {
 
@@ -16,7 +17,7 @@ public class Geo {
     // 0x404: 00 - Y, but inverse. In SS always 00. Probably offset in tilemap
     private int y;        // 0x405-0x406  Y coordinate on Map. Examples: 0001, 5001. 405 max B0
     // 0x407: 00
-    private int mapLayer;    // 0x408 Map layer. Whole planet or group of maps. Examples: 00 - Palma, 04 — Camineet, Parolit,...
+    private int mapLayer;    // 0x408 Map layer. Whole planet or group of maps. Examples: 00 - Palma, 04 - Camineet, Parolit,...
     // map: 00 00
     // 00 = Palma
     // 01 = Motavia
@@ -30,11 +31,11 @@ public class Geo {
     // 0A = Air Castle
     private int mapId;    // 0x409  Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
     private int direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
-    // 0x40B: 00
     //TODO YX (Medusa's tower) XY (Dezorian Cavern #5)
+    private int unknown_40B;// 0x40B: 00
     private int room;   // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
     private int dungeon;// 0x40D        Dungeon #. Examples: Medusa's Cave, outdoor: 00; Camineet Warehouse: 02
-                        // (00-3A) Interesting things: some dungeons intersects (Scion/Naula caves, ...)
+    // (00-3A) Interesting things: some dungeons intersects (Scion/Naula caves, ...)
     private int transport;// 0x40E        00 -> 08 — hovercraft, 04 — landrover, 0C - ice digger
     private int animation1;// 0x40F        00..03 - transport animation? set 00
     private int animation2;// 0x410        00..03 - transport animation? set 00
@@ -43,7 +44,7 @@ public class Geo {
     private int color;    // 0x415        Dungeon color. (00-0A) Examples: 02: light green, 03: blue? 04: blue, 05: light blue, 06: yellow, 07: pink,...
     private int type;     // 0x416        Type of environment. 0D: outdoor, cities; 0B: dungeons
     private int church;   // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
-    // 0x418-4FF: 00
+    private int[] unknown_418_4FF = new int[232]; // 0x418-0x4FF  ?????????????   232 bytes     00
 
     public Geo() {
     }
@@ -76,35 +77,40 @@ public class Geo {
     public void readFromRom(Dump romData, int offset) {
         romData.setOffset(offset);
         x = romData.getWord(0x01);
-        y = romData.getWord( 0x05);
-        mapLayer = romData.getByte( 0x08);
-        mapId = romData.getByte( 0x09);
+        y = romData.getWord(0x05);
+        mapLayer = romData.getByte(0x08);
+        mapId = romData.getByte(0x09);
         direction = romData.getByte(0x0A);
+        unknown_40B = romData.getByte(0x0B);
         room = romData.getByte(0x0C);
         dungeon = romData.getByte(0x0D);
         transport = romData.getByte(0x0E);
         animation1 = romData.getByte(0x0F);
         animation2 = romData.getByte(0x10);
-        y2 = romData.getWord( 0x11);
+        y2 = romData.getWord(0x11);
         x2 = romData.getWord(0x13);
         color = romData.getByte(0x15);
         type = romData.getByte(0x16);
         church = romData.getByte(0x17);
+
+        romData.getBytes(0x1F1, unknown_418_4FF); // 0x5F1
+
         romData.setOffset(0);
     }
 
+    //todo unknown
     public void writeToRom(Dump romData, int offset) {
         romData.setWord(0x01, x);
-        romData.setWord( 0x05, y);
-        romData.setByte( 0x08, mapLayer);
-        romData.setByte( 0x09, mapId);
+        romData.setWord(0x05, y);
+        romData.setByte(0x08, mapLayer);
+        romData.setByte(0x09, mapId);
         romData.setByte(0x0A, direction);
         romData.setByte(0x0C, room);
         romData.setByte(0x0D, dungeon);
         romData.setByte(0x0E, transport);
         romData.setByte(0x0F, animation1);
         romData.setByte(0x10, animation2);
-        romData.setWord( 0x11, y2);
+        romData.setWord(0x11, y2);
         romData.setWord(0x13, x2);
         romData.setByte(0x15, color);
         romData.setByte(0x16, type);
@@ -265,30 +271,6 @@ public class Geo {
         this.church = church;
     }
 
-    @Override
-    public String toString() {
-        return "Geo{" +
-                "planet=" + planet +
-                ", name='" + name + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                ", mapLayer=" + mapLayer +
-                ", mapId=" + mapId +
-                ", direction=" + direction +
-                ", room=" + room +
-                ", dungeon=" + dungeon +
-                ", transport=" + transport +
-                ", animation1=" + animation1 +
-                ", animation2=" + animation2 +
-                ", y2=" + y2 +
-                ", x2=" + x2 +
-                ", color=" + color +
-                ", type=" + type +
-                ", church=" + church +
-                '}';
-    }
-
-
     public boolean isClearName() {
         return !(hasNameComment() || hasLevel());
     }
@@ -330,4 +312,56 @@ public class Geo {
         return name.contains("#");
     }
 
+    @Override
+    public String toString() {
+        return "Geo{" +
+                "planet=" + planet +
+                ", name='" + name + '\'' +
+                ", x=" + x +
+                ", y=" + y +
+                ", mapLayer=" + mapLayer +
+                ", mapId=" + mapId +
+                ", direction=" + direction +
+                ", unknown_40B=" + unknown_40B +
+                ", room=" + room +
+                ", dungeon=" + dungeon +
+                ", transport=" + transport +
+                ", animation1=" + animation1 +
+                ", animation2=" + animation2 +
+                ", y2=" + y2 +
+                ", x2=" + x2 +
+                ", color=" + color +
+                ", type=" + type +
+                ", church=" + church +
+                ", unknown_418_4FF=" + Arrays.toString(unknown_418_4FF) +
+                '}';
+    }
+
+    public String toDiff() {
+        return String.format("""
+                        Planet: %s
+                        Name: %s
+                        X: %s
+                        Y: %s
+                        MapLayer: %s
+                        MapId: %s
+                        Direction: %s
+                        Room: %s
+                        Dungeon: %s
+                        Transport: %s
+                        Animation1: %s
+                        Animation2: %s
+                        X2: %s
+                        Y2: %s
+                        Color: %s
+                        Type: %s
+                        Church: %s
+                        unknown_40B: %s
+                        unknown_418_4FF: %s""", planet, name, toHex(x), toHex(y), mapLayer, mapId, direction, room, dungeon, transport,
+                animation1, animation2, toHex(x2), toHex(y2), color, type, church, unknown_40B, Arrays.toString(unknown_418_4FF));
+    }
+
+    String toHex(int value) {
+        return String.format("%02X %02X", (byte)value, (byte)(value >>> 8));
+    }
 }

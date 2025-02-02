@@ -20,7 +20,7 @@ public class Hero {
     private boolean isAlive;    // 0x500. 1 byte
     private int hp;             // 0x501. 1 byte
     private int mp;             // 0x502. 1 byte
-    private int experience;     // 0x50330x504. 2 bytes
+    private int experience;     // 0x503,0x504. 2 bytes
     private int level;          // 0x505. max = 1E (30)
     private int maxHp;          // 0x506. 1 byte
     private int maxMp;          // 0x507. 1 byte
@@ -43,7 +43,7 @@ public class Hero {
     private Button reviveButton;
     private Button hireButton;
 
-//TODO research for all heroes start equipment
+    //TODO research for all heroes start equipment
 
     public static Hero readFromRom(Dump romData, int index) {
         return new Hero(index, romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getWord() ,romData.getByte(),
@@ -399,5 +399,24 @@ public class Hero {
                 ", combatSpells=" + combatSpells +
                 ", curativeSpells=" + curativeSpells +
                 '}';
+    }
+
+    public String toDiff() {
+        return String.format("""
+                        Name: %s
+                        IsAlive: %s
+                        Level: %s
+                        Experience: %s
+                        HP: %s of %s
+                        MP: %s of %s
+                        Attack: %s
+                        Defense: %s
+                        Weapon: %s
+                        Armor: %s
+                        Shield: %s
+                        State: %s
+                        Combat Spells: %s
+                        Curative Spells: %s""", name, isAlive, level, experience, hp, maxHp, mp, maxMp,
+                attack, defense, weapon, armor, shield, state, combatSpells, curativeSpells);
     }
 }

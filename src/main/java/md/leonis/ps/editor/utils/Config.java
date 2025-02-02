@@ -24,8 +24,10 @@ public class Config {
     static final String resourcePath = "/fxml/";
 
     public static File saveStateFile;
+    public static boolean fusionSave;
 
     public static SaveState saveState;
+    public static SaveState newSaveState;
 
     public static SaveGame currentSaveGame = null;
 
@@ -34,7 +36,7 @@ public class Config {
 
     public static List<String> items = null;
 
-    public static List<String> churchs = null;
+    public static List<String> churches = null;
 
     public static List<String> heroes = null;
 
@@ -62,7 +64,6 @@ public class Config {
     public static int[][] overworldSpells = {{4, 15}, {10, 16, 2}, {}, {10, 2, 11, 5, 8}};
 
 
-
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
 
     public static void loadProperties() throws IOException {
@@ -84,7 +85,7 @@ public class Config {
             languageTable = new Properties();
             languageTable.load(inputStream);
 
-            churchs = getChurchNames();
+            churches = getChurchNames();
             heroes = getHeroesNames();
             spells = getSpellsNames();
 
@@ -252,5 +253,4 @@ public class Config {
     public static Level getLevel(int heroId, int level) {
         return Level.fromCSV(Config.levels.getProperty(String.format("hero%s-%s", heroId, level)));
     }
-
 }

@@ -12,7 +12,6 @@ import md.leonis.ps.editor.model.SaveGameStatus;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_STATUS_OFFSET;
@@ -152,11 +151,7 @@ public class SecondaryPaneController {
 
     @FXML
     public void backButtonClick() {
-        try {
-            saveState.save();
-        } catch (IOException e) {
-            JavaFxUtils.showAlert("Unable save to file :(", Config.saveStateFile.getAbsolutePath(), Alert.AlertType.ERROR);
-        }
+        JavaFxUtils.showPane("PrimaryPane.fxml");
     }
 
     @FXML
@@ -179,6 +174,7 @@ public class SecondaryPaneController {
             //write name, reread ROM
             saveState.writeName(saveSlotIndex, name.toUpperCase());
             saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, true);
+            saveState.save();
             saveState.updateObject();
             initialize();
         });
@@ -192,9 +188,10 @@ public class SecondaryPaneController {
         alert.setHeaderText("Delete " + saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
         //alert.setContentText();
 
-        if (alert.showAndWait().get() == ButtonType.OK){
+        if (alert.showAndWait().get() == ButtonType.OK) {
             saveState.eraseName(saveSlotIndex);
             saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
+            saveState.save();
             saveState.updateObject();
             initialize();
         }
@@ -208,10 +205,11 @@ public class SecondaryPaneController {
         alert.setHeaderText("Completely erase " + saveState.getSaveGames()[saveSlotIndex].getName() + " slot?");
         //alert.setContentText();
 
-        if (alert.showAndWait().get() == ButtonType.OK){
+        if (alert.showAndWait().get() == ButtonType.OK) {
             saveState.writeName(saveSlotIndex, "");
             saveState.getRomData().setBoolean(SAVE_GAME_STATUS_OFFSET + saveSlotIndex, false);
             saveState.clearArea(saveSlotIndex);
+            saveState.save();
             saveState.updateObject();
             initialize();
         }
@@ -226,6 +224,7 @@ public class SecondaryPaneController {
         ).ifPresent(name -> {
             //write name, reread ROM, change flag (for save)
             saveState.writeName(saveSlotIndex, name.toUpperCase());
+            saveState.save();
             saveState.updateObject();
             initialize();
         });

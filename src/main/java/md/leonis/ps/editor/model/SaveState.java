@@ -1,33 +1,48 @@
 package md.leonis.ps.editor.model;
 
+import javafx.scene.control.Alert;
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.utils.Config;
+import md.leonis.ps.editor.utils.JavaFxUtils;
 import md.leonis.ps.editor.utils.ValidationException;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-import static md.leonis.ps.editor.model.SaveGameStatus.EMPTY;
-
 public class SaveState {
 
     private static final int MINIMAL_ROM_SIZE = 8188;
+    private static final int KEGA_FUSION_SAVE_FILE_SIZE = 32955;
     public static final String START_TEXT = "PHANTASY STAR         BACKUP RAMPROGRAMMED BY          NAKA YUJI";
     private static final int FIRST_ZEROES_SIZE = 0xC0;
     //100 - 1d7 - данные сохранёнки — полное окно с рамкой. 12 строк по 18 байт. Буквы — 2 байта. Примеры: C010 F113
+    //Основной шрифт имеет "кодовую страницу" 10.
+    //Дополнительный шрифт (11) можно отражать по вертикали (15), горизонтали (13) и диагонали (17).
+    //F1 11 F2 11 F2 11 F2 11 F2 11 F2 11 F2 11 F2 11 F1 13     ┌───────┐
+    //F3 11 C0 10 C0 10 C0 00 C0 00 C0 00 C0 00 C0 00 F3 13     │       │
+    //F3 11 C2 10 C0 10 DB 10 E1 10 CF 10 DC 10 DE 10 F3 13     │1 QWERT│
+    //F3 11 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │       │
+    //F3 11 C3 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │2      │
+    //F3 11 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │       │
+    //F3 11 C4 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │3      │
+    //F3 11 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │       │
+    //F3 11 C5 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │4      │
+    //F3 11 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │       │
+    //F3 11 C6 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13     │5      │
+    //F1 15 F2 15 F2 15 F2 15 F2 15 F2 15 F2 15 F2 15 F1 17     └───────┘
     public static final int SAVE_SLOTS_FRAME_OFFSET = 0x100;
     public static final int FIRST_SAVE_SLOT_NAME_OFFSET = SAVE_SLOTS_FRAME_OFFSET + 0x12 * 2 + 6; // 0x12A
-
-    private static final int SECOND_ZEROES_OFFSET = 0x206;
-    private static final int SECOND_ZEROES_SIZE = 0x1FA;
 
     private static final String FRAME_LINE_1 = "F1 11 F2 11 F2 11 F2 11 F2 11 F2 11 F2 11 F2 11 F1 13";
     private static final String FRAME_LINE_2 = "F3 11 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 C0 10 F3 13";
     private static final String FRAME_LINE_12 = "F1 15 F2 15 F2 15 F2 15 F2 15 F2 15 F2 15 F2 15 F1 17";
 
-    //201-205 - жива ли игра (1)
+    //0x201-0x205 - жива ли игра (1)
     public static final int SAVE_GAME_STATUS_OFFSET = 0x201;
+
+    private static final int SECOND_ZEROES_OFFSET = 0x206;
+    private static final int SECOND_ZEROES_SIZE = 0x1FA;
 
     public static final int FIRST_SAVE_GAME_OFFSET = 0x400;
     public static final int SAVE_GAME_SIZE = 0x400; // 400 → 800 → C00 → 1000 → 1400
@@ -42,6 +57,17 @@ public class SaveState {
 
     public SaveState(File file) throws IOException {
         romData = new Dump(file);
+        if (Config.fusionSave) {
+            // Read directly from RAM
+            //todo from ram directly 43BD, 400h
+            int[] ramValue = romData.getBytes(0x43BC, 0x400);
+            romData.setDump(Arrays.copyOfRange(romData.getDump(), KEGA_FUSION_SAVE_FILE_SIZE - MINIMAL_ROM_SIZE, KEGA_FUSION_SAVE_FILE_SIZE));
+            romData.moveToAddress(0);
+            romData.setBytes(0x400, ramValue);
+
+            // Need to save first
+            //romData.setDump(Arrays.copyOfRange(romData.getDump(), KEGA_FUSION_SAVE_FILE_SIZE - MINIMAL_ROM_SIZE, KEGA_FUSION_SAVE_FILE_SIZE));
+        }
         romData.setCharset("windows-1252");
         updateObject();
     }
@@ -51,34 +77,128 @@ public class SaveState {
     }
 
     private void testInnerData() {
-        if (romData.size() < MINIMAL_ROM_SIZE) throw new ValidationException("Save State file is too small!");
         //TODO other sizes
-        romData.moveToAddress(0);
-        if (!romData.readString(START_TEXT.length()).equals(START_TEXT)) {
-            throw new ValidationException("Not a Phantasy Star Save State: corrupted header!");
+        if (romData.size() < MINIMAL_ROM_SIZE && romData.size() != KEGA_FUSION_SAVE_FILE_SIZE) {
+            throw new ValidationException("Save State file is too small!");
         }
-        if (!romData.checkZeroes(FIRST_ZEROES_SIZE)) {
-            throw new ValidationException("Not a Phantasy Star Save State: garbage in header!");
-        }
-        romData.moveToAddress(SECOND_ZEROES_OFFSET);
-        if (!romData.checkZeroes(SECOND_ZEROES_SIZE)) {
-            throw new ValidationException("Not a Phantasy Star Save State: garbage in header!");
-        }
-        for (int i = 0; i < 5; i ++) {
-            if (romData.getByte(0x126 + i * 0x24) - 0xC1 != i + 1 ) {
-                throw new ValidationException("Save slots listing is corrupted!");
+        if (!Config.fusionSave) {
+            romData.moveToAddress(0);
+            if (!romData.readString(START_TEXT.length()).equals(START_TEXT)) {
+                throw new ValidationException("Not a Phantasy Star Save State: corrupted header!");
+            }
+            if (!romData.checkZeroes(FIRST_ZEROES_SIZE)) {
+                throw new ValidationException("Not a Phantasy Star Save State: garbage in header!");
+            }
+            romData.moveToAddress(SECOND_ZEROES_OFFSET);
+            if (!romData.checkZeroes(SECOND_ZEROES_SIZE)) {
+                throw new ValidationException("Not a Phantasy Star Save State: garbage in header!");
+            }
+            for (int i = 0; i < 5; i++) {
+                if (romData.getByte(0x126 + i * 0x24) - 0xC1 != i + 1) {
+                    System.out.println();
+                    throw new ValidationException("Save slots listing is corrupted!");
+                }
+            }
+
+            romData.moveToAddress(SAVE_GAME_STATUS_OFFSET);
+            for (int i = 0; i < 5; i++) {
+                if (romData.getByte() == 1) saveGames[i].setStatus(SaveGameStatus.ACTIVE);
+            }
+            // check for deleted
+            for (int i = 0; i < 5; i++) {
+                romData.moveToAddress(FIRST_SAVE_GAME_OFFSET + i * SAVE_GAME_SIZE + ALISA_LEVEL_OFFSET);
+                if ((romData.getByte() != 0) && (saveGames[i].getStatus().equals(SaveGameStatus.EMPTY)))
+                    saveGames[i].setStatus(SaveGameStatus.DELETED);
             }
         }
+    }
 
-        romData.moveToAddress(SAVE_GAME_STATUS_OFFSET);
-        for (int i = 0; i < 5; i ++) {
-            if (romData.getByte() == 1) saveGames[i].setStatus(SaveGameStatus.ACTIVE);
+    public void updateObject() {
+        for (int i = 0; i < 5; i++) {
+            saveGames[i] = new SaveGame();
         }
-        // check for deleted
-        for (int i = 0; i < 5; i ++) {
-            //romData.moveTo(FIRST_SAVE_GAME_OFFSET + i * SAVE_GAME_SIZE + ALISA_LEVEL_OFFSET);
-            //if ((romData.getByte() != 0) && (saveGames[i].getStatus().equals(SaveGameStatus.EMPTY))) saveGames[i].setStatus(SaveGameStatus.DELETED);
-            if ((romData.getByte(0x126 + 0x12 + 5 + i * 0x24) == 0x00)) saveGames[i].setStatus(SaveGameStatus.DELETED);
+        testInnerData();
+        // read saveGames
+        for (int i = 0; i < 5; i++) {
+            saveGames[i].setName(readName(i));
+            saveGames[i].readFromRom(romData, i * SAVE_GAME_SIZE + FIRST_SAVE_GAME_OFFSET);
+        }
+        System.out.println(this);
+    }
+
+    public void updateDump() {
+        for (int i = 0; i < 5; i++) {
+            //if (!saveGames[i].getStatus().equals(EMPTY)) {
+            saveGames[i].writeToRom(romData, i * SAVE_GAME_SIZE + FIRST_SAVE_GAME_OFFSET);
+            //}
+            //System.out.println(this);
+        }
+    }
+
+    //TODO test
+    public String readName(int index) {
+        StringBuilder name = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + i * 2);
+            //TODO charset select
+            name.append(Config.languageTable.getProperty(Integer.toHexString(romData.getByte())));
+        }
+        return name.toString();
+    }
+
+    //TODO test
+    public void eraseName(int index) {
+        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24);
+        for (int i = 0; i < 5; i++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x00);
+        }
+        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + 0x12);
+        for (int i = 0; i < 5; i++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x00);
+        }
+    }
+
+    //TODO test
+    public void writeName(int index, String name) {
+        //System.out.println(Integer.toHexString(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24));
+        //String name = Config.saveState.getSaveGames()[index].getName();
+        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24);
+        for (int i = 0; i < 5; i++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x10);
+        }
+        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + 0x12);
+        for (int i = 0; i < 5; i++) {
+            romData.setByte(0xC0);
+            romData.setByte(0x10);
+        }
+
+        System.out.println(name);
+        for (int i = 0; i < name.length(); i++) {
+            //System.out.println(name.charAt(i));
+            //System.out.println(Config.getKeyByValue(name.charAt(i)));
+            romData.setByte(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + i * 2, Integer.decode("0x" + Config.getKeyByValue(name.charAt(i))));
+        }
+    }
+
+    //TODO test
+    public void clearArea(int index) {
+        int start = FIRST_SAVE_GAME_OFFSET + index * SAVE_GAME_SIZE;
+        Arrays.fill(romData.getDump(), start, start + SAVE_GAME_SIZE, (byte) 0x00);
+    }
+
+    public void save() {
+        if (!Config.fusionSave) {
+            try {
+                romData.saveToFile(Config.saveStateFile);
+            } catch (Exception e) {
+                JavaFxUtils.showAlert("Save Error", e.getMessage(), Alert.AlertType.ERROR);
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Can't save Kega Fusion saves :(");
         }
     }
 
@@ -105,87 +225,5 @@ public class SaveState {
                 ", romData=" + romData +
                 ", saveGames=" + Arrays.toString(saveGames) +
                 '}';
-    }
-
-    public void updateObject() {
-        for(int i = 0; i < 5; i ++) {
-            saveGames[i] = new SaveGame();
-        }
-        testInnerData();
-        // read saveGames
-        for(int i = 0; i < 5; i ++) {
-            saveGames[i].setName(readName(i));
-            saveGames[i].readFromRom(romData, i * SAVE_GAME_SIZE + FIRST_SAVE_GAME_OFFSET);
-        }
-        System.out.println(this);
-    }
-
-    public void updateDump() {
-        for (int i = 0; i < 5; i++) {
-            if (!saveGames[i].getStatus().equals(EMPTY)) {
-                saveGames[i].writeToRom(romData, i * SAVE_GAME_SIZE + FIRST_SAVE_GAME_OFFSET);
-            }
-            //System.out.println(this);
-        }
-    }
-
-    //TODO test
-    public String readName(int index) {
-        StringBuilder name = new StringBuilder();
-        for (int i = 0; i < 5; i ++) {
-            romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + i * 2);
-            //TODO charset select
-            name.append(Config.languageTable.getProperty(Integer.toHexString(romData.getByte())));
-        }
-        return name.toString();
-    }
-
-
-
-    //TODO test
-    public void eraseName(int index) {
-        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24);
-        for (int i = 0; i < 5; i ++) {
-            romData.setByte(0xC0);
-            romData.setByte(0x00);
-        }
-        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + 0x12);
-        for (int i = 0; i < 5; i ++) {
-            romData.setByte(0xC0);
-            romData.setByte(0x00);
-        }
-    }
-
-    //TODO test
-    public void writeName(int index, String name) {
-        //System.out.println(Integer.toHexString(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24));
-        //String name = Config.saveState.getSaveGames()[index].getName();
-        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24);
-        for (int i = 0; i < 5; i ++) {
-            romData.setByte(0xC0);
-            romData.setByte(0x10);
-        }
-        romData.moveToAddress(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + 0x12);
-        for (int i = 0; i < 5; i ++) {
-            romData.setByte(0xC0);
-            romData.setByte(0x10);
-        }
-
-        System.out.println(name);
-        for (int i = 0; i < name.length(); i ++) {
-            //System.out.println(name.charAt(i));
-            //System.out.println(Config.getKeyByValue(name.charAt(i)));
-            romData.setByte(FIRST_SAVE_SLOT_NAME_OFFSET + index * 0x24 + i * 2, Integer.decode("0x" + Config.getKeyByValue(name.charAt(i))));
-        }
-    }
-
-    //TODO test
-    public void clearArea(int index) {
-        int start = FIRST_SAVE_GAME_OFFSET + index * SAVE_GAME_SIZE;
-        Arrays.fill(romData.getDump(), start, start + SAVE_GAME_SIZE, (byte) 0x00);
-    }
-
-    public void save() throws IOException {
-        romData.saveToFile(Config.saveStateFile);
     }
 }

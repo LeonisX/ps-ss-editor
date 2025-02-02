@@ -1,8 +1,9 @@
 package md.leonis.ps.editor.model;
 
-
 import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
+
+import java.util.Arrays;
 
 import static md.leonis.ps.editor.model.SaveState.SAVE_GAME_SIZE;
 
@@ -16,16 +17,16 @@ public class SaveGame {
     private Hero[] heroes = new Hero[4]; // 0x500, 0x510, 0x520, 0x530 (0x10 bytes): Alisa, Myau, Tylon, Lutz
     // 0x540-0x5BF  Last monsters in battle; up to 8 monsters x 0x10 bytes. Need to ignore, 00.
     private int[] items = new int[24]; // 0x5C0-0x5D7  Items, max 24.
-    // 0x5D8-0x5DF  ?????????????
+    private int[] unknown_5D8_5DF = new int[8]; // 0x5D8-0x5DF  ?????????????   8 bytes
     private int mesetas;    // 0x5E0-0x5E1  Mesetas count
     private int itemsCount; // 0x5E2        Items count
-    // 0x5E3-0x5EF  ?????????????
+    private int[] unknown_5E3_5EF = new int[13]; // 0x5E3-0x5EF  ?????????????   13 bytes
     private int companionsCount; // 0x5F0        Companions count (max 3)
-    // 0x5F1-0x5FF  ?????????????
+    private int[] unknown_5F1_5FF = new int[15]; // 0x5F1-0x5FF  ?????????????   15 bytes
 
     private int[] events = new int[0x100]; // 0x600-0x618  Important events. Examples: save Luveno, Tylon, killed Dr Mad, Lasiec. Often 00 -> 01
     // 0x619-0x6FF  00
-    private int[] chests = new int[0x0C0]; // 0x700-0x794  Found chests. 00 -> FF
+    private int[] chests = new int[0x0C0]; // 0x700-0x794  Open chests. 00 -> FF
     // 0x795-0x7C0  00
     private int[] bosses = new int[0x040];// 0x7C1-0x7D8  defeated bosses. 00 -> FF
     // Other data: zeroes
@@ -34,37 +35,39 @@ public class SaveGame {
         geo = new Geo();
         geo.readFromRom(romData, offset);
         romData.setOffset(offset);
+
         //read heroes
         romData.moveToAddress(0x100); // 0x500
         romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         for (int i = 0; i < 4; i++) {
             heroes[i] = Hero.readFromRom(romData, i);
         }
+
         mesetas = romData.getWord(0x1E0);
+
         romData.setByteOrder(ByteOrder.BIG_ENDIAN);
+
         itemsCount = romData.getByte(0x1E2);
-        for (int i = 0; i < itemsCount; i ++) {
+        for (int i = 0; i < itemsCount; i++) {
             items[i] = romData.getByte(0x1C0 + i);
         }
+
         companionsCount = romData.getByte(0x1F0);
 
-        romData.moveToAddress(0x200); // 0x600
-        for (int i = 0; i < events.length; i++) {
-            events[i] = romData.getByte();
-        }
-        for (int i = 0; i < chests.length; i++) {
-            chests[i] = romData.getByte();
-        }
-        for (int i = 0; i < bosses.length; i++) {
-            bosses[i] = romData.getByte();
-        }
+        romData.getBytes(0x200, events); // 0x600
+
+        romData.getBytes(0x219, chests); // 0x619
+
+        romData.getBytes(0x395, bosses); // 0x795
+
+        romData.getBytes(0x1D8, unknown_5D8_5DF); // 0x5D8
+        romData.getBytes(0x1E3, unknown_5E3_5EF); // 0x5E3
+        romData.getBytes(0x1F1, unknown_5F1_5FF); // 0x5F1
+
         romData.setOffset(0);
     }
 
-
-
-    //TODO after save game t0 2 slot, first == deleted!!!!
-
+    //todo unknown
     public void writeToRom(Dump romData, int offset) {
         romData.setOffset(offset);
         romData.erase(0, SAVE_GAME_SIZE);
@@ -88,7 +91,7 @@ public class SaveGame {
         romData.setByteOrder(ByteOrder.BIG_ENDIAN);
 
         romData.setByte(0x1E2, itemsCount);
-        for (int i = 0; i < itemsCount; i ++) {
+        for (int i = 0; i < itemsCount; i++) {
             romData.setByte(0x1C0 + i, items[i]);
         }
         romData.setByte(0x1F0, companionsCount);
@@ -105,7 +108,6 @@ public class SaveGame {
         }
         romData.setOffset(0);
     }
-
 
     public String getName() {
         return name;
@@ -195,6 +197,30 @@ public class SaveGame {
         this.bosses = bosses;
     }
 
+    public int[] getUnknown_5D8_5DF() {
+        return unknown_5D8_5DF;
+    }
+
+    public void setUnknown_5D8_5DF(int[] unknown_5D8_5DF) {
+        this.unknown_5D8_5DF = unknown_5D8_5DF;
+    }
+
+    public int[] getUnknown_5E3_5EF() {
+        return unknown_5E3_5EF;
+    }
+
+    public void setUnknown_5E3_5EF(int[] unknown_5E3_5EF) {
+        this.unknown_5E3_5EF = unknown_5E3_5EF;
+    }
+
+    public int[] getUnknown_5F1_5FF() {
+        return unknown_5F1_5FF;
+    }
+
+    public void setUnknown_5F1_5FF(int[] unknown_5F1_5FF) {
+        this.unknown_5F1_5FF = unknown_5F1_5FF;
+    }
+
     @Override
     public String toString() {
         return "SaveGame{" +
@@ -210,5 +236,22 @@ public class SaveGame {
                 //", chests=" + Arrays.toString(chests) +
                 //", bosses=" + Arrays.toString(bosses) +
                 '}';
+    }
+
+    public String toDiff() {
+        return String.format("""
+                        Name: %s
+                        Status: %s
+                        Items: %s (%s)
+                        Mesetas: %s
+                        Companions: %s
+                        Events: %s
+                        Chests: %s
+                        Bosses: %s
+                        unknown_5D8_5DF: %s
+                        unknown_5E3_5EF: %s
+                        unknown_5F1_5FF: %s""", name, status, itemsCount, Arrays.toString(items), mesetas, companionsCount,
+                Arrays.toString(events), Arrays.toString(chests), Arrays.toString(bosses),
+                Arrays.toString(unknown_5D8_5DF), Arrays.toString(unknown_5E3_5EF), Arrays.toString(unknown_5F1_5FF));
     }
 }

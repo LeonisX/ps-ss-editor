@@ -47,7 +47,6 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";

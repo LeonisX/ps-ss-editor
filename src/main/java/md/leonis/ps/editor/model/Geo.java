@@ -94,7 +94,9 @@ public class Geo {
         type = EnvironmentType.byId(romData.getByte(0x16));
         church = romData.getByte(0x17);
 
-        romData.getBytes(0x1F1, unknown_418_4FF); // 0x5F1
+        if (romData.size() > 0x1F1) {
+            romData.getBytes(0x1F1, unknown_418_4FF); // 0x5F1
+        }
 
         romData.setOffset(0);
     }

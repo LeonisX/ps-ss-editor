@@ -77,7 +77,6 @@ public class MainStageController {
         JavaFxUtils.showPane("RlePane.fxml");
     }
 
-
     //евентам нужна привязка к картам
     public void processRawMapsDataClick() {
         String name = "";

@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 import md.leonis.ps.editor.model.Geo;
+import md.leonis.ps.editor.model.enums.EnvironmentType;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
@@ -108,7 +109,7 @@ public class SaveGamePaneController {
             //System.out.println(String.format("%02X-%02X", currentSaveGame.getGeo().getMapLayer(), currentSaveGame.getGeo().getMapId()));
             //System.out.println(String.format("%02X:%02X", Config.geos.get(i).getX(), Config.geos.get(i).getY()));
             //System.out.println(String.format("%02X-%02X", currentSaveGame.getGeo().getX(), currentSaveGame.getGeo().getY()));
-            if (currentSaveGame.getGeo().getType() == 0x0B) {
+            if (currentSaveGame.getGeo().getType().equals(EnvironmentType.DUNGEON)) {
                 //System.out.println("OB");
                 flag = ((Config.geos.get(i).getDungeon() == currentSaveGame.getGeo().getDungeon())
                         & (Config.geos.get(i).getMapLayer() == currentSaveGame.getGeo().getMapLayer())
@@ -210,7 +211,7 @@ public class SaveGamePaneController {
         churchComboBox.getSelectionModel().select(currentSaveGame.getGeo().getChurch());
 
 
-        if (currentSaveGame.getGeo().getType() == 0x0B) {
+        if (currentSaveGame.getGeo().getType().equals(EnvironmentType.DUNGEON)) {
             cityRadioButton.setSelected(true);
             cityVBox.setVisible(true);
             //dungeonVBox.setVisible(false);

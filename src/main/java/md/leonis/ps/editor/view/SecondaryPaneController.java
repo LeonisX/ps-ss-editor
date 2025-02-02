@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import md.leonis.ps.editor.model.SaveGameStatus;
+import md.leonis.ps.editor.model.enums.EnvironmentType;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
@@ -73,7 +74,7 @@ public class SecondaryPaneController {
                 text += "Level: " + currentSaveGame.getHeroes()[0].getLevel() + "\n";
                 text += "Mesetas: " + currentSaveGame.getMesetas() + "\n";
                 text += "Items: " + currentSaveGame.getItemsCount() + "\n";
-                if (currentSaveGame.getGeo().getType() == 0x0D) {
+                if (currentSaveGame.getGeo().getType().equals(EnvironmentType.OUTDOOR)) {
                     text += "Map Id: 0x" + String.format("%02X", currentSaveGame.getGeo().getMapLayer()) + " ";
                     text += String.format("%02X", currentSaveGame.getGeo().getMapId()) + "\n";
                 } else {

@@ -7,6 +7,7 @@ import md.leonis.bin.Dump;
 import md.leonis.extractor.model.DungeonMap;
 import md.leonis.extractor.utils.*;
 import md.leonis.ps.editor.model.*;
+import md.leonis.ps.editor.model.enums.EnvironmentType;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -212,7 +213,7 @@ public class MainStageController {
         //TODO bind events to maps
         Event.counter = 0;
         allEvents.forEach(e -> {
-            if (e.getGeo().getType() == 0x0B) { //dungeons
+            if (e.getGeo().getType().equals(EnvironmentType.DUNGEON)) { //dungeons
                 System.out.println("!!!!!!!!!!!!!!!!!!!!" + e.getGeo().getName());
                 dungeonDatas.forEach(d -> System.out.println(d.fineView()));
                 e.setLocationId(

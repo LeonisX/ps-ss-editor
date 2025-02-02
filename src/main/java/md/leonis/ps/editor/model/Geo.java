@@ -1,6 +1,7 @@
 package md.leonis.ps.editor.model;
 
 import md.leonis.bin.Dump;
+import md.leonis.ps.editor.model.enums.EnvironmentType;
 
 import java.util.Arrays;
 
@@ -29,21 +30,21 @@ public class Geo {
     // 08 = Skure, Twintown (entrances)
     // 09 = Skure, Twintown
     // 0A = Air Castle
-    private int mapId;    // 0x409  Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
-    private int direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
+    private int mapId;          // 0x409        Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
+    private int direction;      // 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
     //TODO YX (Medusa's tower) XY (Dezorian Cavern #5)
-    private int unknown_40B;// 0x40B: 00
-    private int room;   // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
-    private int dungeon;// 0x40D        Dungeon #. Examples: Medusa's Cave, outdoor: 00; Camineet Warehouse: 02
+    private int unknown_40B;    // 0x40B: 00
+    private int room;           // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
+    private int dungeon;        // 0x40D        Dungeon #. Examples: Medusa's Cave, outdoor: 00; Camineet Warehouse: 02
     // (00-3A) Interesting things: some dungeons intersects (Scion/Naula caves, ...)
-    private int transport;// 0x40E        00 -> 08 — hovercraft, 04 — landrover, 0C - ice digger
-    private int animation1;// 0x40F        00..03 - transport animation? set 00
-    private int animation2;// 0x410        00..03 - transport animation? set 00
-    private int y2;       // 0x411-0x412  Y coordinate on Map. Same as 0x405-0x406
-    private int x2;       // 0x413-0x414  X coordinate on Map. Same as 0x401-0x402
-    private int color;    // 0x415        Dungeon color. (00-0A) Examples: 02: light green, 03: blue? 04: blue, 05: light blue, 06: yellow, 07: pink,...
-    private int type;     // 0x416        Type of environment. 0D (13): outdoor, cities; 0B (11): dungeons
-    private int church;   // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
+    private int transport;      // 0x40E        00 -> 08 — hovercraft, 04 — landrover, 0C - ice digger
+    private int animation1;     // 0x40F        00..03 - transport animation? set 00
+    private int animation2;     // 0x410        00..03 - transport animation? set 00
+    private int y2;             // 0x411-0x412  Y coordinate on Map. Same as 0x405-0x406
+    private int x2;             // 0x413-0x414  X coordinate on Map. Same as 0x401-0x402
+    private int color;          // 0x415        Dungeon color. (00-0A) Examples: 02: light green, 03: blue? 04: blue, 05: light blue, 06: yellow, 07: pink,...
+    private EnvironmentType type;// 0x416       Type of environment. 0D (13): outdoor, cities; 0B (11): dungeons
+    private int church;         // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
     private int[] unknown_418_4FF = new int[232]; // 0x418-0x4FF  ?????????????   232 bytes     00
 
     public Geo() {
@@ -70,7 +71,7 @@ public class Geo {
         this.y2 = y2;
         this.x2 = x2;
         this.color = color;
-        this.type = type;
+        this.type = EnvironmentType.byId(type);
         this.church = church;
     }
 
@@ -90,7 +91,7 @@ public class Geo {
         y2 = romData.getWord(0x11);
         x2 = romData.getWord(0x13);
         color = romData.getByte(0x15);
-        type = romData.getByte(0x16);
+        type = EnvironmentType.byId(romData.getByte(0x16));
         church = romData.getByte(0x17);
 
         romData.getBytes(0x1F1, unknown_418_4FF); // 0x5F1
@@ -113,7 +114,7 @@ public class Geo {
         romData.setWord(0x11, y2);
         romData.setWord(0x13, x2);
         romData.setByte(0x15, color);
-        romData.setByte(0x16, type);
+        romData.setByte(0x16, type.getId());
         romData.setByte(0x17, church);
     }
 
@@ -137,12 +138,12 @@ public class Geo {
                 String.format("\"%02X\"", room) + ";" +
                 String.format("\"%02X\"", direction) + ";" +
                 String.format("\"%02X\"", color) + ";" +
-                String.format("\"%02X\"", type) + ";" +
+                String.format("\"%s\"", type) + ";" + //todo не вижу изменения
                 name;
     }
 
     public boolean isDungeon() {
-        return type == 0x0B;
+        return type.equals(EnvironmentType.DUNGEON);
     }
 
     public boolean isCity() {
@@ -255,11 +256,11 @@ public class Geo {
         this.color = color;
     }
 
-    public int getType() {
+    public EnvironmentType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(EnvironmentType type) {
         this.type = type;
     }
 

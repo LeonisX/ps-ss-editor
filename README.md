@@ -18,6 +18,14 @@ Run
 
 https://stackoverflow.com/questions/53668630/how-to-run-javafx-applications-in-intellij-idea-ide
 
+Mess with maps
+--------------
+
+- maps.raw - from ps.odt. Unused.
+- maps.csv - maps.raw, converted to maps.csv. Unused.
+- maps-results.csv - show location in save game editor. Converted from results.csv (other fields order).
+- track-maps.csv - combination from maps.csv (base) & maps-results.csv. To track save state changes.
+
 Old info
 --------
 

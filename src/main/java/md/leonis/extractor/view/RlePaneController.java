@@ -164,7 +164,7 @@ public class RlePaneController {
                         localityTiles, localityBigTiles, mapPieces7[2]),
                 new Map("Paseo, Uzo, Spaceport, Casba, Sopia", paseoPalette,
                         localityTiles, localityBigTiles, mapPieces7[3]),
-                new Map("Skure, Twintown (Surface)", skureSurfacePalette,
+                new Map("Skure, Twintown (surface)", skureSurfacePalette,
                         localityTiles, localityBigTiles, mapPieces7[4]),
                 new Map("Skure, Twintown", skurePalette,
                         localityTiles, localityBigTiles, mapPieces7[5]),

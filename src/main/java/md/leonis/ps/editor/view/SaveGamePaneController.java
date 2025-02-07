@@ -9,6 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.StringConverter;
 import md.leonis.ps.editor.model.Geo;
+import md.leonis.ps.editor.model.enums.Direction;
 import md.leonis.ps.editor.model.enums.EnvironmentType;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
@@ -206,7 +207,7 @@ public class SaveGamePaneController {
         room.setText(String.format("%02X", currentSaveGame.getGeo().getRoom()));
 
         direction.setItems(observableDirectionsList);
-        direction.getSelectionModel().select(currentSaveGame.getGeo().getDirection());
+        direction.getSelectionModel().select(currentSaveGame.getGeo().getDirection().getId());
 
         churchComboBox.getSelectionModel().select(currentSaveGame.getGeo().getChurch());
 
@@ -290,7 +291,7 @@ public class SaveGamePaneController {
     }
 
     public void directionChange() {
-        currentSaveGame.getGeo().setDirection(direction.getSelectionModel().getSelectedIndex());
+        currentSaveGame.getGeo().setDirection(Direction.byId(direction.getSelectionModel().getSelectedIndex()));
     }
 
     public void transportChange() {

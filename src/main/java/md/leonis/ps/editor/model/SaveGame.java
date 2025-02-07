@@ -250,14 +250,17 @@ public class SaveGame {
                 "name='" + name + '\'' +
                 ", status=" + status +
                 ", geo=" + geo +
-                //", heroes=" + Arrays.toString(heroes) +
-                //", items=" + Arrays.toString(items) +
+                ", heroes=" + Arrays.toString(heroes) +
+                ", items=" + Arrays.toString(items) +
                 ", mesetas=" + mesetas +
                 ", itemsCount=" + itemsCount +
                 ", companionsCount=" + companionsCount +
-                //", events=" + Arrays.toString(events) +
-                //", chests=" + Arrays.toString(chests) +
-                //", bosses=" + Arrays.toString(bosses) +
+                ", events=" + Arrays.toString(events) +
+                ", chests=" + Arrays.toString(chests) +
+                ", bosses=" + Arrays.toString(bosses) +
+                ", unknown_5D8_5DF=" + Arrays.toString(unknown_5D8_5DF) +
+                ", unknown_5E3_5EF=" + Arrays.toString(unknown_5E3_5EF) +
+                ", unknown_5F1_5FF=" + Arrays.toString(unknown_5F1_5FF) +
                 '}';
     }
 

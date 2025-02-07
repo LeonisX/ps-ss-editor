@@ -1,6 +1,7 @@
 package md.leonis.ps.editor.model;
 
 import md.leonis.bin.Dump;
+import md.leonis.ps.editor.model.enums.Direction;
 import md.leonis.ps.editor.model.enums.EnvironmentType;
 
 import java.util.Arrays;
@@ -27,11 +28,11 @@ public class Geo {
     // 05 = Gothic, Eppi, Loar, Abion
     // 06 = Drasgow, Shion
     // 07 = Paseo, Uzo, Casba, Sopia
-    // 08 = Skure, Twintown (entrances)
+    // 08 = Skure, Twintown (surface)
     // 09 = Skure, Twintown
     // 0A = Air Castle
     private int mapId;          // 0x409        Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
-    private int direction;      // 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
+    private Direction direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
     //TODO YX (Medusa's tower) XY (Dezorian Cavern #5)
     private int unknown_40B;    // 0x40B: 00
     private int room;           // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
@@ -62,7 +63,7 @@ public class Geo {
         this.y = y;
         this.mapLayer = mapLayer;
         this.mapId = mapId;
-        this.direction = direction;
+        this.direction = Direction.byId(direction);
         this.room = room;
         this.dungeon = dungeon;
         this.transport = transport;
@@ -81,7 +82,7 @@ public class Geo {
         y = romData.getWord(0x05);
         mapLayer = romData.getByte(0x08);
         mapId = romData.getByte(0x09);
-        direction = romData.getByte(0x0A);
+        direction = Direction.byId(romData.getByte(0x0A));
         unknown_40B = romData.getByte(0x0B);
         room = romData.getByte(0x0C);
         dungeon = romData.getByte(0x0D);
@@ -107,7 +108,7 @@ public class Geo {
         romData.setWord(0x05, y);
         romData.setByte(0x08, mapLayer);
         romData.setByte(0x09, mapId);
-        romData.setByte(0x0A, direction);
+        romData.setByte(0x0A, direction.getId());
         romData.setByte(0x0C, room);
         romData.setByte(0x0D, dungeon);
         romData.setByte(0x0E, transport);
@@ -133,15 +134,42 @@ public class Geo {
     }
 
     public String toCSV() {
-        return String.format("\"%04X\"", x) + ";" +
-                String.format("\"%04X\"", y) + ";" +
-                String.format("\"%02X%02X\"", mapLayer, mapId) + ";" +
+        return String.format("\"%02X%02X\"", mapLayer, mapId) + ";" +
                 String.format("\"%02X\"", dungeon) + ";" +
                 String.format("\"%02X\"", room) + ";" +
-                String.format("\"%02X\"", direction) + ";" +
+                String.format("\"%04X\"", x) + ";" +
+                String.format("\"%04X\"", y) + ";" +
+                String.format("\"%02X\"", direction.getId()) + ";" +
                 String.format("\"%02X\"", color) + ";" +
-                String.format("\"%s\"", type) + ";" + //todo не вижу изменения
+                String.format("\"%02X\"", type.getId()) + ";" +
                 name;
+    }
+
+    public static Geo fromCSV(String csv) {
+        //0 map  1dun   2room   3x  4y   5dir 6col  7 type        8 name
+        //"4002";"7001";"0405";"02";"5E";"02";"00";"OUTDOOR";Palma Spaceport
+        String[] chunks = csv.replace("\"", "").split(";");
+        //Geo(String name, int x, int y, int mapLayer, int mapId, int direction, int room, int dungeon, int transport, int animation1, int animation2, int y2, int x2, int color, int type, int church) {
+        return new Geo(chunks[8],                           // name
+                fromHex(chunks[3]),                         // x
+                fromHex(chunks[4]),                         // y
+                fromHex(chunks[0].substring(0, 2)),         // mapLayer
+                fromHex(chunks[0].substring(2)),  // mapId
+                fromHex(chunks[5]),                         // direction todo пока код
+                fromHex(chunks[2]),                         // room
+                fromHex(chunks[1]),                         // dungeon
+                0,                                          // transport
+                0,                                          // animation1
+                0,                                          // animation2
+                fromHex(chunks[4]),                         // y2
+                fromHex(chunks[3]),                         // x2
+                fromHex(chunks[6]),                         // color
+                fromHex(chunks[7]),                         // type todo пока откатил до кода
+                0);                                         // church
+    }
+
+    private static int fromHex(String hex) {
+        return Integer.parseInt(hex, 16);
     }
 
     public boolean isDungeon() {
@@ -186,6 +214,22 @@ public class Geo {
         this.y2 = y;
     }
 
+    public int getUnknown_40B() {
+        return unknown_40B;
+    }
+
+    public int getY2() {
+        return y2;
+    }
+
+    public int getX2() {
+        return x2;
+    }
+
+    public int[] getUnknown_418_4FF() {
+        return unknown_418_4FF;
+    }
+
     public int getMapLayer() {
         return mapLayer;
     }
@@ -202,11 +246,11 @@ public class Geo {
         this.mapId = mapId;
     }
 
-    public int getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 
-    public void setDirection(int direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
@@ -318,8 +362,8 @@ public class Geo {
     @Override
     public String toString() {
         return "Geo{" +
-                "planet=" + planet +
-                ", name='" + name + '\'' +
+                "planet=" + planet +//todo не используется а надо бы
+                ", name='" + name + '\'' +//todo не используется а надо бы
                 ", x=" + x +
                 ", y=" + y +
                 ", mapLayer=" + mapLayer +
@@ -346,8 +390,7 @@ public class Geo {
                         Name: %s
                         X: %s
                         Y: %s
-                        MapLayer: %s
-                        MapId: %s
+                        Map: %s%s
                         Direction: %s
                         Room: %s
                         Dungeon: %s
@@ -365,6 +408,6 @@ public class Geo {
     }
 
     String toHex(int value) {
-        return String.format("%02X %02X", (byte)value, (byte)(value >>> 8));
+        return String.format("%02X %02X", (byte) value, (byte) (value >>> 8));
     }
 }

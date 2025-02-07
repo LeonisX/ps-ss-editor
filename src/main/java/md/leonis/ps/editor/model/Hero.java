@@ -382,7 +382,7 @@ public class Hero {
     @Override
     public String toString() {
         return "Hero{" +
-                "name='" + name + '\'' +
+                "name='" + name +
                 ", isAlive=" + isAlive +
                 ", hp=" + hp +
                 ", mp=" + mp +

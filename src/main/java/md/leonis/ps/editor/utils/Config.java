@@ -191,38 +191,25 @@ public class Config {
     }
 
     public static List<Geo> geos;
+    public static List<Geo> trackGeos;
 
     static {
+        geos = loadMaps("maps-results.csv");
+        trackGeos = loadMaps("track-maps.csv");
+    }
+
+    private static List<Geo> loadMaps(String fileName) {
         ClassLoader classLoader = Config.class.getClassLoader();
-        File file = new File(classLoader.getResource("results.csv").getFile());
-        geos = new LinkedList<>();
+        File file = new File(classLoader.getResource(fileName).getFile());
+        LinkedList<Geo> geos = new LinkedList<>();
         try {
-            List<String> list = Files.readAllLines(file.toPath(), Charset.defaultCharset() );
-            list.forEach(r -> {
-                String[] chunks = r.replace("\"","").split(";");
-                String map = chunks[2]/*.substring(2) + chunks[2].substring(0, 2)*/;
-                //System.out.println(chunks[2] + " " + map);
-                geos.add(new Geo(chunks[8],
-                        Integer.parseInt(chunks[0], 16),
-                        Integer.parseInt(chunks[1],16),
-                        Integer.parseInt(chunks[2].substring(0, 2), 16), // mapLayer
-                        Integer.parseInt(chunks[2].substring(2), 16), // mapId
-                        Integer.parseInt(chunks[5],16),
-                        Integer.parseInt(chunks[4],16),
-                        Integer.parseInt(chunks[3],16),
-                        0,
-                        0,
-                        0,
-                        Integer.parseInt(chunks[1],16),
-                        Integer.parseInt(chunks[0],16),
-                        Integer.parseInt(chunks[6],16),
-                        Integer.parseInt(chunks[7],16),
-                        0)
-                );
-            });
+            List<String> list = Files.readAllLines(file.toPath(), Charset.defaultCharset());
+            list.forEach(r -> geos.add(Geo.fromCSV(r)));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return geos;
     }
 
     public static List<Item> getWeapons() {
@@ -248,7 +235,7 @@ public class Config {
         long count = languageTable.keySet().stream()
                 .filter(k -> ((String) k).matches("^" + group + "[0-9]*$")).count();
         List<String> result = new LinkedList<>();
-        for (int i = 0; i < count; i++ ) {
+        for (int i = 0; i < count; i++) {
             result.add(languageTable.getProperty(group + i));
         }
         return result;

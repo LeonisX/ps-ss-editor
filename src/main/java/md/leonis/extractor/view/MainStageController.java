@@ -110,8 +110,7 @@ public class MainStageController {
 
         Path out = Paths.get("src/main/resources/maps.csv");
         try {
-            Files.write(out, geos.stream().map(Geo::toCSV).collect(Collectors.toList()),
-                    Charset.defaultCharset());
+            Files.write(out, geos.stream().map(Geo::toCSV).collect(Collectors.toList()), Charset.defaultCharset());
         } catch (IOException e) {
             e.printStackTrace();
         }

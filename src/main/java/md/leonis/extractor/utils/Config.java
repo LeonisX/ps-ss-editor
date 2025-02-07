@@ -78,7 +78,7 @@ public class Config {
     public static void loadMapsTxt() throws IOException {
         Path file;
         try {
-            file = Paths.get(Config.class.getClassLoader().getResource("maps.txt").toURI());
+            file = Paths.get(Config.class.getClassLoader().getResource("maps.raw").toURI());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

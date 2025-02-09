@@ -400,23 +400,4 @@ public class Hero {
                 ", curativeSpells=" + curativeSpells +
                 '}';
     }
-
-    public String toDiff() {
-        return String.format("""
-                        Name: %s
-                        IsAlive: %s
-                        Level: %s
-                        Experience: %s
-                        HP: %s of %s
-                        MP: %s of %s
-                        Attack: %s
-                        Defense: %s
-                        Weapon: %s
-                        Armor: %s
-                        Shield: %s
-                        State: %s
-                        Combat Spells: %s
-                        Curative Spells: %s""", name, isAlive, level, experience, hp, maxHp, mp, maxMp,
-                attack, defense, weapon, armor, shield, state, combatSpells, curativeSpells);
-    }
 }

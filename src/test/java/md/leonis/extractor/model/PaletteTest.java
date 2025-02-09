@@ -8,23 +8,22 @@ import static md.leonis.extractor.model.Palette.camineetPalette;
 public class PaletteTest {
 
     @Test
-    public void exportAsDtm() throws Exception {
+    public void exportAsDtm() {
         camineetPalette.exportAsDtm("dtm.pal");
     }
 
     @Test
-    public void exportAsJasc() throws Exception {
+    public void exportAsJasc() {
         camineetPalette.exportAsJasc("jasc.pal");
     }
 
     @Test
-    public void exportAsGimp() throws Exception {
+    public void exportAsGimp() {
         camineetPalette.exportAsGimp("gimp.gpl");
     }
 
     @Test
-    public void exportAsRaw() throws Exception {
+    public void exportAsRaw() {
         camineetPalette.exportAsRaw("meka.raw");
     }
-
 }

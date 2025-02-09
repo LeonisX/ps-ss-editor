@@ -14,13 +14,15 @@ public class Geo {
     private Planets planet; //TODO удалить в будущем, вычислять на лету
     private String name;
 
-    // 0x400: 00 - X, but inverse. In SS always 00. Probably offset in tilemap
-    private int x;        // 0x401-0x402  X coordinate on Map. Step on right: 0006 → 1006 → 2006. 401 max B0
-    // 0x403: 00
-    // 0x404: 00 - Y, but inverse. In SS always 00. Probably offset in tilemap
-    private int y;        // 0x405-0x406  Y coordinate on Map. Examples: 0001, 5001. 405 max B0
-    // 0x407: 00
-    private int mapLayer;    // 0x408 Map layer. Whole planet or group of maps. Examples: 00 - Palma, 04 - Camineet, Parolit,...
+    private int unused_400_X;    // 0x400: 00 - X. In SS always 00. Probably offset in tilemap
+    private int x;              // 0x401-0x402  X coordinate on Map. Step on right: 0006 → 1006 → 2006.
+    private int unused_403_Y;    // 0x403: 00
+    private int unknown_404;    // 0x404: 00 - Y. In SS always 00. Probably offset in tilemap
+    private int y;              // 0x405-0x406  Y coordinate on Map. Examples: 0001, 5001. 405 max B0
+    //More about Y. Transitions: 02 B0 -> 03 00, 03 B0 -> 04 00. 12 tiles (192, C0) instead of 256 (100). Apparently it’s easier to count screens this way.
+
+    private int unknown_407;    // 0x407: 00
+    private int mapLayer;       // 0x408 Map layer. Whole planet or group of maps. Examples: 00 - Palma, 04 - Camineet, Parolit,...
     // map: 00 00
     // 00 = Palma
     // 01 = Motavia
@@ -42,8 +44,8 @@ public class Geo {
     private int transport;      // 0x40E        00 -> 08 — hovercraft, 04 — landrover, 0C - ice digger
     private int animation1;     // 0x40F        00..03 - transport animation? set 00
     private int animation2;     // 0x410        00..03 - transport animation? set 00
-    private int y2;             // 0x411-0x412  Y coordinate on Map. Same as 0x405-0x406
-    private int x2;             // 0x413-0x414  X coordinate on Map. Same as 0x401-0x402
+    private int tileAlignedY;   // 0x411-0x412  Y coordinate on Map, aligned by tile width (16). Old value, if Y is already aligned.
+    private int tileAlignedX;   // 0x413-0x414  X coordinate on Map, aligned by tile width (16). Old value, if X is already aligned.
     private int color;          // 0x415        Dungeon color. (00-0A) Examples: 02: light green, 03: blue? 04: blue, 05: light blue, 06: yellow, 07: pink,...
     private EnvironmentType type;// 0x416       Type of environment. 0D (13): outdoor, cities; 0B (11): dungeons
     private int church;         // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
@@ -56,7 +58,7 @@ public class Geo {
         this.name = name;
     }
 
-    public Geo(/*Planets planet, */String name, int x, int y, int mapLayer, int mapId, int direction, int room, int dungeon, int transport, int animation1, int animation2, int y2, int x2, int color, int type, int church) {
+    public Geo(/*Planets planet, */String name, int x, int y, int mapLayer, int mapId, int direction, int room, int dungeon, int transport, int animation1, int animation2, int tileAlignedY, int tileAlignedX, int color, int type, int church) {
         //this.planet = planet;
         if (type == 0x0B) transport = 0; // Fix for transport on dungeon exit
         this.name = name;
@@ -70,8 +72,8 @@ public class Geo {
         this.transport = transport;
         this.animation1 = animation1;
         this.animation2 = animation2;
-        this.y2 = y2;
-        this.x2 = x2;
+        this.tileAlignedY = tileAlignedY;
+        this.tileAlignedX = tileAlignedX;
         this.color = color;
         this.type = EnvironmentType.byId(type);
         this.church = church;
@@ -79,8 +81,12 @@ public class Geo {
 
     public void readFromRom(Dump romData, int offset) {
         romData.setOffset(offset);
+        unused_400_X = romData.getByte(0x00);
         x = romData.getWord(0x01);
+        unused_403_Y = romData.getByte(0x03);
+        unknown_404 = romData.getByte(0x04);
         y = romData.getWord(0x05);
+        unknown_407 = romData.getByte(0x07);
         mapLayer = romData.getByte(0x08);
         mapId = romData.getByte(0x09);
         direction = Direction.byId(romData.getByte(0x0A));
@@ -90,8 +96,8 @@ public class Geo {
         transport = romData.getByte(0x0E);
         animation1 = romData.getByte(0x0F);
         animation2 = romData.getByte(0x10);
-        y2 = romData.getWord(0x11);
-        x2 = romData.getWord(0x13);
+        tileAlignedY = romData.getWord(0x11);
+        tileAlignedX = romData.getWord(0x13);
         color = romData.getByte(0x15);
         type = EnvironmentType.byId(romData.getByte(0x16));
         church = romData.getByte(0x17);
@@ -103,20 +109,25 @@ public class Geo {
         romData.setOffset(0);
     }
 
-    //todo unknown
+    //todo unknown_418_4FF
     public void writeToRom(Dump romData, int offset) {
+        romData.setByte(0x00, unused_400_X);
         romData.setWord(0x01, x);
+        romData.setByte(0x03, unused_403_Y);
+        romData.setByte(0x04, unknown_404);
         romData.setWord(0x05, y);
+        romData.setByte(0x07, unknown_407);
         romData.setByte(0x08, mapLayer);
         romData.setByte(0x09, mapId);
         romData.setByte(0x0A, direction.getId());
+        romData.setByte(0x0B, unknown_40B);
         romData.setByte(0x0C, room);
         romData.setByte(0x0D, dungeon);
         romData.setByte(0x0E, transport);
         romData.setByte(0x0F, animation1);
         romData.setByte(0x10, animation2);
-        romData.setWord(0x11, y2);
-        romData.setWord(0x13, x2);
+        romData.setWord(0x11, tileAlignedY);
+        romData.setWord(0x13, tileAlignedX);
         romData.setByte(0x15, color);
         romData.setByte(0x16, type.getId());
         romData.setByte(0x17, church);
@@ -203,7 +214,7 @@ public class Geo {
 
     public void setX(int x) {
         this.x = x;
-        this.x2 = x;
+        this.tileAlignedX = x;
     }
 
     public int getY() {
@@ -212,19 +223,35 @@ public class Geo {
 
     public void setY(int y) {
         this.y = y;
-        this.y2 = y;
+        this.tileAlignedY = y;
+    }
+
+    public int getUnused_400_X() {
+        return unused_400_X;
+    }
+
+    public int getUnused_403_Y() {
+        return unused_403_Y;
+    }
+
+    public int getUnknown_404() {
+        return unknown_404;
+    }
+
+    public int getUnknown_407() {
+        return unknown_407;
     }
 
     public int getUnknown_40B() {
         return unknown_40B;
     }
 
-    public int getY2() {
-        return y2;
+    public int getTileAlignedY() {
+        return tileAlignedY;
     }
 
-    public int getX2() {
-        return x2;
+    public int getTileAlignedX() {
+        return tileAlignedX;
     }
 
     public int[] getUnknown_418_4FF() {
@@ -360,13 +387,32 @@ public class Geo {
         return name.contains("#");
     }
 
+    public int getTileX() {
+        //не работает это выравнивание часто :(
+        /*if (Math.abs(tileAlignedX - x) < 16) {
+            return tileAlignedX;
+        } else {*/
+            return x;
+        //}
+    }
+
+    public int getTileY() {
+        //int alignedY = Math.abs(tileAlignedY - y) < 16 ? tileAlignedY : y;
+        //return (alignedY >> 8) * 0xC0 + (alignedY & 0xFF);
+        return (y >> 8) * 0xC0 + (y & 0xFF);
+    }
+
     @Override
     public String toString() {
         return "Geo{" +
                 "planet=" + planet +//todo не используется а надо бы
                 ", name='" + name + '\'' +//todo не используется а надо бы
+                //", unused_400_X=" + unused_400_X +
                 ", x=" + x +
                 ", y=" + y +
+                //", unused_403_Y=" + unused_403_Y +
+                ", unknown_404=" + unknown_404 +
+                ", unknown_407=" + unknown_407 +
                 ", mapLayer=" + mapLayer +
                 ", mapId=" + mapId +
                 ", direction=" + direction +
@@ -376,40 +422,13 @@ public class Geo {
                 ", transport=" + transport +
                 ", animation1=" + animation1 +
                 ", animation2=" + animation2 +
-                ", y2=" + y2 +
-                ", x2=" + x2 +
+                ", y2=" + tileAlignedY +
+                ", x2=" + tileAlignedX +
                 ", color=" + color +
                 ", type=" + type +
                 ", church=" + church +
                 ", unknown_418_4FF=" + Arrays.toString(unknown_418_4FF) +
                 '}';
-    }
-
-    public String toDiff() {
-        return String.format("""
-                        Planet: %s
-                        Name: %s
-                        X: %s
-                        Y: %s
-                        Map: %s%s
-                        Direction: %s
-                        Room: %s
-                        Dungeon: %s
-                        Transport: %s
-                        Animation1: %s
-                        Animation2: %s
-                        X2: %s
-                        Y2: %s
-                        Color: %s
-                        Type: %s
-                        Church: %s
-                        unknown_40B: %s
-                        unknown_418_4FF: %s""", planet, name, toHex(x), toHex(y), mapLayer, mapId, direction, room, dungeon, transport,
-                animation1, animation2, toHex(x2), toHex(y2), color, type, church, unknown_40B, Arrays.toString(unknown_418_4FF));
-    }
-
-    String toHex(int value) {
-        return String.format("%02X %02X", (byte) value, (byte) (value >>> 8));
     }
 
     public String getMapTextId() {

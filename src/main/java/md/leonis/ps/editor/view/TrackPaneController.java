@@ -1,11 +1,15 @@
 package md.leonis.ps.editor.view;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
+import md.leonis.ps.editor.model.enums.DungeonColor;
 import md.leonis.ps.editor.utils.Config;
 
 import java.io.File;
@@ -15,7 +19,6 @@ import java.util.TimerTask;
 
 public class TrackPaneController {
 
-    //todo refresh interval, ms
     @FXML
     public TextArea textArea;
     @FXML
@@ -24,6 +27,8 @@ public class TrackPaneController {
     public CheckBox autoRefreshCheckBox;
     public Slider refreshIntervalSlider;
     public TextField refreshTextField;
+    public ImageView mapImageView;
+    public ImageView alisaImageView;
 
     @FXML
     private void initialize() {
@@ -35,6 +40,12 @@ public class TrackPaneController {
         refreshIntervalSlider.valueProperty().addListener((changed, oldValue, newValue) ->
                 refreshTextField.setText(String.valueOf((newValue.intValue() == 0) ? 1 : newValue.intValue())));
 
+        Image image = new Image(new File("Palma.png").toURI().toString()); //todo array of images
+        mapImageView.setImage(image); //todo on change map
+
+        alisaImageView.setImage(new Image(new File("Alisa.png").toURI().toString()));
+
+        showMap(Config.saveState.getSaveGames()[0].getGeo()); //todo select game if need
     }
 
     public void refreshButtonClick() throws Exception {
@@ -127,15 +138,19 @@ public class TrackPaneController {
         //addDiff(sb, "Name", oldGeo.getName(), newGeo.getName()); //todo unused now (null)
         addDiffHex(sb, "X", oldGeo.getX(), newGeo.getX());
         addDiffHex(sb, "Y", oldGeo.getY(), newGeo.getY());
-        addDiffHex(sb, "X2", oldGeo.getX2(), newGeo.getX2());
-        addDiffHex(sb, "Y2", oldGeo.getY2(), newGeo.getY2());
+        addDiffHex(sb, "X2", oldGeo.getTileAlignedX(), newGeo.getTileAlignedX());
+        addDiffHex(sb, "Y2", oldGeo.getTileAlignedY(), newGeo.getTileAlignedY());
+
+        if (oldGeo.getX() != newGeo.getX() || oldGeo.getY() != newGeo.getY()) {
+            showMap(newGeo);
+        }
 
         addDiff(sb, "Map Layer", oldGeo.getMapLayer(), newGeo.getMapLayer());
         addDiff(sb, "Map Id", oldGeo.getMapId(), newGeo.getMapId());
         addDiff(sb, "Type", oldGeo.getType().name(), newGeo.getType().name());
         //todo без фонаря попадает в какой-то особый данжн, Dungeon: 0, Room: 220
         addDiff(sb, "Dungeon", oldGeo.getDungeon(), newGeo.getDungeon());
-        addDiff(sb, "Color", oldGeo.getColor(), newGeo.getColor()); //todo color name
+        addColorDiff(sb, oldGeo.getColor(), newGeo.getColor()); //todo dungeon with color
         addDiff(sb, "Room", oldGeo.getRoom(), newGeo.getRoom());
         addDiff(sb, "Direction", oldGeo.getDirection().name(), newGeo.getDirection().name());
         //todo Transport: Leather Clothes (16) -> None - выдаётся только во время полёта в космосе
@@ -143,6 +158,10 @@ public class TrackPaneController {
         addChurchDiff(sb, oldGeo.getChurch(), newGeo.getChurch());
         addDiff(sb, "Animation#1", oldGeo.getAnimation1(), newGeo.getAnimation1());
         addDiff(sb, "Animation#2", oldGeo.getAnimation2(), newGeo.getAnimation2());
+        //addDiff(sb, "Unused_400_X", oldGeo.getUnused_400_X(), newGeo.getUnused_400_X());
+        //addDiff(sb, "Unused_403_Y", oldGeo.getUnused_403_Y(), newGeo.getUnused_403_Y());
+        addDiff(sb, "Unknown_404", oldGeo.getUnknown_404(), newGeo.getUnknown_404());
+        addDiff(sb, "Unknown_407", oldGeo.getUnknown_407(), newGeo.getUnknown_407());
         addDiff(sb, "Unknown_40B", oldGeo.getUnknown_40B(), newGeo.getUnknown_40B());
         // Unknown_418_4FF[25]: 0 -> 255 - спас тайлона
         addDiff(sb, "Unknown_418_4FF", oldGeo.getUnknown_418_4FF(), newGeo.getUnknown_418_4FF()); //todo похоже это события связанные с общением. получить что-то у кого-то или просто полезные диалоги.
@@ -171,6 +190,13 @@ public class TrackPaneController {
                 addDiff(sb, "Curative Spells", oldHero.getCurativeSpells(), newHero.getCurativeSpells());
             }
         }
+    }
+
+    private void showMap(Geo geo) {
+        //coordinates
+        //x +128
+        //y +96
+        mapImageView.setViewport(new Rectangle2D(geo.getTileX() - 16, geo.getTileY() - 32, 320, 288));
     }
 
     private void addDiff(StringBuilder sb, String title, String oldValue, String newValue) {
@@ -227,12 +253,19 @@ public class TrackPaneController {
         }
     }
 
+    private void addColorDiff(StringBuilder sb, int oldValue, int newValue) {
+        if (oldValue != newValue) {
+            sb.append("Color: ").append(DungeonColor.byId(oldValue)).append(" -> ").append(DungeonColor.byId(
+                    newValue)).append(" (").append(getItemName(oldValue)).append(" -> ").append(getItemName(newValue)).append(")").append("\n");
+        }
+    }
+
     private String getItemName(int itemId) {
         return (itemId <= 64 && itemId >= 0) ? Config.items.get(itemId) : "UNKNOWN: " + itemId;
     }
 
     private String toHex(int value) {
-        return String.format("%02X %02X", (byte) value, (byte) (value >>> 8));
+        return String.format("%02X %02X", (byte) (value >> 8), (byte) value);
     }
 
     public void autoRefreshCheckBoxClick() {

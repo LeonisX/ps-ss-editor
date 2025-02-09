@@ -56,13 +56,13 @@ public class SaveGame {
 
 
     public void readFromRom(Dump romData, int offset) {
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         geo = new Geo();
         geo.readFromRom(romData, offset);
         romData.setOffset(offset);
 
         //read heroes
         romData.moveToAddress(0x100); // 0x500
-        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         for (int i = 0; i < 4; i++) {
             heroes[i] = Hero.readFromRom(romData, i);
         }
@@ -98,11 +98,11 @@ public class SaveGame {
         romData.setOffset(offset);
         romData.erase(0, SAVE_GAME_SIZE);
         romData.moveToAddress(0);
+        // experience, mesetas - Little Endian;
+        // x, y - Little Endian;
+        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         geo.writeToRom(romData, offset);
         //write heroes
-        // experience, mesetas - Little Endian;
-        // x, y, map - Big Endian
-        romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
         romData.moveToAddress(0x100); // 0x500
         for (int i = 0; i < 4; i++) {
             heroes[i].writeToRom(romData);
@@ -114,7 +114,6 @@ public class SaveGame {
         //System.out.println(mesetas);
 
         romData.setWord(0x1E0, mesetas);
-        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
 
         romData.setByte(0x1E2, itemsCount);
         for (int i = 0; i < itemsCount; i++) {
@@ -292,23 +291,5 @@ public class SaveGame {
                 ", unknown_5E3_5EF=" + Arrays.toString(unknown_795_7C0) +
                 ", unknown_5F1_5FF=" + Arrays.toString(unknown_7D9_7FF) +
                 '}';
-    }
-
-    public String toDiff() {
-        return String.format("""
-                        Name: %s
-                        Status: %s
-                        Items: %s (%s)
-                        Mesetas: %s
-                        Companions: %s
-                        Events: %s
-                        Chests: %s
-                        Bosses: %s
-                        unknown_5D8_5DF: %s
-                        unknown_5E3_5EF: %s
-                        unknown_5F1_5FF: %s""", name, status, itemsCount, Arrays.toString(items), mesetas, companionsCount,
-                Arrays.toString(events), Arrays.toString(chests), Arrays.toString(bosses),
-                Arrays.toString(unknown_5D8_5DF), Arrays.toString(unknown_5E3_5EF), Arrays.toString(unknown_5F1_5FF),
-                Arrays.toString(unknown_619_6EF), Arrays.toString(unknown_795_7C0), Arrays.toString(unknown_7D9_7FF));
     }
 }

@@ -4,6 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.canvas.Canvas?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0"
             prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="md.leonis.ps.editor.view.TrackPaneController">
@@ -23,11 +26,19 @@
                     prefWidth="300"
                     minorTickCount="10" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="200.0"/>
             <TextField fx:id="refreshTextField" text="200" prefWidth="43" maxWidth="43"/>
-            <Label text="ms" />
+            <Label text="ms"/>
         </HBox>
     </top>
 
     <center>
         <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
     </center>
+    <right>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="320.0" prefHeight="288.0">
+            <ImageView fx:id="alisaImageView" fitHeight="24.0" fitWidth="16.0" layoutX="145.0" layoutY="120.0"
+                       viewOrder="-2"/>
+            <!--<Canvas fx:id="paletteCanvas" width="288.0" height="288.0" layoutX="32.0" layoutY="16.0" viewOrder="1" />-->
+            <ImageView fx:id="mapImageView" fitWidth="320.0" fitHeight="288.0"/>
+        </AnchorPane>
+    </right>
 </BorderPane>

@@ -11,7 +11,144 @@ hero1=Myau
 hero2=Tylon
 hero3=Lutz
 
-// TODO maps,  ...
+; Outdoor places
+
+0000=Palma
+0001=TODO перелёт из мотавии на пальму
+0100=TODO перелёт из пальмы на мотавию
+0101=Motavia
+0202=Dezoris
+0404=Camineet
+0405=Palma's Spaceport
+0406=Parolit
+0505=TODO это дорога из каминита в космопорт (на выходе)
+0507=Gothic
+0508=Eppi
+0509=Loar
+050A=Avion
+050B=Bortevo
+0606=TODO это дорога из космопорта в паролит (на выходе)
+060C=Drasgow
+060D=Shion
+070E=Paseo
+070F=Uzo
+0710=Paseo Spaceport
+0711=Casba
+0712=Sopia
+0813=Skray (surface)
+0814=Twintown (surface)
+0915=Skray
+0916=Twintown
+0E0E=TODO дорога из космопорта в пасео
+1010=TODO дорога из пасео в космопорт
+0A17=Air Castle
+
+; Dungeons
+; TODO удалить дубликаты и искать подземелья по близости (радиус 1)
+
+000000-1007=Baya Marlay Cave
+000000-6004=Medusa's Cave
+000001-C002=Triada Prison
+000003-A001=Medusa's Tower #-1
+000004-A001=Medusa's Tower
+000005-A001=Medusa's Tower #2
+000006-A001=Medusa's Tower #3
+000007-A001=Medusa's Tower #4
+000008-0006=Baya Marlay #-3
+000008-A001=Medusa's Tower #5
+000009-0006=Baya Marlay #-2
+000009-A001=Medusa's Tower #6
+00000A-0006=Baya Marlay #-1
+00000A-A001=Medusa's Tower #7
+00000B-0006=Baya Marlay
+00000C-0006=Baya Marlay #2
+00000C-2006=Baya Marlay #2'
+00000D-0006=Baya Marlay #3
+00000D-2006=Baya Marlay #3'
+00000E-0006=Baya Marlay #4
+00000F-0006=Baya Marlay #5
+000010-0007=Iala Cave #4
+000010-B005=Naula Cave #4
+000011-0007=Iala Cave #3
+000011-B005=Naula Cave #3
+000012-0007=Iala Cave #2
+000012-B005=Naula Cave #2
+000013-0007=Iala Cave
+000013-F006=Iala Cave
+000013-B005=Naula Cave
+000014-1006=Baya Marlay Prison
+000015-1006=Baya Marlay Prison (Jail)
+000016-2001=Passageway to Avion Island
+000017-0000=Forgotten Tower'
+000017-E007=Forgotten Tower
+000018-0000=Forgotten Tower #2'
+000018-E007=Forgotten Tower #2
+000019-0000=Forgotten Tower #3'
+000019-E007=Forgotten Tower #3
+00001A-0000=Forgotten Tower #4'
+00001A-E007=Forgotten Tower #4
+00001B-0000=Forgotten Tower #5'
+00001B-E007=Forgotten Tower #5
+00003B-1006=Credits #2
+00003C-1006=Credits
+01011C-0003=Mahal Cave #3
+01011D-0003=Mahal Cave #2
+01011E-0003=Mahal Cave
+010122-3002=Tajima's Cave #3
+010123-3002=Tajima's Cave #2
+010124-3002=Tajima's Cave
+010125-5005=Casba Cave #3
+010126-5005=Casba Cave #2
+010127-5005=Casba Cave
+020229-9004=Guaron Morgue #2
+02022A-8004=Guaron Morgue
+02022A-9004=Guaron Morgue'
+02022B-D002=Corona Tower
+02022C-D002=Corona Tower #2
+02022D-D002=Corona Tower #3
+02022E-D002=Corona Tower #4
+02022F-2000=Dezorian Cave #6
+02022F-5000=Dezorian Cave #6 (Dead End)
+02022F-7005=Dezorian Cave 5 #2'
+02022F-9005=Passageway on Dezoris 5 #2
+02022F-F002=Passageway on Dezoris 1
+020230-2000=Dezorian Cave #5
+020230-6001=Dezorian Cave #2'
+020230-7001=Passageway on Dezoris 2
+020230-7005=Dezorian Cave #5'
+020230-9005=Passageway on Dezoris 5
+020231-2000=Dezorian Cave #4
+020231-3002=Passageway on Dezoris 4
+020231-B003=Dezorian Cave #4'
+020232-2000=Dezorian Cave #3
+020232-8000=Dezorian Cave #3'
+020232-9000=Passageway on Dezoris 3
+020233-2000=Dezorian Cave #2
+020234-5000=Dezorian Cave
+02023A-1004=Aeroprism Cave'
+02023A-E003=Aeroprism Cave
+040402-4006=Camineet Warehouse
+040500-A000=Gothic Passageway
+050700-5002=Gothic Passageway (Gothic entrance)
+050A02-9001=Avion Warehouse (Dr. Mad's side)
+050A02-A000=Avion Warehouse
+050A15-6001=Dr. Mad' House
+060C15-A001=Drasgow Warehouse
+060C15-B001=Drasgow Warehouse'
+070E1F-7001=Passageway to Paseo Palace #3
+070E20-7001=Passageway to Paseo Palace #2
+070E21-7001=Paseo Palace Dungeon
+070E21-9001=Passageway to Paseo Palace
+070E21-A001=Paseo Palace Entrance'
+081328-B000=Passageway to Skray
+081428-1003=Passageway to Twintown
+0A1735-7001=Air Castle Dungeon #5
+0A1736-7001=Air Castle Dungeon #4
+0A1737-7001=Air Castle Dungeon #3
+0A1738-7001=Air Castle Dungeon #2
+0A1739-7001=Air Castle Dungeon
+
+; Churches
 
 church0=Alisa Home
 church1=Camineet
@@ -23,7 +160,8 @@ church6=Casba
 church7=Twintown
 church8=Skure
 
-;       title             attack   use by
+
+; 1     title             attack   use by
 weapon0=Wood Cane       ;   3   ;   0,2,3
 weapon1=Short Sword     ;   4   ;   0,2,3
 weapon2=Iron Sword      ;   12  ;   0,2
@@ -40,7 +178,7 @@ weapon12=Laser Gun      ;   50  ;   2
 weapon13=Laconian Sword ;   60  ;   0,2
 weapon14=Laconian Axe   ;   80  ;   2
 
-; 15
+; 16
 armor0=Leather Clothes  ;   5   ;   0,2
 armor1=White Cloak      ;   5   ;   3
 armor2=Light Suit       ;   15  ;   0,2
@@ -51,7 +189,7 @@ armor6=Diamond Armor    ;   60  ;   0,2
 armor7=Laconian Armor   ;   80  ;   2
 armor8=Frad Cloak       ;   40  ;   3
 
-; 24
+; 25
 shield0=Leather Shield      ;   3   ;   0,2
 shield1=Bronze Shield       ;   8   ;   2
 shield2=Iron Shield         ;   15  ;   0,2
@@ -61,13 +199,13 @@ shield5=Laser Barrier       ;   30  ;   0,2,3
 shield6=Shield of Perseus   ;   40  ;   2
 shield7=Laconian Shield     ;   50  ;   0,2
 
-; vehicles
+; vehicles (33)
 
 item0=LandMaster
 item1=FlowMover
 item2=IceDecker
 
-; items
+; items (36)
 
 item3=PelorieMate
 item4=Ruoginin

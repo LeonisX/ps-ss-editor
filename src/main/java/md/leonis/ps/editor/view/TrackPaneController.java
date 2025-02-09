@@ -50,10 +50,18 @@ public class TrackPaneController {
 
         // Game
         addDiff(sb, "Name", oldGame.getName(), newGame.getName());
+
+        Geo oldGeo = oldGame.getGeo();
+        Geo newGeo = newGame.getGeo();
+
+        if (!oldGeo.getMapTitle().equals(newGeo.getMapTitle())) {
+            addDiff(sb, "Location", oldGeo.getMapTitle(), newGeo.getMapTitle());
+        }
+
         addDiff(sb, "Status", oldGame.getStatus().toString(), newGame.getStatus().toString());
         addDiff(sb, "Mesetas", oldGame.getMesetas(), newGame.getMesetas());
         addDiff(sb, "Items Count", oldGame.getItemsCount(), newGame.getItemsCount());
-        addDiff(sb, "Items", oldGame.getItems(), newGame.getItems()); //todo title
+        addItemsDiff(sb, oldGame.getItems(), newGame.getItems());
         addDiff(sb, "Companions Count", oldGame.getCompanionsCount(), newGame.getCompanionsCount());
         addDiff(sb, "Events", oldGame.getEvents(), newGame.getEvents());
         addDiff(sb, "Chests", oldGame.getChests(), newGame.getChests());
@@ -61,6 +69,9 @@ public class TrackPaneController {
         addDiff(sb, "Unknown_5D8_5DF", oldGame.getUnknown_5D8_5DF(), newGame.getUnknown_5D8_5DF());
         addDiff(sb, "Unknown_5E3_5EF", oldGame.getUnknown_5E3_5EF(), newGame.getUnknown_5E3_5EF());
         addDiff(sb, "Unknown_5F1_5FF", oldGame.getUnknown_5F1_5FF(), newGame.getUnknown_5F1_5FF());
+        addDiff(sb, "Unknown_619_6EF", oldGame.getUnknown_619_6EF(), newGame.getUnknown_619_6EF());
+        addDiff(sb, "Unknown_795_7C0", oldGame.getUnknown_795_7C0(), newGame.getUnknown_795_7C0());
+        addDiff(sb, "Unknown_7D9_7FF", oldGame.getUnknown_7D9_7FF(), newGame.getUnknown_7D9_7FF());
 
         //todo first fight achievement
         //Events[0]: 0 -> 255
@@ -76,18 +87,28 @@ public class TrackPaneController {
         //Combat Spells: 0 -> 1
         //Curative Spells: 0 -> 1
 
+        //Level: 4 -> 5
+        //Max Hp: 34 -> 45
+        //Max Mp: 4 -> 6
+        //Attack: 26 -> 27
+        //Defense: 38 -> 42
+        //Combat Spells: 1 -> 2
+
+        //Level: 5 -> 6
+        //Experience: 329 -> 335
+        //Hp: 39 -> 34
+        //Max Hp: 45 -> 54
+        //Max Mp: 6 -> 8
+        //Attack: 27 -> 30
+        //Defense: 42 -> 45
+        //Combat Spells: 2 -> 3
+
+        //иала без фонаря
+        //Dungeon: 2 -> 19
+        //Room: 94 -> 222
+
 
         // Geo
-        Geo oldGeo = oldGame.getGeo();
-        Geo newGeo = newGame.getGeo();
-
-        if (oldGeo.getColor() != newGeo.getColor() && oldGeo.getColor() == 0) {
-            sb.append("Entered the dungeon...").append("\n"); //todo name
-        }
-
-        if (oldGeo.getColor() != newGeo.getColor() && oldGeo.getColor() != 0) {
-            sb.append("Left the dungeon...").append("\n"); //todo name
-        }
 
         //addDiff(sb, "Planet", oldGeo.getPlanet().name(), newGeo.getPlanet().name()); //todo unused now (null)
         //addDiff(sb, "Name", oldGeo.getName(), newGeo.getName()); //todo unused now (null)
@@ -96,34 +117,29 @@ public class TrackPaneController {
         addDiffHex(sb, "X2", oldGeo.getX2(), newGeo.getX2());
         addDiffHex(sb, "Y2", oldGeo.getY2(), newGeo.getY2());
 
-        //todo items, events, ..., unknown - надо выводить конкретную разницу. так же где можно - выводить имена.
-
-        //понять где сейчас можно по цвету. 0 - на улице.
-        //dungeon (0B) - mapLayer, mapId, x,y те же, меняются только dungeon и room. если нет точного room, то в приоритете та, у которой в названии нет скобок.
-        //но поскольку на одной карте может быть 2 подземелья - надо вычислять ближайшее по номеру комнаты.
-        //outdoor (0D) - брать mapLayer, mapId, потом по x, y находить ближайшее место.
-        //вообще, на больших картах будет часто обманывать, было бы хорошо так же брать в расчёт подземелья,
-        //и если подземелье ближе всего, допустим в радиусе 3, то вычислять название планеты (mapLayer, mapId), обрезать скобки, и прибавлять (near + название подземелья (самое короткое)).
-        //подземелья 16х16, надо вспомнить какая там нумерация. первый байт - y, второй - x.
-
         addDiff(sb, "Map Layer", oldGeo.getMapLayer(), newGeo.getMapLayer());
         addDiff(sb, "Map Id", oldGeo.getMapId(), newGeo.getMapId());
         addDiff(sb, "Type", oldGeo.getType().name(), newGeo.getType().name());
+        //todo без фонаря попадает в какой-то особый данжн, Dungeon: 0, Room: 220
         addDiff(sb, "Dungeon", oldGeo.getDungeon(), newGeo.getDungeon());
-        addDiff(sb, "Color", oldGeo.getColor(), newGeo.getColor());
+        addDiff(sb, "Color", oldGeo.getColor(), newGeo.getColor()); //todo color name
         addDiff(sb, "Room", oldGeo.getRoom(), newGeo.getRoom());
         addDiff(sb, "Direction", oldGeo.getDirection().name(), newGeo.getDirection().name());
-        addDiff(sb, "Transport", oldGeo.getTransport(), newGeo.getTransport());
-        addDiff(sb, "Church", oldGeo.getChurch(), newGeo.getChurch());
+        //todo Transport: Leather Clothes (16) -> None - выдаётся только во время полёта в космосе
+        addItemDiff(sb, "Transport", oldGeo.getTransport(), newGeo.getTransport());
+        addChurchDiff(sb, oldGeo.getChurch(), newGeo.getChurch());
         addDiff(sb, "Animation#1", oldGeo.getAnimation1(), newGeo.getAnimation1());
         addDiff(sb, "Animation#2", oldGeo.getAnimation2(), newGeo.getAnimation2());
         addDiff(sb, "Unknown_40B", oldGeo.getUnknown_40B(), newGeo.getUnknown_40B());
+        // Unknown_418_4FF[25]: 0 -> 255 - спас тайлона
         addDiff(sb, "Unknown_418_4FF", oldGeo.getUnknown_418_4FF(), newGeo.getUnknown_418_4FF()); //todo похоже это события связанные с общением. получить что-то у кого-то или просто полезные диалоги.
 
         for (int j = 0; j < 4; j++) {
             Hero oldHero = oldGame.getHeroes()[j];
             Hero newHero = newGame.getHeroes()[j];
             if (!oldHero.toString().equals(newHero.toString())) {
+
+                sb.append("\n").append(Config.heroes.get(j)).append("\n");
                 addDiff(sb, "Name", oldHero.getName(), newHero.getName());
                 addDiff(sb, "Alive", oldHero.isAlive(), newHero.isAlive());
                 addDiff(sb, "Level", oldHero.getLevel(), newHero.getLevel());
@@ -134,9 +150,9 @@ public class TrackPaneController {
                 addDiff(sb, "Max Mp", oldHero.getMaxMp(), newHero.getMaxMp());
                 addDiff(sb, "Attack", oldHero.getAttack(), newHero.getAttack());
                 addDiff(sb, "Defense", oldHero.getDefense(), newHero.getDefense());
-                addDiff(sb, "Weapon", oldHero.getWeapon(), newHero.getWeapon()); //todo title
-                addDiff(sb, "Armor", oldHero.getArmor(), newHero.getArmor()); //todo title
-                addDiff(sb, "Shield", oldHero.getShield(), newHero.getShield()); //todo title
+                addItemDiff(sb, "Weapon", oldHero.getWeapon(), newHero.getWeapon());
+                addItemDiff(sb, "Armor", oldHero.getArmor(), newHero.getArmor());
+                addItemDiff(sb, "Shield", oldHero.getShield(), newHero.getShield());
                 addDiff(sb, "State", oldHero.getState(), newHero.getState());
                 addDiff(sb, "Combat Spells", oldHero.getCombatSpells(), newHero.getCombatSpells());
                 addDiff(sb, "Curative Spells", oldHero.getCurativeSpells(), newHero.getCurativeSpells());
@@ -174,6 +190,32 @@ public class TrackPaneController {
                 sb.append(title).append("[").append(i).append("]: ").append(oldValue[i]).append(" -> ").append(newValue[i]).append("\n");
             }
         }
+    }
+
+    private void addItemDiff(StringBuilder sb, String title, int oldValue, int newValue) {
+        if (oldValue != newValue) {
+            sb.append(title).append(": ").append(getItemName(oldValue)).append(" -> ").append(getItemName(newValue)).append("\n");
+        }
+    }
+
+    private void addItemsDiff(StringBuilder sb, int[] oldValue, int[] newValue) {
+        for (int i = 0; i < oldValue.length; i++) {
+            if (oldValue[i] != newValue[i]) {
+                sb.append("Items[").append(i).append("]: ").append(getItemName(oldValue[i])).append(" -> ").append(getItemName(newValue[i])).append("\n");
+            }
+        }
+    }
+
+    private void addChurchDiff(StringBuilder sb, int oldValue, int newValue) {
+        if (oldValue != newValue) {
+            String oldChurch = (oldValue <= 8 && oldValue >= 0) ? Config.churches.get(oldValue) : "UNKNOWN: " + oldValue;
+            String newChurch = (newValue <= 8 && newValue >= 0) ? Config.churches.get(newValue) : "UNKNOWN: " + newValue;
+            sb.append("Church: ").append(oldChurch).append(" -> ").append(newChurch).append("\n");
+        }
+    }
+
+    private String getItemName(int itemId) {
+        return (itemId <= 64 && itemId >= 0) ? Config.items.get(itemId) : "UNKNOWN: " + itemId;
     }
 
     private String toHex(int value) {

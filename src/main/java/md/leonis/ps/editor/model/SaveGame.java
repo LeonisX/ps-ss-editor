@@ -25,10 +25,11 @@ public class SaveGame {
     private int[] unknown_5F1_5FF = new int[15]; // 0x5F1-0x5FF  ?????????????   15 bytes
 
     private int[] events = new int[0x100]; // 0x600-0x618  Important events. Examples: save Luveno, Tylon, killed Dr Mad, Lasiec. Often 00 -> 01
-    // 0x619-0x6FF  00
+    private int[] unknown_619_6EF = new int[215]; // 0x619-0x6FF  ?????????????   215 bytes
     private int[] chests = new int[0x0C0]; // 0x700-0x794  Open chests. 00 -> FF
-    // 0x795-0x7C0  00
+    private int[] unknown_795_7C0 = new int[44]; // 0x795-0x7C0  ?????????????   44 bytes
     private int[] bosses = new int[0x040];// 0x7C1-0x7D8  defeated bosses. 00 -> FF
+    private int[] unknown_7D9_7FF = new int[39]; // 0x7D9-0x7FF  ?????????????   39 bytes
     // Other data: zeroes
 
     //Если сохраниться на старте:
@@ -78,14 +79,16 @@ public class SaveGame {
         companionsCount = romData.getByte(0x1F0);
 
         romData.getBytes(0x200, events); // 0x600
-
-        romData.getBytes(0x219, chests); // 0x619
-
-        romData.getBytes(0x395, bosses); // 0x795
+        romData.getBytes(0x300, chests); // 0x700
+        romData.getBytes(0x3C1, bosses); // 0x7C1
 
         romData.getBytes(0x1D8, unknown_5D8_5DF); // 0x5D8
         romData.getBytes(0x1E3, unknown_5E3_5EF); // 0x5E3
         romData.getBytes(0x1F1, unknown_5F1_5FF); // 0x5F1
+
+        romData.getBytes(0x219, unknown_619_6EF); // 0x619
+        romData.getBytes(0x395, unknown_795_7C0); // 0x795
+        romData.getBytes(0x3D9, unknown_7D9_7FF); // 0x7D9
 
         romData.setOffset(0);
     }
@@ -244,6 +247,30 @@ public class SaveGame {
         this.unknown_5F1_5FF = unknown_5F1_5FF;
     }
 
+    public int[] getUnknown_619_6EF() {
+        return unknown_619_6EF;
+    }
+
+    public void setUnknown_619_6EF(int[] unknown_619_6EF) {
+        this.unknown_619_6EF = unknown_619_6EF;
+    }
+
+    public int[] getUnknown_795_7C0() {
+        return unknown_795_7C0;
+    }
+
+    public void setUnknown_795_7C0(int[] unknown_795_7C0) {
+        this.unknown_795_7C0 = unknown_795_7C0;
+    }
+
+    public int[] getUnknown_7D9_7FF() {
+        return unknown_7D9_7FF;
+    }
+
+    public void setUnknown_7D9_7FF(int[] unknown_7D9_7FF) {
+        this.unknown_7D9_7FF = unknown_7D9_7FF;
+    }
+
     @Override
     public String toString() {
         return "SaveGame{" +
@@ -261,6 +288,9 @@ public class SaveGame {
                 ", unknown_5D8_5DF=" + Arrays.toString(unknown_5D8_5DF) +
                 ", unknown_5E3_5EF=" + Arrays.toString(unknown_5E3_5EF) +
                 ", unknown_5F1_5FF=" + Arrays.toString(unknown_5F1_5FF) +
+                ", unknown_5D8_5DF=" + Arrays.toString(unknown_619_6EF) +
+                ", unknown_5E3_5EF=" + Arrays.toString(unknown_795_7C0) +
+                ", unknown_5F1_5FF=" + Arrays.toString(unknown_7D9_7FF) +
                 '}';
     }
 
@@ -278,6 +308,7 @@ public class SaveGame {
                         unknown_5E3_5EF: %s
                         unknown_5F1_5FF: %s""", name, status, itemsCount, Arrays.toString(items), mesetas, companionsCount,
                 Arrays.toString(events), Arrays.toString(chests), Arrays.toString(bosses),
-                Arrays.toString(unknown_5D8_5DF), Arrays.toString(unknown_5E3_5EF), Arrays.toString(unknown_5F1_5FF));
+                Arrays.toString(unknown_5D8_5DF), Arrays.toString(unknown_5E3_5EF), Arrays.toString(unknown_5F1_5FF),
+                Arrays.toString(unknown_619_6EF), Arrays.toString(unknown_795_7C0), Arrays.toString(unknown_7D9_7FF));
     }
 }

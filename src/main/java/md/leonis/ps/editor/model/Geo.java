@@ -3,6 +3,7 @@ package md.leonis.ps.editor.model;
 import md.leonis.bin.Dump;
 import md.leonis.ps.editor.model.enums.Direction;
 import md.leonis.ps.editor.model.enums.EnvironmentType;
+import md.leonis.ps.editor.utils.Config;
 
 import java.util.Arrays;
 
@@ -10,7 +11,7 @@ public class Geo {
 
     public static int increment = 0;
 
-    private Planets planet; //TODO need???
+    private Planets planet; //TODO удалить в будущем, вычислять на лету
     private String name;
 
     // 0x400: 00 - X, but inverse. In SS always 00. Probably offset in tilemap
@@ -46,7 +47,7 @@ public class Geo {
     private int color;          // 0x415        Dungeon color. (00-0A) Examples: 02: light green, 03: blue? 04: blue, 05: light blue, 06: yellow, 07: pink,...
     private EnvironmentType type;// 0x416       Type of environment. 0D (13): outdoor, cities; 0B (11): dungeons
     private int church;         // 0x417        Church # (for teleport); Examples: 00: no; 01: Camineet, 02: Gothic, 03: Loar, ...
-    private int[] unknown_418_4FF = new int[232]; // 0x418-0x4FF  ?????????????   232 bytes     00
+    private int[] unknown_418_4FF = new int[232]; // 0x418-0x4FF  ?????????????   232 bytes     00 //todo может перенести в SaveGame
 
     public Geo() {
     }
@@ -409,5 +410,18 @@ public class Geo {
 
     String toHex(int value) {
         return String.format("%02X %02X", (byte) value, (byte) (value >>> 8));
+    }
+
+    public String getMapTextId() {
+        return String.format("%02X%02X", mapLayer, mapId);
+    }
+
+    public String getDungeonTextId() {
+        return String.format("%02X%02X%02X-%04X", mapLayer, mapId, dungeon, x);
+    }
+
+    public String getMapTitle() {
+        String textId = (color == 0) ? getMapTextId() : getDungeonTextId();
+        return Config.languageTable.getProperty(textId, textId);
     }
 }

@@ -1,9 +1,7 @@
 package md.leonis.ps.editor.view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
@@ -24,6 +22,8 @@ public class TrackPaneController {
     public Button refreshButton;
     public CheckBox clearLogsCheckBox;
     public CheckBox autoRefreshCheckBox;
+    public Slider refreshIntervalSlider;
+    public TextField refreshTextField;
 
     @FXML
     private void initialize() {
@@ -31,6 +31,10 @@ public class TrackPaneController {
         Timer timer = new Timer(true);
         // repeat the check every second
         timer.schedule(task, new Date(), 1);
+
+        refreshIntervalSlider.valueProperty().addListener((changed, oldValue, newValue) ->
+                refreshTextField.setText(String.valueOf((newValue.intValue() == 0) ? 1 : newValue.intValue())));
+
     }
 
     public void refreshButtonClick() throws Exception {
@@ -233,6 +237,8 @@ public class TrackPaneController {
 
     public void autoRefreshCheckBoxClick() {
         refreshButton.setDisable(autoRefreshCheckBox.isSelected());
+        refreshIntervalSlider.setDisable(!autoRefreshCheckBox.isSelected());
+        refreshTextField.setDisable(!autoRefreshCheckBox.isSelected());
     }
 
     public class FileWatcher extends TimerTask {
@@ -262,7 +268,7 @@ public class TrackPaneController {
                 }
             }
 
-            nextRefreshTime = System.currentTimeMillis() + 200;
+            nextRefreshTime = System.currentTimeMillis() + Long.parseLong(refreshTextField.getText());
         }
     }
 }

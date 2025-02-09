@@ -152,7 +152,7 @@ public class SaveGamePaneController {
         button.setStyle("-fx-font: " + (font.getSize() - 2) + " " + font.getFamily());
         allItemsPane.getChildren().add(button);
 
-        colorSlider.setLabelFormatter(new StringConverter<Double>() {
+        colorSlider.setLabelFormatter(new StringConverter<>() {
             @Override
             public String toString(Double object) {
                 return object * 5 + "'";

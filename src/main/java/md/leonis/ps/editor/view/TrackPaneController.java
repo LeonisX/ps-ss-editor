@@ -2,6 +2,7 @@ package md.leonis.ps.editor.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.model.Hero;
@@ -10,22 +11,26 @@ import md.leonis.ps.editor.model.SaveState;
 import md.leonis.ps.editor.utils.Config;
 
 import java.io.File;
-import java.util.*;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TrackPaneController {
 
-    //todo auto checkbox
+    //todo refresh interval, ms
     @FXML
     public TextArea textArea;
     @FXML
     public Button refreshButton;
+    public CheckBox clearLogsCheckBox;
+    public CheckBox autoRefreshCheckBox;
 
     @FXML
     private void initialize() {
         TimerTask task = new FileWatcher(Config.saveStateFile);
-        Timer timer = new Timer();
+        Timer timer = new Timer(true);
         // repeat the check every second
-        timer.schedule(task, new Date(), 200);
+        timer.schedule(task, new Date(), 1);
     }
 
     public void refreshButtonClick() throws Exception {
@@ -36,7 +41,11 @@ public class TrackPaneController {
             showGameDiff(i, sb, Config.saveState.getSaveGames()[i], Config.newSaveState.getSaveGames()[i]);
         }
 
-        textArea.setText(sb.toString());
+        if (clearLogsCheckBox.isSelected()) {
+            textArea.setText(sb.toString());
+        } else {
+            textArea.setText(textArea.getText() + sb);
+        }
 
         Config.saveState = Config.newSaveState;
     }
@@ -222,26 +231,38 @@ public class TrackPaneController {
         return String.format("%02X %02X", (byte) value, (byte) (value >>> 8));
     }
 
+    public void autoRefreshCheckBoxClick() {
+        refreshButton.setDisable(autoRefreshCheckBox.isSelected());
+    }
+
     public class FileWatcher extends TimerTask {
-        private long timeStamp;
+
         private final File file;
+        private long fileTimeStamp;
+        private long nextRefreshTime;
 
         public FileWatcher(File file) {
             this.file = file;
-            this.timeStamp = file.lastModified();
+            this.fileTimeStamp = file.lastModified();
         }
 
         public final void run() {
+            if (System.currentTimeMillis() < nextRefreshTime || !autoRefreshCheckBox.isSelected()) {
+                return;
+            }
+
             long timeStamp = file.lastModified();
 
-            if (this.timeStamp != timeStamp) {
-                this.timeStamp = timeStamp;
+            if (this.fileTimeStamp != timeStamp) {
+                this.fileTimeStamp = timeStamp;
                 try {
                     refreshButtonClick();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
+            nextRefreshTime = System.currentTimeMillis() + 200;
         }
     }
 }

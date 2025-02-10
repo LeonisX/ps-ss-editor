@@ -5,7 +5,7 @@ import java.util.Arrays;
 // Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
 public enum Direction {
 
-    NORD(0),
+    NORTH(0),
     EAST(1),
     SOUTH(2),
     WEST(3);

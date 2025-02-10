@@ -2,6 +2,7 @@ package md.leonis.ps.editor.view;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +10,9 @@ import md.leonis.ps.editor.model.Geo;
 import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
+import md.leonis.ps.editor.model.enums.Direction;
 import md.leonis.ps.editor.model.enums.DungeonColor;
+import md.leonis.ps.editor.model.enums.EnvironmentType;
 import md.leonis.ps.editor.utils.Config;
 
 import java.io.File;
@@ -27,15 +30,21 @@ public class TrackPaneController {
     public CheckBox autoRefreshCheckBox;
     public Slider refreshIntervalSlider;
     public TextField refreshTextField;
-    public ImageView mapImageView;
+
+
     public ImageView alisaImageView;
+    public Canvas paletteCanvas;
+    public ImageView mapImageView;
+
+    private Direction direction = Direction.SOUTH;
 
     @FXML
     private void initialize() {
-        TimerTask task = new FileWatcher(Config.saveStateFile);
-        Timer timer = new Timer(true);
-        // repeat the check every second
-        timer.schedule(task, new Date(), 1);
+        Timer rescanTimer = new Timer(true);
+        rescanTimer.schedule(new FileWatcher(Config.saveStateFile), new Date(), 1);
+
+        Timer animationTimer = new Timer(true);
+        animationTimer.schedule(new Animator(), new Date(), 250);
 
         refreshIntervalSlider.valueProperty().addListener((changed, oldValue, newValue) ->
                 refreshTextField.setText(String.valueOf((newValue.intValue() == 0) ? 1 : newValue.intValue())));
@@ -44,6 +53,9 @@ public class TrackPaneController {
         mapImageView.setImage(image); //todo on change map
 
         alisaImageView.setImage(new Image(new File("Alisa.png").toURI().toString()));
+        alisaImageView.setViewOrder(-2);
+
+        //paletteCanvas.setViewOrder(-1);
 
         showMap(Config.saveState.getSaveGames()[0].getGeo()); //todo select game if need
     }
@@ -143,6 +155,17 @@ public class TrackPaneController {
 
         if (oldGeo.getX() != newGeo.getX() || oldGeo.getY() != newGeo.getY()) {
             showMap(newGeo);
+        }
+
+        if (newGeo.getType().equals(EnvironmentType.DUNGEON)) {
+            direction = newGeo.getDirection();
+        } else {
+            if (oldGeo.getX() != newGeo.getX()) {
+                direction = (oldGeo.getX() < newGeo.getX()) ? Direction.EAST : Direction.WEST;
+            }
+            if (oldGeo.getY() != newGeo.getY()) {
+                direction = (oldGeo.getY() < newGeo.getY()) ? Direction.SOUTH : Direction.NORTH;
+            }
         }
 
         addDiff(sb, "Map Layer", oldGeo.getMapLayer(), newGeo.getMapLayer());
@@ -302,6 +325,16 @@ public class TrackPaneController {
             }
 
             nextRefreshTime = System.currentTimeMillis() + Long.parseLong(refreshTextField.getText());
+        }
+    }
+
+    public class Animator extends TimerTask {
+
+        private int frame = 0;
+
+        public final void run() {
+            alisaImageView.setViewport(new Rectangle2D(frame * 16, direction.getId() * 24, 16, 24));
+            frame = (frame == 3) ? 0 : frame + 1;
         }
     }
 }

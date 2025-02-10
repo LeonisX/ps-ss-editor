@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.image.ImageView?>
+
 <?import javafx.scene.canvas.Canvas?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0"
-            prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="md.leonis.ps.editor.view.TrackPaneController">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -18,14 +25,14 @@
             <padding>
                 <Insets bottom="5.0" top="5.0"/>
             </padding>
-            <CheckBox fx:id="clearLogsCheckBox" text="Auto clear logs" selected="true"/>
-            <Button fx:id="refreshButton" onAction="#refreshButtonClick" text="Refresh" disable="true"/>
-            <CheckBox fx:id="autoRefreshCheckBox" text="Auto Refresh" selected="true"
-                      onAction="#autoRefreshCheckBoxClick"/>
+            <CheckBox fx:id="clearLogsCheckBox" selected="true" text="Auto clear logs"/>
+            <Button fx:id="refreshButton" disable="true" onAction="#refreshButtonClick" text="Refresh"/>
+            <CheckBox fx:id="autoRefreshCheckBox" onAction="#autoRefreshCheckBoxClick" selected="true"
+                      text="Auto Refresh"/>
             <Slider fx:id="refreshIntervalSlider" blockIncrement="5.0" majorTickUnit="100.0" max="1000.0"
-                    prefWidth="300"
-                    minorTickCount="10" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="200.0"/>
-            <TextField fx:id="refreshTextField" text="200" prefWidth="43" maxWidth="43"/>
+                    minorTickCount="10" prefWidth="300" showTickLabels="true" showTickMarks="true" snapToTicks="true"
+                    value="200.0"/>
+            <TextField fx:id="refreshTextField" maxWidth="43" prefWidth="43" text="200"/>
             <Label text="ms"/>
         </HBox>
     </top>
@@ -34,11 +41,14 @@
         <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
     </center>
     <right>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="320.0" prefHeight="288.0">
-            <ImageView fx:id="alisaImageView" fitHeight="24.0" fitWidth="16.0" layoutX="145.0" layoutY="120.0"
-                       viewOrder="-2"/>
-            <!--<Canvas fx:id="paletteCanvas" width="288.0" height="288.0" layoutX="32.0" layoutY="16.0" viewOrder="1" />-->
-            <ImageView fx:id="mapImageView" fitWidth="320.0" fitHeight="288.0"/>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="288.0" prefWidth="320.0">
+            <ImageView fx:id="alisaImageView" fitHeight="24.0" fitWidth="16.0" layoutX="144.0" layoutY="120.0">
+                <viewport>
+                    <Rectangle2D height="24.0" width="16.0"/>
+                </viewport>
+            </ImageView>
+<!--            <Canvas fx:id="paletteCanvas" width="288.0" height="288.0" layoutX="32.0" layoutY="16.0" visible="false" />-->
+            <ImageView fx:id="mapImageView" fitHeight="288.0" fitWidth="320.0" smooth="false"/>
         </AnchorPane>
     </right>
 </BorderPane>

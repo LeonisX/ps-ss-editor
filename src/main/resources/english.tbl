@@ -35,9 +35,9 @@ hero3=Lutz
 0710=Paseo Spaceport
 0711=Casba
 0712=Sopia
-0813=Skray (surface)
+0813=Scure (surface)
 0814=Twintown (surface)
-0915=Skray
+0915=Scure
 0916=Twintown
 0E0E=TODO дорога из космопорта в пасео
 1010=TODO дорога из пасео в космопорт
@@ -140,7 +140,7 @@ hero3=Lutz
 070E21-7001=Paseo Palace Dungeon
 070E21-9001=Passageway to Paseo Palace
 070E21-A001=Paseo Palace Entrance'
-081328-B000=Passageway to Skray
+081328-B000=Passageway to Scure
 081428-1003=Passageway to Twintown
 0A1735-7001=Air Castle Dungeon #5
 0A1736-7001=Air Castle Dungeon #4
@@ -158,7 +158,7 @@ church4=Paseo
 church5=Uzo
 church6=Casba
 church7=Twintown
-church8=Skure
+church8=Scure
 
 
 ; 1     title             attack   use by

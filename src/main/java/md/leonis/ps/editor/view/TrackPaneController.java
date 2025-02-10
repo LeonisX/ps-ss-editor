@@ -16,9 +16,8 @@ import md.leonis.ps.editor.model.enums.EnvironmentType;
 import md.leonis.ps.editor.utils.Config;
 
 import java.io.File;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.nio.file.Paths;
+import java.util.*;
 
 public class TrackPaneController {
 
@@ -38,6 +37,22 @@ public class TrackPaneController {
 
     private Direction direction = Direction.SOUTH;
 
+    private final List<String> mapsList = List.of(
+            "Palma",
+            "Motavia",
+            "Dezoris",
+            "Camineet, Parolit, Spaceport",
+            "Gothic, Eppi, Loar, Abion, Bortevo",
+            "Drasgow, Scion",
+            "Paseo, Uzo, Spaceport, Casba, Sopia",
+            "Scure, Twintown (Surface)",
+            "Scure, Twintown",
+            "Air Castle",
+            "Empty"
+    );
+
+    private final Map<Integer, Image> maps = new HashMap<>();
+
     @FXML
     private void initialize() {
         Timer rescanTimer = new Timer(true);
@@ -49,15 +64,22 @@ public class TrackPaneController {
         refreshIntervalSlider.valueProperty().addListener((changed, oldValue, newValue) ->
                 refreshTextField.setText(String.valueOf((newValue.intValue() == 0) ? 1 : newValue.intValue())));
 
-        Image image = new Image(new File("Palma.png").toURI().toString()); //todo array of images
-        mapImageView.setImage(image); //todo on change map
+        for (int i = 0; i < mapsList.size(); i++) {
+            maps.put(i, loadImage(mapsList.get(i)));
+        }
 
         alisaImageView.setImage(new Image(new File("Alisa.png").toURI().toString()));
         alisaImageView.setViewOrder(-2);
 
         //paletteCanvas.setViewOrder(-1);
 
-        showMap(Config.saveState.getSaveGames()[0].getGeo()); //todo select game if need
+        Geo geo = Config.saveState.getSaveGames()[0].getGeo(); //todo select game if need
+        setMap(geo);
+        showMap(geo);
+    }
+
+    private Image loadImage(String fileName) {
+        return new Image(Paths.get(".").resolve("maps").resolve(fileName + ".png").toUri().toString());
     }
 
     public void refreshButtonClick() throws Exception {
@@ -153,6 +175,10 @@ public class TrackPaneController {
         addDiffHex(sb, "X2", oldGeo.getTileAlignedX(), newGeo.getTileAlignedX());
         addDiffHex(sb, "Y2", oldGeo.getTileAlignedY(), newGeo.getTileAlignedY());
 
+        if (oldGeo.getMapId() != newGeo.getMapId()) {
+            setMap(newGeo);
+        }
+
         if (oldGeo.getX() != newGeo.getX() || oldGeo.getY() != newGeo.getY()) {
             showMap(newGeo);
         }
@@ -213,6 +239,10 @@ public class TrackPaneController {
                 addDiff(sb, "Curative Spells", oldHero.getCurativeSpells(), newHero.getCurativeSpells());
             }
         }
+    }
+
+    private void setMap(Geo geo) {
+        mapImageView.setImage(maps.get(geo.getMapId()));
     }
 
     private void showMap(Geo geo) {

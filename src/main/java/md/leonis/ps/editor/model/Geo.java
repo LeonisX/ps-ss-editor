@@ -31,8 +31,8 @@ public class Geo {
     // 05 = Gothic, Eppi, Loar, Abion
     // 06 = Drasgow, Shion
     // 07 = Paseo, Uzo, Casba, Sopia
-    // 08 = Skure, Twintown (surface)
-    // 09 = Skure, Twintown
+    // 08 = Scure, Twintown (surface)
+    // 09 = Scure, Twintown
     // 0A = Air Castle
     private int mapId;          // 0x409        Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
     private Direction direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon

@@ -100,7 +100,8 @@ public class RlePaneController {
             Integer[][] bitPlanes = fastReadBitPlanes();
             if ((bitPlanes[3] != null) && (dump.getIndex() - i > 16) && (lastIndex != dump.getIndex())) {
                 lastIndex = dump.getIndex();
-                String range = String.format("0x%S-0x%S", Integer.toHexString(i), Integer.toHexString(lastIndex - 1));;
+                String range = String.format("0x%S-0x%S", Integer.toHexString(i), Integer.toHexString(lastIndex - 1));
+                ;
                 Tile[] tiles = initializeTiles(bitPlanes);
                 System.out.println(range + " " + (lastIndex - 1 - i) + " " + tiles.length);
                 Canvas rleCanvas = new Canvas();
@@ -155,7 +156,7 @@ public class RlePaneController {
         System.out.println("=== Map Pieces (7)");
         mapPieces7 = readMapPieces(0x60000, 7);
 
-        maps = new Map[] {
+        maps = new Map[]{
                 new Map("Camineet, Parolit, Spaceport", camineetPalette,
                         localityTiles, localityBigTiles, mapPieces7[0]),
                 new Map("Gothic, Eppi, Loar, Abion, Bortevo", gothicPalette,
@@ -202,11 +203,10 @@ public class RlePaneController {
                     map.getMapPieces()[mapId].draw(mapGc, map.getPalette(), map.getTiles(), map.getBigTiles(), x * 16 * 16, y * 12 * 16);
                 }
             }
-            saveCanvas(mapCanvas, map.getName() + ".png");
+            saveCanvas(mapCanvas, "maps/" + map.getName() + ".png");
         }
 
     }
-
 
 
     private MapPiece[][] readMapPieces(int start, int count) {
@@ -268,7 +268,7 @@ public class RlePaneController {
                             + (getBit(bitPlanes[1][index], 7 - k) << 1)
                             + getBit(bitPlanes[0][index], 7 - k);
                 }
-                index ++;
+                index++;
             }
         }
         return tiles;
@@ -329,7 +329,7 @@ public class RlePaneController {
     }
 
     private void drawPalette(GraphicsContext paletteGc, Palette palette) {
-        for (int i = 0; i < 16; i ++) {
+        for (int i = 0; i < 16; i++) {
             paletteGc.setFill(palette.get(i));
             paletteGc.fillRect(i * 16, 0, 16, 96);
             paletteGc.setFill(palette.get(i + 16));
@@ -337,7 +337,7 @@ public class RlePaneController {
         }
     }
 
-    private void initDraw(GraphicsContext gc){
+    private void initDraw(GraphicsContext gc) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 int index = i * 8 + j;

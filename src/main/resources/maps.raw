@@ -64,11 +64,11 @@ C508	01	Unhide FlowMover in Bortevo
 Sopia
 00 00 07 00 40 40 04 00 07 12 03 00 25 22 00 00 00 40 04 00 07 00 0D
 C509	01	Give 400 mesetas to Sopia head. Unhide Perseus Shield on island
-Skray - surface
+Scure - surface
 D0 30 01 00 20 20 01 00 08 13 03 00 25 22 00 00 03 20 01 30 01 00 0D
 Twintown - surface
 F0 10 03 00 30 30 01 00 08 14 01 00 1C 31 00 02 00 30 01 10 03 00 0D
-Skray
+Scure
 80 80 05 00 A0 A0 00 00 09 15 00 00 6B 28 00 00 03 A0 00 80 05 00 0D
 Twintown
 80 80 01 00 A0 A0 01 00 09 16 02 00 87 28 00 02 00 A0 01 80 01 00 0D
@@ -385,7 +385,7 @@ C6CF	FF	9E	Boss: Red Dragon	Light Saber
 Casba Cave (Casba side)
 00 50 05 00 00 30 07 00 01 01 00 00 DC 27 00 00 00 30 07 50 05 07 0B
 
-Passageway to Skray
+Passageway to Scure
 00 B0 00 00 00 B0 00 00 08 13 02 00 23 28 00 00 03 B0 00 B0 00 0A 0B
 C67F	FF	D1	500 Mesetas
 Passageway to Twintown

@@ -41,6 +41,7 @@ public class TrackPaneController {
             "Palma",
             "Motavia",
             "Dezoris",
+            "Empty",
             "Camineet, Parolit, Spaceport",
             "Gothic, Eppi, Loar, Abion, Bortevo",
             "Drasgow, Scion",
@@ -71,11 +72,13 @@ public class TrackPaneController {
         alisaImageView.setImage(new Image(new File("Alisa.png").toURI().toString()));
         alisaImageView.setViewOrder(-2);
 
-        //paletteCanvas.setViewOrder(-1);
+        paletteCanvas.setViewOrder(-1);
 
         Geo geo = Config.saveState.getSaveGames()[0].getGeo(); //todo select game if need
         setMap(geo);
         showMap(geo);
+
+        showDungeon(geo);
     }
 
     private Image loadImage(String fileName) {
@@ -183,6 +186,8 @@ public class TrackPaneController {
             showMap(newGeo);
         }
 
+        showDungeon(newGeo);
+
         if (newGeo.getType().equals(EnvironmentType.DUNGEON)) {
             direction = newGeo.getDirection();
         } else {
@@ -250,6 +255,10 @@ public class TrackPaneController {
         //x +128
         //y +96
         mapImageView.setViewport(new Rectangle2D(geo.getTileX() - 16, geo.getTileY() - 32, 320, 288));
+    }
+
+    private void showDungeon(Geo geo) {
+        paletteCanvas.setVisible(geo.getColor() > 0);
     }
 
     private void addDiff(StringBuilder sb, String title, String oldValue, String newValue) {

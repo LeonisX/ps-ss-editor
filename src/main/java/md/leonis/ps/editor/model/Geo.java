@@ -29,17 +29,17 @@ public class Geo {
     // 02 = Dezoris
     // 04 = Camineet, Parolit
     // 05 = Gothic, Eppi, Loar, Abion
-    // 06 = Drasgow, Shion
+    // 06 = Drasgow, Scion
     // 07 = Paseo, Uzo, Casba, Sopia
-    // 08 = Scure, Twintown (surface)
-    // 09 = Scure, Twintown
+    // 08 = Skure, Twintown (surface)
+    // 09 = Skure, Twintown
     // 0A = Air Castle
     private int mapId;          // 0x409        Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
     private Direction direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
     //TODO YX (Medusa's tower) XY (Dezorian Cavern #5)
     private int unknown_40B;    // 0x40B: 00
     private int room;           // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
-    private int dungeon;        // 0x40D        Dungeon #. Examples: Medusa's Cave, outdoor: 00; Camineet Warehouse: 02
+    private int dungeon;        // 0x40D        Dungeon #. Examples: Medusa Cave, outdoor: 00; Camineet Warehouse: 02
     // (00-3A) Interesting things: some dungeons intersects (Scion/Naula caves, ...)
     private int transport;      // 0x40E        00 -> 08 — hovercraft, 04 — landrover, 0C - ice digger
     private int animation1;     // 0x40F        00..03 - transport animation? set 00

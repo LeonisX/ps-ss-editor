@@ -1,6 +1,6 @@
 package md.leonis.ps.editor.model.enums;
 
-// Dungeon colors
+// Dungeon colors: GGRRBB
 public enum DungeonColor {
 
     COLOR_0("FFAA00", "FF5500"),

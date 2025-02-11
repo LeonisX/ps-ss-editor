@@ -46,8 +46,8 @@ public class TrackPaneController {
             "Gothic, Eppi, Loar, Abion, Bortevo",
             "Drasgow, Scion",
             "Paseo, Uzo, Spaceport, Casba, Sopia",
-            "Scure, Twintown (Surface)",
-            "Scure, Twintown",
+            "Skure, Twintown (Surface)",
+            "Skure, Twintown",
             "Air Castle",
             "Empty"
     );

@@ -6,6 +6,7 @@ import md.leonis.ps.editor.model.enums.EnvironmentType;
 import md.leonis.ps.editor.utils.Config;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Geo {
 
@@ -36,9 +37,8 @@ public class Geo {
     // 0A = Air Castle
     private int mapId;          // 0x409        Map Id on layer. Examples: 00 — Palma, 04 — Camineet,... (0x00 - 0x17)
     private Direction direction;// 0x40A        Direction in dungeon. Default = 0; To right: 1 → 2 → 3. Contains after exit from dungeon
-    //TODO YX (Medusa's tower) XY (Dezorian Cavern #5)
     private int unknown_40B;    // 0x40B: 00
-    private int room;           // 0x40C        Room # in dungeon; Both X (4-bit), Y (4-bit). Examples: 5E
+    private int room;           // 0x40C        Room # in dungeon; Both Y (4-bit), X (4-bit). Examples: 5E. YX (Medusa's tower) XY (Dezorian Cavern #5) Already rotated?
     private int dungeon;        // 0x40D        Dungeon #. Examples: Medusa Cave, outdoor: 00; Camineet Warehouse: 02
     // (00-3A) Interesting things: some dungeons intersects (Scion/Naula caves, ...)
     private int transport;      // 0x40E        00 -> 08 — hovercraft, 04 — landrover, 0C - ice digger
@@ -387,6 +387,26 @@ public class Geo {
         return name.contains("#");
     }
 
+    public int getRoomX() {
+        return room & 0x0F;
+    }
+
+    public int getRoomY() {
+        return (room >> 4) & 0x0F;
+    }
+
+    public int getByteSwappedX() {
+        return getByteSwapped(x);
+    }
+
+    public int getByteSwappedY() {
+        return getByteSwapped(y);
+    }
+
+    private int getByteSwapped(int value) {
+        return ((value >> 8) & 0xFF) + (value & 0xFF) * 256;
+    }
+
     public int getTileX() {
         //не работает это выравнивание часто :(
         /*if (Math.abs(tileAlignedX - x) < 16) {
@@ -436,11 +456,26 @@ public class Geo {
     }
 
     public String getDungeonTextId() {
-        return String.format("%02X%02X%02X-%04X", mapLayer, mapId, dungeon, x);
+        return String.format("%02X%02X%02X", mapLayer, mapId, dungeon);
     }
 
     public String getMapTitle() {
-        String textId = (color == 0) ? getMapTextId() : getDungeonTextId();
-        return Config.languageTable.getProperty(textId, textId);
+        if (color == 0) {
+            String textId = getMapTextId();
+            return Config.languageTable.getProperty(textId, textId);
+        } else {
+            String textId = getDungeonTextId();
+            var candidates = Config.languageTable.entrySet().stream()
+                    .filter(e -> e.getKey().toString().startsWith(textId))
+                    .filter(e -> Math.abs(getByteSwapped(Integer.parseInt(e.getKey().toString().split("-")[1], 16)) - x) < 24)
+                    .sorted(Comparator.comparing(e -> e.getValue().toString()))
+                    .toList();
+
+            if (candidates.size() > 1) {
+                System.out.println("Candidates: " + candidates);
+            }
+
+            return candidates.isEmpty() ? textId : candidates.get(0).getValue().toString();
+        }
     }
 }

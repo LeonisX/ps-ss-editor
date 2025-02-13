@@ -42,12 +42,12 @@
     </center>
     <right>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="288.0" prefWidth="320.0">
-            <ImageView fx:id="alisaImageView" fitHeight="24.0" fitWidth="16.0" layoutX="144.0" layoutY="120.0">
+            <ImageView fx:id="alisaImageView" fitHeight="24.0" fitWidth="16.0" layoutX="144.0" layoutY="120.0" viewOrder="-2">
                 <viewport>
                     <Rectangle2D height="24.0" width="16.0"/>
                 </viewport>
             </ImageView>
-            <Canvas fx:id="paletteCanvas" width="288.0" height="288.0" layoutX="32.0" layoutY="16.0" visible="false" />
+            <Canvas fx:id="dungeonCanvas" width="256.0" height="256.0" layoutX="32.0" layoutY="16.0" viewOrder="-1" visible="false" />
             <ImageView fx:id="mapImageView" fitHeight="288.0" fitWidth="320.0" smooth="false"/>
         </AnchorPane>
     </right>

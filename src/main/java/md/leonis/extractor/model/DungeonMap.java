@@ -7,13 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class DungeonMap {
-                                    // 01234567     89ABCDEF     GHIJKLMN     OPQRSTUV
-    private static final String textTiles = "░█▲▼─═≡▒" + "«●───═≡!" + "ΩΩΩi─═≡≡" + "!PQRSTUV";
-    private static final String textTiles2= "░█▲▼─═≡▒" + "»●▲▼☺☺☺!" + "▲▼─iiii!" + "iPQRSTUV";
 
     private static final List<String> tiles = new ArrayList<>(Arrays.asList(
             //0     1     2     3     4     5     6     7     8     9
@@ -21,14 +16,40 @@ public class DungeonMap {
             //10   11    12    13    14    15    16    17    18    19
             "▲▲", "▼▼", "▲─", "▼─", "«»", "─«", "!«", "!!", "≡!", "!i",
             //20   21    22    23    24
-            "ii", "i─", "i═", "TY", "??"
+            "ii", "i─", "i═", "OD", "??"
+            // 0 - Стена
+            // 1 - Проход
+            // 2 - Потайной проход
+            // 3 - Ловушка
+            // 4 - Дверь
+            // 5 - Запертая дверь
+            // 6 - Дверь, запертая магией
+            // 7 - Выход из подземелья (вверх)
+            // 8 - Выход из строения (вниз)
+            // 9 -
+            // 10 - Лестница вверх
+            // 11 - Лестница вниз
+            // 12 -
+            // 13 -
+            // 14 - Сундук
+            // 15 -
+            // 16 -
+            // 17 - Босс
+            // 18 -
+            // 19 -
+            // 20 -
+            // 21 - NPC, просто говорит, находится за дверью.
+            // 22 - Odin (Tylon)
+            // 23 -
+            // 24 -
     ));
 
-    private final int[] data = new int[16 * 16]; // 8 bytes x 16 rows in ROM
-
+    // 8 bytes x 16 rows in ROM
     private final int[][] map = new int[16][16];
 
     public DungeonMap(Dump dump) {
+        // 8 bytes x 16 rows in ROM
+        int[] data = new int[16 * 16];
         for (int i = 0; i < 0x80; i++) {
             int pair = dump.getByte();
             int left = pair >>> 4 & 0xF;
@@ -36,11 +57,8 @@ public class DungeonMap {
             data[i * 2] = left;
             data[i * 2 + 1] = right;
         }
-    }
-
-    public DungeonMap(String dump) {
-        for (int i = 0; i < dump.length(); i++) {
-            data[i] = Integer.parseInt(String.valueOf(dump.charAt(i)), 16);
+        for (int i = 0; i < data.length; i += 16) {
+            System.out.println(Arrays.toString(Arrays.copyOfRange(data, i, Math.min(data.length, i + 16))));
         }
     }
 
@@ -58,38 +76,22 @@ public class DungeonMap {
     }
 
     public int get(int x, int y) {
-        return data[y * 16 + x];
-    }
-
-    public char getHex(int x, int y) {
-        return Integer.toHexString(data[y * 16 + x]).charAt(0);
-    }
-
-    private String getTextTile(int x, int y) {
-        int value = get(x, y);
-        return "" + textTiles.charAt(value) + textTiles2.charAt(value);
-    }
-
-    public String drawAsText() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int y = 0; y < 16; y++) {
-            for (int x = 0; x < 16; x++) {
-                stringBuilder.append(getTextTile(x, y));
-            }
-            stringBuilder.append("\n");
-        }
-        return stringBuilder.toString();
+        return map[y][x];
     }
 
     public String drawAsText2() {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (int y = 0; y < 16; y++) {
-            for (int x = 0; x < 16; x++) {
-                stringBuilder.append(tiles.get(map[y][x]));
-            }
-            stringBuilder.append("\n");
+            drawLine(sb, y);
+            sb.append("\n");
         }
-        return stringBuilder.toString();
+        return sb.toString();
+    }
+
+    public void drawLine(StringBuilder sb, int y) {
+        for (int x = 0; x < 16; x++) {
+            sb.append(tiles.get(map[y][x]));
+        }
     }
 
     public void audit(int i) {
@@ -97,25 +99,23 @@ public class DungeonMap {
         for (int y = 0; y < 16; y++) {
             for (int x = 0; x < 16; x++) {
                 int value = map[y][x];
-                if (value == 14) System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
-                if (value == 15) System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
-                if (value == 16) System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
-                if (value == 23) System.out.println("       !!Quest " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
-                if (value == 16) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
-                if (value == 17) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
-                if (value == 18) System.out.println("       Boss " +  String.format("%01X%01X    %s", y, x, tiles.get(map[y][x])));
-                if (value == 19) System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+                if (value == 14)
+                    System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
+                if (value == 15)
+                    System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
+                if (value == 16)
+                    System.out.println("       Chest " + String.format("%01X%01X   %s", y, x, tiles.get(map[y][x])));
+                if (value == 23)
+                    System.out.println("       !!Quest " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+                if (value == 16)
+                    System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+                if (value == 17)
+                    System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
+                if (value == 18)
+                    System.out.println("       Boss " + String.format("%01X%01X    %s", y, x, tiles.get(map[y][x])));
+                if (value == 19)
+                    System.out.println("       Monster " + String.format("%01X%01X %s", y, x, tiles.get(map[y][x])));
             }
         }
-    }
-
-    public String toProperty(int index) {
-
-        String result = Arrays.stream(data).mapToObj(d -> "" + textTiles.charAt(d) + textTiles2.charAt(d)).collect(Collectors.joining());
-        String[] chunks = result.split("(?<=\\G.{32})");
-
-        return IntStream.range(0, chunks.length)
-                .mapToObj(i -> String.format("dungeon%02X-%X=%s\n", index, i, chunks[i]))
-                .collect(Collectors.joining());
     }
 }

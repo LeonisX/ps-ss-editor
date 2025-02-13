@@ -1,6 +1,7 @@
 package md.leonis.ps.editor.utils;
 
 import md.leonis.bin.Dump;
+import md.leonis.extractor.model.DungeonMap;
 import md.leonis.ps.editor.model.*;
 
 import java.io.File;
@@ -64,6 +65,8 @@ public class Config {
 
     public static int[][] battleSpells = {{4, 9, 14, 3, 1}, {10, 12, 17, 7}, {}, {3, 11, 18, 6, 13}};
     public static int[][] overworldSpells = {{4, 15}, {10, 16, 2}, {}, {10, 2, 11, 5, 8}};
+
+    public static DungeonMap[] dungeonMaps = new DungeonMap[0x3D];
 
 
     //static final String resourcePath = "/" + MainStageController.class.getPackage().getName().replaceAll("\\.", "/") + "/";
@@ -196,6 +199,7 @@ public class Config {
     static {
         geos = loadMaps("maps-results.csv");
         trackGeos = loadMaps("track-maps.csv");
+        loadMaps();
     }
 
     private static List<Geo> loadMaps(String fileName) {
@@ -210,6 +214,20 @@ public class Config {
         }
 
         return geos;
+    }
+
+    public static void loadMaps() {
+        try (InputStream inputStream = md.leonis.extractor.utils.Config.class.getClassLoader().getResourceAsStream("dungeons.properties")) {
+            if (inputStream == null) throw new FileNotFoundException("Dungeons file not found...");
+            Properties prop = new Properties();
+            prop.load(inputStream);
+            for (int i = 0; i < dungeonMaps.length; i++) {
+                dungeonMaps[i] = new DungeonMap(prop, i);
+                //System.out.println(dungeonMaps[i].drawAsText2());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static List<Item> getWeapons() {

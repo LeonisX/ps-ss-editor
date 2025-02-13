@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import md.leonis.ps.editor.model.Geo;
@@ -11,8 +12,6 @@ import md.leonis.ps.editor.model.Hero;
 import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveState;
 import md.leonis.ps.editor.model.enums.Direction;
-import md.leonis.ps.editor.model.enums.DungeonColor;
-import md.leonis.ps.editor.model.enums.EnvironmentType;
 import md.leonis.ps.editor.utils.Config;
 
 import java.io.File;
@@ -32,10 +31,16 @@ public class TrackPaneController {
 
 
     public ImageView alisaImageView;
-    public Canvas paletteCanvas;
+    public Canvas dungeonCanvas;
     public ImageView mapImageView;
+    private Image dungeonTilesImage;
+    private Image odinImage;
 
-    private Direction direction = Direction.SOUTH;
+    private final ColorAdjust noEffects = new ColorAdjust();
+    private final ColorAdjust bwEffect = new ColorAdjust(0, -0.6, 0, -0.6);
+
+    private Direction direction = Direction.SOUTH; // Hero direction
+    private Direction dungeonDirection = Direction.NORTH; // Dungeon map rotation direction
 
     private final List<String> mapsList = List.of(
             "Palma",
@@ -70,15 +75,16 @@ public class TrackPaneController {
         }
 
         alisaImageView.setImage(new Image(new File("Alisa.png").toURI().toString()));
-        alisaImageView.setViewOrder(-2);
 
-        paletteCanvas.setViewOrder(-1);
+        dungeonTilesImage = new Image(new File("Dungeon Tiles.png").toURI().toString());
+        odinImage = new Image(new File("Odin.png").toURI().toString());
 
         Geo geo = Config.saveState.getSaveGames()[0].getGeo(); //todo select game if need
         setMap(geo);
         showMap(geo);
 
-        showDungeon(geo);
+        showDungeon(Config.saveState.getSaveGames()[0]);
+        setAlice(Config.saveState.getSaveGames()[0]);
     }
 
     private Image loadImage(String fileName) {
@@ -175,6 +181,7 @@ public class TrackPaneController {
         //addDiff(sb, "Name", oldGeo.getName(), newGeo.getName()); //todo unused now (null)
         addDiffHex(sb, "X", oldGeo.getX(), newGeo.getX());
         addDiffHex(sb, "Y", oldGeo.getY(), newGeo.getY());
+        System.out.printf("ByteSwapped (for CSV): %s;%s%n", toHex0(newGeo.getByteSwappedX()), toHex0(newGeo.getByteSwappedY()));
         addDiffHex(sb, "X2", oldGeo.getTileAlignedX(), newGeo.getTileAlignedX());
         addDiffHex(sb, "Y2", oldGeo.getTileAlignedY(), newGeo.getTileAlignedY());
 
@@ -186,10 +193,11 @@ public class TrackPaneController {
             showMap(newGeo);
         }
 
-        showDungeon(newGeo);
+        showDungeon(newGame); //todo нет условия (перерисовывается каждый раз)
+        setAlice(newGame); //todo нет условия (перерисовывается каждый раз)
 
-        if (newGeo.getType().equals(EnvironmentType.DUNGEON)) {
-            direction = newGeo.getDirection();
+        if (newGeo.getColor() > 0) {
+            direction = rotateDirection(newGeo.getDirection(), dungeonDirection);
         } else {
             if (oldGeo.getX() != newGeo.getX()) {
                 direction = (oldGeo.getX() < newGeo.getX()) ? Direction.EAST : Direction.WEST;
@@ -203,9 +211,10 @@ public class TrackPaneController {
         addDiff(sb, "Map Id", oldGeo.getMapId(), newGeo.getMapId());
         addDiff(sb, "Type", oldGeo.getType().name(), newGeo.getType().name());
         //todo без фонаря попадает в какой-то особый данжн, Dungeon: 0, Room: 220
+        //на самом деле, данж и комната уже назначаются, но цвет ещё нет, темно.
         addDiff(sb, "Dungeon", oldGeo.getDungeon(), newGeo.getDungeon());
-        addColorDiff(sb, oldGeo.getColor(), newGeo.getColor()); //todo dungeon with color
-        addDiff(sb, "Room", oldGeo.getRoom(), newGeo.getRoom());
+        addDiff(sb, "Color", oldGeo.getColor(), newGeo.getColor()); //todo dungeon with color
+        addDiffHex(sb, "Room", oldGeo.getRoom(), newGeo.getRoom());
         addDiff(sb, "Direction", oldGeo.getDirection().name(), newGeo.getDirection().name());
         //todo Transport: Leather Clothes (16) -> None - выдаётся только во время полёта в космосе
         addItemDiff(sb, "Transport", oldGeo.getTransport(), newGeo.getTransport());
@@ -247,7 +256,7 @@ public class TrackPaneController {
     }
 
     private void setMap(Geo geo) {
-        mapImageView.setImage(maps.get(geo.getMapId()));
+        mapImageView.setImage(maps.get(geo.getMapLayer()));
     }
 
     private void showMap(Geo geo) {
@@ -257,8 +266,114 @@ public class TrackPaneController {
         mapImageView.setViewport(new Rectangle2D(geo.getTileX() - 16, geo.getTileY() - 32, 320, 288));
     }
 
-    private void showDungeon(Geo geo) {
-        paletteCanvas.setVisible(geo.getColor() > 0);
+    private void showDungeon(SaveGame saveGame) {
+        if (saveGame.getGeo().getColor() > 0) {
+            dungeonDirection = getDungeonMapRotation(saveGame.getGeo());
+            mapImageView.setEffect(bwEffect);
+            dungeonCanvas.setVisible(true);
+            var gc = dungeonCanvas.getGraphicsContext2D(); //todo может быть не надо скрывать в таком случае вообще.
+            gc.clearRect(0, 0, dungeonCanvas.getWidth(), dungeonCanvas.getHeight());
+            for (int y = 0; y < 16; y++) {
+                for (int x = 0; x < 16; x++) {
+                    int rx = rotateX(x, y, dungeonDirection);
+                    int ry = rotateY(x, y, dungeonDirection);
+
+                    int tileId = Config.dungeonMaps[saveGame.getGeo().getDungeon()].get(rx, ry);
+                    if (tileId == 23) {
+                        dungeonCanvas.getGraphicsContext2D().drawImage(odinImage, 0, 0, 16, 24, x * 16, y * 16 - 8, 16, 24);
+                    } else {
+                        //todo подумать как лучше вращать некоторые тайлы. rotate только для всего изображения. сделать ещё 3 копии???
+                        dungeonCanvas.getGraphicsContext2D().drawImage(dungeonTilesImage, tileId * 16, 0, 16, 16, x * 16, y * 16, 16, 16);
+                    }
+                }
+            }
+
+        } else {
+            mapImageView.setEffect(noEffects);
+            dungeonCanvas.setVisible(false);
+        }
+    }
+
+    private int rotateX(int x, int y, Direction direction) {
+        return switch (direction) {
+            case NORTH -> x;
+            case EAST -> y;
+            case SOUTH -> 15 - x;
+            case WEST -> 15 - y;
+        };
+    }
+
+    private int rotateY(int x, int y, Direction direction) {
+        return switch (direction) {
+            case NORTH -> y;
+            case EAST -> 15 - x;
+            case SOUTH -> 15 - y;
+            case WEST -> x;
+        };
+    }
+
+    private int rotateXA(int x, int y, Direction direction) {
+        return switch (direction) {
+            case NORTH -> x;
+            case WEST -> y;
+            case SOUTH -> 15 - x;
+            case EAST -> 15 - y;
+        };
+    }
+
+    private int rotateYA(int x, int y, Direction direction) {
+        return switch (direction) {
+            case NORTH -> y;
+            case WEST -> 15 - x;
+            case SOUTH -> 15 - y;
+            case EAST -> x;
+        };
+    }
+
+    private Direction rotateDirection(Direction direction, Direction dungeonDirection) {
+        // W -> S -> E -> N
+        int sum = direction.getId() + dungeonDirection.getId();
+        return (sum > 3) ? Direction.byId(sum - 4) : Direction.byId(sum);
+    }
+
+    private void setAlice(SaveGame saveGame) {
+        if (saveGame.getGeo().getColor() > 0) {
+            int x = saveGame.getGeo().getRoomX();
+            int y = saveGame.getGeo().getRoomY();
+            //System.out.printf("Room: %02X%n", saveGame.getGeo().getRoom());
+            //System.out.println("Alice X: " + x + "; Y: " + y + "; D: " + direction);
+
+            int rx = rotateXA(x, y, dungeonDirection);
+            int ry = rotateYA(x, y, dungeonDirection);
+
+            System.out.println("Alice RX: " + rx + "; RY: " + ry);
+
+            alisaImageView.setLayoutX(rx * 16 + 32);
+            alisaImageView.setLayoutY(ry * 16 + 8);
+
+        } else {
+            alisaImageView.setLayoutX(144);
+            alisaImageView.setLayoutY(120);
+        }
+    }
+
+    private Direction getDungeonMapRotation(Geo geo) {
+        var candidates = Config.trackGeos.stream()
+                .filter(g -> g.getMapId() == geo.getMapId() && g.getMapLayer() == geo.getMapLayer() && g.getDungeon() == geo.getDungeon())
+                .filter(g -> Math.abs(g.getByteSwappedX() - geo.getX()) < 24)
+                .sorted(Comparator.comparing(Geo::getName))
+                .toList();
+
+        //System.out.println("Candidates: " + candidates.stream().map(g -> toHex(g.getX())).toList());
+        //System.out.println("Candidates: " + candidates.stream().map(g -> toHex(getByteSwappedX()))).toList());
+
+        /*if (candidates.size() > 1) {
+            System.out.println("Candidates: " + candidates);
+        }*/
+
+        System.out.println(candidates.isEmpty() ? "NO DUNGEON MAP!!!" : "DUNGEON ROTATION: " + candidates.get(0).getDirection());
+
+        return candidates.isEmpty() ? Direction.NORTH : candidates.get(0).getDirection();
     }
 
     private void addDiff(StringBuilder sb, String title, String oldValue, String newValue) {
@@ -315,19 +430,16 @@ public class TrackPaneController {
         }
     }
 
-    private void addColorDiff(StringBuilder sb, int oldValue, int newValue) {
-        if (oldValue != newValue) {
-            sb.append("Color: ").append(DungeonColor.byId(oldValue)).append(" -> ").append(DungeonColor.byId(
-                    newValue)).append(" (").append(getItemName(oldValue)).append(" -> ").append(getItemName(newValue)).append(")").append("\n");
-        }
-    }
-
     private String getItemName(int itemId) {
         return (itemId <= 64 && itemId >= 0) ? Config.items.get(itemId) : "UNKNOWN: " + itemId;
     }
 
     private String toHex(int value) {
         return String.format("%02X %02X", (byte) (value >> 8), (byte) value);
+    }
+
+    private String toHex0(int value) {
+        return String.format("%02X%02X", (byte) (value >> 8), (byte) value);
     }
 
     public void autoRefreshCheckBoxClick() {

@@ -14,7 +14,7 @@ public class SaveGame {
 
     private Geo geo; //0x400-0x4FF
 
-    private Hero[] heroes = new Hero[4]; // 0x500, 0x510, 0x520, 0x530 (0x10 bytes): Alisa, Myau, Tylon, Lutz
+    private Hero[] heroes = new Hero[4]; // 0x500, 0x510, 0x520, 0x530 (0x10 bytes): Alisa, Myau, Odin, Lutz
     // 0x540-0x5BF  Last monsters in battle; up to 8 monsters x 0x10 bytes. Need to ignore, 00.
     private int[] items = new int[24]; // 0x5C0-0x5D7  Items, max 24.
     private int[] unknown_5D8_5DF = new int[8]; // 0x5D8-0x5DF  ?????????????   8 bytes
@@ -24,7 +24,7 @@ public class SaveGame {
     private int companionsCount; // 0x5F0        Companions count (max 3)
     private int[] unknown_5F1_5FF = new int[15]; // 0x5F1-0x5FF  ?????????????   15 bytes
 
-    private int[] events = new int[0x100]; // 0x600-0x618  Important events. Examples: save Luveno, Tylon, killed Dr Mad, Lasiec. Often 00 -> 01
+    private int[] events = new int[0x100]; // 0x600-0x618  Important events. Examples: save Luveno, Odin, killed Dr Mad, Lasiec. Often 00 -> 01
     private int[] unknown_619_6EF = new int[215]; // 0x619-0x6FF  ?????????????   215 bytes
     private int[] chests = new int[0x0C0]; // 0x700-0x794  Open chests. 00 -> FF
     private int[] unknown_795_7C0 = new int[44]; // 0x795-0x7C0  ?????????????   44 bytes

@@ -26,8 +26,55 @@ public class MapsPaneController {
 
             Config.dungeonMaps[i].audit(i);
         }
+
+        //printDungeons();
     }
 
+    /*private void printDungeons() {
+        List<String> lines = new ArrayList<>();
+        List<DungeonMap> batch = new ArrayList<>();
+
+        int index = 0;
+        int batchSize = 4;
+
+        for (DungeonMap dungeonMap : Config.dungeonMaps) {
+            if (batch.size() >= batchSize) {
+                printBatch(index, batch, lines);
+                batch.clear();
+                index += batchSize;
+            }
+
+            batch.add(dungeonMap);
+        }
+
+        if (!batch.isEmpty()) {
+            printBatch(index, batch, lines);
+        }
+
+        try {
+            Files.write(Paths.get("maps/maps.txt"), lines);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Dungeon maps: " + Config.dungeonMaps.length);
+    }
+
+    private void printBatch(int index, List<DungeonMap> batch, List<String> lines) {
+        lines.add(index + " - " + (index + batch.size() - 1));
+
+        for (int y = 0; y < 16; y++) {
+            StringBuilder sb = new StringBuilder();
+
+            for (DungeonMap dungeonMap : batch) {
+                dungeonMap.drawLine(sb, y);
+                sb.append("        ");
+            }
+            lines.add(sb.toString());
+        }
+
+        lines.add("");
+    }*/
 
     private void onMouseMove(MouseEvent event) {
         int index = (int) ((Node) event.getSource()).getUserData();

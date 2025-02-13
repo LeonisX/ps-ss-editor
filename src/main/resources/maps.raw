@@ -79,7 +79,7 @@ Air Castle
 
 Medusa Cave
 00 60 04 00 00 A0 04 00 00 00 00 00 DC 00 00 00 00 A0 04 60 04 04 0B
-C50A	FF	E3	Save Tylon
+C50A	FF	E3	Save Odin
 C600	FF	36	Compass
 C601	FF	E8	20 Mesetas
 C602	FF	7C	10 Mesetas

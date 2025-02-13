@@ -112,10 +112,10 @@ public class Geo {
     //todo unknown_418_4FF
     public void writeToRom(Dump romData, int offset) {
         romData.setByte(0x00, unused_400_X);
-        romData.setWord(0x01, x);
+        romData.setWord(0x01, getByteSwappedX());
         romData.setByte(0x03, unused_403_Y);
         romData.setByte(0x04, unknown_404);
-        romData.setWord(0x05, y);
+        romData.setWord(0x05, getByteSwappedY());
         romData.setByte(0x07, unknown_407);
         romData.setByte(0x08, mapLayer);
         romData.setByte(0x09, mapId);

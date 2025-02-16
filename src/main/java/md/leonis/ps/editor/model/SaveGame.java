@@ -15,7 +15,7 @@ public class SaveGame {
     private Geo geo; //0x400-0x4FF
 
     private Hero[] heroes = new Hero[4]; // 0x500, 0x510, 0x520, 0x530 (0x10 bytes): Alisa, Myau, Odin, Lutz
-    // 0x540-0x5BF  Last monsters in battle; up to 8 monsters x 0x10 bytes. Need to ignore, 00.
+    //private Monster[] monsters = new Monster[8]; // 0x540-0x5BF  Last monsters in battle; up to 8 monsters x 0x10 bytes. Need to ignore, 00.
     private int[] items = new int[24]; // 0x5C0-0x5D7  Items, max 24.
     private int[] unknown_5D8_5DF = new int[8]; // 0x5D8-0x5DF  ?????????????   8 bytes
     private int mesetas;    // 0x5E0-0x5E1  Mesetas count
@@ -67,6 +67,11 @@ public class SaveGame {
             heroes[i] = Hero.readFromRom(romData, i);
         }
 
+        // 0x540
+        /*for (int i = 0; i < 8; i++) {
+            monsters[i] = Monster.readFromRom(romData, i);
+        }*/
+
         mesetas = romData.getWord(0x1E0);
 
         romData.setByteOrder(ByteOrder.BIG_ENDIAN);
@@ -89,8 +94,6 @@ public class SaveGame {
         romData.getBytes(0x219, unknown_619_6EF); // 0x619
         romData.getBytes(0x395, unknown_795_7C0); // 0x795
         romData.getBytes(0x3D9, unknown_7D9_7FF); // 0x7D9
-
-        romData.setOffset(0);
     }
 
     //todo unknown
@@ -99,19 +102,15 @@ public class SaveGame {
         romData.erase(0, SAVE_GAME_SIZE);
         romData.moveToAddress(0);
         // experience, mesetas - Little Endian;
-        // x, y - Little Endian;
+        // x, y - поменять байты местами, так как при чтении тоже меняется;
+        romData.setByteOrder(ByteOrder.BIG_ENDIAN);
+        geo.writeToRom(romData);
         romData.setByteOrder(ByteOrder.LITTLE_ENDIAN);
-        geo.writeToRom(romData, offset);
         //write heroes
         romData.moveToAddress(0x100); // 0x500
         for (int i = 0; i < 4; i++) {
             heroes[i].writeToRom(romData);
         }
-
-        //System.out.println(Integer.toHexString(romData.getIndex()));
-        //System.out.println(mesetas);
-        //System.out.println(Integer.toHexString(offset));
-        //System.out.println(mesetas);
 
         romData.setWord(0x1E0, mesetas);
 
@@ -131,7 +130,6 @@ public class SaveGame {
         for (int boss : bosses) {
             romData.setByte(boss);
         }
-        romData.setOffset(0);
     }
 
     public String getName() {

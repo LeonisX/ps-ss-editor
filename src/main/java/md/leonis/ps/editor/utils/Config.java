@@ -26,7 +26,6 @@ public class Config {
     static final String resourcePath = "/fxml/";
 
     public static File saveStateFile;
-    public static boolean fusionSave;
 
     public static SaveState saveState;
     public static SaveState blankSaveState;

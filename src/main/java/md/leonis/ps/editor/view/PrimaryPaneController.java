@@ -36,7 +36,10 @@ public class PrimaryPaneController {
             fileChooser.setInitialDirectory(Config.saveStateFile.getParentFile());
         }
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All saves", "*.sav", "*.ssm", "*.ss0"),
+                new FileChooser.ExtensionFilter("All saves", "*.sav", "*.ssm", "*.ss0", "*.ss1", "*.s00", "*.s01"),
+                new FileChooser.ExtensionFilter("SRAM saves", "*.ssm", "*.sav"),
+                new FileChooser.ExtensionFilter("RAM snapshots", "*.ss0", "*.ss1", "*.s00", "*.s01"),
+                new FileChooser.ExtensionFilter("Kega Fusion saves", "*.ssm", "*.ss0", "*.ss1", "*.ss2", "*.ss3", "*.ss4", "*.ss5", "*.ss6", "*.ss7", "*.ss8", "*.ss9"),
                 new FileChooser.ExtensionFilter("All files", "*.*")
 
         );
@@ -44,7 +47,6 @@ public class PrimaryPaneController {
 
         if (Config.saveStateFile != null && Config.saveStateFile.exists()) {
             try {
-                Config.fusionSave = Config.saveStateFile.toString().endsWith("ss0");
                 Config.saveState = new SaveState(Config.saveStateFile);
                 JavaFxUtils.showPane(pane);
             } catch (Exception e) {

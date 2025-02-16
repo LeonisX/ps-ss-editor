@@ -8,8 +8,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import md.leonis.ps.editor.model.SaveGame;
 import md.leonis.ps.editor.model.SaveGameStatus;
 import md.leonis.ps.editor.model.enums.EnvironmentType;
+import md.leonis.ps.editor.model.enums.SaveType;
 import md.leonis.ps.editor.utils.Config;
 import md.leonis.ps.editor.utils.JavaFxUtils;
 
@@ -60,53 +62,62 @@ public class SecondaryPaneController {
         deleteButton.managedProperty().bind(deleteButton.visibleProperty());
         eraseButton.managedProperty().bind(eraseButton.visibleProperty());
 
-        for (int i = 0; i < 5; i++) {
-            Button button = new Button(saveState.getSaveGames()[i].getName());
-            button.setUserData(i);
-            button.setMinWidth(120);
-            button.setOnAction(e -> {
-                //TODO %%%%%
-                saveSlotIndex = (int) ((Node) e.getSource()).getUserData();
-                currentSaveGame = saveState.getSaveGames()[saveSlotIndex];
-                String text = "";
-                text += currentSaveGame.getName() + " (" + currentSaveGame.getStatus() + ")\n";
-                text += "Teammates: " + (currentSaveGame.getCompanionsCount() + 1) + "\n";
-                text += "Level: " + currentSaveGame.getHeroes()[0].getLevel() + "\n";
-                text += "Mesetas: " + currentSaveGame.getMesetas() + "\n";
-                text += "Items: " + currentSaveGame.getItemsCount() + "\n";
-                if (currentSaveGame.getGeo().getType().equals(EnvironmentType.OUTDOOR)) {
-                    text += "Map Id: 0x" + String.format("%02X", currentSaveGame.getGeo().getMapLayer()) + " ";
-                    text += String.format("%02X", currentSaveGame.getGeo().getMapId()) + "\n";
-                } else {
-                    text += "Dungeon Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getDungeon()) + "\n";
-                    text += "Room Id: 0x" + Integer.toHexString(currentSaveGame.getGeo().getRoom()) + "\n";
-                }
-                textArea.setText(text);
-                showButtons(saveState.getSaveGames()[saveSlotIndex].getStatus());
-            });
-            HBox hBox = new HBox(new Label("Slot #" + (i + 1)), button);
-            hBox.setSpacing(5);
-            hBox.setMinHeight(30);
-            hBox.setAlignment(Pos.CENTER_LEFT);
-            switch (saveState.getSaveGames()[i].getStatus()) {
-                case DELETED:
-                    Font font = button.getFont();
-                    //System.out.println(font);
-                    button.setStyle("-fx-font: " + (font.getSize() - 1) + " " + font.getFamily() + "; -fx-text-fill: rgb(128,128,128)");
-                    button.setText("deleted");
-                    break;
-                case ACTIVE:
-                    button.setStyle("-fx-font-weight: bold;");
-                    break;
-                case EMPTY:
-                    Font font2 = button.getFont();
-                    //System.out.println(font2);
-                    button.setStyle("-fx-font: " + (font2.getSize() - 1) + " " + font2.getFamily() + "; -fx-text-fill: rgb(128,128,128)");
-                    button.setText("empty");
-                    break;
-            }
-            vBox.getChildren().add(hBox);
+        if (saveState.getSaveType() == SaveType.RAM) {
+            addButton(-1, saveState.getRamGame());
         }
+
+        for (int i = 0; i < 5; i++) {
+            addButton(i, saveState.getSaveGames()[i]);
+        }
+    }
+
+    private void addButton(int index, SaveGame saveGame) {
+        Button button = new Button(saveGame.getName());
+        button.setUserData(index);
+        button.setMinWidth(120);
+        button.setOnAction(e -> {
+            //TODO %%%%%
+            saveSlotIndex = (int) ((Node) e.getSource()).getUserData();
+            currentSaveGame = saveGame;
+            String text = "";
+            text += saveGame.getName() + " (" + saveGame.getStatus() + ")\n";
+            text += "Teammates: " + (saveGame.getCompanionsCount() + 1) + "\n";
+            text += "Level: " + saveGame.getHeroes()[0].getLevel() + "\n";
+            text += "Mesetas: " + saveGame.getMesetas() + "\n";
+            text += "Items: " + saveGame.getItemsCount() + "\n";
+            if (saveGame.getGeo().getType().equals(EnvironmentType.OUTDOOR)) {
+                text += "Map Id: 0x" + String.format("%02X", saveGame.getGeo().getMapLayer()) + " ";
+                text += String.format("%02X", saveGame.getGeo().getMapId()) + "\n";
+            } else {
+                text += "Dungeon Id: 0x" + Integer.toHexString(saveGame.getGeo().getDungeon()) + "\n";
+                text += "Room Id: 0x" + Integer.toHexString(saveGame.getGeo().getRoom()) + "\n";
+            }
+            textArea.setText(text);
+            showButtons(saveGame.getStatus());
+        });
+        String label = (index < 0) ? "Ram" : "Slot #" + (index + 1);
+        HBox hBox = new HBox(new Label(label), button);
+        hBox.setSpacing(5);
+        hBox.setMinHeight(30);
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        switch (saveGame.getStatus()) {
+            case DELETED:
+                Font font = button.getFont();
+                //System.out.println(font);
+                button.setStyle("-fx-font: " + (font.getSize() - 1) + " " + font.getFamily() + "; -fx-text-fill: rgb(128,128,128)");
+                button.setText("deleted");
+                break;
+            case ACTIVE, RAM:
+                button.setStyle("-fx-font-weight: bold;");
+                break;
+            case EMPTY:
+                Font font2 = button.getFont();
+                //System.out.println(font2);
+                button.setStyle("-fx-font: " + (font2.getSize() - 1) + " " + font2.getFamily() + "; -fx-text-fill: rgb(128,128,128)");
+                button.setText("empty");
+                break;
+        }
+        vBox.getChildren().add(hBox);
     }
 
     private void showButtons(SaveGameStatus status) {
@@ -130,6 +141,14 @@ public class SecondaryPaneController {
             case EMPTY:
                 createButton.setVisible(true);
                 editButton.setVisible(false);
+                renameButton.setVisible(false);
+                restoreButton.setVisible(false);
+                deleteButton.setVisible(false);
+                eraseButton.setVisible(false);
+                break;
+            case RAM:
+                createButton.setVisible(false);
+                editButton.setVisible(true);
                 renameButton.setVisible(false);
                 restoreButton.setVisible(false);
                 deleteButton.setVisible(false);

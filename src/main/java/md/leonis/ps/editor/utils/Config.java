@@ -62,6 +62,8 @@ public class Config {
 
     public static Properties levels;
 
+    public static List<Monster> monsters;
+
     public static int[][] battleSpells = {{4, 9, 14, 3, 1}, {10, 12, 17, 7}, {}, {3, 11, 18, 6, 13}};
     public static int[][] overworldSpells = {{4, 15}, {10, 16, 2}, {}, {10, 2, 11, 5, 8}};
 
@@ -133,6 +135,8 @@ public class Config {
             prepend(armorNames);
             prepend(shieldNames);
         }
+
+        loadMonsters();
     }
 
     public static void loadLevels() throws IOException {
@@ -227,6 +231,19 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void loadMonsters() {
+        ClassLoader classLoader = Config.class.getClassLoader();
+        File file = new File(classLoader.getResource("monsters.csv").getFile());
+        monsters = new LinkedList<>();
+        try {
+            List<String> list = Files.readAllLines(file.toPath(), Charset.defaultCharset());
+            list.forEach(r -> monsters.add(Monster.fromCSV(r)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static List<Item> getWeapons() {

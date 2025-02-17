@@ -14,8 +14,8 @@ public class SaveGame {
 
     private Geo geo; //0x400-0x4FF
 
-    private Hero[] heroes = new Hero[4]; // 0x500, 0x510, 0x520, 0x530 (0x10 bytes): Alisa, Myau, Odin, Lutz
-    //private Monster[] monsters = new Monster[8]; // 0x540-0x5BF  Last monsters in battle; up to 8 monsters x 0x10 bytes. Need to ignore, 00.
+    private Hero[] heroes = new Hero[4]; // 0x500, 0x510, 0x520, 0x530 (0x10 bytes): Alisa, Myau, Odin, Noah
+    private Hero[] monsters = new Hero[8]; // 0x540-0x5BF  Last monsters in battle; up to 8 monsters x 16 bytes. Need to ignore, 00.
     private int[] items = new int[24]; // 0x5C0-0x5D7  Items, max 24.
     private int[] unknown_5D8_5DF = new int[8]; // 0x5D8-0x5DF  ?????????????   8 bytes
     private int mesetas;    // 0x5E0-0x5E1  Mesetas count
@@ -68,9 +68,9 @@ public class SaveGame {
         }
 
         // 0x540
-        /*for (int i = 0; i < 8; i++) {
-            monsters[i] = Monster.readFromRom(romData, i);
-        }*/
+        for (int i = 0; i < 8; i++) {
+            monsters[i] = Hero.readFromRom(romData, i);
+        }
 
         mesetas = romData.getWord(0x1E0);
 
@@ -110,6 +110,11 @@ public class SaveGame {
         romData.moveToAddress(0x100); // 0x500
         for (int i = 0; i < 4; i++) {
             heroes[i].writeToRom(romData);
+        }
+
+        // 0x540
+        for (int i = 0; i < 8; i++) {
+            monsters[i].writeToRom(romData);
         }
 
         romData.setWord(0x1E0, mesetas);
@@ -162,6 +167,14 @@ public class SaveGame {
 
     public void setHeroes(Hero[] heroes) {
         this.heroes = heroes;
+    }
+
+    public Hero[] getMonsters() {
+        return monsters;
+    }
+
+    public void setMonsters(Hero[] monsters) {
+        this.monsters = monsters;
     }
 
     public int[] getItems() {
@@ -275,6 +288,7 @@ public class SaveGame {
                 ", status=" + status +
                 ", geo=" + geo +
                 ", heroes=" + Arrays.toString(heroes) +
+                ", monsters=" + Arrays.toString(monsters) +
                 ", items=" + Arrays.toString(items) +
                 ", mesetas=" + mesetas +
                 ", itemsCount=" + itemsCount +

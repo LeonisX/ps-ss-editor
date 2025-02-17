@@ -102,6 +102,10 @@ public class Dump {
 
     public void getBytes(int address, int[] array) {
         moveToAddress(address);
+        getBytes(array);
+    }
+
+    public void getBytes(int[] array) {
         for (int i = 0; i < array.length; i++) {
             array[i] = getByte();
         }
@@ -109,6 +113,10 @@ public class Dump {
 
     public int[] getBytes(int address, int size) {
         moveToAddress(address);
+        return getBytes(size);
+    }
+
+    public int[] getBytes(int size) {
         int[] array = new int[size];
         for (int i = 0; i < array.length; i++) {
             array[i] = getByte();
@@ -118,6 +126,10 @@ public class Dump {
 
     public void setBytes(int address, int[] array) {
         moveToAddress(address);
+        setBytes(array);
+    }
+
+    public void setBytes(int[] array) {
         for (int j : array) {
             setByte(j);
         }

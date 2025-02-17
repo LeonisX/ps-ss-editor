@@ -11,6 +11,7 @@
          <Button layoutX="260.0" layoutY="251.0" mnemonicParsing="false" onAction="#processRawMapsDataClick" prefWidth="300.0" text="Process raw maps data" />
          <Button mnemonicParsing="false" onAction="#dumpDungeonMapsClick" prefWidth="300.0" text="Dump dungeon maps" />
          <Button mnemonicParsing="false" onAction="#dumpLevelStatsClick" prefWidth="300.0" text="Dump levels stats" />
+         <Button mnemonicParsing="false" onAction="#dumpMonstersStatsClick" prefWidth="300.0" text="Dump monsters stats" />
          <Button mnemonicParsing="false" onAction="#dumpAllRleCompressedDataClick" prefWidth="300.0" text="Dump all RLE compressed data" />
       </VBox>
    </center>

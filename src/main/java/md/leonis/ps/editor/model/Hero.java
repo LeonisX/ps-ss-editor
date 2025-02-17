@@ -46,8 +46,8 @@ public class Hero {
     //TODO research for all heroes start equipment
 
     public static Hero readFromRom(Dump romData, int index) {
-        return new Hero(index, romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getWord() ,romData.getByte(),
-                romData.getByte(), romData.getByte(),romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(),
+        return new Hero(index, romData.getBoolean(), romData.getByte(), romData.getByte(), romData.getWord(), romData.getByte(),
+                romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(), romData.getByte(),
                 romData.getByte(), romData.getByte(), romData.getByte());
     }
 
@@ -73,7 +73,7 @@ public class Hero {
     }
 
     public Hero(int index, boolean isAlive, int hp, int mp, int experience, int level, int maxHp, int maxMp, int attack, int defense, int weapon, int armor, int shield, int state, int combatSpells, int curativeSpells) {
-        this.name = Config.heroes.get(index);
+        this.name = index >= 4 ? "" : Config.heroes.get(index); // monster fix
         this.isAlive = isAlive;
         this.hp = hp;
         this.mp = mp;

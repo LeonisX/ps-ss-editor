@@ -9,7 +9,7 @@ none=None
 hero0=Alisa
 hero1=Myau
 hero2=Odin
-hero3=Lutz
+hero3=Noah
 
 ; Outdoor places
 
@@ -165,13 +165,13 @@ church8=Skure
 weapon0=Wood Cane       ;   3   ;   0,2,3
 weapon1=Short Sword     ;   4   ;   0,2,3
 weapon2=Iron Sword      ;   12  ;   0,2
-weapon3=Psycho Wand     ;   10  ;   0,2,3
-weapon4=Saber Claw      ;   10  ;   1
+weapon3=Wand            ;   10  ;   0,2,3
+weapon4=Iron Fang       ;   10  ;   1
 weapon5=Iron Axe        ;   10  ;   2
 weapon6=Titanium Sword  ;   21  ;   0,2
 weapon7=Ceramic Sword   ;   31  ;   0,2
 weapon8=Needle Gun      ;   18  ;   2
-weapon9=Silver Tusk     ;   30  ;   1
+weapon9=Silver Fang     ;   30  ;   1
 weapon10=Heat Gun       ;   30  ;   2
 weapon11=Light Saber    ;   46  ;   0,2
 weapon12=Laser Gun      ;   50  ;   2
@@ -179,68 +179,68 @@ weapon13=Laconian Sword ;   60  ;   0,2
 weapon14=Laconian Axe   ;   80  ;   2
 
 ; 16
-armor0=Leather Clothes  ;   5   ;   0,2
-armor1=White Cloak      ;   5   ;   3
+armor0=Leather Armor    ;   5   ;   0,2
+armor1=White Mantle     ;   5   ;   3
 armor2=Light Suit       ;   15  ;   0,2
 armor3=Iron Armor       ;   20  ;   2
-armor4=Spiky Fur        ;   30  ;   1
+armor4=Thick Fur        ;   30  ;   1
 armor5=Zirconian Mail   ;   30  ;   0,2
 armor6=Diamond Armor    ;   60  ;   0,2
-armor7=Laconian Armor   ;   80  ;   2
-armor8=Frad Cloak       ;   40  ;   3
+armor7=Laconian Armor    ;   80  ;   2
+armor8=Frad Mantle      ;   40  ;   3
 
 ; 25
 shield0=Leather Shield      ;   3   ;   0,2
 shield1=Bronze Shield       ;   8   ;   2
 shield2=Iron Shield         ;   15  ;   0,2
 shield3=Ceramic Shield      ;   23  ;   0,2
-shield4=Animal Glove        ;   40  ;   1
-shield5=Laser Barrier       ;   30  ;   0,2,3
-shield6=Shield of Perseus   ;   40  ;   2
-shield7=Laconian Shield     ;   50  ;   0,2
+shield4=Gloves              ;   40  ;   1
+shield5=Laser Shield        ;   30  ;   0,2,3
+shield6=Mirror Shield       ;   40  ;   2
+shield7=Laconian Shield      ;   50  ;   0,2
 
 ; vehicles (33)
 
-item0=LandMaster
-item1=FlowMover
-item2=IceDecker
+item0=Landrover
+item1=Hovercraft
+item2=Ice Digger
 
 ; items (36)
 
-item3=PelorieMate
-item4=Ruoginin
-item5=Soothe Flute
-item6=Searchlight
-item7=Escape Cloth
-item8=TranCarpet
+item3=Cola
+item4=Burger
+item5=Flute
+item6=Flash
+item7=Escaper
+item8=Transfer
 item9=Magic Hat
-item10=Alsuline
+item10=Alsulin
 item11=Polymeteral
 item12=Dungeon Key
-item13=Telepathy Ball
+item13=Sphere
 item14=Eclipse Torch
-item15=Aeroprism
-item16=Laerma Berries
+item15=Aero Prism
+item16=Nuts
 item17=Hapsby
 item18=Road Pass
 item19=Passport
 item20=Compass
-item21=Shortcake
-item22=Governor's Letter
+item21=Cake
+item22=Letter
 item23=Laconian Pot
-item24=Light Pendant
-item25=Carbunckle Eye
-item26=GasClear
-item27=Damoa's Crystal
-item28=Master System
+item24=Magic Lamp
+item25=Amber Eye
+item26=Gas Shield
+item27=Crystal
+item28=M System
 item29=Miracle Key
 item30=Zillion
 item31=Secret Thing
 
 ; spells
 spell0=None
-spell1=Bind
-spell2=Bypass
+spell1=Rope
+spell2=Bye
 spell3=Fire
 spell4=Heal
 spell5=Magic Unseal

@@ -5,7 +5,8 @@ import javafx.scene.control.Alert;
 import md.leonis.bin.ByteOrder;
 import md.leonis.bin.Dump;
 import md.leonis.extractor.model.DungeonMap;
-import md.leonis.extractor.utils.*;
+import md.leonis.extractor.utils.Config;
+import md.leonis.extractor.utils.JavaFxUtils;
 import md.leonis.ps.editor.model.*;
 import md.leonis.ps.editor.model.enums.EnvironmentType;
 
@@ -128,7 +129,6 @@ public class MainStageController {
         Map<String, String> dungeonNames = geos.stream()
                 .filter(Geo::isDungeon)
                 .filter(Geo::isClearName)
-                .sorted(Comparator.comparing(Geo::getName))
                 .collect(Collectors.toMap(Geo::getClearDungeonKey, Geo::getName));
 
         dungeonNames.entrySet().forEach(System.out::println);
@@ -138,10 +138,9 @@ public class MainStageController {
         Map<String, String> citiesNames = geos.stream()
                 .filter(Geo::isCity)
                 .filter(Geo::isClearName)
-                .sorted(Comparator.comparing(Geo::getName))
                 .collect(Collectors.toMap(Geo::getClearCityKey, Geo::getName));
 
-        citiesNames.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).forEach(System.out::println);
+        citiesNames.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
 
         System.out.println("CommentNames==============================");
 
@@ -150,7 +149,6 @@ public class MainStageController {
                 .filter(Geo::hasNameComment)
                 .map(Geo::getNameComment)
                 .distinct()
-                .sorted()
                 .collect(Collectors.toMap(d -> String.format("comment%02X", k[0]++), d -> d));
 
         commentNames.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getKey)).forEach(System.out::println);
@@ -198,7 +196,7 @@ public class MainStageController {
                 .map(CityData::new)
                 .collect(Collectors.toList());
 
-//TODO put manual
+        //TODO put manual
         cityDatas.stream().sorted(Comparator.comparing(CityData::getTitle)).forEach(d -> {
             System.out.println("D : " + d);
             System.out.println("Df: " + d.fromCSV(d.toMapEntry()));
@@ -287,5 +285,23 @@ public class MainStageController {
         });*/
 
         JavaFxUtils.showAlert("Confirmation", "All data was processed", Alert.AlertType.INFORMATION);
+    }
+
+    public void dumpMonstersStatsClick() {
+        dump.setByteOrder(ByteOrder.LITTLE_ENDIAN);
+        dump.moveToAddress(0xC69F);
+        List<String> monsters = new ArrayList<>();
+        for (int i = 0; i < 74; i++) {
+            monsters.add(Monster.readFromRom(dump).toCSV());
+        }
+        dump.setByteOrder(ByteOrder.BIG_ENDIAN);
+
+        Path out = Paths.get("src/main/resources/monsters.csv");
+        try {
+            Files.write(out, monsters, Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JavaFxUtils.showAlert("Done", "Monsters successfully dumped!", Alert.AlertType.INFORMATION);
     }
 }

@@ -42,7 +42,7 @@
     </center>
     <right>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="288.0" prefWidth="320.0">
-            <ImageView fx:id="alisaImageView" fitHeight="24.0" fitWidth="16.0" layoutX="144.0" layoutY="120.0" viewOrder="-2">
+            <ImageView fx:id="alisImageView" fitHeight="24.0" fitWidth="16.0" layoutX="144.0" layoutY="120.0" viewOrder="-2">
                 <viewport>
                     <Rectangle2D height="24.0" width="16.0"/>
                 </viewport>

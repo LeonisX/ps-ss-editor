@@ -7,10 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import md.leonis.ps.editor.model.Geo;
-import md.leonis.ps.editor.model.Hero;
-import md.leonis.ps.editor.model.SaveGame;
-import md.leonis.ps.editor.model.SaveState;
+import md.leonis.ps.editor.model.*;
 import md.leonis.ps.editor.model.enums.Direction;
 import md.leonis.ps.editor.utils.Config;
 
@@ -74,17 +71,19 @@ public class TrackPaneController {
             maps.put(i, loadImage(mapsList.get(i)));
         }
 
-        alisaImageView.setImage(new Image(new File("Alisa.png").toURI().toString()));
+        alisaImageView.setImage(new Image(new File("Alis.png").toURI().toString()));
 
         dungeonTilesImage = new Image(new File("Dungeon Tiles.png").toURI().toString());
         odinImage = new Image(new File("Odin.png").toURI().toString());
 
-        Geo geo = Config.saveState.getSaveGames()[0].getGeo(); //todo select game if need
+        //todo пока тут только RAM выводится
+
+        Geo geo = Config.saveState.getRamGame().getGeo(); //todo select game if need
         setMap(geo);
         showMap(geo);
 
-        showDungeon(Config.saveState.getSaveGames()[0]);
-        setAlice(Config.saveState.getSaveGames()[0]);
+        showDungeon(Config.saveState.getRamGame());
+        setAlice(Config.saveState.getRamGame());
     }
 
     private Image loadImage(String fileName) {
@@ -95,6 +94,9 @@ public class TrackPaneController {
         Config.newSaveState = new SaveState(Config.saveStateFile);
         //show diff
         StringBuilder sb = new StringBuilder();
+
+        showGameDiff(-1, sb, Config.saveState.getRamGame(), Config.newSaveState.getRamGame());
+
         for (int i = 0; i < 5; i++) {
             showGameDiff(i, sb, Config.saveState.getSaveGames()[i], Config.newSaveState.getSaveGames()[i]);
         }
@@ -113,7 +115,8 @@ public class TrackPaneController {
             return;
         }
 
-        sb.append("\n").append("Game #").append(index).append("\n");
+        String title = (index == -1) ? "RAM" : "Game #" + index;
+        sb.append("\n").append(title).append("\n");
 
         // Game
         addDiff(sb, "Name", oldGame.getName(), newGame.getName());
@@ -233,26 +236,43 @@ public class TrackPaneController {
             Hero oldHero = oldGame.getHeroes()[j];
             Hero newHero = newGame.getHeroes()[j];
             if (!oldHero.toString().equals(newHero.toString())) {
-
                 sb.append("\n").append(Config.heroes.get(j)).append("\n");
-                addDiff(sb, "Name", oldHero.getName(), newHero.getName());
-                addDiff(sb, "Alive", oldHero.isAlive(), newHero.isAlive());
-                addDiff(sb, "Level", oldHero.getLevel(), newHero.getLevel());
-                addDiff(sb, "Experience", oldHero.getExperience(), newHero.getExperience());
-                addDiff(sb, "Hp", oldHero.getHp(), newHero.getHp());
-                addDiff(sb, "Max Hp", oldHero.getMaxHp(), newHero.getMaxHp());
-                addDiff(sb, "Mp", oldHero.getMp(), newHero.getMp());
-                addDiff(sb, "Max Mp", oldHero.getMaxMp(), newHero.getMaxMp());
-                addDiff(sb, "Attack", oldHero.getAttack(), newHero.getAttack());
-                addDiff(sb, "Defense", oldHero.getDefense(), newHero.getDefense());
-                addItemDiff(sb, "Weapon", oldHero.getWeapon(), newHero.getWeapon());
-                addItemDiff(sb, "Armor", oldHero.getArmor(), newHero.getArmor());
-                addItemDiff(sb, "Shield", oldHero.getShield(), newHero.getShield());
-                addDiff(sb, "State", oldHero.getState(), newHero.getState());
-                addDiff(sb, "Combat Spells", oldHero.getCombatSpells(), newHero.getCombatSpells());
-                addDiff(sb, "Curative Spells", oldHero.getCurativeSpells(), newHero.getCurativeSpells());
+                showHeroDiff(sb, oldHero, newHero);
             }
         }
+
+        for (int j = 0; j < 8; j++) {
+            Hero oldMonster = oldGame.getMonsters()[j];
+            Hero newMonster = newGame.getMonsters()[j];
+            if (!oldMonster.toString().equals(newMonster.toString())) {
+                sb.append("\n").append(getMonsterName(newMonster.getMaxHp(), newMonster.getAttack(), newMonster.getDefense())).append(" #").append(j).append("\n");
+                showHeroDiff(sb, oldMonster, newMonster);
+            }
+        }
+    }
+
+    private String getMonsterName(int hp, int attack, int defence) {
+        return Config.monsters.stream().filter(m -> m.getHp() == hp && m.getAttack() == attack && m.getDefence() == defence)
+                .map(Monster::getName).findFirst().orElse("UNKNOWN");
+    }
+
+    private void showHeroDiff(StringBuilder sb, Hero oldHero, Hero newHero) {
+        addDiff(sb, "Name", oldHero.getName(), newHero.getName());
+        addDiff(sb, "Alive", oldHero.isAlive(), newHero.isAlive());
+        addDiff(sb, "Level", oldHero.getLevel(), newHero.getLevel());
+        addDiff(sb, "Experience", oldHero.getExperience(), newHero.getExperience());
+        addDiff(sb, "Hp", oldHero.getHp(), newHero.getHp());
+        addDiff(sb, "Max Hp", oldHero.getMaxHp(), newHero.getMaxHp());
+        addDiff(sb, "Mp", oldHero.getMp(), newHero.getMp());
+        addDiff(sb, "Max Mp", oldHero.getMaxMp(), newHero.getMaxMp());
+        addDiff(sb, "Attack", oldHero.getAttack(), newHero.getAttack());
+        addDiff(sb, "Defense", oldHero.getDefense(), newHero.getDefense());
+        addItemDiff(sb, "Weapon", oldHero.getWeapon(), newHero.getWeapon());
+        addItemDiff(sb, "Armor", oldHero.getArmor(), newHero.getArmor());
+        addItemDiff(sb, "Shield", oldHero.getShield(), newHero.getShield());
+        addDiff(sb, "State", oldHero.getState(), newHero.getState());
+        addDiff(sb, "Combat Spells", oldHero.getCombatSpells(), newHero.getCombatSpells());
+        addDiff(sb, "Curative Spells", oldHero.getCurativeSpells(), newHero.getCurativeSpells());
     }
 
     private void setMap(Geo geo) {
@@ -406,6 +426,18 @@ public class TrackPaneController {
                 sb.append(title).append("[").append(i).append("]: ").append(oldValue[i]).append(" -> ").append(newValue[i]).append("\n");
             }
         }
+    }
+
+    private void addDiffBytes(StringBuilder sb, String title, int[] oldValue, int[] newValue) {
+        sb.append(title).append(": ").append(arrayToHex(oldValue)).append(" -> ").append(arrayToHex(newValue)).append("\n");
+    }
+
+    private String arrayToHex(int[] array) {
+        StringBuilder sb = new StringBuilder();
+        for (int value : array) {
+            sb.append(String.format("%02X ", value));
+        }
+        return sb.toString();
     }
 
     private void addItemDiff(StringBuilder sb, String title, int oldValue, int newValue) {

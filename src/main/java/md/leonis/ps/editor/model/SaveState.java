@@ -106,9 +106,6 @@ public class SaveState {
         setSramOffset();
         romData.moveToAddress(0);
 
-        System.out.println(emulator);
-        System.out.println(saveType);
-
         var str = romData.readString(START_TEXT.length());
 
         if (!str.equals(START_TEXT)) {

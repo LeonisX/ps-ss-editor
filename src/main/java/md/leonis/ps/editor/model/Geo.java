@@ -412,14 +412,22 @@ public class Geo {
         /*if (Math.abs(tileAlignedX - x) < 16) {
             return tileAlignedX;
         } else {*/
-            return x;
+        return x;
         //}
     }
 
     public int getTileY() {
+        return toTileY(y);
+    }
+
+    public static int toTileY(int y) {
         //int alignedY = Math.abs(tileAlignedY - y) < 16 ? tileAlignedY : y;
         //return (alignedY >> 8) * 0xC0 + (alignedY & 0xFF);
         return (y >> 8) * 0xC0 + (y & 0xFF);
+    }
+
+    public static int fromTileY(int tileY) {
+        return (tileY / 0xC0) * 0x100 + (tileY % 0xC0);
     }
 
     @Override

@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import md.leonis.ps.editor.model.*;
 import md.leonis.ps.editor.model.enums.Direction;
 import md.leonis.ps.editor.utils.Config;
@@ -71,7 +72,7 @@ public class TrackPaneController {
             maps.put(i, loadImage(mapsList.get(i)));
         }
 
-        alisaImageView.setImage(new Image(new File("Alis.png").toURI().toString()));
+        alisaImageView.setImage(new Image(new File("Alisa.png").toURI().toString()));
 
         dungeonTilesImage = new Image(new File("Dungeon Tiles.png").toURI().toString());
         odinImage = new Image(new File("Odin.png").toURI().toString());
@@ -474,10 +475,40 @@ public class TrackPaneController {
         return String.format("%02X%02X", (byte) (value >> 8), (byte) value);
     }
 
+    private String toHexByteSwapped(int value) {
+        return String.format("%02X%02X", (byte) value, (byte) (value >> 8));
+    }
+
     public void autoRefreshCheckBoxClick() {
         refreshButton.setDisable(autoRefreshCheckBox.isSelected());
         refreshIntervalSlider.setDisable(!autoRefreshCheckBox.isSelected());
         refreshTextField.setDisable(!autoRefreshCheckBox.isSelected());
+    }
+
+    public void onMapMouseRelease(MouseEvent mouseEvent) {
+        Geo geo = (Config.newSaveState == null) ? Config.saveState.getRamGame().getGeo() : Config.newSaveState.getRamGame().getGeo();
+        String x = toHexByteSwapped(roundTo16(geo.getX()) - 16 - 128 + roundTo16(mouseEvent.getX()));
+        String y = toHexByteSwapped(Geo.fromTileY(roundTo16(geo.getTileY()) + 64 - 0xC0  + roundTo16(mouseEvent.getY())));
+
+        String text = String.format("\"%02X%02X\"", geo.getMapLayer(), geo.getMapId()) + ";" +
+                String.format("\"%02X\"", geo.getDungeon()) + ";" +
+                String.format("\"%02X\"", geo.getRoom()) + ";" +
+                '"' + x + "\";" +
+                '"' + y + "\";" +
+                String.format("\"%02X\"", geo.getDirection().getId()) + ";" +
+                String.format("\"%02X\"", geo.getColor()) + ";" +
+                String.format("\"%02X\"", geo.getType().getId()) + ";" +
+                geo.getMapTitle();
+
+        textArea.setText(textArea.getText() + "\n" + text + "\n");
+    }
+
+    protected int roundTo16(int value) {
+        return (value / 16) * 16;
+    }
+
+    protected int roundTo16(double value) {
+        return ((int) value / 16) * 16;
     }
 
     public class FileWatcher extends TimerTask {

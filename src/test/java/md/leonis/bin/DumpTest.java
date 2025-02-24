@@ -1,9 +1,7 @@
 package md.leonis.bin;
 
-import md.leonis.ps.editor.model.SaveState;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,39 +9,46 @@ import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.Objects;
 
-public class DumpTest extends Assert {
+import static org.junit.jupiter.api.Assertions.*;
+
+public class DumpTest {
+
+    private static final String START_TEXT = "PHANTASY STAR         BACKUP RAMPROGRAMMED BY          NAKA YUJI";
 
     private Dump romData;
 
     private final int FF = 0xFF;
     private final int OO = 0x00;
 
-    @Before
+    @BeforeEach
     public void init() throws URISyntaxException, IOException {
         romData = new Dump(new File(Objects.requireNonNull(Dump.class.getResource("/ps.ssm")).toURI()));
     }
 
+    //todo сделать нейтральный тест, удалить ps.ssm
     @Test
     public void size() {
         assertEquals(romData.size(), 8188);
     }
 
+    //todo сделать нейтральный тест, удалить ps.ssm
     @Test
     public void moveToAddress() {
-        for (int i = 0; i < SaveState.START_TEXT.length(); i++) {
+        for (int i = 0; i < START_TEXT.length(); i++) {
             romData.moveToAddress(i);
-            assertEquals(romData.getByte(), SaveState.START_TEXT.codePointAt(i));
+            assertEquals(romData.getByte(), START_TEXT.codePointAt(i));
         }
-        for (int i = SaveState.START_TEXT.length() - 1; i >= 0 ; i--) {
+        for (int i = START_TEXT.length() - 1; i >= 0 ; i--) {
             romData.moveToAddress(i);
-            assertEquals(romData.getByte(), SaveState.START_TEXT.codePointAt(i));
+            assertEquals(romData.getByte(), START_TEXT.codePointAt(i));
         }
     }
 
+    //todo сделать нейтральный тест, удалить ps.ssm
     @Test
     public void readString() {
         romData.setCharset("windows-1252");
-        assertEquals(romData.readString(SaveState.START_TEXT.length()), SaveState.START_TEXT);
+        assertEquals(romData.readString(START_TEXT.length()), START_TEXT);
     }
 
     @Test
@@ -241,10 +246,10 @@ public class DumpTest extends Assert {
         file.delete();
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void findValueAddressByMaskWithException() {
         prepareDump();
-        romData.findValueAddressByMask("87654321");
+        assertThrowsExactly(RuntimeException.class, () -> romData.findValueAddressByMask("87654321"));
     }
 
     @Test

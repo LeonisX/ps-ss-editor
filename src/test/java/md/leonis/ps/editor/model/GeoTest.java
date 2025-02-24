@@ -1,9 +1,10 @@
 package md.leonis.ps.editor.model;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class GeoTest extends Assert {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class GeoTest {
 
     @Test
     public void getTileY() {
